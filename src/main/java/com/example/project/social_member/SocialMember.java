@@ -1,4 +1,4 @@
-package com.example.project.board;
+package com.example.project.social_member;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-@Table(name = "board_tb")
+@Table(name = "social_member_tb")
 @Entity
-public class Board {
+public class SocialMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // 게시판 번호
+    private Integer id; // 소셜 멤버 번호
 
     @Builder
-    public Board(Integer id) {
+    public SocialMember(Integer id) {
         this.id = id;
     }
 }
