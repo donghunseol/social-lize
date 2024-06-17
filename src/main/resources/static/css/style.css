@@ -1,3 +1,4 @@
+/* 공통 스타일 */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -48,8 +49,24 @@ body {
     color: #333;
 }
 
+.footer {
+    padding: 20px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+}
+
+.divider {
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+/* notJoinedForm.mustache */
 .container {
     display: flex;
+    flex: 1;
     padding: 20px;
 }
 
@@ -75,13 +92,23 @@ body {
     color: #333;
 }
 
+/* socialaddForm.mustache */
+.social-sidebar {
+    width: 300px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
 .social-sidebar .social-info {
     text-align: center;
     margin-bottom: 20px;
 }
 
 .social-sidebar .social-info img {
-    width: 80%;
+    width: 100%;
     border-radius: 10px;
     margin-bottom: 10px;
 }
@@ -99,13 +126,51 @@ body {
     margin-left: 28px;
 }
 
+.social-description {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.social-activity {
+    margin-top: 20px;
+}
+
+.social-activity h3 {
+    margin-top: 0;
+}
+
+.social-activity ul {
+    list-style: none;
+    padding: 0;
+}
+
+.social-activity ul li {
+    margin-bottom: 5px;
+    color: #777;
+}
+
+.social-chart {
+    margin-top: 20px;
+    width: 100%;
+    height: 300px;
+}
+
+.social-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* bookmarkForm.mustache */
 .content {
     flex-grow: 1;
     padding: 20px;
-    margin-left: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .content-box {
@@ -134,74 +199,47 @@ body {
     color: #999;
 }
 
-.content .post {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+/* joinstatusForm.mustache */
+.social-approval-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
-.content .post .author-box {
+.social-approval-item {
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
 }
 
-.content .post .author-box img {
-    border-radius: 50%;
-    margin-right: 10px;
-    width: 40px;
-    height: 40px;
+.social-approval-item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    margin-right: 20px;
 }
 
-.content .post .author {
+.social-approval-item .details {
+    flex-grow: 1;
+}
+
+.social-approval-item .details .name {
+    font-size: 16px;
     font-weight: bold;
 }
 
-.content .post .date {
-    color: #999;
-    font-size: 12px;
+.social-approval-item .details .members {
+    color: #777;
 }
 
-.content .post .message {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.content .post .comments {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.content .post .likes {
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.bookmark-box h2 {
-    margin: 10px 0;
-}
-
-.footer {
-    padding: 20px;
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-    text-align: center;
-    font-size: 12px;
+.social-approval-item .status {
+    font-size: 14px;
     color: #999;
 }
 
-.divider {
-    border-top: 1px solid #ddd;
-    margin: 20px 0;
-}
-
-.icon {
-    font-size: 24px;
-    color: #333;
-    margin-left: 20px;
-}
-
+/* myrecordForm.mustache */
 .comment-section-container {
     display: flex;
     align-items: center;
@@ -247,90 +285,304 @@ body {
     align-items: center;
 }
 
-.like-button {
-    background-color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
+/* profileUpdateForm.mustache */
+.profile-container {
+    width: 320px; /* 너비를 400px로 조정 */
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 10px;
 }
 
-.like-button i {
-    color: #e74c3c;
-    font-size: 24px;
-}
-
-.social-approval-header {
-    font-size: 18px;
+.profile-title {
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
 }
 
-.social-approval-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
+.bottom {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #000;
 }
 
-.social-approval-item img {
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    margin-right: 20px;
-}
-
-.social-approval-item .details {
+.profile-info {
     flex-grow: 1;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column; /* 세로 배치 */
+    align-items: center; /* 가운데 정렬 */
 }
 
-.social-approval-item .details .name {
-    font-size: 16px;
+.info-item {
+    margin-bottom: 5px;
+}
+
+.profile-item {
+    margin-left: 40px;
+}
+
+.profile-input {
+    width: 20%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* memberInvite.mustache */
+.member-container {
+    width: 320px; /* 너비를 400px로 조정 */
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 10px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section-title {
     font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #000;
 }
 
-.social-approval-item .details .members {
-    color: #777;
-}
-
-.social-approval-item .status {
-    font-size: 14px;
-    color: #999;
-}
-
-.social-description {
-    margin-top: 20px;
-}
-
-.social-activity {
-    margin-top: 20px;
-}
-
-.social-activity h3 {
-    margin-top: 0;
-}
-
-.social-activity ul {
+.member-list, .request-list {
     list-style: none;
     padding: 0;
 }
 
-.social-activity ul li {
-    margin-bottom: 5px;
-    color: #777;
+.member-item, .request-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
-.social-chart {
-    margin-top: 20px;
+.member-item img, .request-item img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.member-info, .request-info {
+    flex-grow: 1;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column; /* 세로 배치 */
+}
+
+.member-info .name, .request-info .name {
+    font-weight: bold;
+}
+
+.member-info .details, .request-info .details {
+    font-size: 0.9em;
+    color: #666;
+    margin-left: 10px;
+}
+
+.actions button {
+    margin-left: 5px;
+    border-radius: 15px;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.actions button:hover {
+    background-color: #f0f0f0;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.member-item .underline {
+    flex-grow: 1;
+    border-bottom: 1px solid #000;
+    margin-top: 10px;
+}
+
+.sort-options {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.sort-options select {
+    margin-left: auto;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group input {
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+.input-group button {
+    margin-left: 20px; /* 간격 조정 */
+}
+
+/* 기타 공통 스타일 */
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-delete {
+    width: 50px;
+}
+
+.details-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.name-and-date {
+    display: flex;
+    align-items: center;
+}
+
+.name-and-date .details {
+    margin-left: 10px;
+}
+
+/* 탭 스타일 */
+.tabs {
+    display: flex;
     width: 100%;
-    height: 300px;
+    max-width: 600px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
 }
 
-.social-chart canvas {
-    width: 100% !important;
-    height: 100% !important;
+.tabs button {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: #fff;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
 }
 
+.tabs button.active {
+    border-bottom: 2px solid #333;
+    font-weight: bold;
+}
+
+.tab-content {
+    display: none;
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-top: none;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* 메인페이지 */
+.create-band-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.band-carousel img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.band-carousel .carousel-item {
+    display: flex;
+    justify-content: center;
+}
+
+.band-category {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 10px;
+}
+
+.band-category img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+/* 넘기는 버튼 스타일 */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black;
+    /* 아이콘 배경색을 검은색으로 설정 */
+    border-radius: 50%;
+    /* 원형으로 만들기 */
+    width: 50px;
+    /* 너비 늘리기 */
+    height: 50px;
+    /* 높이 늘리기 */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+    /* 버튼 영역을 넓게 설정 */
+    opacity: 1;
+    /* 버튼을 항상 보이게 설정 */
+    z-index: 2;
+    /* 버튼을 콘텐츠 위에 위치 */
+    top: 50%;
+    /* 버튼을 수직 중앙에 위치 */
+    transform: translateY(-50%);
+    /* 버튼을 완벽하게 중앙에 위치 */
+}
+
+.carousel-inner {
+    display: flex;
+    align-items: center;
+    /* 센터 정렬 */
+    padding: 0 60px;
+    /* 좌우 패딩 추가 */
+}
+
+.section-title {
+    background-color: #f8f9fa;
+    /* 배경색 추가 */
+    padding: 10px;
+    /* 패딩 추가 */
+    border-radius: 5px;
+    /* 모서리 둥글게 */
+}
+
+/* 모달 */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -481,276 +733,3 @@ body {
 .dropdown-menu a:hover {
     background-color: #f5f5f5;
 }
-
-.member-container {
-    width: 320px; /* 너비를 400px로 조정 */
-    margin: 0 auto;
-    border: 1px solid #000;
-    padding: 10px;
-}
-.section {
-    margin-bottom: 20px;
-}
-.section-title {
-    font-weight: bold;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #000;
-}
-.member-list, .request-list {
-    list-style: none;
-    padding: 0;
-}
-.member-item, .request-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-.member-item img, .request-item img {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-}
-.member-info, .request-info {
-    flex-grow: 1;
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column; /* 세로 배치 */
-}
-.member-info .name, .request-info .name {
-    font-weight: bold;
-}
-.member-info .details, .request-info .details {
-    font-size: 0.9em;
-    color: #666;
-    margin-left: 10px;
-}
-.actions button {
-    margin-left: 5px;
-    border-radius: 15px;
-    padding: 5px 10px;
-    border: 1px solid #000;
-    background-color: #fff;
-    cursor: pointer;
-}
-.actions button:hover {
-    background-color: #f0f0f0;
-}
-.underline {
-    text-decoration: underline;
-}
-.member-item .underline {
-    flex-grow: 1;
-    border-bottom: 1px solid #000;
-    margin-top: 10px;
-}
-.sort-options {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-}
-.sort-options select {
-    margin-left: auto;
-}
-.input-group {
-    display: flex;
-    align-items: center;
-}
-.input-group input {
-    margin-left: 10px;
-    flex-grow: 1;
-}
-.input-group button {
-    margin-left: 20px; /* 간격 조정 */
-}
-
-.flex-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.btn-delete {
-    width: 50px;
-}
-.details-row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-}
-.name-and-date {
-    display: flex;
-    align-items: center;
-}
-.name-and-date .details {
-    margin-left: 10px;
-}
-
-
-.profile-container {
-    width: 320px; /* 너비를 400px로 조정 */
-    margin: 0 auto;
-    border: 1px solid #000;
-    padding: 10px;
-}
-.profile-title {
-    font-weight: bold;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-}
-.bottom {
-    font-weight: bold;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #000;
-}
-
-.member-info, .profile-info {
-    flex-grow: 1;
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column; /* 세로 배치 */
-    align-items: center; /* 가운데 정렬 */
-}
-
-.info-item {
-    margin-bottom: 5px;
-}
-.profile-item {
-    margin-left: 40px;
-}
-.profile-input {
-    width: 20%;
-    text-align: center;
-    margin-top: 10px;
-}
-.tabs {
-    display: flex;
-    width: 100%;
-    max-width: 600px;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-}
-.tabs button {
-    flex-grow: 1;
-    padding: 10px;
-    background-color: #fff;
-    border: none;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    outline: none;
-    font-size: 16px;
-}
-.tabs button.active {
-    border-bottom: 2px solid #333;
-    font-weight: bold;
-}
-.tab-content {
-    display: none;
-    width: 100%;
-    max-width: 600px;
-    background-color: #fff;
-    padding: 20px;
-    border-top: none;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-.tab-content.active {
-    display: block;
-}
-
-/* 메인페이지 */
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.create-band-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    color: #007bff;
-    cursor: pointer;
-}
-
-.band-carousel img {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-}
-
-.band-carousel .carousel-item {
-    display: flex;
-    justify-content: center;
-}
-
-.band-category {
-    flex: 1;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 0 10px;
-}
-
-.band-category img {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-}
-
-.circle {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-}
-
-/* 넘기는 버튼 스타일 */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: black;
-    /* 아이콘 배경색을 검은색으로 설정 */
-    border-radius: 50%;
-    /* 원형으로 만들기 */
-    width: 50px;
-    /* 너비 늘리기 */
-    height: 50px;
-    /* 높이 늘리기 */
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-    width: 5%;
-    /* 버튼 영역을 넓게 설정 */
-    opacity: 1;
-    /* 버튼을 항상 보이게 설정 */
-    z-index: 2;
-    /* 버튼을 콘텐츠 위에 위치 */
-    top: 50%;
-    /* 버튼을 수직 중앙에 위치 */
-    transform: translateY(-50%);
-    /* 버튼을 완벽하게 중앙에 위치 */
-}
-
-.carousel-inner {
-    display: flex;
-    align-items: center;
-    /* 센터 정렬 */
-    padding: 0 60px;
-    /* 좌우 패딩 추가 */
-}
-
-.section-title {
-    background-color: #f8f9fa;
-    /* 배경색 추가 */
-    padding: 10px;
-    /* 패딩 추가 */
-    border-radius: 5px;
-    /* 모서리 둥글게 */
-}
-
