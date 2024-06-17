@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class SocialController {
-    private final BoardService socialService;
+public class BoardController {
+    private final BoardService boardService;
     private final HttpSession session;
 }
