@@ -1,10 +1,10 @@
-package com.example.project.board;
+package com.example.project.report;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class BoardService {
-    private final BoardRepository boardRepository;
+public class ReportService {
+    private final ReportRepository reportRepository;
 }

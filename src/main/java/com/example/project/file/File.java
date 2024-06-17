@@ -1,4 +1,4 @@
-package com.example.project.board;
+package com.example.project.file;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -7,16 +7,17 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-@Table(name = "board_tb")
+@Table(name = "file_tb")
 @Entity
-public class Board {
+public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // 게시판 번호
+    private Integer id; // 첨부 파일 번호
 
     @Builder
-    public Board(Integer id) {
+    public File(Integer id) {
         this.id = id;
+
     }
 }
 
