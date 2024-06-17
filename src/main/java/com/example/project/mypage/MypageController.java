@@ -24,9 +24,16 @@ public class MypageController {
         return "/mypage/joinstatusForm";
     }
 
+
     // 프로필 업데이트 폼
     @GetMapping("/mypage/profileUpdateForm")
     public String profileUpdateForm() {
         return "/mypage/profileUpdateForm";
+
+    // 내가 쓴 글 페이지
+    @GetMapping("/mypage/myrecord")
+    public String myrecord() {
+        return "/mypage/myrecordForm";
+
     }
 }

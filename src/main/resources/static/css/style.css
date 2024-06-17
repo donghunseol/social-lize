@@ -53,7 +53,7 @@ body {
     padding: 20px;
 }
 
-.sidebar {
+.mpsidebar {
     width: 200px;
     background-color: #fff;
     border-right: 1px solid #ddd;
@@ -61,16 +61,16 @@ body {
     border-radius: 10px;
 }
 
-.sidebar ul {
+.mpsidebar ul {
     list-style: none;
     padding: 0;
 }
 
-.sidebar ul li {
+.mpsidebar ul li {
     margin-bottom: 10px;
 }
 
-.sidebar ul li a {
+.mpsidebar ul li a {
     text-decoration: none;
     color: #333;
 }
@@ -563,10 +563,7 @@ body {
 .input-group button {
     margin-left: 20px; /* 간격 조정 */
 }
-.divider {
-    border-bottom: 1px solid #000;
-    margin: 10px 0;
-}
+
 .flex-container {
     display: flex;
     justify-content: space-between;
@@ -578,7 +575,7 @@ body {
 .details-row {
     display: flex;
     justify-content: space-between;
-    margin-top: 5px; /* 간격 조정 */
+    margin-top: 5px;
 }
 .name-and-date {
     display: flex;
@@ -587,6 +584,7 @@ body {
 .name-and-date .details {
     margin-left: 10px;
 }
+
 
 .profile-container {
     width: 320px; /* 너비를 400px로 조정 */
@@ -624,4 +622,39 @@ body {
     width: 20%;
     text-align: center;
     margin-top: 10px;
+=======
+.tabs {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+.tabs button {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: #fff;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+}
+.tabs button.active {
+    border-bottom: 2px solid #333;
+    font-weight: bold;
+}
+.tab-content {
+    display: none;
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-top: none;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.tab-content.active {
+    display: block;
+
 }

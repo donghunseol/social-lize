@@ -1,52 +1,13 @@
 {{> layout/header}}
 <div class="container">
-    <div class="sidebar">
-        <ul>
-            <li><a href="#">내 정보</a></li>
-            <div class="divider"></div>
-            <li><a href="#">내가 쓴 글</a></li>
-            <div class="divider"></div>
-            <li><a href="#">북마크 1</a></li>
-            <div class="divider"></div>
-            <li><a href="#">가입신청 중인 소셜</a></li>
-        </ul>
-    </div>
+    {{> layout/mpsidebar}}
     <div class="content">
         <div class="content-box">
             <div class="bookmark-box">
                 <h2>북마크</h2>
             </div>
         </div>
-        <div class="content-box">
-            <div class="group-name">SNS프로젝트 1조</div>
-            <div class="remove-bookmark" style="top: 20px; right: 20px;"><i class="fas fa-times"></i></div>
-            <div class="post">
-                <div class="author-box">
-                    <img src="/images/puppy.png" alt="Profile Picture">
-                    <div>
-                        <div class="author">김세운</div>
-                        <div class="date">2024년 6월 14일 오후 2:39</div>
-                    </div>
-                </div>
-                <div class="message-box">
-                    <div class="message">
-                        설동훈님의 초대로 김세운님이 가입했습니다. 댓글로 반갑게 인사해주세요!
-                    </div>
-                    <div class="comments">
-                        <div style="margin-right: 10px;">좋아요 3</div>
-                        <div>댓글 0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="comment-section-container">
-                <button class="like-button"><i class="fas fa-heart"></i></button>
-                <div class="comment-section">
-                    <img src="/images/puppy.png" alt="Commenter Picture">
-                    <input type="text" placeholder="댓글을 남겨주세요.">
-                </div>
-                <button class="send-button">보내기</button>
-            </div>
-        </div>
+        {{> layout/post}}
     </div>
 </div>
 {{> layout/footer}}
