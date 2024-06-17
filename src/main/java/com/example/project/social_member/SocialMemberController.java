@@ -15,6 +15,6 @@ public class SocialMemberController {
     @GetMapping("/member/invite")
     public String member() {
 
-        return "member/member_invite";
+        return "member/memberInvite";
     }
 }
