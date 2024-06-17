@@ -619,3 +619,98 @@ body {
 .tab-content.active {
     display: block;
 }
+
+/* 메인페이지 */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.create-band-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.band-carousel img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.band-carousel .carousel-item {
+    display: flex;
+    justify-content: center;
+}
+
+.band-category {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 10px;
+}
+
+.band-category img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+/* 넘기는 버튼 스타일 */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black;
+    /* 아이콘 배경색을 검은색으로 설정 */
+    border-radius: 50%;
+    /* 원형으로 만들기 */
+    width: 50px;
+    /* 너비 늘리기 */
+    height: 50px;
+    /* 높이 늘리기 */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+    /* 버튼 영역을 넓게 설정 */
+    opacity: 1;
+    /* 버튼을 항상 보이게 설정 */
+    z-index: 2;
+    /* 버튼을 콘텐츠 위에 위치 */
+    top: 50%;
+    /* 버튼을 수직 중앙에 위치 */
+    transform: translateY(-50%);
+    /* 버튼을 완벽하게 중앙에 위치 */
+}
+
+.carousel-inner {
+    display: flex;
+    align-items: center;
+    /* 센터 정렬 */
+    padding: 0 60px;
+    /* 좌우 패딩 추가 */
+}
+
+.section-title {
+    background-color: #f8f9fa;
+    /* 배경색 추가 */
+    padding: 10px;
+    /* 패딩 추가 */
+    border-radius: 5px;
+    /* 모서리 둥글게 */
+}
