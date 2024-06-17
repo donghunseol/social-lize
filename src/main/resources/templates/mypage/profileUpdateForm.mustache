@@ -1,0 +1,47 @@
+{{> layout/header}}
+<form action="" method="post" enctype="multipart/form-data">
+    <div class="profile-container">
+        <div class="section bottom">
+            <div>사용중인 프로필</div>
+            <ul class="request-list">
+                <li class="request-item">
+                    <div class="profile-info">
+                        <img src="profile-placeholder.png" alt="프로필">
+                        <input class="name profile-input" value="설동훈">
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="section profile-title">
+            <div>개인 정보</div>
+            <div class="profile-item">
+                <div>
+                    <div class="info-item">
+                        <div>이메일</div>
+                        <div>ssar@nate.com</div>
+                    </div>
+                    <div class="info-item">
+                        <div>비밀번호</div>
+                        <input type="text" value="1234">
+                    </div>
+                    <div class="info-item">
+                        <div>비밀번호 확인</div>
+                        <input type="text" value="1234">
+                    </div>
+                    <div class="info-item">
+                        <div>생년 월일</div>
+                        <div class="date-picker">
+                            <input type="date" id="birthdate">
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div>전화 번호</div>
+                        <input type="text" value="010-1234-5678">
+                    </div>
+                    <button style="margin-left: 35%">저장</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{{> layout/footer}}
