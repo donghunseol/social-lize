@@ -16,4 +16,11 @@ public class SocialController {
     public String socialNotJoin() {
         return "social/notJoinedForm";
     }
+
+    // 새 소셜 추가하기 페이지
+    @GetMapping("/social/socialAdd")
+    public String socialAdd() {
+        return "social/socialaddForm";
+    }
+
 }
