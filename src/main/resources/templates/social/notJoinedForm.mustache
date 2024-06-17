@@ -1,0 +1,57 @@
+{{> layout/header}}
+<div class="container">
+    <div class="sidebar">
+        <div class="social-info">
+            <img src="../images/puppy.png" alt="소셜 사진">
+            <h2>포메와의 산책</h2>
+            <div>리더 포실장과 아이들</div>
+            <div>멤버 2,215</div>
+            <button class="join-button">가입하기</button>
+        </div>
+    </div>
+    <div class="content">
+        <div class="social-description">
+            <h3>소셜 소개</h3>
+            <p>포메라이언을 사랑하는 가슴 따스한 분들의 방!</p>
+            <p>강아지 · 동물병원 · 반려동물/동물</p>
+        </div>
+        <div class="social-activity">
+            <h3>이 소셜의 활동 정보</h3>
+            <ul>
+                <li>개설일 2015년 4월</li>
+                <li>총 게시글 100건</li>
+            </ul>
+            <p>우리 소셜의 접속멤버는 목요일에 제일 많습니다.</p>
+            <div class="social-chart">
+                <canvas id="activityChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var ctx = document.getElementById('activityChart').getContext('2d');
+    var activityChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['월', '화', '수', '목', '금', '토', '일'],
+            datasets: [{
+                label: '활동 수',
+                data: [3, 5, 2, 8, 4, 2, 1],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2,
+                fill: false,
+                lineTension: 0.1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+{{> layout/footer}}

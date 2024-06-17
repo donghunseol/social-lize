@@ -1,0 +1,482 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.header {
+    background-color: #fff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.header .logo img {
+    width: 70px;
+    height: auto;
+}
+
+.header .search-bar {
+    width: 60%;
+    margin-right: auto;
+}
+
+.header .search-bar input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+}
+
+.header .menu {
+    display: flex;
+    align-items: center;
+}
+
+.header .menu a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.sidebar .social-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar .social-info img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.sidebar .social-info .join-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.content-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.content-box .group-name {
+    font-size: 16px; /* Reduced font size */
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.content-box .remove-bookmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #999;
+}
+
+.content .post {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.content .post .author-box {
+    display: flex;
+    align-items: center;
+}
+
+.content .post .author-box img {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+.content .post .author {
+    font-weight: bold;
+}
+
+.content .post .date {
+    color: #999;
+    font-size: 12px;
+}
+
+.content .post .message {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.content .post .comments {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.content .post .likes {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.bookmark-box h2 {
+    margin: 10px 0;
+}
+
+.footer {
+    padding: 20px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+}
+
+.divider {
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+.icon {
+    font-size: 24px;
+    color: #333;
+    margin-left: 20px;
+}
+
+.comment-section-container {
+    display: flex;
+    align-items: center;
+}
+
+.comment-section {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 2px;
+    flex-grow: 1;
+    height: 25px; /* Adjusted height */
+}
+
+.comment-section img {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+.comment-section input {
+    flex-grow: 1;
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
+    outline: none;
+}
+
+.send-button {
+    background-color: #ddd;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+    height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+.like-button {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.like-button i {
+    color: #e74c3c;
+    font-size: 24px;
+}
+
+.social-approval-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.social-approval-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.social-approval-item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.social-approval-item .details {
+    flex-grow: 1;
+}
+
+.social-approval-item .details .name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.social-approval-item .details .members {
+    color: #777;
+}
+
+.social-approval-item .status {
+    font-size: 14px;
+    color: #999;
+}
+
+.social-description {
+    margin-top: 20px;
+}
+
+.social-activity {
+    margin-top: 20px;
+}
+
+.social-activity h3 {
+    margin-top: 0;
+}
+
+.social-activity ul {
+    list-style: none;
+    padding: 0;
+}
+
+.social-activity ul li {
+    margin-bottom: 5px;
+    color: #777;
+}
+
+.social-chart {
+    margin-top: 20px;
+    width: 100%;
+    height: 300px;
+}
+
+.social-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background-color: #fff;
+    border-radius: 15px;
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal img {
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.modal h2 {
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+.modal .modal-date {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.modal .modal-content {
+    background-color: rgba(165, 104, 63, 0.8);
+    border-radius: 0 0 15px 15px;
+    padding: 10px;
+    color: #fff;
+    position: relative;
+}
+
+.modal .modal-content h3 {
+    margin: 0;
+}
+
+.modal .actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgba(165, 104, 63, 0.8);
+}
+
+.modal .actions div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal .actions button {
+    background-color: rgba(165, 104, 63, 0.8);
+    border: none;
+    color: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+    font-size: 24px;
+}
+
+.modal .actions span {
+    color: #fff;
+}
+
+.modal .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #999;
+}
+
+.modal .icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.modal .icon span {
+    font-size: 18px;
+    color: #fff;
+}
+
+.menu-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.menu-button div {
+    width: 5px;
+    height: 5px;
+    background-color: #333;
+    border-radius: 50%;
+    margin: 2px 0;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f5f5f5;
+}
