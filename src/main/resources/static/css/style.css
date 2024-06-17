@@ -216,7 +216,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 2px;
     flex-grow: 1;
-    height: 25px; /* Adjusted height */
+    height: 35px; /* Adjusted height */
 }
 
 .comment-section img {
@@ -622,7 +622,7 @@ body {
     width: 20%;
     text-align: center;
     margin-top: 10px;
-
+}
 .tabs {
     display: flex;
     width: 100%;
