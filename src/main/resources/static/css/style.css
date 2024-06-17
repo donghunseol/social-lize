@@ -63,36 +63,17 @@ body {
     margin: 20px 0;
 }
 
-/* notJoinedForm.mustache */
-.container {
-    display: flex;
-    flex: 1;
+.content {
+    flex-grow: 1;
     padding: 20px;
-}
-
-.mpsidebar {
-    width: 200px;
     background-color: #fff;
-    border-right: 1px solid #ddd;
-    padding: 10px;
     border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
 }
-
-.mpsidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.mpsidebar ul li {
-    margin-bottom: 10px;
-}
-
-.mpsidebar ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-/* socialaddForm.mustache */
+/*사이드바*/
 .social-sidebar {
     width: 300px;
     background-color: #fff;
@@ -126,6 +107,47 @@ body {
     margin-left: 28px;
 }
 
+.mpsidebar {
+    width: 200px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.mpsidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.mpsidebar ul li {
+    margin-bottom: 10px;
+}
+
+.mpsidebar ul li a {
+    text-decoration: none;
+    color: #333;
+}
+/* notJoinedForm.mustache */
+.container {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+}
+
+.social-chart {
+    margin-top: 20px;
+    width: 100%;
+    height: 300px;
+}
+
+.social-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* socialaddForm.mustache */
+
 .social-description {
     margin-top: 10px;
     font-size: 14px;
@@ -150,28 +172,7 @@ body {
     color: #777;
 }
 
-.social-chart {
-    margin-top: 20px;
-    width: 100%;
-    height: 300px;
-}
-
-.social-chart canvas {
-    width: 100% !important;
-    height: 100% !important;
-}
-
 /* bookmarkForm.mustache */
-.content {
-    flex-grow: 1;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-right: 20px;
-    display: flex;
-    flex-direction: column;
-}
 
 .content-box {
     background-color: #fff;
