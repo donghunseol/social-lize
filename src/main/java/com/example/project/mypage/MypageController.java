@@ -17,4 +17,10 @@ public class MypageController {
     public String bookmark() {
         return "/mypage/bookmarkForm";
     }
+
+    // 가입신청 현황 페이지
+    @GetMapping("/mypage/joinstatus")
+    public String joinstatus() {
+        return "/mypage/joinstatusForm";
+    }
 }
