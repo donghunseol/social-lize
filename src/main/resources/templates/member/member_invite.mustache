@@ -1,0 +1,96 @@
+{{> layout/header}}
+<div class="member-container">
+        <div class="section section-title">
+            <div class="section-title">멤버 3</div>
+            <ul class="request-list">
+                <li class="request-item">
+                    <img src="profile-placeholder.png" alt="김윤준">
+                    <div class="request-info">
+                        <div class="name">김완준</div>
+                    </div>
+                    <div class="actions">
+                        <button>승인</button>
+                        <button>거절</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="section section-title">
+            <div class="input-group">
+                <div>멤버 검색</div>
+                <input type="text" placeholder="멤버 검색">
+            </div>
+        </div>
+        <div class="section section-title">
+            <div class="input-group">
+                <div>초대 링크</div>
+                <input type="text" id="invite-code" value="초대코드" readonly>
+                <button onclick="copyInviteCode()" style="margin-left: 20px;">복사</button>
+            </div>
+        </div>
+        <div class="section section-title">
+            <div class="flex-container">
+                <span>멤버</span>
+                <div class="sort-options">
+                    <select>
+                        <option>이름순</option>
+                        <option>최근 가입순</option>
+                    </select>
+                </div>
+            </div>
+            <ul class="member-list">
+                <li class="member-item">
+                    <img src="profile-placeholder.png" alt="설동훈">
+                    <div class="member-info">
+                        <div class="name-and-date">
+                            <div class="name">설동훈</div>
+                            <div class="details">리더</div>
+                        </div>
+                    </div>
+                </li>
+                <div class="underline"></div>
+            </ul>
+        </div>
+        <div>
+            <ul class="member-list">
+                <li class="member-item">
+                    <img src="profile-placeholder.png" alt="김세윤">
+                    <div class="member-info">
+                        <div class="name-and-date">
+                            <div class="name">김세윤</div>
+                            <div class="details">24.01.01 가입</div>
+                        </div>
+                        <div class="name-and-date">
+                            <div class="details">게시물 18</div>
+                            <div class="details">댓글 57</div>
+                        </div>
+                    </div>
+                    <button class="btn-delete">삭제</button>
+                </li>
+                <li class="member-item">
+                    <img src="profile-placeholder.png" alt="하승진">
+                    <div class="member-info">
+                        <div class="name-and-date">
+                            <div class="name">하승진</div>
+                            <div class="details">24.01.01 가입</div>
+                        </div>
+                        <div class="name-and-date">
+                            <div class="details">게시물 18</div>
+                            <div class="details">댓글 30</div>
+                        </div>
+                    </div>
+                    <button class="btn-delete">삭제</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        function copyInviteCode() {
+            var copyText = document.getElementById("invite-code");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand("copy");
+            alert("초대코드가 복사되었습니다: " + copyText.value);
+        }
+    </script>
+{{> layout/footer}}

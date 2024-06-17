@@ -480,3 +480,110 @@ body {
 .dropdown-menu a:hover {
     background-color: #f5f5f5;
 }
+
+.member-container {
+    width: 320px; /* 너비를 400px로 조정 */
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 10px;
+}
+.section {
+    margin-bottom: 20px;
+}
+.section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #000;
+}
+.member-list, .request-list {
+    list-style: none;
+    padding: 0;
+}
+.member-item, .request-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.member-item img, .request-item img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+.member-info, .request-info {
+    flex-grow: 1;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column; /* 세로 배치 */
+}
+.member-info .name, .request-info .name {
+    font-weight: bold;
+}
+.member-info .details, .request-info .details {
+    font-size: 0.9em;
+    color: #666;
+    margin-left: 10px;
+}
+.actions button {
+    margin-left: 5px;
+    border-radius: 15px;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    background-color: #fff;
+    cursor: pointer;
+}
+.actions button:hover {
+    background-color: #f0f0f0;
+}
+.underline {
+    text-decoration: underline;
+}
+.member-item .underline {
+    flex-grow: 1;
+    border-bottom: 1px solid #000;
+    margin-top: 10px;
+}
+.sort-options {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+.sort-options select {
+    margin-left: auto;
+}
+.input-group {
+    display: flex;
+    align-items: center;
+}
+.input-group input {
+    margin-left: 10px;
+    flex-grow: 1;
+}
+.input-group button {
+    margin-left: 20px; /* 간격 조정 */
+}
+.divider {
+    border-bottom: 1px solid #000;
+    margin: 10px 0;
+}
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.btn-delete {
+    width: 50px;
+}
+.details-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px; /* 간격 조정 */
+}
+.name-and-date {
+    display: flex;
+    align-items: center;
+}
+.name-and-date .details {
+    margin-left: 10px;
+}
