@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 50px; /* 로고 이미지의 크기를 조정하세요 */
+            height: 50px; /* 로고 이미지의 크기를 조정하세요 */
+        }
+        .main-content {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .main-box {
+            width: 300px;
+            height: 400px;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .main-box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .side-box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+            margin-bottom: 20px;
+            font-size: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .btn-custom {
+            width: 200px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://via.placeholder.com/50" alt="로고" class="logo"> <!-- 임시 로고 이미지 경로 -->
+    <div class="container main-content">
+        <div class="row">
+            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                <div class="main-box">
+                    <img src="https://via.placeholder.com/300x400" alt="임시 이미지"> <!-- 임시 이미지 경로 -->
+                </div>
+            </div>
+            <div class="col-md-6 d-flex flex-column align-items-center">
+                <div class="side-box">
+                    <p>테스트 문구 첫 번째 줄</p>
+                    <p>테스트 문구 두 번째 줄</p>
+                </div>
+                <button class="btn btn-primary btn-custom">로그인</button>
+                <button class="btn btn-secondary btn-custom">회원가입하기</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
