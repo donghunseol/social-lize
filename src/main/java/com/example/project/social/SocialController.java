@@ -23,4 +23,10 @@ public class SocialController {
         return "social/socialaddForm";
     }
 
+    // 서랍 페이지
+    @GetMapping("/social/fileadd")
+    public String fileAdd() {
+        return "social/fileaddForm";
+    }
+
 }
