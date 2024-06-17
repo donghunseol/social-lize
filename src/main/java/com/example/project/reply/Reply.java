@@ -1,4 +1,4 @@
-package com.example.project.board;
+package com.example.project.reply;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -7,16 +7,17 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-@Table(name = "board_tb")
+@Table(name = "reply_tb")
 @Entity
-public class Board {
+public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // 게시판 번호
+    private Integer id; // 댓글 번호
 
     @Builder
-    public Board(Integer id) {
+    public Reply(Integer id) {
         this.id = id;
+
     }
 }
 

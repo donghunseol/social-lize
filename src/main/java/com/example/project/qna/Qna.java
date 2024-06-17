@@ -1,4 +1,4 @@
-package com.example.project.board;
+package com.example.project.qna;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-@Table(name = "board_tb")
+@Table(name = "qna_tb")
 @Entity
-public class Board {
+public class Qna {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // 게시판 번호
+    private Integer id; // 문의사항 번호
 
     @Builder
-    public Board(Integer id) {
+    public Qna(Integer id) {
         this.id = id;
     }
 }
