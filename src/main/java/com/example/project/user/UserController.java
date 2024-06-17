@@ -2,11 +2,17 @@ package com.example.project.user;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RequiredArgsConstructor
-@RestController
+@Controller
 public class UserController {
     private final UserService userService;
     private final HttpSession session;
+
+    @GetMapping("/")
+    public String main(){
+        return "main";
+    }
 }

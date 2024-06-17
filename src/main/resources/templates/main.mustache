@@ -1,0 +1,386 @@
+{{> layout/header}}
+
+<div class="container mt-4 d-flex flex-column">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="#" onclick="openTab(event, 'mySocial')">내 소셜</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" onclick="openTab(event, 'findSocial')">소셜 찾기</a>
+        </li>
+    </ul>
+    <div id="mySocial" name="mySocial" class="tab-content active mt-4 my-social">
+        <div class="card-deck">
+            <div class="card create-band-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-plus-circle"></i>
+                    <p class="card-text">만들기</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="path/to/image1.jpg" class="card-img-top" alt="Image 1">
+                <div class="card-body">
+                    <h5 class="card-title">SNS 프로젝트 1조</h5>
+                    <p class="card-text">멤버 4</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="path/to/image2.jpg" class="card-img-top" alt="Image 2">
+                <div class="card-body">
+                    <h5 class="card-title">SNS 프로젝트 1조</h5>
+                    <p class="card-text">멤버 1</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="path/to/image3.jpg" class="card-img-top" alt="Image 3">
+                <div class="card-body">
+                    <h5 class="card-title">지금 홍황 터졌네요, 천도 복숭아</h5>
+                    <p class="card-text">AD - 밴드 미리보기</p>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <h3>내 소셜 인기글</h3>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body w-100">
+                            <h5 class="card-title">첫번째 인기글 제</h5>
+                            <p class="card-text">첫번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저1</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 11 💬 10</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">두번째 인기글 제목</h5>
+                            <p class="card-text">두번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저2</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 19 💬 12</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">세번째 인기글 제목</h5>
+                            <p class="card-text">세번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저3</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 34 💬 5</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">네번째 인기글 제목</h5>
+                            <p class="card-text">네번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저4</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 7 💬 3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 bg-light" style="width: 100%; margin-left: 0; margin-right: 0;">
+            <h3>주제별 소셜을 찾아보세요</h3>
+            <div id="mySocialCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="d-flex justify-content-center">
+                            <div class="band-category">
+                                <img src="path/to/sports-leisure.jpg" class="circle" alt="스포츠/레저">
+                                <p>스포츠/레저</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/travel-camping.jpg" class="circle" alt="여행/캠핑">
+                                <p>여행/캠핑</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/daily-life.jpg" class="circle" alt="일상이야기">
+                                <p>일상이야기</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/food-dining.jpg" class="circle" alt="집/요리">
+                                <p>맛집/요리</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/entertainment.jpg" class="circle" alt="방송/연예">
+                                <p>방송/연예</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/living-info.jpg" class="circle" alt="생활정보/인테리어">
+                                <p>생활정보/인테리어</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 추가 슬라이드 -->
+                    <div class="carousel-item">
+                        <div class="d-flex justify-content-center">
+                            <div class="band-category">
+                                <img src="path/to/language.jpg" class="circle" alt="/외국어">
+                                <p>어학/외국어</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/games.jpg" class="circle" alt="게임">
+                                <p>게임</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/age-group.jpg" class="circle" alt="나이/또래모임">
+                                <p>나이/또래모임</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/fan-club.jpg" class="circle" alt="팬클럽">
+                                <p>팬클럽</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/another-category1.jpg" class="circle" alt="추가 카테고리1">
+                                <p>추가 카테고리1</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/another-category2.jpg" class="circle" alt="추가 카테고리2">
+                                <p>추가 카테고리2</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 넘기는 버튼 -->
+                <!-- mySocial 캐러셀 제어 버튼 -->
+                <a class="carousel-control-prev" href="#mySocialCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#mySocialCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div class="mt-4">
+            <h3>오늘의 인기글</h3>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">첫번째 인기글 제</h5>
+                            <p class="card-text">첫번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저1</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 11 💬 10</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">두번째 인기글 제목</h5>
+                            <p class="card-text">두번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저2</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 19 💬 12</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">세번째 인기글 제목</h5>
+                            <p class="card-text">세번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저3</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 34 💬 5</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">네번째 인기글 제목</h5>
+                            <p class="card-text">네번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작자: 유저4</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 7 💬 3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 소셜 찾기 -->
+    <div id="findSocial" name="findSocial" class="tab-content mt-4 d-flex flex-column find-social">
+        <h3>주제별 소셜을 찾아보세요</h3>
+        <div id="findSocialCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="d-flex justify-content-center">
+                        <div class="band-category">
+                            <img src="path/to/sports-leisure.jpg" class="circle" alt="스포츠/레저">
+                            <p>스포츠/레저</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/travel-camping.jpg" class="circle" alt="여행/캠핑">
+                            <p>여행/캠핑</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/daily-life.jpg" class="circle" alt="일상이야기">
+                            <p>일상이야기</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/food-dining.jpg" class="circle" alt="집/요리">
+                            <p>맛집/요리</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/entertainment.jpg" class="circle" alt="방송/연예">
+                            <p>방송/연예</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/living-info.jpg" class="circle" alt="생활정보/인테리어">
+                            <p>생활정보/인테리어</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 추가 슬라이드 -->
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center">
+                        <div class="band-category">
+                            <img src="path/to/language.jpg" class="circle" alt="/외국어">
+                            <p>어학/외국어</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/games.jpg" class="circle" alt="게임">
+                            <p>게임</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/age-group.jpg" class="circle" alt="나이/또래모임">
+                            <p>나이/또래모임</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/fan-club.jpg" class="circle" alt="팬클럽">
+                            <p>팬클럽</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/another-category1.jpg" class="circle" alt="추가 카테고리1">
+                            <p>추가 카테고리1</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/another-category2.jpg" class="circle" alt="추가 카테고리2">
+                            <p>추가 카테고리2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 넘기는 버튼 -->
+            <!-- findSocial 캐러셀 제어 버튼 -->
+            <a class="carousel-control-prev" href="#findSocialCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#findSocialCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div class="mt-4">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body d-flex justify-content-center">
+                            <div>
+                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
+                            </div>
+                            <div>
+                                <h5 class="card-title">첫번째 밴드 이름</h5>
+                                <p class="card-text">첫번째 밴드 소개글</p>
+                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body d-flex justify-content-center">
+                            <div>
+                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
+                            </div>
+                            <div>
+                                <h5 class="card-title">두번째 밴드 이름</h5>
+                                <p class="card-text">두번째 밴드 소개글</p>
+                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body d-flex justify-content-center">
+                            <div>
+                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
+                            </div>
+                            <div>
+                                <h5 class="card-title">세번째 밴드 이름</h5>
+                                <p class="card-text">세번째 밴드 소개글</p>
+                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body d-flex justify-content-center">
+                            <div>
+                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
+                            </div>
+                            <div>
+                                <h5 class="card-title">네번째 밴드 이름</h5>
+                                <p class="card-text">네번째 밴드 소개글</p>
+                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+
+        // 모든 탭 컨텐츠를 숨깁니다.
+        tabcontent = document.querySelectorAll(".tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";  // 모든 탭 컨텐츠를 숨김
+        }
+
+        // 모든 탭 링크에서 'active' 클래스를 제거합니다.
+        tablinks = document.querySelectorAll(".nav-link");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove('active');
+        }
+
+        // 클릭된 탭에 해당하는 컨텐츠를 보이게 합니다.
+        var selectedTabContent = document.getElementById(tabName);
+        selectedTabContent.style.display = "block";  // 선택된 탭의 컨텐츠만 보이게 설정
+
+        // 클릭된 탭 링크에 'active' 클래스를 추가합니다.
+        evt.currentTarget.classList.add('active');
+    }
+</script>
+
+{{> layout/footer}}
