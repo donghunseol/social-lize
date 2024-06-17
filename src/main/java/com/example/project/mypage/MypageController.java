@@ -23,4 +23,10 @@ public class MypageController {
     public String joinstatus() {
         return "/mypage/joinstatusForm";
     }
+
+    // 프로필 업데이트 폼
+    @GetMapping("/mypage/profileUpdateForm")
+    public String profileUpdateForm() {
+        return "/mypage/profileUpdateForm";
+    }
 }

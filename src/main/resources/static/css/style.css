@@ -587,3 +587,41 @@ body {
 .name-and-date .details {
     margin-left: 10px;
 }
+
+.profile-container {
+    width: 320px; /* 너비를 400px로 조정 */
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 10px;
+}
+.profile-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+.bottom {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #000;
+}
+
+.member-info, .profile-info {
+    flex-grow: 1;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column; /* 세로 배치 */
+    align-items: center; /* 가운데 정렬 */
+}
+
+.info-item {
+    margin-bottom: 5px;
+}
+.profile-item {
+    margin-left: 40px;
+}
+.profile-input {
+    width: 20%;
+    text-align: center;
+    margin-top: 10px;
+}
