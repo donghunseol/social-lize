@@ -1,14 +1,9 @@
-INSERT INTO user_tb (email, password, nickname, image, phone, birth, role, created_at)
-VALUES ('ssar@nate.com', '1234', 'ssar', 'image.png', '010-1234-5678', '1994-12-26', 'USER', now()),
-       ('cos@nate.com', '1234', 'cos', 'image.png', '010-1234-5678', '1994-12-26', 'USER', now()),
-       ('love@nate.com', '1234', 'love', 'image.png', '010-1234-5678', '1994-12-26', 'USER', now()),
-       ('egdg@nate.com', '1234', 'egdg', 'image.png', '010-1234-5678', '1994-12-26', 'USER', now()),
-       ('roqkq33@nate.com', '1234', 'roqkq33', 'image.png', '010-1234-5678', '1994-12-26', 'USER', now());
-
--- INSERT INTO chat_tb (social_id, user_id, comment)
--- VALUES (1, 1, '밴드에 가입 하신것을 환영합니다.'),
---        (1, 2, '안녕하세요!');
---        (1, 3, '와 뉴비다.');
+INSERT INTO user_tb (email, password, nickname, image, phone, birth, role, created_at, provider)
+VALUES ('ssar@nate.com', '1234', 'ssar', 'image1.png', '010-1234-5678', '1994-12-26', 'USER', now(), null),
+       ('cos@daum.net', '5678', 'cos', 'image2.png', '010-2345-6789', '1992-10-24', 'USER', now(), null),
+       ('jane@kakao.com', 'abcd', 'jane', 'image3.png', '010-3456-7890', '1995-07-19', 'MANAGER', now(), 'KAKAO'),
+       ('john@naver.com', 'efgh', 'john', 'image4.png', '010-4567-8901', '1993-03-15', 'USER', now(), 'NAVER'),
+       ('lucy@gmail.com', 'ijk9', 'lucy', 'image5.png', '010-5678-1234', '1996-08-30', 'USER', now(), null);
 
 INSERT INTO social_tb (name, image, info, created_at)
 VALUES ('소셜 이름', 'image.png', '소셜 소개글', now());
@@ -32,3 +27,8 @@ VALUES (1, '카테고리 추가해주세요', '공포 카테고리 추가해주�
 
 INSERT INTO notification_tb(user_id, role, created_at)
 VALUES (1, 'BOARD', now());
+
+-- INSERT INTO chat_tb (social_id, user_id, comment)
+-- VALUES (1, 1, '밴드에 가입 하신것을 환영합니다.'),
+--        (1, 2, '안녕하세요!');
+--        (1, 3, '와 뉴비다.');

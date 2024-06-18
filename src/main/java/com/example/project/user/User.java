@@ -2,6 +2,7 @@ package com.example.project.user;
 
 import com.example.project._core.enums.BoardEnum;
 import com.example.project._core.enums.UserEnum;
+import com.example.project._core.enums.UserProviderEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -46,13 +47,14 @@ public class User {
     @Column(nullable = false)
     private UserEnum role; // 권한
 
-    private String provider;
+    @Enumerated(EnumType.STRING)
+    private UserProviderEnum provider;
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 유저 가입 일자
 
     @Builder
-    public User(Integer id, String email, String password, String nickname, String image, String phone, LocalDate birth, UserEnum role, String provider, LocalDateTime createdAt) {
+    public User(Integer id, String email, String password, String nickname, String image, String phone, LocalDate birth, UserEnum role, UserProviderEnum provider, LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
         this.password = password;
