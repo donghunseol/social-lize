@@ -1,96 +1,138 @@
 {{> layout/header}}
-<div class="member-container">
-        <div class="section section-title">
-            <div class="section-title">멤버 3</div>
-            <ul class="request-list">
-                <li class="request-item">
-                    <img src="profile-placeholder.png" alt="김윤준">
-                    <div class="request-info">
-                        <div class="name">김완준</div>
-                    </div>
-                    <div class="actions">
-                        <button>승인</button>
-                        <button>거절</button>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="section section-title">
-            <div class="input-group">
-                <div>멤버 검색</div>
-                <input type="text" placeholder="멤버 검색">
+
+<body>
+<div class="container">
+    <div class="content">
+        <div class="d-flex row-flex">
+            <div class="member-invite-title d-flex align-items-center">
+                <h4 class="fw-bold">멤버</h4>
+                <h5 class="ms-3 text-primary">3</h5>
             </div>
         </div>
-        <div class="section section-title">
-            <div class="input-group">
-                <div>초대 링크</div>
-                <input type="text" id="invite-code" value="초대코드" readonly>
-                <button onclick="copyInviteCode()" style="margin-left: 20px;">복사</button>
+        <hr class="border border-dark">
+        <div class="d-flex">
+            <div class="member-invite-title d-flex align-items-center">
+                <h5 class="fw-bold">신청목록</h5>
+                <h6 class="ms-3 text-primary">3</h6>
             </div>
         </div>
-        <div class="section section-title">
-            <div class="flex-container">
-                <span>멤버</span>
-                <div class="sort-options">
-                    <select>
-                        <option>이름순</option>
-                        <option>최근 가입순</option>
-                    </select>
+        <!-- 신청목록 -->
+        <div class="d-flex flex-column">
+            <div class="socialadd-form-section socialadd-form-button-group mt-4">
+                <div class="d-flex align-items-center">
+                    <img class="profile-picture" src="/images/userprofile.jpeg" alt="멤버사진">
+                    <div class="ms-3">멤버 이름1</div>
+                </div>
+                <div>
+                    <button class="text-success border-success me-2">승인</button>
+                    <button class="text-danger border-danger">거절</button>
                 </div>
             </div>
-            <ul class="member-list">
-                <li class="member-item">
-                    <img src="profile-placeholder.png" alt="설동훈">
-                    <div class="member-info">
-                        <div class="name-and-date">
-                            <div class="name">설동훈</div>
-                            <div class="details">리더</div>
-                        </div>
-                    </div>
-                </li>
-                <div class="underline"></div>
-            </ul>
+            <div class="socialadd-form-section socialadd-form-button-group mt-4">
+                <div class="d-flex align-items-center">
+                    <img class="profile-picture" src="/images/userprofile.jpeg" alt="멤버사진">
+                    <div class="ms-3">멤버 이름2</div>
+                </div>
+                <div>
+                    <button class="text-success border-success me-2">승인</button>
+                    <button class="text-danger border-danger">거절</button>
+                </div>
+            </div>
         </div>
-        <div>
-            <ul class="member-list">
-                <li class="member-item">
-                    <img src="profile-placeholder.png" alt="김세윤">
-                    <div class="member-info">
-                        <div class="name-and-date">
-                            <div class="name">김세윤</div>
-                            <div class="details">24.01.01 가입</div>
+        <hr class="border border-dark">
+        <!-- 멤버 검색 -->
+        <div class="row">
+            <span for="inputMemberName" class="col-1 col-form-label fw-bold">멤버 검색</span>
+            <div class="col-11">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="멤버 이름 입력" id="inputMemberName">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
+                            class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <hr class="border border-dark">
+        <!-- 초대 링크 -->
+        <div class="row align-items-center">
+            <span for="inputInviteLink" class="col-1 col-form-label fw-bold">초대 링크</span>
+            <div class="col-11">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="inputInviteLink" value="http://localhost:8080"
+                           readonly>
+                    <button onclick="copyInviteCode()" class="btn btn-outline-secondary" type="button"
+                            id="button-addon2"><i class="fas fa-copy"></i></button>
+                </div>
+            </div>
+        </div>
+        <hr class="border border-dark">
+        <div class="d-flex align-items-center">
+            <h5 class="fw-bold me-3">멤버</h5>
+            <div class="ms-auto" style="width: 150px;">
+                <select class="form-select form-select-sm" aria-label="멤버 정렬">
+                    <option selected>이름순</option>
+                    <option value="1">최근 가입순</option>
+                </select>
+            </div>
+        </div>
+        <div class="socialadd-form-section socialadd-form-button-group mt-4">
+            <!-- 소속 리더 이름 -->
+            <div class="d-flex align-items-center">
+                <img class="profile-picture" src="/images/userprofile.jpeg" alt="멤버사진">
+                <div class="ms-3 d-flex align-items-center">
+                    <i class="fas fa-crown text-warning me-2"></i>
+                    <span>소셜 리더</span>
+                </div>
+            </div>
+        </div>
+        <hr class="border border-dark">
+        <div class="d-flex flex-column">
+            <!-- 소속 멤버 이름 -->
+            <div class="socialadd-form-section socialadd-form-button-group mt-4">
+                <div class="d-flex align-items-center mb-3">
+                    <img class="profile-picture" src="/images/userprofile.jpeg" alt="멤버사진">
+                    <div class="ms-3 w-100">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="fw-bold">멤버 이름1</div>
+                            <div class="text-muted small">가입일자: 2023-01-01</div>
                         </div>
-                        <div class="name-and-date">
-                            <div class="details">게시물 18</div>
-                            <div class="details">댓글 57</div>
+                        <div class="d-flex justify-content-start text-muted small">
+                            <div class="me-3">게시글: 10</div>
+                            <div>댓 글: 30</div>
                         </div>
                     </div>
-                    <button class="btn-delete">삭제</button>
-                </li>
-                <li class="member-item">
-                    <img src="profile-placeholder.png" alt="하승진">
-                    <div class="member-info">
-                        <div class="name-and-date">
-                            <div class="name">하승진</div>
-                            <div class="details">24.01.01 가입</div>
+                </div>
+                <button class="text-danger border-danger">삭제</button>
+            </div>
+
+            <div class="socialadd-form-section socialadd-form-button-group mt-4">
+                <div class="d-flex align-items-center mb-3">
+                    <img class="profile-picture" src="/images/userprofile.jpeg" alt="멤버사진">
+                    <div class="ms-3 w-100">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="fw-bold">멤버 이름2</div>
+                            <div class="text-muted small">가입일자: 2023-02-02</div>
                         </div>
-                        <div class="name-and-date">
-                            <div class="details">게시물 18</div>
-                            <div class="details">댓글 30</div>
+                        <div class="d-flex justify-content-start text-muted small">
+                            <div class="me-3">게시글: 20</div>
+                            <div>댓 글: 40</div>
                         </div>
                     </div>
-                    <button class="btn-delete">삭제</button>
-                </li>
-            </ul>
+                </div>
+                <button class="text-danger border-danger">삭제</button>
+            </div>
         </div>
     </div>
-    <script>
-        function copyInviteCode() {
-            var copyText = document.getElementById("invite-code");
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); // For mobile devices
-            document.execCommand("copy");
-            alert("초대코드가 복사되었습니다: " + copyText.value);
-        }
-    </script>
+</div>
+
+<script>
+    function copyInviteCode() {
+        var copyText = document.getElementById("inputInviteLink");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+        document.execCommand("copy");
+        alert("초대코드가 복사되었습니다: " + copyText.value);
+    }
+</script>
+</body>
+
 {{> layout/footer}}
