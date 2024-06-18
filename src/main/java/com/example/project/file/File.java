@@ -36,16 +36,16 @@ public class File {
     private String path; // 첨부파일 경로
 
     @CreationTimestamp
-    private LocalDateTime created; // 생성 일자
+    private LocalDateTime createdAt; // 생성 일자
 
     @Builder
-    public File(Integer id, Social socialId, User userId, Board boardId, String path, LocalDateTime created) {
+    public File(Integer id, Social socialId, User userId, Board boardId, String path, LocalDateTime createdAt) {
         this.id = id;
         this.socialId = socialId;
         this.userId = userId;
         this.boardId = boardId;
         this.path = path;
-        this.created = created;
+        this.createdAt = createdAt;
     }
 }
 

@@ -29,9 +29,11 @@ public class Hashtag {
     private LocalDateTime createdAt; // 생성 일자
 
     @Builder
-    public Hashtag(Integer id) {
+    public Hashtag(Integer id, Board boardId, String name, LocalDateTime createdAt) {
         this.id = id;
-
+        this.boardId = boardId;
+        this.name = name;
+        this.createdAt = createdAt;
     }
 }
 

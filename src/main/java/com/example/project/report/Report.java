@@ -38,7 +38,7 @@ public class Report {
 
     @JoinColumn(name = "rereplyId")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Rereply reReplyId; // 대댓글 번호
+    private Rereply rereplyId; // 대댓글 번호
 
     @Column(nullable = false)
     private String content; // 신고 사유
@@ -50,13 +50,13 @@ public class Report {
 
     @Builder
 
-    public Report(Integer id, User userId, Integer reportUserId, Board boardId, Reply replyId, Rereply reReplyId, String content, String result, LocalDateTime createdAt) {
+    public Report(Integer id, User userId, Integer reportUserId, Board boardId, Reply replyId, Rereply rereplyId, String content, String result, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.reportUserId = reportUserId;
         this.boardId = boardId;
         this.replyId = replyId;
-        this.reReplyId = reReplyId;
+        this.rereplyId = rereplyId;
         this.content = content;
         this.result = result;
         this.createdAt = createdAt;
