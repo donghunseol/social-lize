@@ -11,9 +11,13 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
-    @GetMapping("/test")
+    @GetMapping("/test1")
     public String socialAddForm(){
-        return "/mypage/profileUpdateForm";
+        return "/member/joinForm";
+    }
+    @GetMapping("/test2")
+    public String socialAdddForm(){
+        return "/member/joinMain";
     }
 
     @GetMapping("/")
