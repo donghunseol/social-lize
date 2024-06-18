@@ -42,15 +42,76 @@ VALUES (1, 1, '반갑습니다.', '안녕하세요.', 'POST', now());
 INSERT INTO qna_tb (user_id, title, content, reply_content, reply_created_at, created_at)
 VALUES (1, '카테고리 추가해주세요', '공포 카테고리 추가해주세요', '빠른 시일내로 추가해 드리겠습니다.', '2024-06-17', '2024-06-16'),
        (2, '대댓글에도 댓글을 달고 싶어요', '기능 추가 가능한가요?', '죄송합니다 대댓글에 댓글을 다는 기능은 추가해드리기 어렵습니다.', '2024-06-15', '2024-06-14'),
-       (3, '오늘 점심 뭐먹죠?', '관리자님! 짜장면 vs 볶음밥 뭐먹죠?', '저는 오늘 밀면 먹었습니다.', '2024-06-14', '2024-06-13'),
+       (3, '오늘 점심 뭐먹죠?', '관리자님! 짜장면 vs 볶음밥 뭐먹죠?', '타협해서 짜장밥 어떠십니까.', '2024-06-14', '2024-06-13'),
        (4, '멤버 추가가 안되요 ㅠㅠ', '고쳐 주세요 ㅠㅠ', '오류 화면을 캡쳐하여 알려주시면 빠른 시일내로 고쳐드리겠습니다.', '2024-06-13', '2024-06-12'),
        (5, '오늘 가입했는데요', '다른 사람 소셜에는 어떻게 들어가나요?', null, null, '2024-06-18');
 
 INSERT INTO notification_tb(user_id, role, created_at)
-VALUES (1, 'BOARD', now());
+VALUES (1, 'BOARD', now()),
+       (1, 'REPLY', now()),
+       (1, 'REREPLY', now()),
+       (2, 'BOARD', now()),
+       (2, 'REPLY', now()),
+       (2, 'REREPLY', now()),
+       (3, 'BOARD', now()),
+       (3, 'REPLY', now()),
+       (3, 'REREPLY', now()),
+       (4, 'BOARD', now()),
+       (4, 'REPLY', now()),
+       (4, 'REREPLY', now()),
+       (5, 'BOARD', now()),
+       (5, 'REPLY', now()),
+       (5, 'REREPLY', now());
 
--- INSERT INTO chat_tb (social_id, user_id, comment)
--- VALUES (1, 1, '밴드에 가입 하신것을 환영합니다.'),
---        (1, 2, '안녕하세요!');
---        (1, 3, '와 뉴비다.');
+INSERT INTO chat_tb (social_id, user_id, comment, created_at)
+VALUES (1, 1, '소셜에 가입 하신것을 환영합니다.', now()),
+       (1, 2, '안녕하세요!', now()),
+       (1, 3, '와 뉴비다.', now()),
+       (2, 4, '스프링 부트 어떻게 해야 잘할 수 있나요?', now()),
+       (2, 5, '저도 잘 모르겠습니다..', now()),
+       (3, 5, '수제 담배 잘 만드는 사람 있나요? 저좀 알려주세요!', now()),
+       (3, 1, '나도 알려줘요!', now()),
+       (4, 2, '아이폰 처음 써보는데 꿀팁좀 주실분!', now()),
+       (5, 3, '여기 사람들은 아아만 마시나요?', now()),
+       (5, 2, '저는 다른것도 마십니다 아아는 싼맛에..', now());
 
+INSERT INTO social_member_tb(social_id, user_id, role, state, created_at)
+VALUES (1, 1, 'MANAGER', 'APPROVED', now()),
+       (1, 2, 'MEMBER', 'APPROVED', now()),
+       (1, 3, 'MEMBER', 'APPROVED', now()),
+       (2, 4, 'MEMBER', 'APPROVED', now()),
+       (2, 5, 'MANAGER', 'APPROVED', now()),
+       (3, 5, 'MEMBER', 'APPROVED', now()),
+       (3, 1, 'MANAGER', 'APPROVED', now()),
+       (4, 2, 'MEMBER', 'APPROVED', now()),
+       (4, 3, 'MANAGER', 'APPROVED', now()),
+       (5, 3, 'MEMBER', 'APPROVED', now()),
+       (5, 2, 'MANAGER', 'APPROVED', now()),
+       (1, 4, 'MEMBER', 'WAITING', now()),
+       (2, 3, 'MANAGER', 'WAITING', now()),
+       (3, 2, 'MANAGER', 'WAITING', now()),
+       (4, 1, 'MANAGER', 'WAITING', now()),
+       (5, 5, 'MANAGER', 'RESIGN', now());
+
+INSERT INTO category_name_tb (name)
+VALUES ('컴퓨터'),
+       ('공부'),
+       ('흡연'),
+       ('수제'),
+       ('휴대폰'),
+       ('아이폰'),
+       ('안드로이드폰'),
+       ('커피'),
+       ('카페');
+
+INSERT INTO category_tb (social_id, category_name_id, created_at)
+VALUES (1, 1, now()),
+       (1, 2, now()),
+       (2, 1, now()),
+       (2, 2, now()),
+       (3, 3, now()),
+       (3, 4, now()),
+       (4, 5, now()),
+       (4, 6, now()),
+       (5, 8, now()),
+       (5, 9, now());
