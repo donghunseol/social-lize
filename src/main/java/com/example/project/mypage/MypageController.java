@@ -33,8 +33,7 @@ public class MypageController {
 
     // 내가 쓴 글 페이지
     @GetMapping("/mypage/myrecord")
-    public String myrecord() {
+    public String myrecord () {
         return "/mypage/myrecordForm";
-
     }
 }

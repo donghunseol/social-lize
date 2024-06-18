@@ -256,7 +256,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 2px;
     flex-grow: 1;
-    height: 35px; /* Adjusted height */
+    height: 40px;
 }
 
 .comment-section img {
@@ -281,9 +281,53 @@ body {
     border-radius: 25px;
     margin-left: 10px;
     cursor: pointer;
-    height: 35px;
+    height: 40px;
     display: flex;
     align-items: center;
+}
+/*post*/
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-box {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.date {
+    color: #888888;
+    margin-left: 10px;
+}
+
+.author {
+    margin-left: 10px;
+}
+.message-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.comments {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.like-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    color: red;
+    margin-right: 10px;
 }
 
 /* profileUpdateForm.mustache */
@@ -311,8 +355,8 @@ body {
     flex-grow: 1;
     margin-left: 10px;
     display: flex;
-    flex-direction: column; /* 세로 배치 */
-    align-items: center; /* 가운데 정렬 */
+    flex-direction: column;
+    align-items: center;
 }
 
 .info-item {
@@ -460,7 +504,7 @@ body {
 .tabs {
     display: flex;
     width: 100%;
-    max-width: 600px;
+    max-width: 900px;
     background-color: #fff;
     border-bottom: 1px solid #ddd;
 }
@@ -1016,4 +1060,115 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+/* socialaddForm */
+
+.socialadd-form-section {
+    margin-bottom: 20px;
+}
+
+/* socialaddForm 커버 선택 */
+.socialadd-form-image-cover {
+    width: 120px;
+    height: 90px;
+    border: #ddd solid 1px;
+}
+
+/* socialaddForm 커버 선택 */
+.socialadd-form-cover-title-image {
+    width: 300px;
+    height: 225px;
+    border: #ddd solid 1px;
+}
+
+/* socialaddForm 해시태그 */
+.socialadd-form-hashtag-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+/* socialaddForm 제목 */
+.socialadd-form-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.socialadd-form-cover-selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.socialadd-form-cover-selection .cover {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    background-color: #ddd;
+    border: 1px solid #000;
+    text-align: center;
+    line-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.socialadd-form-cover-selection .cover img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.socialadd-form-toggle-switch {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.socialadd-form-toggle-switch::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.socialadd-form-toggle-switch.active {
+    background-color: #333;
+}
+
+.socialadd-form-toggle-switch.active::before {
+    left: 22px;
+}
+
+.socialadd-form-button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.socialadd-form-button-group button {
+    padding: 10px 20px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.socialadd-form-button-group button:hover {
+    background-color: #f0f0f0;
 }
