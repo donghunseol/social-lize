@@ -20,7 +20,7 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // 게시글 번호
 
-    @JoinColumn(name = "sociaId")
+    @JoinColumn(name = "socialId")
     @ManyToOne(fetch = FetchType.LAZY)
     private Social socialId; // 소셜 번호
 
