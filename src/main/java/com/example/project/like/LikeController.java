@@ -2,10 +2,10 @@ package com.example.project.like;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
 @RequiredArgsConstructor
-@RestController
+@Controller
 public class LikeController {
     private final LikeService likeService;
     private final HttpSession session;
