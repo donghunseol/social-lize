@@ -13,7 +13,7 @@ public class UserController {
 
     @GetMapping("/test")
     public String socialAddForm(){
-        return "/member/memberInvite";
+        return "/mypage/profileUpdateForm";
     }
 
     @GetMapping("/")
