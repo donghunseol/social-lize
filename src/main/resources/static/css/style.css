@@ -117,7 +117,8 @@ body {
 }
 
 .content-box .group-name {
-    font-size: 16px; /* Reduced font size */
+    font-size: 16px;
+    /* Reduced font size */
     font-weight: bold;
     margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
@@ -216,7 +217,8 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 2px;
     flex-grow: 1;
-    height: 25px; /* Adjusted height */
+    height: 25px;
+    /* Adjusted height */
 }
 
 .comment-section img {
@@ -467,7 +469,7 @@ body {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 .dropdown-menu a {
@@ -479,4 +481,115 @@ body {
 
 .dropdown-menu a:hover {
     background-color: #f5f5f5;
+}
+
+/* socialaddForm */
+
+.socialadd-form-section {
+    margin-bottom: 20px;
+}
+
+/* socialaddForm 커버 선택 */
+.socialadd-form-image-cover {
+    width: 120px;
+    height: 90px;
+    border: #ddd solid 1px;
+}
+
+/* socialaddForm 커버 선택 */
+.socialadd-form-cover-title-image {
+    width: 300px;
+    height: 225px;
+    border: #ddd solid 1px;
+}
+
+/* socialaddForm 해시태그 */
+.socialadd-form-hashtag-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+/* socialaddForm 제목 */
+.socialadd-form-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.socialadd-form-cover-selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.socialadd-form-cover-selection .cover {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    background-color: #ddd;
+    border: 1px solid #000;
+    text-align: center;
+    line-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.socialadd-form-cover-selection .cover img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.socialadd-form-toggle-switch {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.socialadd-form-toggle-switch::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.socialadd-form-toggle-switch.active {
+    background-color: #333;
+}
+
+.socialadd-form-toggle-switch.active::before {
+    left: 22px;
+}
+
+.socialadd-form-button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.socialadd-form-button-group button {
+    padding: 10px 20px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.socialadd-form-button-group button:hover {
+    background-color: #f0f0f0;
 }

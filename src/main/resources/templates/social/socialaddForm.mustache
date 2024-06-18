@@ -2,74 +2,75 @@
 
 <body>
 <div class="container d-flex justify-content-center flex-column">
-    <div class="section">
-        <div class="title">소셜 이름</div>
-        <input type="text" placeholder="소셜 이름 입력" class="input-line">
+    <div class="socialadd-form-section">
+        <div class="socialadd-form-title">소셜 이름</div>
+        <input type="text" placeholder="소셜 이름 입력" class="form-control">
     </div>
-    <div class="title">카테고리</div>
-    <div class="section">
-        <div class="input-group">
-            <select id="subject">
+    <div class="socialadd-form-title">카테고리</div>
+    <div class="socialadd-form-section">
+        <div class="socialadd-form-input-group d-flex align-items-center">
+            <select id="subject" class="form-select">
                 <option value="카테고리1">카테고리 1</option>
                 <option value="카테고리2">카테고리 2</option>
             </select>
-            <div class="hashtag-group ms-4">
-                <div class="hashtag"># 해시태그 1</div>
-                <div class="hashtag"># 해시태그 2</div>
+            <div class="socialadd-form-hashtag-group" style="white-space: nowrap;">
+                <div class="border rounded-pill px-3 py-1 border-dark"># 해시태그 1</div>
+                <div class="border rounded-pill px-3 py-1 border-dark"># 해시태그 2</div>
             </div>
         </div>
     </div>
-    <div class="title">소셜 메인 커버</div>
-    <div class="d-flex justify-content-center align-items-center">
-        <img class="cover-title-image border me-3" src="/image/socialCover.jpg" alt="#">
-        <div class="section">
-            <div class="title mb-3 mt-2">커버선택</div>
-            <div class="cover-selection">
-                <div class="image-cover d-flex justify-content-center flex-column align-items-center">
+    <div class="socialadd-form-title">소셜 메인 커버</div>
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <img class="socialadd-form-cover-title-image border me-3" src="/image/socialCover.jpg" alt="#">
+        <div class="socialadd-form-section">
+            <div class="socialadd-form-title mb-3 mt-2">커버선택</div>
+            <div class="socialadd-form-cover-selection">
+                <div
+                        class="socialadd-form-image-cover d-flex justify-content-center flex-column align-items-center">
                     <i class="fas fa-camera text-secondary"></i>
                     <div class="text-secondary">
                         사진 추가
                     </div>
                 </div>
-                <img class="image-cover" src="/image/socialCover.jpg" alt="#"></img>
-                <img class="image-cover" src="/image/socialCover.jpg" alt="#"></img>
-                <img class="image-cover" src="/image/socialCover.jpg" alt="#"></img>
-                <img class="image-cover" src="/image/socialCover.jpg" alt="#"></img>
-                <img class="image-cover" src="/image/socialCover.jpg" alt="#"></img>
-                <img class="image-cover" src="/image/socialCover.jpg" alt="#"></img>
-                <img class="image-cover" src="/image/socialCover.jpg" alt="#"></img>
+                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
+                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
+                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
+                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
+                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
+                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
+                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
             </div>
         </div>
     </div>
-    <div class="section">
-        <div class="title">소개글</div>
+    <div class="socialadd-form-section">
+        <div class="socialadd-form-title">소개글</div>
         <textarea id="description" rows="4" class="form-control border-bottom" placeholder="소개글 입력"></textarea>
     </div>
-    <div class="section notification">
+    <div class="socialadd-form-section d-flex justify-content-between align-items-center">
         <div>
-            <div class="title">멤버가입 알림글</div>
+            <div class="socialadd-form-title">멤버가입 알림글</div>
             <div class="member-alrim-text text-body-secondary">멤버가 가입할 때 마다 알림글이 작성됩니다</div>
         </div>
-        <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+        <div class="socialadd-form-toggle-switch" onclick="toggleSwitch(this)"></div>
     </div>
     <br>
-    <div class="title">게시판 관리</div>
+    <div class="socialadd-form-title">게시판 관리</div>
     <br>
-    <div class="section d-flex justify-content-between align-items-center mb-0">
-        <div class="title">게시판 해시태그 설정</div>
-        <div class="input-group ml-auto w-auto">
+    <div class="socialadd-form-section d-flex justify-content-between align-items-center mb-0">
+        <div class="socialadd-form-title">게시판 해시태그 설정</div>
+        <div class="socialadd-form-input-group ml-auto w-auto">
             <label for="hashtag-count" class="mr-2">3</label>
             <button class="w-auto">&gt;</button>
         </div>
     </div>
-    <div class="divider"></div>
-    <div class="section button-group mt-4">
-        <div>소셜 탈퇴하기</div>
+    <div class="border"></div>
+    <div class="socialadd-form-section socialadd-form-button-group mt-4">
+        <div class="fw-bold">소셜 탈퇴하기</div>
         <button class="text-danger border-danger">탈퇴하기</button>
     </div>
-    <div class="center-text">또는</div>
-    <div class="section button-group">
-        <div>소셜 삭제하기</div>
+    <div class="text-center fw-bold my-3">또는</div>
+    <div class="socialadd-form-section socialadd-form-button-group">
+        <div class="fw-bold">소셜 삭제하기</div>
         <button class="text-danger border-danger">삭제하기</button>
     </div>
 </div>
