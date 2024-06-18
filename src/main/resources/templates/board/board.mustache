@@ -1,0 +1,90 @@
+{{> layout/header}}
+
+<div class="navbar">
+    <a href="#">게시글</a>
+    <a href="#">서랍</a>
+    <a href="#">멤버</a>
+</div>
+<div class="main-container">
+    <div class="sidebar">
+        <div class="social-info">
+            <img src="../images/puppy.png" alt="소셜 사진">
+            <h2>포메와의 산책</h2>
+            <div>리더 포실장과 아이들</div>
+            <div>멤버 2,215</div>
+            <button class="postwrite">글 작성하기</button>
+            <div class="invite-text">초대링크 복사</div>
+            <div class="description">포메라니안과 함께하는 즐거운 산책 모임입니다. 다양한 이벤트와 정보를 공유하세요!</div>
+            <div class="settings"><a href="#"><i class="fas fa-cog"></i></a></div>
+        </div>
+    </div>
+    <div class="board-content">
+        <div class="hashtag-container">
+            <div class="wrap-vertical">
+                <div class="hashtag active">전체</div>
+                <div class="hashtag">해시태그</div>
+                <div class="hashtag">해시태그2</div>
+                <div class="hashtag">해시태그3</div>
+                <div class="hashtag">해시태그4</div>
+                <div class="hashtag">해시태그5</div>
+                <div class="hashtag">해시태그6</div>
+                <div class="hashtag">해시태그7</div>
+            </div>
+        </div>
+        <div class="board-container">
+            <div class="board">
+                <div class="board-header p-3">
+                    <img class="profile-pic" src="images/puppy.png" alt="Profile">
+                    <div class="username">사용자1</div>
+                    <div class="time">1분 전</div>
+                </div>
+                <div class="board-content p-3">
+                    내용입니다
+                </div>
+                <div class="board-footer p-2">
+                    <div>좋아요 3</div>
+                    <div>댓글 8</div>
+                </div>
+            </div>
+            <div class="board">
+                <div class="board-header p-3">
+                    <img class="profile-pic" src="images/puppy.png" alt="Profile">
+                    <div class="username">사용자2</div>
+                    <div class="time">1분 전</div>
+                </div>
+                <div class="board-content p-3">
+                    내용입니다
+                </div>
+                <div class="board-footer p-2">
+                    <div>좋아요 5</div>
+                    <div>댓글 10</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="chat-title">SNS프로젝트 1조</div>
+            <div class="chat-menu">⋮</div>
+        </div>
+        <div class="chat-messages">
+            <div class="chat-date">2024년 6월 17일</div>
+            <div class="chat-message">
+                <img src="images/puppy.png" alt="프로필 사진" class="profile-pic">
+                <div class="message-content">
+                    <div class="sender">설동훈</div>
+                    <div class="message-container">
+                        <div class="message-bubble">안녕</div>
+                        <span class="time">오전 11:45</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="메시지를 입력하세요">
+            <button>send</button>
+        </div>
+    </div>
+</div>
+
+{{> layout/footer}}
