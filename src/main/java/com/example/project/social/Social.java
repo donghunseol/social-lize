@@ -18,16 +18,16 @@ public class Social {
     private Integer id; // 소셜 번호
 
     @Column(nullable = false)
-    private String name;
+    private String name; // 소셜 이름
 
     @Column(nullable = false)
-    private String image;
+    private String image; // 소셜 사진
 
     @Column(nullable = false)
-    private String info;
+    private String info; // 소셜 소개글
 
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt; // 생성 일자
 
     @Builder
     public Social(Integer id) {
