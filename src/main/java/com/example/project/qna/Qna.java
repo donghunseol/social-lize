@@ -28,10 +28,8 @@ public class Qna {
     @Column(nullable = false)
     private String content; // 문의 사항 내용
 
-    @Column(nullable = false)
     private String replyContent; // 문의 사항 관리자 답변
 
-    @Column(nullable = false)
     private LocalDateTime replyCreatedAt; // 답변 일자
 
     @CreationTimestamp
