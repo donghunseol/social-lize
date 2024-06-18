@@ -37,10 +37,8 @@ public class User {
 
     private String image; // 프로필 사진
 
-    @Column(nullable = false)
     private String phone; // 전화 번호
 
-    @Column(nullable = false)
     private LocalDate birth; // 생년 월일
 
     @Enumerated(EnumType.STRING)
