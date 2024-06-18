@@ -47,7 +47,21 @@ VALUES (1, '카테고리 추가해주세요', '공포 카테고리 추가해주�
        (5, '오늘 가입했는데요', '다른 사람 소셜에는 어떻게 들어가나요?', null, null, '2024-06-18');
 
 INSERT INTO notification_tb(user_id, role, created_at)
-VALUES (1, 'BOARD', now());
+VALUES (1, 'BOARD', now()),
+       (1, 'REPLY', now()),
+       (1, 'REREPLY', now()),
+       (2, 'BOARD', now()),
+       (2, 'REPLY', now()),
+       (2, 'REREPLY', now()),
+       (3, 'BOARD', now()),
+       (3, 'REPLY', now()),
+       (3, 'REREPLY', now()),
+       (4, 'BOARD', now()),
+       (4, 'REPLY', now()),
+       (4, 'REREPLY', now()),
+       (5, 'BOARD', now()),
+       (5, 'REPLY', now()),
+       (5, 'REREPLY', now());
 
 INSERT INTO chat_tb (social_id, user_id, comment, created_at)
 VALUES (1, 1, '소셜에 가입 하신것을 환영합니다.', now()),
@@ -79,3 +93,25 @@ VALUES (1, 1, 'MANAGER', 'APPROVED', now()),
        (4, 1, 'MANAGER', 'WAITING', now()),
        (5, 5, 'MANAGER', 'RESIGN', now());
 
+INSERT INTO category_name_tb (name)
+VALUES ('컴퓨터'),
+       ('공부'),
+       ('흡연'),
+       ('수제'),
+       ('휴대폰'),
+       ('아이폰'),
+       ('안드로이드폰'),
+       ('커피'),
+       ('카페');
+
+INSERT INTO category_tb (social_id, category_name_id, created_at)
+VALUES (1, 1, now()),
+       (1, 2, now()),
+       (2, 1, now()),
+       (2, 2, now()),
+       (3, 3, now()),
+       (3, 4, now()),
+       (4, 5, now()),
+       (4, 6, now()),
+       (5, 8, now()),
+       (5, 9, now());
