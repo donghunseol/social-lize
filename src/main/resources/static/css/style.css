@@ -256,14 +256,14 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 2px;
     flex-grow: 1;
-    height: 35px; /* Adjusted height */
+    height: 35px;
 }
 
 .comment-section img {
     border-radius: 50%;
     margin-right: 10px;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 
 .comment-section input {
@@ -284,6 +284,50 @@ body {
     height: 35px;
     display: flex;
     align-items: center;
+}
+/*post*/
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-box {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.date {
+    color: #888888;
+    margin-left: 10px;
+}
+
+.author {
+    margin-left: 10px;
+}
+.message-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.comments {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.like-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    color: red;
+    margin-right: 10px;
 }
 
 /* profileUpdateForm.mustache */
@@ -311,8 +355,8 @@ body {
     flex-grow: 1;
     margin-left: 10px;
     display: flex;
-    flex-direction: column; /* 세로 배치 */
-    align-items: center; /* 가운데 정렬 */
+    flex-direction: column;
+    align-items: center;
 }
 
 .info-item {
