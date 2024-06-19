@@ -33,31 +33,31 @@
 <div class="container mt-5">
     <div class="w-50 mx-auto">
         <h1 class="text-center mb-5">회원가입</h1>
-        <form id="signupForm">
+        <form id="signupForm" action="/join" method="post">
             <div class="form-group mb-4">
-                <input type="email" class="form-control border bg-transparent text-muted" id="email"
+                <input type="email" class="form-control border bg-transparent text-muted" id="email" name="email"
                        placeholder="이메일" style="font-size: 2rem; height: 70px;" required>
             </div>
             <div class="form-group mb-4">
-                <input type="password" class="form-control border bg-transparent text-muted" id="password"
+                <input type="password" class="form-control border bg-transparent text-muted" id="password" name="password"
                        placeholder="비밀번호" style="font-size: 2rem; height: 70px;" required>
                 <small class="form-text text-muted fs-6">8~16자 영문 대소문자, 숫자, 특수문자를 사용하세요.</small>
             </div>
             <div class="form-group mb-4">
-                <input type="text" class="form-control border bg-transparent text-muted" id="name" placeholder="이름"
+                <input type="text" class="form-control border bg-transparent text-muted" id="name" name="name" placeholder="이름"
                        style="font-size: 2rem; height: 70px;" required>
             </div>
             <div class="form-group mb-5">
                 <label class="form-label text-muted text-left fs-5">생년월일</label>
                 <div class="row gx-2">
                     <div class="col">
-                        <select class="form-control border bg-transparent text-muted" id="year"
+                        <select class="form-control border bg-transparent text-muted" id="year" name="year"
                                 style="font-size: 2rem; height: 70px;" required>
                             <option value="">년</option>
                         </select>
                     </div>
                     <div class="col">
-                        <select class="form-control border bg-transparent text-muted" id="month"
+                        <select class="form-control border bg-transparent text-muted" id="month" name="month"
                                 style="font-size: 2rem; height: 70px;" required>
                             <option value="">월</option>
                             <option value="1">1월</option>
@@ -75,7 +75,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <select class="form-control border bg-transparent text-muted" id="day"
+                        <select class="form-control border bg-transparent text-muted" id="day" name="day"
                                 style="font-size: 2rem; height: 70px;" required>
                             <option value="">일</option>
                             <option value="1">1일</option>
@@ -113,6 +113,7 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="role" value="USER">
             <button type="submit" class="btn btn-secondary w-100 mb-5" style="height: 70px; font-size: 1.5rem;"
                     disabled id="submitBtn">확인</button>
         </form>
