@@ -20,4 +20,10 @@ public class UserController {
     public String main(){
         return "main";
     }
+
+    // 웹 시작화면 페이지
+    @GetMapping("/user/notloggedinmain")
+    public String socialAdd() {
+        return "social/notLoggedinMain";
+    }
 }
