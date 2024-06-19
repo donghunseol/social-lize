@@ -24,17 +24,6 @@ public class UserController {
         return "user/joinMain";
     }
 
-    @GetMapping("/joinForm")
-    public String joinForm(UserRequest.JoinDTO joinDTO){
-        return "user/joinForm";
-    }
-
-    @PostMapping("/join")
-    public String join(UserRequest.JoinDTO joinDTO){
-        userService.join(joinDTO);
-        return "redirect:/user/login";
-    }
-
     @GetMapping("/")
     public String mainPage(Integer categoryNameId, HttpServletRequest request) {
         Integer userId = 1;
@@ -50,15 +39,37 @@ public class UserController {
         return "social/notLoggedinMain";
     }
 
-    // 로그인 페이지
-    @GetMapping("/user/login")
-    public String login() {
-        return "user/login";
-    }
-
     // 회원가입 메인 페이지
     @GetMapping("/user/joinMain")
     public String joinMain() {
         return "user/joinMainForm";
+    }
+
+    //회원가입 페이지
+    @GetMapping("/joinForm")
+    public String joinForm(UserRequest.JoinDTO joinDTO){
+        return "user/joinForm";
+    }
+
+    //회원가입 처리
+    @PostMapping("/join")
+    public String join(UserRequest.JoinDTO joinDTO){
+        userService.join(joinDTO);
+        return "redirect:/user/login";
+    }
+
+    // 로그인 페이지
+    @GetMapping("/user/login")
+    public String loginForm() {
+        return "user/login";
+    }
+
+    //로그인 처리
+    @PostMapping("/login")
+    public String login(UserRequest.LoginDTO loginDTO) {
+        UserResponse.LoggedInUserDTO loggedInUserDTO = userService.login(loginDTO);
+        session.setAttribute("user",loggedInUserDTO);
+//        UserResponse.LoggedInUserDTO loggedInUser = (UserResponse.LoggedInUserDTO)session.getAttribute("user");
+        return "redirect:/";
     }
 }
