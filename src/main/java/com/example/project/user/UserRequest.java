@@ -12,6 +12,7 @@ public class UserRequest {
         private String year;
         private String month;
         private String day;
+        private String role;
     }
 //    @Data
 //    public static class LoginDTO{

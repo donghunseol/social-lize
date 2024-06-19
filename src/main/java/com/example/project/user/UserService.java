@@ -36,14 +36,18 @@ public class UserService {
         user.setEmail(joinDTO.getEmail());
         user.setPassword(joinDTO.getPassword());
         user.setNickname(joinDTO.getName());
-        user.setRole(UserEnum.USER);
-//        user.setBirth();
+
+        user.setRole(
+                UserEnum.fromString(joinDTO.getRole())
+        );
+
         LocalDate bod = LocalDate.of(
                 Integer.parseInt(joinDTO.getYear()),
                 Integer.parseInt(joinDTO.getMonth()),
                 Integer.parseInt(joinDTO.getDay())
         );
+        user.setBirth(bod);
         System.out.println(user);
-        //userRepository.save(user);
+        userRepository.save(user);
     }
 }
