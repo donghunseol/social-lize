@@ -29,4 +29,16 @@ public class UserController {
 
         return "main";
     }
+
+    // 웹 시작화면 페이지
+    @GetMapping("/user/notloggedinmain")
+    public String socialAdd() {
+        return "social/notLoggedinMain";
+    }
+
+    // 로그인 페이지
+    @GetMapping("/user/login")
+    public String login() {
+        return "user/login";
+    }
 }
