@@ -1,75 +1,84 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .logo {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 50px; /* 로고 이미지의 크기를 조정하세요 */
-            height: 50px; /* 로고 이미지의 크기를 조정하세요 */
-        }
-        .main-content {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .main-box {
-            width: 300px;
-            height: 400px;
-            border: 1px solid black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .main-box img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-        .side-box {
-            width: 200px;
-            height: 200px;
-            border: 1px solid black;
-            margin-bottom: 20px;
-            font-size: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .btn-custom {
-            width: 200px;
-            margin-bottom: 10px;
-        }
-    </style>
+
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <img src="https://via.placeholder.com/50" alt="로고" class="logo"> <!-- 임시 로고 이미지 경로 -->
-    <div class="container main-content">
-        <div class="row">
-            <div class="col-md-6 d-flex justify-content-center align-items-center">
-                <div class="main-box">
-                    <img src="https://via.placeholder.com/300x400" alt="임시 이미지"> <!-- 임시 이미지 경로 -->
-                </div>
+<div class="notloggedin-container">
+    <header class="notloggedin-header">
+        <div class="notloggedin-logo">
+            <img src="/images/logonobg.png" alt="Logo">
+        </div>
+    </header>
+    <main class="notloggedin-content">
+        <div class="notloggedin-left-wrapper">
+            <div class="notloggedin-left-content">
+                <h1>함께 즐기는 취미생활,<br><span class="notloggedin-gradient-text">Socialize</span>에서<br>시작하세요!</h1>
+                <p>소셜라이즈 - 취미로 이어지는 새로운 인연들</p>
             </div>
-            <div class="col-md-6 d-flex flex-column align-items-center">
-                <div class="side-box">
-                    <p>테스트 문구 첫 번째 줄</p>
-                    <p>테스트 문구 두 번째 줄</p>
-                </div>
-                <button class="btn btn-primary btn-custom">로그인</button>
-                <button class="btn btn-secondary btn-custom">회원가입하기</button>
+            <div class="notloggedin-auth-container">
+                <a href="#">로그인</a>
+                <a href="#">회원가입</a>
             </div>
         </div>
+        <div class="notloggedin-right-content">
+            <div class="notloggedin-phones">
+                <img src="/images/web2.png" alt="Phone displaying app">
+            </div>
+        </div>
+    </main>
+</div>
+<p class="notloggedin-grid-title">소셜라이즈 소개</p>
+<p class="notloggedin-grid-subtitle">Socialize로 취미를 즐기고 새로운 인연을 맺으세요.<br>여러분의 취미 생활을 더 즐겁고 편리하게 만들어 드립니다.</p>
+<div class="notloggedin-grid-container">
+    <div class="notloggedin-grid-item-wrapper">
+        <div class="notloggedin-grid-item">
+        </div>
+        <p class="notloggedin-grid-item-text">공유 캘린더</p>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    <div class="notloggedin-grid-item-wrapper">
+        <div class="notloggedin-grid-item">
+        </div>
+        <p class="notloggedin-grid-item-text">즉시 메시징</p>
+    </div>
+    <div class="notloggedin-grid-item-wrapper">
+        <div class="notloggedin-grid-item">
+        </div>
+        <p class="notloggedin-grid-item-text">피드백 수집</p>
+    </div>
+    <div class="notloggedin-grid-item-wrapper">
+        <div class="notloggedin-grid-item">
+        </div>
+        <p class="notloggedin-grid-item-text">간편한 공유</p>
+    </div>
+    <div class="notloggedin-grid-item-wrapper">
+        <div class="notloggedin-grid-item">
+        </div>
+        <p class="notloggedin-grid-item-text">고급 관리</p>
+    </div>
+</div>
+<div class="notloggedin-friends">
+    <img src="/images/startcover.png" alt="Friends image">
+</div>
+<div class="notloggedin-features">
+    <div class="notloggedin-feature-item">
+        <img src="/images/start1.png" alt="Feature 1">
+        <h3>어떤 모임이라도!</h3>
+        <p>친구, 가족, 동료 등 함께 하고 싶은 사람과 우리만의 공간을 만들어보세요.</p>
+    </div>
+    <div class="notloggedin-feature-item">
+        <img src="/images/start2.png" alt="Feature 2">
+        <h3>모임에 딱 맞는 기능들</h3>
+        <p>투표로 의견을 모으고, 함께 일정을 공유하며 게시판과 앨범에는 추억을 쌓아보세요.</p>
+    </div>
+    <div class="notloggedin-feature-item">
+        <img src="/images/start3.png" alt="Feature 3">
+        <h3>내가 원하는 모임 찾기</h3>
+        <p>취미, 스포츠, 또래 모임 등 나와 같은 관심사 밴드를 찾을 수 있어요.</p>
+    </div>
+</div>
+{{> layout/footer}}
