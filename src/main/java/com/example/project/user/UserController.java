@@ -11,14 +11,11 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
-    @GetMapping("/test1")
-    public String socialAddForm(){
-        return "/member/joinForm";
+    @GetMapping("/test")
+    public String test(){
+        return "/social/";
     }
-    @GetMapping("/test2")
-    public String socialAdddForm(){
-        return "/member/joinMain";
-    }
+
 
     @GetMapping("/")
     public String main(){
