@@ -1172,3 +1172,80 @@ body {
 .socialadd-form-button-group button:hover {
     background-color: #f0f0f0;
 }
+
+.container {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-nav {
+    display: flex;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 16px;
+}
+
+.tab-button.active {
+    border-bottom: 2px solid #007bff;
+    color: #007bff;
+}
+
+.tab-content {
+    display: none;
+    width: 100%;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.category-container {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.category-item {
+    display: inline-block;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.category-item.active {
+    background-color: #333;
+    color: #fff;
+}
+
+.category-wrap-vertical {
+    width: 689px;
+    overflow: scroll;
+    color: #112031;
+    overflow: auto;
+    white-space: nowrap;
+    padding: 5px 15px 15px 15px;
+}
+
+.category-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+.scroll-button {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    cursor: pointer;
+}
