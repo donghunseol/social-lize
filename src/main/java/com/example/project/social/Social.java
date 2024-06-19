@@ -30,9 +30,12 @@ public class Social {
     private LocalDateTime createdAt; // 생성 일자
 
     @Builder
-    public Social(Integer id) {
+    public Social(Integer id, String name, String image, String info, LocalDateTime createdAt) {
         this.id = id;
-
+        this.name = name;
+        this.image = image;
+        this.info = info;
+        this.createdAt = createdAt;
     }
 }
 
