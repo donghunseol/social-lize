@@ -48,13 +48,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserProviderEnum provider;
 
-    private String provide_id; //프로바이더 고유번호 ( 소셜로그인에서 제공하는 고유 식별번호, 카카오는 Long 타입 )
+    private Long provide_id; //프로바이더 고유번호 ( 소셜로그인에서 제공하는 고유 식별번호, 카카오는 Long 타입 )
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 유저 가입 일자
 
     @Builder
-    public User(Integer id, String email, String password, String nickname, String image, String phone, LocalDate birth, UserEnum role, UserProviderEnum provider, String provide_id, LocalDateTime createdAt) {
+    public User(Integer id, String email, String password, String nickname, String image, String phone, LocalDate birth, UserEnum role, UserProviderEnum provider, Long provide_id, LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
         this.password = password;

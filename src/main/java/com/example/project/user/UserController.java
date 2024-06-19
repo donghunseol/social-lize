@@ -46,8 +46,10 @@ public class UserController {
     }
 
     //회원가입 페이지
-    @GetMapping("/joinForm")
-    public String joinForm(UserRequest.JoinDTO joinDTO){
+    @GetMapping("/user/joinForm")
+    public String joinForm(UserRequest.JoinDTO joinDTO, HttpServletRequest request){
+        KakaoResponse.KakaoUserDTO kakaoUser = (KakaoResponse.KakaoUserDTO) session.getAttribute("kakaoUser");
+        System.out.println(kakaoUser);
         return "user/joinForm";
     }
 
@@ -57,6 +59,26 @@ public class UserController {
         userService.join(joinDTO);
         return "redirect:/user/login";
     }
+
+    //카카오로그인 콜백
+    @GetMapping("/oauth/kakao/callback")
+    public String oauthKakaoCallback(String code,HttpServletRequest request) {
+        Object theUser = userService.findByKakaoId(code);
+
+        if (theUser instanceof User) { //조회 결과: 이미 가입한 회원
+            System.out.println((User) theUser);
+            return "redirect:/";
+        }
+        if (theUser instanceof KakaoResponse.KakaoUserDTO) {   //조회 결과 : 아직 가입하지 않은 회원
+            System.out.println((KakaoResponse.KakaoUserDTO) theUser);
+            System.out.println(((KakaoResponse.KakaoUserDTO) theUser).getProperties().getNickname());
+            System.out.println("회원가입 로직 타야함");
+            session.setAttribute("kakaoUser", theUser);
+            return "redirect:/user/joinForm";
+        }
+        throw new RuntimeException("알 수 없는 오류가 발생했습니다.");
+    }
+
 
     // 로그인 페이지
     @GetMapping("/user/login")
