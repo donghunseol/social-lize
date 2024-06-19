@@ -1,6 +1,7 @@
 package com.example.project.user;
 
 import com.example.project._core.enums.UserEnum;
+import com.example.project._core.utils.EncryptUtil;
 import com.example.project.category_name.CategoryName;
 import com.example.project.category_name.CategoryNameRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,9 @@ public class UserService {
     public void join(UserRequest.JoinDTO joinDTO) {
         User user = new User();
         user.setEmail(joinDTO.getEmail());
-        user.setPassword(joinDTO.getPassword());
+        user.setPassword(
+                EncryptUtil.hashPassword(joinDTO.getPassword())
+        );
         user.setNickname(joinDTO.getName());
 
         user.setRole(
@@ -47,7 +50,6 @@ public class UserService {
                 Integer.parseInt(joinDTO.getDay())
         );
         user.setBirth(bod);
-        System.out.println(user);
         userRepository.save(user);
     }
 }
