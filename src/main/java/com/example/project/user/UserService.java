@@ -32,11 +32,13 @@ public class UserService {
 
         return new UserResponse.MainDTO(mySocialList, mySocialPopularList, popularPostList, categoryNameList);
     }
+    //회원가입
     public void join(UserRequest.JoinDTO joinDTO) {
         User user = new User();
         user.setEmail(joinDTO.getEmail());
+
         user.setPassword(
-                EncryptUtil.hashPassword(joinDTO.getPassword())
+                EncryptUtil.hashPw(joinDTO.getPassword())
         );
         user.setNickname(joinDTO.getName());
 
@@ -51,5 +53,21 @@ public class UserService {
         );
         user.setBirth(bod);
         userRepository.save(user);
+    }
+    //로그인
+    public UserResponse.LoggedInUserDTO login(UserRequest.LoginDTO loginDTO) {
+        String msg = "이메일 혹은 비밀번호가 일치하지 않습니다.";
+        User user = userRepository.findByEmail(loginDTO.getEmail());
+
+        //해당 이메일로 사용자가 검색되지 않을 경우(없는 회원)
+        if(user == null) throw new RuntimeException(msg);
+
+        //사용자가 입력한 비밀번호와 db에 저장된 비밀번호를 비교한다.
+        //일치하는 경우
+        if( EncryptUtil.checkPw(loginDTO.getPassword(), user.getPassword()) ){
+            return new UserResponse.LoggedInUserDTO(user);
+        }
+        //비밀번호 불일치
+        else throw new RuntimeException(msg);
     }
 }
