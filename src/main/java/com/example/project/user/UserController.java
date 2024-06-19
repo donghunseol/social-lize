@@ -41,4 +41,10 @@ public class UserController {
     public String login() {
         return "user/login";
     }
+
+    // 회원가입 메인 페이지
+    @GetMapping("/user/joinMain")
+    public String joinMain() {
+        return "user/joinMainForm";
+    }
 }
