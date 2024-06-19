@@ -1,5 +1,4 @@
 {{> layout/header}}
-
 <div class="container">
     <div class="tab-nav">
         <button class="tab-button active" data-tab="mySocial">내 소셜</button>
@@ -47,10 +46,12 @@
             <button class="scroll-button" onclick="scrollLeft()">&#9664;</button>
             <div class="d-flex flex-nowrap overflow-auto category-wrap-vertical">
                 {{#model.categoryList}}
-                    <div class="category-item">
+                <li class="category-item">
+                    <button class="tab-button" data-tab="findSocial" name="categoryNameId" value="{{id}}">
                         <img src="{{imagePath}}" class="rounded-circle category-img" alt="...">
                         <h5 class="mt-2 text-center">{{name}}</h5>
-                    </div>
+                    </button>
+                </li>
                 {{/model.categoryList}}
             </div>
             <button class="scroll-button" onclick="scrollRight()">&#9654;</button>
@@ -82,10 +83,12 @@
             <button class="scroll-button" onclick="scrollLeft()">&#9664;</button>
             <div class="d-flex flex-nowrap overflow-auto category-wrap-vertical">
                 {{#model.categoryList}}
-                    <div class="category-item">
-                        <img src="{{imagePath}}" class="rounded-circle category-img" alt="...">
-                        <h5 class="mt-2 text-center">{{name}}</h5>
-                    </div>
+                    <li class="category-item">
+                        <button name="categoryNameId" value="{{id}}">
+                            <img src="{{imagePath}}" class="rounded-circle category-img" alt="...">
+                            <h5 class="mt-2 text-center">{{name}}</h5>
+                        </button>
+                    </li>
                 {{/model.categoryList}}
             </div>
             <button class="scroll-button" onclick="scrollRight()">&#9654;</button>
@@ -155,27 +158,42 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabContents = document.querySelectorAll('.tab-content');
+        const tabButtons = document.querySelectorAll('.tab-button'); // 모든 탭 버튼 가져오기
+        const tabContents = document.querySelectorAll('.tab-content'); // 모든 탭 콘텐츠 가져오기
 
+        // 탭 버튼 클릭 시 처리하는 함수
+        function handleTabButtonClick(button) {
+            // 모든 버튼에서 'active' 클래스 제거
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            // 클릭된 버튼에 'active' 클래스 추가
+            button.classList.add('active');
+
+            // 모든 탭 콘텐츠 숨기기
+            tabContents.forEach(content => content.style.display = 'none');
+            // 클릭된 버튼에 해당하는 콘텐츠 보이기
+            const tabId = button.getAttribute('data-tab');
+            document.getElementById(tabId).style.display = 'block';
+
+            // 탭 네비게이션에 파란색 줄 추가
+            const tabNav = document.querySelector('.tab-nav');
+        }
+
+        // 모든 탭 버튼에 클릭 이벤트 리스너 등록
         tabButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to the clicked button
-                button.classList.add('active');
+                handleTabButtonClick(button);
 
-                // Hide all tab contents
-                tabContents.forEach(content => content.style.display = 'none');
-                // Show the content corresponding to the clicked button
-                const tabId = button.getAttribute('data-tab');
-                document.getElementById(tabId).style.display = 'block';
+                // 만약 클릭된 버튼의 data-tab 값이 'findSocial'이면 소셜 찾기 버튼에 active 클래스 추가
+                if (button.getAttribute('data-tab') === 'findSocial') {
+                    document.querySelector('.tab-button[data-tab="findSocial"]').classList.add('active');
+                }
             });
         });
 
-        // Show the first tab by default
+        // 페이지 로드 시 첫 번째 탭 기본으로 보이게 함
         document.querySelector('.tab-button').click();
     });
+
 </script>
 
 {{> layout/footer}}
