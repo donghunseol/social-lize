@@ -1,3 +1,4 @@
+-- 유저 테이블
 INSERT INTO user_tb (email, password, nickname, image, phone, birth, role, created_at, provider)
 VALUES ('ssar@nate.com', '1234', 'ssar', 'image1.png', '010-1234-5678', '1994-12-26', 'USER', now(), null),
        ('cos@daum.net', '1234', 'cos', 'image2.png', '010-2345-6789', '1992-10-24', 'USER', now(), null),
@@ -6,30 +7,25 @@ VALUES ('ssar@nate.com', '1234', 'ssar', 'image1.png', '010-1234-5678', '1994-12
        ('lucy@gmail.com', '1234', '김루씨', 'image5.png', '010-5678-1234', '1996-08-30', 'USER', now(), null),
        ('manager@gmail.com', '1234', '소셜 매니저', 'image5.png', null, null, 'MANAGER', now(), null);
 
-
+-- 소셜 테이블
 INSERT INTO social_tb (name, image, info, created_at)
 VALUES ('그린컴퓨터학원 수강생 모임', '/usr/local/repos/img.jpg',
         '컴퓨터 학원에서 만난 수강생들이 기술과 지식을 공유하며 서로를 격려하는 네트워킹 모임입니다. 이 모임은 최신 기술 트렌드에 대한 토론, 공동 프로젝트 수행, 그리고 전문 기술 스킬 향상을 목표로 하고 있습니다. 여러분의 커리어 발전을 위한 완벽한 기회를 제공하며, 동시에 새로운 친구를 만날 수 있는 활기찬 모임입니다. 여러분의 참여를 기다립니다!',
-        now()
-       ),
+        now()),
        ('Springboot 스터디 모임 - 서면', '/usr/local/repos/springboot.jpg',
         '스프링부트 스터디 모임에 여러분을 초대합니다! 함께 배우고 성장할 수 있는 공간에서 스프링부트의 핵심 기능을 마스터하고, 실제 프로젝트에 적용해보세요. 체계적인 학습과 협업을 통해 Java 및 스프링 생태계에서의 전문성을 높여갈 수 있는 기회를 제공합니다. 매주 정기적으로 만나, 각자의 경험과 지식을 공유하며 실력을 쌓아가는 시간이 될 것입니다.',
-        now()
-       ),
+        now()),
        ('수제 담배 만들기 모임- 연산동', '/usr/local/repos/tobaco.jpg',
         '수제 담배 만들기 모임에 여러분을 초대합니다! 담배 잎 선별부터 롤링 기술까지, 전문가와 함께 수제 담배의 모든 과정을 배우고 직접 만들어 보세요. 이 모임은 수제 담배에 관심 있는 모든 분들에게 개방되어 있으며, 서로의 노하우를 공유하고 즐거운 시간을 보낼 수 있는 완벽한 기회입니다. 함께 특별한 경험을 만들어가며 담배 만들기의 예술을 체험해 보세요.',
-        now()
-       ),
+        now()),
        ('아이폰 사용자 모임', '/usr/local/repos/iphone.jpg',
         '아이폰 사용자 모임에 여러분을 초대합니다! 이 모임은 아이폰 사용자들이 모여 최신 기능, 팁, 앱 등을 공유하고 서로의 경험을 나누는 자리입니다. 아이폰의 숨겨진 기능을 발견하고, 문제 해결 방법을 배우며, 새로운 앱을 추천받을 수 있는 기회를 제공합니다. 아이폰을 더 효율적으로 사용하는 방법을 배우고 싶다면 이 모임이 정답입니다. 매주 정기적으로 만나는 우리 모임에 참여해 보세요!',
-        now()
-       ),
+        now()),
        ('아이스아메리카노를 사랑하는 사람들', '/usr/local/repos/americano.jpg',
         '아이스 아메리카노를 사랑하는 사람들의 모임에 여러분을 초대합니다! 이 모임은 커피 애호가들이 모여 아이스 아메리카노의 매력에 대해 토론하고, 다양한 카페를 탐방하며 최고의 아이스 아메리카노를 찾아다니는 모험을 함께하는 자리입니다. 커피에 대한 깊은 이해와 함께, 새로운 친구들을 만나고 즐거운 시간을 보내며 일상에 작은 활력을 더할 수 있는 기회를 제공합니다. 커피와 대화를 사랑하는 모든 분들의 참여를 기다립니다!',
-        now()
-       )
-    ;
+        now());
 
+-- 소셜 게시판 테이블
 INSERT INTO board_tb (social_id, user_id, title, content, role, created_at)
 VALUES
     (1, 1, '환영합니다!', '이 커뮤니티에 오신 것을 환영합니다.<br>감사합니다.', 'POST', now()),
@@ -55,8 +51,7 @@ VALUES
     (1, 1, '유저 번호 2번에게 신고당한 게시글', '유저 번호 2번에게 신고당한 게시글 입니다.', 'POST', now()),
     (1, 2, '유저 번호 1번에게 신고당한 게시글', '유저 번호 1번에게 신고당한 게시글 입니다.', 'POST', now());
 
-
---소셜 마다 공지사항 등록
+-- 소셜 마다 공지사항 등록
 INSERT INTO board_tb (social_id, user_id, title, content, role, created_at)
 VALUES
     (1, 6, '커뮤니티 규칙 강화 안내', '모든 회원은 서로를 존중해 주시기 바랍니다.<br>불쾌한 언행은 삼가해 주세요.', 'NOTICE', now()),
@@ -65,6 +60,7 @@ VALUES
     (4, 6, '새로운 기능 업데이트', '사용자의 편의성을 위해 새 기능이 추가되었습니다.<br>많은 이용 바랍니다.', 'NOTICE', now()),
     (5, 6, '안전한 사용을 위한 안내', '모임장소에서의 안전 수칙을 준수해 주세요.<br>모두의 안전을 위해 협력해 주시길 바랍니다.', 'NOTICE', now());
 
+-- 댓글 테이블
 INSERT INTO reply_tb (board_id, user_id, content, created_at)
 VALUES
     (1, 1, '오늘도 좋은 하루 시작하셨나요? 활기찬 하루 되세요!', now()),
@@ -90,6 +86,7 @@ VALUES
     (21, 1, '좀 더 심층적인 분석이 이루어졌으면 좋겠네요.', now()),
     (22, 2, '이 주제에 대해 더 많은 사례를 볼 수 있을까요?', now());
 
+-- 대댓글 테이블
 INSERT INTO rereply_tb (reply_id, user_id, content, created_at)
 VALUES
     (1, 1, '정말 좋은 의견 감사합니다!', now()),
@@ -115,6 +112,7 @@ VALUES
     (21, 1, '이 주제에 대한 정보가 더 필요합니다.', now()),
     (22, 2, '정말 중요한 포인트를 잘 짚어주셨어요.', now());
 
+-- 문의사항 테이블
 INSERT INTO qna_tb (user_id, title, content, reply_content, reply_created_at, created_at)
 VALUES (1, '카테고리 추가해주세요', '공포 카테고리 추가해주세요', '빠른 시일내로 추가해 드리겠습니다.', '2024-06-17', '2024-06-16'),
        (2, '대댓글에도 댓글을 달고 싶어요', '기능 추가 가능한가요?', '죄송합니다 대댓글에 댓글을 다는 기능은 추가해드리기 어렵습니다.', '2024-06-15', '2024-06-14'),
@@ -122,6 +120,7 @@ VALUES (1, '카테고리 추가해주세요', '공포 카테고리 추가해주�
        (4, '멤버 추가가 안되요 ㅠㅠ', '고쳐 주세요 ㅠㅠ', '오류 화면을 캡쳐하여 알려주시면 빠른 시일내로 고쳐드리겠습니다.', '2024-06-13', '2024-06-12'),
        (5, '오늘 가입했는데요', '다른 사람 소셜에는 어떻게 들어가나요?', null, null, '2024-06-18');
 
+-- 알림 테이블
 INSERT INTO notification_tb(user_id, role, created_at)
 VALUES (1, 'BOARD', now()),
        (1, 'REPLY', now()),
@@ -139,6 +138,7 @@ VALUES (1, 'BOARD', now()),
        (5, 'REPLY', now()),
        (5, 'REREPLY', now());
 
+-- 소셜 채팅 테이블
 INSERT INTO chat_tb (social_id, user_id, comment, created_at)
 VALUES (1, 1, '소셜에 가입 하신것을 환영합니다.', now()),
        (1, 2, '안녕하세요!', now()),
@@ -151,6 +151,7 @@ VALUES (1, 1, '소셜에 가입 하신것을 환영합니다.', now()),
        (5, 3, '여기 사람들은 아아만 마시나요?', now()),
        (5, 2, '저는 다른것도 마십니다 아아는 싼맛에..', now());
 
+-- 소셜 라이즈 멤버 테이블
 INSERT INTO social_member_tb(social_id, user_id, role, state, created_at)
 VALUES (1, 1, 'MANAGER', 'APPROVED', now()),
        (1, 2, 'MEMBER', 'APPROVED', now()),
@@ -178,6 +179,7 @@ VALUES (1, 1, 'MANAGER', 'APPROVED', now()),
        (4, 1, 'MEMBER', 'WAITING', now()),
        (5, 5, 'MEMBER', 'RESIGN', now());
 
+-- 소셜 카테고리 이름 테이블
 INSERT INTO category_name_tb (name)
 VALUES ('컴퓨터'),
        ('공부'),
@@ -189,6 +191,7 @@ VALUES ('컴퓨터'),
        ('커피'),
        ('카페');
 
+-- 소셜 카테고리 테이블
 INSERT INTO category_tb (social_id, category_name_id, created_at)
 VALUES (1, 1, now()),
        (1, 2, now()),
@@ -201,7 +204,7 @@ VALUES (1, 1, now()),
        (5, 8, now()),
        (5, 9, now());
 
-
+-- 게시글 좋아요 테이블
 INSERT INTO like_tb (user_id, board_id, created_at)
 VALUES (1, 2, now()),
        (1, 3, now()),
@@ -220,6 +223,7 @@ VALUES (1, 2, now()),
        (5, 9, now()),
        (5, 10, now());
 
+-- 게시글 북마크 테이블
 INSERT INTO bookmark_tb (user_id, board_id, created_at)
 VALUES (1, 2, now()),
        (2, 1, now()),
@@ -227,6 +231,7 @@ VALUES (1, 2, now()),
        (4, 7, now()),
        (5, 10, now());
 
+-- 게시글 해시태그 테이블
 INSERT INTO hashtagk_tb (board_id, name, created_at)
 VALUES (4, '게임추천', now()),
        (8, '노래', now()),
@@ -234,10 +239,13 @@ VALUES (4, '게임추천', now()),
        (16, '인테리어', now()),
        (20, '절약', now());
 
+-- 신고 테이블
 INSERT INTO report_tb (user_id, report_user_id, board_id, reply_id, rereply_id, content, result, created_at)
 VALUES (1, 2, 21, null, null, '2번 유저가 1번 유저의 21번 게시글을 신고함', '게시글 삭제 처리', now()),
        (2, 1, 22, null, null, '1번 유저가 2번 유저의 22번 게시글을 신고함', '게시글 수정 처리', now());
 
+
+-- 첨부 파일 테이블
 INSERT INTO file_tb (social_id, user_id, board_id, path, created_at)
 VALUES (1, 5, 4, 'file1', now()),
        (2, 1, 8, 'file2', now()),
@@ -245,6 +253,8 @@ VALUES (1, 5, 4, 'file1', now()),
        (4, 2, 16, 'file4', now()),
        (5, 4, 20, 'file5', now());
 
+
+-- 이미지 및 영상 앨범 테이블
 INSERT INTO album_tb (user_id, board_id, path, created_at)
 VALUES (5, 4, 'image1.png', now()),
        (1, 8, 'image2.png', now()),
