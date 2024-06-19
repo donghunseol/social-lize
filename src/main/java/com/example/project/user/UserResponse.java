@@ -1,11 +1,47 @@
 package com.example.project.user;
 
+import com.example.project._core.enums.UserEnum;
+import com.example.project._core.enums.UserProviderEnum;
 import com.example.project.category_name.CategoryName;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserResponse {
+    //로그인된 사용자의 DTO
+    @Data
+    public static class LoggedInUserDTO {
+        private Integer id; // 유저 번호
+        private String email; // 이메일
+        private String nickname; // 유저 이름
+        private String image; // 프로필 사진
+        private String phone; // 전화 번호
+        private LocalDate birth; // 생년 월일
+        private UserEnum role; // 권한
+        private UserProviderEnum provider;
+        private String provide_id; //프로바이더 고유번호 ( 소셜로그인에서 제공하는 고유 식별번호, 카카오는 Long 타입 )
+        private LocalDateTime createdAt; // 유저 가입 일자
+
+        public LoggedInUserDTO(User user) {
+            this.id = user.getId();
+            this.email = user.getEmail();
+            this.nickname = user.getNickname();
+            this.image = user.getImage();
+            this.phone = user.getPhone();
+            this.birth = user.getBirth();
+            this.role = user.getRole();
+            this.provider = user.getProvider();
+            this.provide_id = user.getProvide_id();
+            this.createdAt = user.getCreatedAt();
+        }
+    }
+
 
     @Data
     public static class MainDTO {

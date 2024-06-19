@@ -14,10 +14,10 @@ public class UserRequest {
         private String day;
         private String role;
     }
-//    @Data
-//    public static class LoginDTO{
-//        private String username;
-//        private String password;
-//    }
+    @Data
+    public static class LoginDTO{
+        private String email;
+        private String password;
+    }
 
 }
