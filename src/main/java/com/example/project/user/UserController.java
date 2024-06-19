@@ -1,5 +1,6 @@
 package com.example.project.user;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,11 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String main(){
+    public String mainPage(HttpServletRequest request) {
+        Integer userId = 1;
+        UserResponse.MainDTO model = userService.mainPage(userId);
+        request.setAttribute("model", model);
+
         return "main";
     }
 }

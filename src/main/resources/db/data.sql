@@ -1,6 +1,6 @@
 INSERT INTO user_tb (email, password, nickname, image, phone, birth, role, created_at, provider)
-VALUES ('ssar@nate.com', '1234', 'ssar', 'image1.png', '010-1234-5678', '1994-12-26', 'USER', now(), null),
-       ('cos@daum.net', '1234', 'cos', 'image2.png', '010-2345-6789', '1992-10-24', 'USER', now(), null),
+VALUES ('ssar@nate.com', '1234', '하승진', 'image1.png', '010-1234-5678', '1994-12-26', 'USER', now(), null),
+       ('cos@daum.net', '1234', '김세운', 'image2.png', '010-2345-6789', '1992-10-24', 'USER', now(), null),
        ('jane@kakao.com', '1234', '박제인', 'image3.png', '010-3456-7890', '1995-07-19', 'USER', now(), 'KAKAO'),
        ('john@naver.com', '1234', '설조온', 'image4.png', '010-4567-8901', '1993-03-15', 'USER', now(), 'NAVER'),
        ('lucy@gmail.com', '1234', '김루씨', 'image5.png', '010-5678-1234', '1996-08-30', 'USER', now(), null),
@@ -51,9 +51,7 @@ VALUES
     (5, 1, '커뮤니티 소식', '커뮤니티의 최신 소식과 업데이트를 공유합니다.<br>회원님들의 활동을 기다립니다.', 'POST', now()),
     (5, 2, '심리학 강좌', '심리학에 관심 있는 분들을 위한 강좌 정보입니다.<br>마음을 이해하는 시간을 가져보세요.', 'POST', now()),
     (5, 3, '여행 팁', '저렴하게 여행할 수 있는 팁을 공유합니다.<br>비용을 절약하면서 여행의 즐거움을 누려보세요.', 'POST', now()),
-    (5, 4, '헬스케어 정보', '건강을 유지하는 데 필요한 헬스케어 정보를 공유합니다.<br>건강한 생활을 위한 팁을 알려드립니다.', 'POST', now()),
-    (1, 1, '유저 번호 2번에게 신고당한 게시글', '유저 번호 2번에게 신고당한 게시글 입니다.', 'POST', now()),
-    (1, 2, '유저 번호 1번에게 신고당한 게시글', '유저 번호 1번에게 신고당한 게시글 입니다.', 'POST', now());
+    (5, 4, '헬스케어 정보', '건강을 유지하는 데 필요한 헬스케어 정보를 공유합니다.<br>건강한 생활을 위한 팁을 알려드립니다.', 'POST', now());
 
 
 --소셜 마다 공지사항 등록
@@ -86,9 +84,7 @@ VALUES
     (17, 2, '사실 이 주제에 대해 더 공부해보고 싶어졌어요.', now()),
     (18, 3, '이 주제에 대한 더 많은 논의가 필요한 듯 싶습니다.', now()),
     (19, 4, '아주 좋은 글이었습니다. 작성자님께 감사드려요.', now()),
-    (20, 5, '글 내용 중 이 부분이 특히 인상적이었습니다.', now()),
-    (21, 1, '좀 더 심층적인 분석이 이루어졌으면 좋겠네요.', now()),
-    (22, 2, '이 주제에 대해 더 많은 사례를 볼 수 있을까요?', now());
+    (20, 5, '글 내용 중 이 부분이 특히 인상적이었습니다.', now());
 
 INSERT INTO rereply_tb (reply_id, user_id, content, created_at)
 VALUES
@@ -111,9 +107,7 @@ VALUES
     (17, 2, '저는 이와 다른 경험을 했습니다. 다른 시각도 고려해주세요.', now()),
     (18, 3, '더 깊이 있는 분석이 이루어졌으면 좋겠습니다.', now()),
     (19, 4, '좋은 정보 감사합니다. 더 많이 배우고 싶네요.', now()),
-    (20, 5, '이견이 있지만 토론이 재미있을 것 같네요.', now()),
-    (21, 1, '이 주제에 대한 정보가 더 필요합니다.', now()),
-    (22, 2, '정말 중요한 포인트를 잘 짚어주셨어요.', now());
+    (20, 5, '이견이 있지만 토론이 재미있을 것 같네요.', now());
 
 INSERT INTO qna_tb (user_id, title, content, reply_content, reply_created_at, created_at)
 VALUES (1, '카테고리 추가해주세요', '공포 카테고리 추가해주세요', '빠른 시일내로 추가해 드리겠습니다.', '2024-06-17', '2024-06-16'),
@@ -178,16 +172,16 @@ VALUES (1, 1, 'MANAGER', 'APPROVED', now()),
        (4, 1, 'MEMBER', 'WAITING', now()),
        (5, 5, 'MEMBER', 'RESIGN', now());
 
-INSERT INTO category_name_tb (name)
-VALUES ('컴퓨터'),
-       ('공부'),
-       ('흡연'),
-       ('수제'),
-       ('휴대폰'),
-       ('아이폰'),
-       ('안드로이드폰'),
-       ('커피'),
-       ('카페');
+INSERT INTO category_name_tb (name, image_path)
+VALUES ('컴퓨터', '이미지'),
+       ('공부', '이미지'),
+       ('흡연', '이미지'),
+       ('수제', '이미지'),
+       ('휴대폰', '이미지'),
+       ('아이폰', '이미지'),
+       ('안드로이드폰', '이미지'),
+       ('커피', '이미지'),
+       ('카페', '이미지');
 
 INSERT INTO category_tb (social_id, category_name_id, created_at)
 VALUES (1, 1, now()),
@@ -205,10 +199,16 @@ VALUES (1, 1, now()),
 INSERT INTO like_tb (user_id, board_id, created_at)
 VALUES (1, 2, now()),
        (1, 3, now()),
+       (2, 3, now()),
+       (3, 3, now()),
+       (4, 3, now()),
        (1, 11, now()),
        (1, 12, now()),
+       (2, 12, now()),
+       (3, 12, now()),
        (2, 1, now()),
        (2, 4, now()),
+       (3, 4, now()),
        (2, 13, now()),
        (2, 14, now()),
        (3, 15, now()),
@@ -217,8 +217,7 @@ VALUES (1, 2, now()),
        (4, 8, now()),
        (4, 17, now()),
        (4, 18, now()),
-       (5, 9, now()),
-       (5, 10, now());
+       (5, 9, now());
 
 INSERT INTO bookmark_tb (user_id, board_id, created_at)
 VALUES (1, 2, now()),
