@@ -13,178 +13,65 @@
                     <p class="card-text">만들기</p>
                 </div>
             </div>
-            <div class="card">
-                <img src="path/to/image1.jpg" class="card-img-top" alt="Image 1">
-                <div class="card-body">
-                    <h5 class="card-title">SNS 프로젝트 1조</h5>
-                    <p class="card-text">멤버 4</p>
+            {{#model.mySocialList}}
+                <div class="card">
+                    <img src="{{imagePath}}" class="card-img-top" alt="image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{title}}</h5>
+                        <p class="card-text">{{memberCount}}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <img src="path/to/image2.jpg" class="card-img-top" alt="Image 2">
-                <div class="card-body">
-                    <h5 class="card-title">SNS 프로젝트 1조</h5>
-                    <p class="card-text">멤버 1</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="path/to/image3.jpg" class="card-img-top" alt="Image 3">
-                <div class="card-body">
-                    <h5 class="card-title">지금 홍황 터졌네요, 천도 복숭아</h5>
-                    <p class="card-text">AD - 밴드 미리보기</p>
-                </div>
-            </div>
+            {{/model.mySocialList}}
         </div>
         <div class="mt-4">
             <h3>내 소셜 인기글</h3>
             <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body w-100">
-                            <h5 class="card-title">첫번째 인기글 제</h5>
-                            <p class="card-text">첫번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저1</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 11 💬 10</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100 w-100">
-                        <div class="card-body">
-                            <h5 class="card-title">두번째 인기글 제목</h5>
-                            <p class="card-text">두번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저2</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 19 💬 12</small>
+                {{#model.mySocialPopularList}}
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body w-100">
+                                <h5 class="card-title">{{title}}</h5>
+                                <p class="card-text">{{content}}</p>
+                                <p class="card-text"><small class="text-muted">작성자: {{nickname}}</small></p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">👍 {{likeCount}} 💬 {{replyCount}}</small>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">세번째 인기글 제목</h5>
-                            <p class="card-text">세번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저3</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 34 💬 5</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">네번째 인기글 제목</h5>
-                            <p class="card-text">네번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저4</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 7 💬 3</small>
-                        </div>
-                    </div>
-                </div>
+                {{/model.mySocialPopularList}}
             </div>
         </div>
-        <div class="mt-4 bg-light" style="width: 100%; margin-left: 0; margin-right: 0; position: relative;">
-            <h3>주제별 소셜을 찾아보세요</h3>
-            <div class="category-container">
-                <button class="scroll-button" onclick="scrollLeft()">&#9664;</button>
-                <div class="d-flex flex-nowrap overflow-auto category-wrap-vertical">
+        <h3>주제별 소셜을 찾아보세요</h3>
+        <div class="category-container">
+            <button class="scroll-button" onclick="scrollLeft()">&#9664;</button>
+            <div class="d-flex flex-nowrap overflow-auto category-wrap-vertical">
+                {{#model.categoryList}}
                     <div class="category-item">
-                        <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                        <h5 class="mt-2 text-center">제목 1</h5>
+                        <img src="{{imagePath}}" class="rounded-circle category-img" alt="...">
+                        <h5 class="mt-2 text-center">{{name}}</h5>
                     </div>
-                    <div class="category-item">
-                        <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                        <h5 class="mt-2 text-center">제목 2</h5>
-                    </div>
-                    <div class="category-item">
-                        <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                        <h5 class="mt-2 text-center">제목 3</h5>
-                    </div>
-                    <div class="category-item">
-                        <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                        <h5 class="mt-2 text-center">제목 4</h5>
-                    </div>
-                    <div class="category-item">
-                        <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                        <h5 class="mt-2 text-center">제목 5</h5>
-                    </div>
-                    <div class="category-item">
-                        <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                        <h5 class="mt-2 text-center">제목 6</h5>
-                    </div>
-                    <div class="category-item">
-                        <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                        <h5 class="mt-2 text-center">제목 7</h5>
-                    </div>
-                    <div class="category-item">
-                        <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                        <h5 class="mt-2 text-center">제목 8</h5>
-                    </div>
-                    <div class="category-item">
-                        <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                        <h5 class="mt-2 text-center">제목 9</h5>
-                    </div>
-                </div>
-                <button class="scroll-button" onclick="scrollRight()">&#9654;</button>
+                {{/model.categoryList}}
             </div>
+            <button class="scroll-button" onclick="scrollRight()">&#9654;</button>
         </div>
-
-        <div class="mt-4">
+        <div class="mt-2">
             <h3>오늘의 인기글</h3>
             <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">첫번째 인기글 제</h5>
-                            <p class="card-text">첫번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저1</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 11 💬 10</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">두번째 인기글 제목</h5>
-                            <p class="card-text">두번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저2</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 19 💬 12</small>
+                {{#model.popularPostList}}
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{title}}</h5>
+                                <p class="card-text">{{content}}</p>
+                                <p class="card-text"><small class="text-muted">작성자: {{nickname}}</small></p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">👍 {{likeCount}} 💬 {{replyCount}}</small>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">세번째 인기글 제목</h5>
-                            <p class="card-text">세번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저3</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 34 💬 5</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">네번째 인기글 제목</h5>
-                            <p class="card-text">네번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작자: 유저4</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 7 💬 3</small>
-                        </div>
-                    </div>
-                </div>
+                {{/model.popularPostList}}
             </div>
         </div>
     </div>
@@ -194,42 +81,12 @@
         <div class="category-container">
             <button class="scroll-button" onclick="scrollLeft()">&#9664;</button>
             <div class="d-flex flex-nowrap overflow-auto category-wrap-vertical">
-                <div class="category-item">
-                    <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                    <h5 class="mt-2 text-center">제목 1</h5>
-                </div>
-                <div class="category-item">
-                    <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                    <h5 class="mt-2 text-center">제목 2</h5>
-                </div>
-                <div class="category-item">
-                    <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                    <h5 class="mt-2 text-center">제목 3</h5>
-                </div>
-                <div class="category-item">
-                    <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                    <h5 class="mt-2 text-center">제목 4</h5>
-                </div>
-                <div class="category-item">
-                    <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                    <h5 class="mt-2 text-center">제목 5</h5>
-                </div>
-                <div class="category-item">
-                    <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                    <h5 class="mt-2 text-center">제목 6</h5>
-                </div>
-                <div class="category-item">
-                    <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                    <h5 class="mt-2 text-center">제목 7</h5>
-                </div>
-                <div class="category-item">
-                    <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                    <h5 class="mt-2 text-center">제목 8</h5>
-                </div>
-                <div class="category-item">
-                    <img src="https://via.placeholder.com/100" class="rounded-circle category-img" alt="...">
-                    <h5 class="mt-2 text-center">제목 9</h5>
-                </div>
+                {{#model.categoryList}}
+                    <div class="category-item">
+                        <img src="{{imagePath}}" class="rounded-circle category-img" alt="...">
+                        <h5 class="mt-2 text-center">{{name}}</h5>
+                    </div>
+                {{/model.categoryList}}
             </div>
             <button class="scroll-button" onclick="scrollRight()">&#9654;</button>
         </div>

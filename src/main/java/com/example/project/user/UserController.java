@@ -1,5 +1,6 @@
 package com.example.project.user;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,11 @@ public class UserController {
 
 
     @GetMapping("/")
-    public String main(){
+    public String mainPage(HttpServletRequest request) {
+        Integer userId = 1;
+        UserResponse.MainDTO model = userService.mainPage(userId);
+        request.setAttribute("model", model);
+
         return "main";
     }
 
@@ -32,5 +37,11 @@ public class UserController {
     @GetMapping("/user/login")
     public String login() {
         return "user/login";
+    }
+
+    // 회원가입 메인 페이지
+    @GetMapping("/user/joinMain")
+    public String joinMain() {
+        return "user/joinMainForm";
     }
 }
