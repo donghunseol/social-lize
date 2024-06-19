@@ -30,4 +30,10 @@ public class UserController {
     public String socialAdd() {
         return "social/notLoggedinMain";
     }
+
+    // 로그인 페이지
+    @GetMapping("/user/login")
+    public String login() {
+        return "user/login";
+    }
 }
