@@ -27,15 +27,45 @@ body {
 }
 
 .header .search-bar {
-    width: 60%;
+    width: 40%;
     margin-right: auto;
 }
 
-.header .search-bar input {
+.search-bar {
+    position: relative;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    box-sizing: border-box;
+    padding: 5px 20px;
+}
+.search-bar input[type="text"] {
     width: 100%;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin-right: 10px;
+}
+
+.search-bar .fa-search {
+    color: #888;
+}
+
+.fa-bell {
+    color: #5C9CFA;
+    font-size: 25px;
+}
+
+.fa-comments {
+    color: #5C9CFA;
+    font-size: 25px;
+}
+
+.fa-user {
+    color: #5C9CFA;
+    font-size: 25px;
 }
 
 .header .menu {
