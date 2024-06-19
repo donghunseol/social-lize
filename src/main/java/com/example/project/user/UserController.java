@@ -5,7 +5,9 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+
 
 @RequiredArgsConstructor
 @Controller
@@ -34,9 +36,9 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String mainPage(HttpServletRequest request) {
+    public String mainPage(Integer categoryNameId, HttpServletRequest request) {
         Integer userId = 1;
-        UserResponse.MainDTO model = userService.mainPage(userId);
+        UserResponse.MainDTO model = userService.mainPage(userId, categoryNameId);
         request.setAttribute("model", model);
 
         return "main";

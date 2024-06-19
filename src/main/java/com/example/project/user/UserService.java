@@ -17,10 +17,8 @@ public class UserService {
     private final CategoryNameRepository categoryNameRepository;
     private final UserQueryRepository userQueryRepository;
 
-    public UserResponse.MainDTO mainPage(Integer userId) {
+    public UserResponse.MainDTO mainPage(Integer userId, Integer categoryId) {
         List<Object[]> mySocialList = userQueryRepository.mySocialList(userId);
-
-
 
         List<Object[]> mySocialPopularList = userQueryRepository.mySocialPopularList(userId);
 
@@ -28,8 +26,9 @@ public class UserService {
 
         List<CategoryName> categoryNameList = categoryNameRepository.findAll();
 
+        List<Object[]> categorySocialList = userQueryRepository.categorySocialList(categoryId);
 
-        return new UserResponse.MainDTO(mySocialList, mySocialPopularList, popularPostList, categoryNameList);
+        return new UserResponse.MainDTO(mySocialList, mySocialPopularList, popularPostList, categoryNameList, categorySocialList);
     }
     public void join(UserRequest.JoinDTO joinDTO) {
         User user = new User();

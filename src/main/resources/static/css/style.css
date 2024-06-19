@@ -587,6 +587,14 @@ body {
     height: 80px;
 }
 
+.category-item button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    text-align: center;
+}
+
 /* 넘기는 버튼 스타일 */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
