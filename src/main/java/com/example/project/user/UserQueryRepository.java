@@ -35,7 +35,7 @@ public class UserQueryRepository {
                 """;
 
         Query query = em.createNativeQuery(q);
-        query.setParameter(1, 1);
+        query.setParameter(1, userId);
 
         return query.getResultList();
     }
@@ -72,7 +72,7 @@ public class UserQueryRepository {
                 """;
 
         Query query = em.createNativeQuery(q);
-        query.setParameter(1, 1);
+        query.setParameter(1, userId);
 
         return query.getResultList();
     }
@@ -134,7 +134,7 @@ public class UserQueryRepository {
                 """;
 
         Query query = em.createNativeQuery(q);
-        query.setParameter(1, 1);
+        query.setParameter(1, userId);
 
         return query.getResultList();
     }

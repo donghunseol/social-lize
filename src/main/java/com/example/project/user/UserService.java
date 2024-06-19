@@ -18,7 +18,7 @@ public class UserService {
     private final CategoryNameRepository categoryNameRepository;
     private final UserQueryRepository userQueryRepository;
 
-    public UserResponse.MainDTO mainPage(Integer userId, Integer categoryId) {
+    public UserResponse.MainDTO mainPage(Integer userId) {
         List<Object[]> mySocialList = userQueryRepository.mySocialList(userId);
 
         List<Object[]> mySocialPopularList = userQueryRepository.mySocialPopularList(userId);
@@ -27,10 +27,15 @@ public class UserService {
 
         List<CategoryName> categoryNameList = categoryNameRepository.findAll();
 
+        return new UserResponse.MainDTO(mySocialList, mySocialPopularList, popularPostList, categoryNameList);
+    }
+
+    public UserResponse.MainAjaxDTO mainAjax(Integer categoryId) {
         List<Object[]> categorySocialList = userQueryRepository.categorySocialList(categoryId);
 
-        return new UserResponse.MainDTO(mySocialList, mySocialPopularList, popularPostList, categoryNameList, categorySocialList);
+        return new UserResponse.MainAjaxDTO(categorySocialList);
     }
+
     //회원가입
     public void join(UserRequest.JoinDTO joinDTO) {
         User user = new User();

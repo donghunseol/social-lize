@@ -25,9 +25,9 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String mainPage(Integer categoryNameId, HttpServletRequest request) {
+    public String mainPage(HttpServletRequest request) {
         Integer userId = 1;
-        UserResponse.MainDTO model = userService.mainPage(userId, categoryNameId);
+        UserResponse.MainDTO model = userService.mainPage(userId);
         request.setAttribute("model", model);
 
         return "main";
