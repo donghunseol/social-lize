@@ -7,19 +7,19 @@
                 <h2>내가 쓴 글</h2>
             </div>
         </div>
-    <div class="tabs">
-        <button class="tablink active" onclick="openTab(event, '게시글')">게시글</button>
-        <button class="tablink" onclick="openTab(event, '댓글')">댓글</button>
+        <div class="tabs">
+            <button class="tablink active" onclick="openTab(event, '게시글')">게시글</button>
+            <button class="tablink" onclick="openTab(event, '댓글')">댓글</button>
+        </div>
+        <div id="게시글" class="tab-content active">
+            {{> layout/post}}
+            {{> layout/post}}
+        </div>
+        <div id="댓글" class="tab-content">
+            {{> layout/post}}
+            {{> layout/post}}
+        </div>
     </div>
-    <div id="게시글" class="tab-content active">
-        {{> layout/post}}
-        {{> layout/post}}
-    </div>
-    <div id="댓글" class="tab-content">
-        {{> layout/post}}
-        {{> layout/post}}
-    </div>
-</div>
 </div>
 <script>
     function openTab(evt, tabName) {

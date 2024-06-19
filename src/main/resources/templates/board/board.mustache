@@ -32,34 +32,7 @@
             </div>
         </div>
         <div class="board-container">
-            <div class="board">
-                <div class="board-header p-3" id="openModalBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <img class="profile-pic" src="images/puppy.png" alt="Profile">
-                    <div class="username">사용자1</div>
-                <div class="time">1분 전</div>
-                </div>
-                <div class="board-content p-3">
-                    내용입니다
-                </div>
-                <div class="board-footer p-2">
-                    <div>좋아요 3</div>
-                    <div>댓글 8</div>
-                </div>
-            </div>
-            <div class="board">
-                <div class="board-header p-3">
-                    <img class="profile-pic" src="images/puppy.png" alt="Profile">
-                    <div class="username">사용자2</div>
-                    <div class="time">1분 전</div>
-                </div>
-                <div class="board-content p-3">
-                    내용입니다
-                </div>
-                <div class="board-footer p-2">
-                    <div>좋아요 5</div>
-                    <div>댓글 10</div>
-                </div>
-            </div>
+            {{> layout/post }}
         </div>
     </div>
     <div class="chat-container">
@@ -70,7 +43,8 @@
         <div class="chat-messages">
             <div class="chat-date">2024년 6월 17일</div>
             <div class="chat-message">
-                <img src="images/puppy.png" alt="프로필 사진" class="profile-pic">
+                <img src="images/puppy.png" alt="프로필 사진" class="profile-pic" id="openModalBtn" data-bs-toggle="modal"
+                     data-bs-target="#profileModal">
                 <div class="message-content">
                     <div class="sender">설동훈</div>
                     <div class="message-container">
@@ -87,49 +61,4 @@
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="text-align: start">
-    <div class="modal-dialog">
-        <div class="board-modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">이벤트 공지</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="user-info">
-                    <img src="https://via.placeholder.com/50" alt="User Image" class="rounded-circle" style="width: auto">
-                    <strong>이다정</strong> 23기
-                    <p>2019년 5월 22일 오후 7:55</p>
-                </div>
-                <p>내용이 나오는 공간입니다.</p>
-                <div class="board-actions">
-                    <div class="likes-comments">
-                        <i class="fas fa-smile"></i> <span>좋아요</span> <span>1</span>
-                    </div>
-                    <div class="likes-comments">
-                        <i class="fas fa-comment"></i> <span>댓글쓰기</span> <span>1</span>
-                    </div>
-                </div>
-                <div class="board-comment-section">
-                    <div class="board-comment">
-                        <strong>댓글 작성자</strong>
-                        <p>댓글 내용입니다.</p>
-                        <div class="reply">
-                            <strong>답글 작성자</strong>
-                            <p>답글 내용입니다.</p>
-                        </div>
-                    </div>
-                    <div class="board-comment">
-                        <strong>댓글 작성자</strong>
-                        <p>댓글 내용입니다.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-
-{{> layout/footer}}
+{{> layout/footer }}
