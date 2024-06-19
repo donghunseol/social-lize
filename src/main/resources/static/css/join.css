@@ -4,37 +4,51 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: linear-gradient(to bottom, #a1c4fd 30%, #fff2ba 60%, white 90%);
+    min-height: 100vh;
+    background: white;
 }
 
-.joinmain-container {
+.background {
+    width: 100%;
+    height: 75vh;
+    background: url('/images/joinbg1.png') no-repeat center bottom;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.signup-container {
     text-align: center;
+    z-index: 1;
+    padding-top: 5vh;
 }
 
-.joinmain-breadcrumb {
+.signup-breadcrumb {
     padding: 10px;
     margin-bottom: 20px;
 }
 
-.joinmain-breadcrumb a {
+.signup-breadcrumb a {
     padding: 10px;
     text-decoration: none;
     color: #555;
 }
 
-.joinmain-breadcrumb span {
+.signup-breadcrumb span {
     padding: 10px;
     color: #555;
 }
 
-.joinmain-box-container {
+.signup-box-container {
+    padding-bottom: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.joinmain-box {
+.signup-box {
     background: #fff;
     padding: 40px;
     border-radius: 10px;
@@ -43,13 +57,13 @@ body {
     width: 100%;
 }
 
-.joinmain-title {
+.signup-title {
     margin-bottom: 10px;
     font-size: 2em;
     color: #444;
 }
 
-.joinmain-left-align-title {
+.signup-left-align-title {
     text-align: left;
     margin-bottom: 20px;
     color: #555;
@@ -58,20 +72,22 @@ body {
     margin-top: 0;
 }
 
-.joinmain-left-align-text {
+.signup-left-align-text {
     text-align: left;
     margin-bottom: 20px;
     color: #555;
     width: 100%;
 }
 
-.joinmain-textbox {
+.signup-textbox {
     position: relative;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
 }
 
-.joinmain-textbox input {
-    width: calc(100% - 40px);
+.signup-textbox input {
+    width: 100%;
     padding: 10px 20px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -79,21 +95,21 @@ body {
     height: 25px;
 }
 
-.joinmain-password-toggle {
+.signup-password-toggle {
     position: absolute;
     top: 50%;
-    right: 20px;
+    right: 40px;
     transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
 }
 
-.joinmain-btn {
+.signup-btn {
     width: 100%;
     height: 50px;
     padding: 10px;
-    background: #4285f4;
+    background: #5C9CFA;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -102,69 +118,69 @@ body {
     margin-bottom: 10px;
 }
 
-.joinmain-btn:hover {
-    background: #357ae8;
+.signup-btn:hover {
+    background: #5C9CFA;
 }
 
-.joinmain-kakao-btn {
+.signup-kakao-btn {
     background: #fee500;
     color: #3c1e1e;
 }
 
-.joinmain-naver-btn {
+.signup-naver-btn {
     background: #03c75a;
     color: #fff;
 }
 
-.joinmain-kakao-btn:hover {
+.signup-kakao-btn:hover {
     background: #e5c600;
 }
 
-.joinmain-naver-btn:hover {
+.signup-naver-btn:hover {
     background: #02b14a;
 }
 
-.joinmain-forgot-password {
+.signup-forgot-password {
     display: block;
     margin-top: 10px;
-    color: #4285f4;
+    color: #5C9CFA;
     text-decoration: none;
 }
 
-.joinmain-forgot-password:hover {
+.signup-forgot-password:hover {
     text-decoration: underline;
 }
 
-.joinmain-divider {
+.signup-divider {
     display: flex;
     align-items: center;
     text-align: center;
     margin: 20px 0;
 }
 
-.joinmain-divider::before,
-.joinmain-divider::after {
+.signup-divider::before,
+.signup-divider::after {
     content: '';
     flex: 1;
     border-bottom: 1px solid #ccc;
 }
 
-.joinmain-divider:not(:empty)::before {
+.signup-divider:not(:empty)::before {
     margin-right: .5em;
 }
 
-.joinmain-divider:not(:empty)::after {
+.signup-divider:not(:empty)::after {
     margin-left: .5em;
 }
 
-.joinmain-social-login {
+.signup-social-login {
     display: flex;
     justify-content: center;
     gap: 10px;
     margin-top: 20px;
 }
 
-.joinmain-social-login button {
+.signup-social-login button {
     width: 40px;
     height: 40px;
     border: none;
@@ -174,14 +190,42 @@ body {
     color: #fff;
 }
 
-.joinmain-google-btn {
-    background: #db4437;
+.checkmark {
+    display: none;
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: green;
+    font-size: 1.2em;
 }
 
-.joinmain-facebook-btn {
-    background: #3b5998;
+.checkmark.visible {
+    display: inline;
 }
 
-.joinmain-twitter-btn {
-    background: #1da1f2;
+.verify-btn {
+    margin-bottom: 10px;
+    background: #5C9CFA;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 5px;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-left: 10px;
+    height: 45px;
+    width: 80px;
+}
+
+.verify-btn:hover {
+    background: #5C9CFA;
+}
+
+.short-input {
+    width: calc(100% - 110px);
+}
+
+.verification-box {
+    display: none;
 }
