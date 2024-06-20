@@ -1,11 +1,15 @@
 {{> layout/header}}
 
-<div class="container">
-    <div class="tab-nav">
-        <button class="tab-button active" data-tab="mySocial">내 소셜</button>
-        <button class="tab-button" data-tab="findSocial">소셜 찾기</button>
-    </div>
-    <div class="tab-content" id="mySocial">
+<div class="container mt-4 d-flex flex-column">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="#" onclick="openTab(event, 'mySocial')">내 소셜</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" onclick="openTab(event, 'findSocial')">소셜 찾기</a>
+        </li>
+    </ul>
+    <div id="mySocial" name="mySocial" class="tab-content active mt-4 my-social">
         <div class="card-deck">
             <div class="card create-band-card">
                 <div class="card-body text-center">
@@ -13,189 +17,370 @@
                     <p class="card-text">만들기</p>
                 </div>
             </div>
-            {{#model.mySocialList}}
-                <div class="card">
-                    <img src="{{imagePath}}" class="card-img-top" alt="image">
-                    <div class="card-body">
-                        <p class="card-text">{{memberCount}}</p>
-                    </div>
+            <div class="card">
+                <img src="path/to/image1.jpg" class="card-img-top" alt="Image 1">
+                <div class="card-body">
+                    <h5 class="card-title">SNS 프로젝트 1조</h5>
+                    <p class="card-text">멤버 4</p>
                 </div>
-            {{/model.mySocialList}}
+            </div>
+            <div class="card">
+                <img src="path/to/image2.jpg" class="card-img-top" alt="Image 2">
+                <div class="card-body">
+                    <h5 class="card-title">SNS 프로젝트 1조</h5>
+                    <p class="card-text">멤버 1</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="path/to/image3.jpg" class="card-img-top" alt="Image 3">
+                <div class="card-body">
+                    <h5 class="card-title">지금 홍황 터졌네요, 천도 복숭아</h5>
+                    <p class="card-text">AD - 밴드 미리보기</p>
+                </div>
+            </div>
         </div>
         <div class="mt-4">
             <h3>내 소셜 인기글</h3>
             <div class="row">
-                {{#model.mySocialPopularList}}
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body w-100">
-                                <p class="card-text truncate">{{{content}}}</p>
-                                <p class="card-text"><small class="text-muted">작성자: {{nickname}}</small></p>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body w-100">
+                            <h5 class="card-title">첫번째 인기글 제</h5>
+                            <p class="card-text">첫번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저1</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 11 💬 10</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">두번째 인기글 제목</h5>
+                            <p class="card-text">두번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저2</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 19 💬 12</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">세번째 인기글 제목</h5>
+                            <p class="card-text">세번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저3</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 34 💬 5</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">네번째 인기글 제목</h5>
+                            <p class="card-text">네번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저4</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 7 💬 3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 bg-light" style="width: 100%; margin-left: 0; margin-right: 0;">
+            <h3>주제별 소셜을 찾아보세요</h3>
+            <div id="mySocialCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="d-flex justify-content-center">
+                            <div class="band-category">
+                                <img src="path/to/sports-leisure.jpg" class="circle" alt="스포츠/레저">
+                                <p>스포츠/레저</p>
                             </div>
-                            <div class="card-footer">
-                                <small class="text-muted">👍 {{likeCount}} 💬 {{replyCount}}</small>
+                            <div class="band-category">
+                                <img src="path/to/travel-camping.jpg" class="circle" alt="여행/캠핑">
+                                <p>여행/캠핑</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/daily-life.jpg" class="circle" alt="일상이야기">
+                                <p>일상이야기</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/food-dining.jpg" class="circle" alt="집/요리">
+                                <p>맛집/요리</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/entertainment.jpg" class="circle" alt="방송/연예">
+                                <p>방송/연예</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/living-info.jpg" class="circle" alt="생활정보/인테리어">
+                                <p>생활정보/인테리어</p>
                             </div>
                         </div>
                     </div>
-                {{/model.mySocialPopularList}}
+                    <!-- 추가 슬라이드 -->
+                    <div class="carousel-item">
+                        <div class="d-flex justify-content-center">
+                            <div class="band-category">
+                                <img src="path/to/language.jpg" class="circle" alt="/외국어">
+                                <p>어학/외국어</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/games.jpg" class="circle" alt="게임">
+                                <p>게임</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/age-group.jpg" class="circle" alt="나이/또래모임">
+                                <p>나이/또래모임</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/fan-club.jpg" class="circle" alt="팬클럽">
+                                <p>팬클럽</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/another-category1.jpg" class="circle" alt="추가 카테고리1">
+                                <p>추가 카테고리1</p>
+                            </div>
+                            <div class="band-category">
+                                <img src="path/to/another-category2.jpg" class="circle" alt="추가 카테고리2">
+                                <p>추가 카테고리2</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 넘기는 버튼 -->
+                <!-- mySocial 캐러셀 제어 버튼 -->
+                <a class="carousel-control-prev" href="#mySocialCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#mySocialCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
-        <h3>주제별 소셜을 찾아보세요</h3>
-        <div class="category-container">
-            <button class="scroll-button" onclick="scrollLeft()">&#9664;</button>
-            <div class="d-flex flex-nowrap overflow-auto category-wrap-vertical">
-                {{#model.categoryList}}
-                    <li class="category-item">
-                        <button class="tab-button category-button" data-tab="findSocial" data-category-id="{{id}}">
-                            <img src="{{imagePath}}" class="rounded-circle category-img" alt="...">
-                            <h5 class="mt-2 text-center">{{name}}</h5>
-                        </button>
-                    </li>
-                {{/model.categoryList}}
-            </div>
-            <button class="scroll-button" onclick="scrollRight()">&#9654;</button>
-        </div>
-        <div class="mt-2">
+        <div class="mt-4">
             <h3>오늘의 인기글</h3>
             <div class="row">
-                {{#model.popularPostList}}
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <p class="card-text truncate">{{{content}}}</p>
-                                <p class="card-text"><small class="text-muted">작성자: {{nickname}}</small></p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">👍 {{likeCount}} 💬 {{replyCount}}</small>
-                            </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">첫번째 인기글 제</h5>
+                            <p class="card-text">첫번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저1</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 11 💬 10</small>
                         </div>
                     </div>
-                {{/model.popularPostList}}
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">두번째 인기글 제목</h5>
+                            <p class="card-text">두번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저2</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 19 💬 12</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">세번째 인기글 제목</h5>
+                            <p class="card-text">세번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작성자: 유저3</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 34 💬 5</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">네번째 인기글 제목</h5>
+                            <p class="card-text">네번째 인기글 내용...</p>
+                            <p class="card-text"><small class="text-muted">작자: 유저4</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">👍 7 💬 3</small>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="tab-content" id="findSocial" style="display: none;">
-        <h3>주제별 소셜을 찾아보세요</h3>
-        <div class="category-container">
-            <button class="scroll-button" onclick="scrollLeft()">&#9664;</button>
-            <div class="d-flex flex-nowrap overflow-auto category-wrap-vertical">
-                {{#model.categoryList}}
-                    <li class="category-item">
-                        <button class="tab-button category-button" data-tab="findSocial" data-category-id="{{id}}">
-                            <img src="{{imagePath}}" class="rounded-circle category-img" alt="...">
-                            <h5 class="mt-2 text-center">{{name}}</h5>
-                        </button>
-                    </li>
-                {{/model.categoryList}}
-            </div>
-            <button class="scroll-button" onclick="scrollRight()">&#9654;</button>
-        </div>
-        <div class="category-social-list row mt-4">
 
+    <!-- 소셜 찾기 -->
+    <div id="findSocial" name="findSocial" class="tab-content mt-4 d-flex flex-column find-social">
+        <h3>주제별 소셜을 찾아보세요</h3>
+        <div id="findSocialCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="d-flex justify-content-center">
+                        <div class="band-category">
+                            <img src="path/to/sports-leisure.jpg" class="circle" alt="스포츠/레저">
+                            <p>스포츠/레저</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/travel-camping.jpg" class="circle" alt="여행/캠핑">
+                            <p>여행/캠핑</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/daily-life.jpg" class="circle" alt="일상이야기">
+                            <p>일상이야기</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/food-dining.jpg" class="circle" alt="집/요리">
+                            <p>맛집/요리</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/entertainment.jpg" class="circle" alt="방송/연예">
+                            <p>방송/연예</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/living-info.jpg" class="circle" alt="생활정보/인테리어">
+                            <p>생활정보/인테리어</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 추가 슬라이드 -->
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center">
+                        <div class="band-category">
+                            <img src="path/to/language.jpg" class="circle" alt="/외국어">
+                            <p>어학/외국어</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/games.jpg" class="circle" alt="게임">
+                            <p>게임</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/age-group.jpg" class="circle" alt="나이/또래모임">
+                            <p>나이/또래모임</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/fan-club.jpg" class="circle" alt="팬클럽">
+                            <p>팬클럽</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/another-category1.jpg" class="circle" alt="추가 카테고리1">
+                            <p>추가 카테고리1</p>
+                        </div>
+                        <div class="band-category">
+                            <img src="path/to/another-category2.jpg" class="circle" alt="추가 카테고리2">
+                            <p>추가 카테고리2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 넘기는 버튼 -->
+            <!-- findSocial 캐러셀 제어 버튼 -->
+            <a class="carousel-control-prev" href="#findSocialCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#findSocialCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div class="mt-4">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body d-flex justify-content-center">
+                            <div>
+                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
+                            </div>
+                            <div>
+                                <h5 class="card-title">첫번째 밴드 이름</h5>
+                                <p class="card-text">첫번째 밴드 소개글</p>
+                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body d-flex justify-content-center">
+                            <div>
+                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
+                            </div>
+                            <div>
+                                <h5 class="card-title">두번째 밴드 이름</h5>
+                                <p class="card-text">두번째 밴드 소개글</p>
+                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body d-flex justify-content-center">
+                            <div>
+                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
+                            </div>
+                            <div>
+                                <h5 class="card-title">세번째 밴드 이름</h5>
+                                <p class="card-text">세번째 밴드 소개글</p>
+                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body d-flex justify-content-center">
+                            <div>
+                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
+                            </div>
+                            <div>
+                                <h5 class="card-title">네번째 밴드 이름</h5>
+                                <p class="card-text">네번째 밴드 소개글</p>
+                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-
-
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const tabButtons = document.querySelectorAll('.tab-button'); // 모든 탭 버튼 가져오기
-        const tabContents = document.querySelectorAll('.tab-content'); // 모든 탭 콘텐츠 가져오기
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
 
-        // 탭 버튼 클릭 시 처리하는 함수
-        function handleTabButtonClick(button) {
-            // 모든 버튼에서 'active' 클래스 제거
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            // 클릭된 버튼에 'active' 클래스 추가
-            button.classList.add('active');
-
-            // 클릭된 버튼에 해당하는 탭 ID 가져오기
-            const tabId = button.getAttribute('data-tab');
-            if (tabId) {
-                // 모든 탭 콘텐츠 숨기기
-                tabContents.forEach(content => {
-                    content.style.display = 'none';
-                });
-
-                // 클릭된 버튼에 해당하는 콘텐츠 보이기
-                const tabContent = document.getElementById(tabId);
-
-                // 탭 네비게이션에 파란색 줄 추가
-                const tabNav = document.querySelector('.tab-nav');
-                if (tabContent) {
-                    tabContent.style.display = 'block';
-
-                } else {
-                    console.error(`Tab content with ID '${tabId}' not found.`);
-                }
-            } else {
-                console.error('Button does not have data-tab attribute.');
-            }
+        // 모든 탭 컨텐츠를 숨깁니다.
+        tabcontent = document.querySelectorAll(".tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";  // 모든 탭 컨텐츠를 숨김
         }
 
-        // 모든 탭 버튼에 클릭 이벤트 리스너 등록
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                handleTabButtonClick(button);
+        // 모든 탭 링크에서 'active' 클래스를 제거합니다.
+        tablinks = document.querySelectorAll(".nav-link");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove('active');
+        }
 
-                // 만약 클릭된 버튼의 data-tab 값이 'findSocial'이면 소셜 찾기 버튼에 active 클래스 추가
-                if (button.getAttribute('data-tab') === 'findSocial') {
-                    document.querySelector('.tab-button[data-tab="findSocial"]').classList.add('active');
-                }
-            });
-        });
+        // 클릭된 탭에 해당하는 컨텐츠를 보이게 합니다.
+        var selectedTabContent = document.getElementById(tabName);
+        selectedTabContent.style.display = "block";  // 선택된 탭의 컨텐츠만 보이게 설정
 
-
-        // 페이지 로드 시 첫 번째 탭 기본으로 보이게 함
-        document.querySelector('.tab-button').click();
-
-        // 카테고리 버튼 클릭 시 AJAX 요청 처리
-        document.querySelectorAll('.category-item button').forEach(button => {
-            button.addEventListener('click', function () {
-                const categoryId = this.getAttribute('data-category-id');
-
-                $.ajax({
-                    url: "/main/category",
-                    type: "GET",
-                    data: {categoryId: categoryId},
-                    success: function (response) {
-                        const socialList = response; // 서버에서 반환된 소셜 리스트
-                        console.log(response);
-                        const categorySocialList = document.querySelector('.category-social-list');
-
-                        // 기존 소셜 리스트 초기화
-                        categorySocialList.innerHTML = '';
-
-                        // 새로운 소셜 리스트 추가
-                        socialList.forEach(social => {
-                            const socialCard = `
-                            <div class="col-md-6 mb-4">
-                                <div class="card h-100">
-                                    <div class="card-body d-flex justify-content-center">
-                                        <div>
-                                            <img src="${social.image}" alt="이미지">
-                                        </div>
-                                        <div>
-                                            <h5 class="card-title truncate2">${social.name}</h5>
-                                            <p class="card-text truncate2">${social.info}</p>
-                                            <p class="card-text"><small class="text-muted">멤버수 : ${social.memberCount}<br>리더이름 : ${social.nickName}</small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            `;
-                            categorySocialList.innerHTML += socialCard;
-                        });
-                    },
-                    error: function (error) {
-                        alert('소셜 목록을 불러오는 데 실패했습니다.');
-                    }
-                });
-            });
-        });
-    });
+        // 클릭된 탭 링크에 'active' 클래스를 추가합니다.
+        evt.currentTarget.classList.add('active');
+    }
 </script>
 
 {{> layout/footer}}
