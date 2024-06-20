@@ -36,14 +36,14 @@
                     <span class="checkmark" id="confirm-password-checkmark">&#10004;</span>
                 </div>
                 <div class="signup-textbox">
-                    {{#kakaoUser}}
-                        <input type="text" placeholder="이름" name="name" required value="{{kakaoUser.properties.nickname}}" readonly>
-                        <input type="hidden" name="provider" value="KAKAO">
-                        <input type="hidden" name="providerId" value="{{kakaoUser.id}}">
-                    {{/kakaoUser}}
-                    {{^kakaoUser}}
+                    {{#joinDTO}}
+                        <input type="text" placeholder="이름" name="name" required value="{{joinDTO.name}}" readonly>
+                        <input type="hidden" name="provider" value="{{joinDTO.provider}}">
+                        <input type="hidden" name="providerId" value="{{joinDTO.providerId}}">
+                    {{/joinDTO}}
+                    {{^joinDTO}}
                         <input type="text" placeholder="이름" name="name" required value="">
-                    {{/kakaoUser}}
+                    {{/joinDTO}}
                 </div>
                 <div class="signup-textbox">
                     <input type="text" id="birthdate" placeholder="생년월일" name="birthdate" required readonly>

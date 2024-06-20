@@ -25,7 +25,7 @@ public class UserResponse {
         private LocalDate birth; // 생년 월일
         private UserEnum role; // 권한
         private UserProviderEnum provider;
-        private Long providerId; //프로바이더 고유번호 ( 소셜로그인에서 제공하는 고유 식별번호, 카카오는 Long 타입 )
+        private String providerId; //프로바이더 고유번호 ( 소셜로그인에서 제공하는 고유 식별번호, 카카오는 Long 타입 )
         private LocalDateTime createdAt; // 유저 가입 일자
 
         public LoggedInUserDTO(User user) {

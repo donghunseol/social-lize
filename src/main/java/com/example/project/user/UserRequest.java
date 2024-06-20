@@ -17,7 +17,7 @@ public class UserRequest {
         private String birthdate;
         private UserEnum role;
         private UserProviderEnum provider;
-        private Long providerId;
+        private String providerId;
     }
     @Data
     public static class LoginDTO{

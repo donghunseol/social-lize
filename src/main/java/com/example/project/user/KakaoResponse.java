@@ -44,7 +44,7 @@ public class KakaoResponse {
 
     @Data
     public static class KakaoUserDTO {
-        private Long id;
+        private String id;
         @JsonProperty("connected_at")
         private Timestamp connectedAt;
         private Properties properties;
