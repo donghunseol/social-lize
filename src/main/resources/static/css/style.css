@@ -625,6 +625,26 @@ body {
     text-align: center;
 }
 
+/* 문자열이 2줄 이상이면 ... 처리 */
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 원하는 라인 수 */
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
+
+/* 문자열이 1줄 이상이면 ... 처리 */
+.truncate2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* 원하는 라인 수 */
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
+
 /* 넘기는 버튼 스타일 */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
