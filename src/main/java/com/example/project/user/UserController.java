@@ -96,7 +96,9 @@ public class UserController {
     //로그인 처리 (자체로그인)
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO loginDTO) {
+        System.out.println(loginDTO.getEmail());
         UserResponse.LoggedInUserDTO loggedInUserDTO = userService.login(loginDTO);
+
         session.setAttribute("user",loggedInUserDTO);
 //        UserResponse.LoggedInUserDTO loggedInUser = (UserResponse.LoggedInUserDTO)session.getAttribute("user");
         return "redirect:/";
