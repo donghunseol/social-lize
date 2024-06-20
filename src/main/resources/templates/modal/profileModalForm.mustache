@@ -2,7 +2,7 @@
 <!--<div id="openModalBtn" data-bs-toggle="modal" data-bs-target="#profileModal"></div>-->
 <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="profile-modal-content">
+        <div class="profile-modal-content modal-content">
             <div class="profile-modal-header modal-header">
                 <div class="profile-menu-button">
                     <div></div>
@@ -31,3 +31,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        // 모달 내부 클릭 시 닫히지 않도록 설정
+        $('#profileModal .modal-content').on('click', function(event) {
+            event.stopPropagation();
+        });
+    });
+</script>
