@@ -1,5 +1,6 @@
 package com.example.project.user;
 
+import com.example.project._core.errors.exception.Exception400;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class UserController {
 
     @GetMapping("/test")
     public String test() {
-        return "/social/fileaddForm";
+        throw new Exception400("failed to get");
     }
 
 
