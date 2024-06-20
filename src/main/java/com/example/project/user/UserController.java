@@ -54,11 +54,16 @@ public class UserController {
 
     //회원가입 페이지 - 카카오로 가입하기로 넘어온 사용자를 위한 URL
     @GetMapping("/user/joinForm/kakao")
-    public String joinFormKakao(HttpServletRequest request){
-        KakaoResponse.KakaoUserDTO kakaoUser =
-                (KakaoResponse.KakaoUserDTO) session.getAttribute("kakaoUser");
+    public String joinFormKakao(){
         return "user/joinForm";
     }
+
+    //회원가입 페이지 - 카카오로 가입하기로 넘어온 사용자를 위한 URL
+    @GetMapping("/user/joinForm/naver")
+    public String joinFormNaver(){
+        return "user/joinForm";
+    }
+
 
     //회원가입 처리
     @PostMapping("/join")
@@ -77,9 +82,27 @@ public class UserController {
             session.setAttribute("user",theUser);
             return "redirect:/";
         }
-        if (theUser instanceof KakaoResponse.KakaoUserDTO) {   //조회 결과 : 아직 가입하지 않은 회원
-            session.setAttribute("kakaoUser", theUser);
+        if (theUser instanceof KakaoResponse.KakaoUserDTO) {
+            //조회 결과 : 아직 가입하지 않은 회원
+            session.setAttribute("joinDTO", new JoinDTO((KakaoResponse.KakaoUserDTO) theUser));
             return "redirect:/user/joinForm/kakao";
+        }
+        throw new RuntimeException("알 수 없는 오류가 발생했습니다.");
+    }
+
+    //네이버 로그인 콜백 & 카카오 로그인
+    @GetMapping("/oauth/naver/callback")
+    public String oauthNaverCallback(String code,String state, HttpServletRequest request) {
+        Object theUser = userService.getNaverId(code, state);
+
+        if (theUser instanceof UserResponse.LoggedInUserDTO ) { //조회 결과: 이미 가입한 회원 - 로그인처리
+            System.out.println((UserResponse.LoggedInUserDTO) theUser);
+            session.setAttribute("user",theUser);
+            return "redirect:/";
+        }
+        if (theUser instanceof NaverResponse.NaverUserDTO) {   //조회 결과 : 아직 가입하지 않은 회원
+            session.setAttribute("joinDTO", new JoinDTO((NaverResponse.NaverUserDTO) theUser));
+            return "redirect:/user/joinForm/naver";
         }
         throw new RuntimeException("알 수 없는 오류가 발생했습니다.");
     }
@@ -97,7 +120,9 @@ public class UserController {
     //로그인 처리 (자체로그인)
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO loginDTO) {
+        System.out.println(loginDTO.getEmail());
         UserResponse.LoggedInUserDTO loggedInUserDTO = userService.login(loginDTO);
+
         session.setAttribute("user",loggedInUserDTO);
 //        UserResponse.LoggedInUserDTO loggedInUser = (UserResponse.LoggedInUserDTO)session.getAttribute("user");
         return "redirect:/";
