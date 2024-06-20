@@ -43,7 +43,6 @@ public class UserQueryRepository {
         String q = """
                 SELECT
                     b.id,
-                    b.title,
                     b.content,
                     u.nickname,
                     COUNT(l.id) AS like_count,
@@ -64,7 +63,7 @@ public class UserQueryRepository {
                     )
                     AND l.id IS NOT NULL
                 GROUP BY
-                    b.id, b.title, b.content, u.nickname
+                    b.id, b.content, u.nickname
                 ORDER BY
                     like_count DESC
                 LIMIT 4;
@@ -80,7 +79,6 @@ public class UserQueryRepository {
         String q = """
                 SELECT
                     b.id,
-                    b.title,
                     b.content,
                     u.nickname,
                     COUNT(l.id) AS like_count,
@@ -92,7 +90,7 @@ public class UserQueryRepository {
                 LEFT JOIN
                     like_tb l ON b.id = l.board_id
                 GROUP BY
-                    b.id, b.title, b.content, u.nickname
+                    b.id, b.content, u.nickname
                 ORDER BY
                     like_count DESC
                 LIMIT 4;
