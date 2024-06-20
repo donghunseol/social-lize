@@ -11,11 +11,4 @@ public class Exception500 extends RuntimeException {
         super(message);
     }
 
-    public ApiUtil.ApiResult<?> body() {
-        return ApiUtil.error("server error", HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    public HttpStatus status() {
-        return HttpStatus.INTERNAL_SERVER_ERROR;
-    }
 }

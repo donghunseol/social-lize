@@ -1,14 +1,89 @@
-{{> layout/head}}
-<body>
-    <main>
-        <div class="err-wrapper">
-            <div class="err-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
-            <p>Error : 401</p>
-            <span>로그인이 필요한 서비스입니다. 계속하려면 로그인해 주세요.</span>
-            <div class="button-wrapper">
-                <button type="button" onclick="history.back()" class="btn black border">뒤로가기</button>
-            </div>
+{{> layout/header}}
+<style>
+    .err-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 50vh;
+        /* 크기 조정 */
+        text-align: center;
+        border-radius: 50%;
+        /* 원형 모서리 */
+        border: 3px solid #ff6f61;
+        /* 더 세련된 테두리 */
+        padding: 20px;
+        /* 패딩 유지 */
+        width: 50vh;
+        /* 너비 조정 */
+        margin: 10vh auto;
+        /* 더 가운데로 조정 */
+        background-color: #fff;
+        /* 원형 안쪽 하얀색 */
+    }
+
+    .err-icon {
+        font-size: 60px;
+        /* 크기 유지 */
+        color: #ff6f61;
+        margin-bottom: 15px;
+        /* 간격 유지 */
+    }
+
+    .err-message {
+        font-size: 30px;
+        /* 크기 유지 */
+        margin-bottom: 8px;
+        /* 간격 유지 */
+    }
+
+    .err-sub-message {
+        font-size: 16px;
+        /* 크기 유지 */
+        color: #666;
+        margin-bottom: 15px;
+        /* 간격 유지 */
+    }
+
+    .err-btn-box {
+        margin-top: 15px;
+        /* 간격 유지 */
+    }
+
+    .err-btn {
+        padding: 12px 25px;
+        /* 크기 유지 */
+        font-size: 16px;
+        /* 크기 유지 */
+        background-color: #ff6f61;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        /* 둥근 모서리 유지 */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        /* 효과 유지 */
+    }
+
+    .err-btn:hover {
+        background-color: #e55b50;
+        /* 호버 색상 변경 유지 */
+    }
+</style>
+
+<main>
+    <div class="err-wrapper">
+        <div class="err-icon">
+            <i class="fas fa-exclamation-circle"></i>
         </div>
-    </main>
-</body>
-</html>
+        <h2 class="err-message">Error : 401</h2>
+        <span class="err-sub-message">로그인이 필요한 서비스입니다. 계속하려면 로그인해 주세요.</span>
+        <div class="button-wrapper err-btn-box">
+            <button type="button" onclick="history.back()" class="err-btn">
+                <i class="fas fa-arrow-left"></i> 뒤로가기
+            </button>
+        </div>
+    </div>
+</main>
+
+{{> layout/footer}}

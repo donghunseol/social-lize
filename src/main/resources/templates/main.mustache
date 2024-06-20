@@ -1,204 +1,355 @@
 {{> layout/header}}
+{{> layout/tabnav}}
 
-<div class="container">
+<div class="tab-nav-container">
     <div class="tab-nav">
-        <button class="tab-button active" data-tab="mySocial">내 소셜</button>
-        <button class="tab-button" data-tab="findSocial">소셜 찾기</button>
+        <button class="tab-button active" data-tab="tab-1">내 소셜</button>
+        <button class="tab-button" data-tab="tab-2">소셜 찾기</button>
     </div>
-    <div class="tab-content" id="mySocial">
-        <div class="card-deck">
-            <div class="card create-band-card">
-                <div class="card-body text-center">
-                    <i class="fas fa-plus-circle"></i>
-                    <p class="card-text">만들기</p>
+</div>
+
+<div id="tab-1" class="tab-content active">
+    <div class="my-full-width-section my-section1">
+        <div class="my-section">
+            <div class="my-cards-container">
+                <div class="my-card">
+                    <div class="plus-icon" style="font-size: 50px;">+</div>
+                    <div class="my-title">새 소셜 만들기</div>
                 </div>
-            </div>
-            {{#model.mySocialList}}
-                <div class="card">
-                    <img src="{{imagePath}}" class="card-img-top" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title truncate">{{title}}</h5>
-                        <p class="card-text">{{memberCount}}</p>
-                    </div>
+                <div class="my-card">
+                    <img src="donut.png" alt="SNS Project 1">
+                    <div class="my-title">SNS 프로젝트 1조</div>
+                    <div class="my-subtitle">멤버 4</div>
                 </div>
-            {{/model.mySocialList}}
-        </div>
-        <div class="mt-4">
-            <h3>내 소셜 인기글</h3>
-            <div class="row">
-                {{#model.mySocialPopularList}}
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body w-100">
-                                <h5 class="card-title truncate2">{{title}}</h5>
-                                <p class="card-text truncate">{{{content}}}</p>
-                                <p class="card-text"><small class="text-muted">작성자: {{nickname}}</small></p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">👍 {{likeCount}} 💬 {{replyCount}}</small>
-                            </div>
-                        </div>
-                    </div>
-                {{/model.mySocialPopularList}}
-            </div>
-        </div>
-        <h3>주제별 소셜을 찾아보세요</h3>
-        <div class="category-container">
-            <button class="scroll-button" onclick="scrollLeft()">&#9664;</button>
-            <div class="d-flex flex-nowrap overflow-auto category-wrap-vertical">
-                {{#model.categoryList}}
-                    <li class="category-item">
-                        <button class="tab-button category-button" data-tab="findSocial" data-category-id="{{id}}">
-                            <img src="{{imagePath}}" class="rounded-circle category-img" alt="...">
-                            <h5 class="mt-2 text-center">{{name}}</h5>
-                        </button>
-                    </li>
-                {{/model.categoryList}}
-            </div>
-            <button class="scroll-button" onclick="scrollRight()">&#9654;</button>
-        </div>
-        <div class="mt-2">
-            <h3>오늘의 인기글</h3>
-            <div class="row">
-                {{#model.popularPostList}}
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title truncate2">{{title}}</h5>
-                                <p class="card-text truncate">{{{content}}}</p>
-                                <p class="card-text"><small class="text-muted">작성자: {{nickname}}</small></p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">👍 {{likeCount}} 💬 {{replyCount}}</small>
-                            </div>
-                        </div>
-                    </div>
-                {{/model.popularPostList}}
+                <div class="my-card">
+                    <img src="green-onion.png" alt="Green Onion">
+                    <div class="my-title">득템 마늘쫑 가격 좋으니 가져가요</div>
+                    <div class="my-subtitle">AD - 밴드 미리보기</div>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="tab-content" id="findSocial" style="display: none;">
-        <h3>주제별 소셜을 찾아보세요</h3>
-        <div class="category-container">
-            <button class="scroll-button" onclick="scrollLeft()">&#9664;</button>
-            <div class="d-flex flex-nowrap overflow-auto category-wrap-vertical">
-                {{#model.categoryList}}
-                    <li class="category-item">
-                        <button class="tab-button category-button" data-tab="findSocial" data-category-id="{{id}}">
-                            <img src="{{imagePath}}" class="rounded-circle category-img" alt="...">
-                            <h5 class="mt-2 text-center">{{name}}</h5>
-                        </button>
-                    </li>
-                {{/model.categoryList}}
+    <div class="my-full-width-section my-section2">
+        <div class="my-section">
+            <h2>내 소셜의 인기글</h2>
+            <div class="my-posts-container">
+                <div class="my-post">
+                    <div class="my-title">행복 우체통</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content">
+                        급산가면 꼭 가봐야하는 휴양지감성 계곡식당 💙 아냐,?! 벌써부터 여름날씨 실화냐,..?! 윤막 차르르 펼쳐지는 마운틴뷰 공둥공당각나오는 계곡물이라니,.. 💙 힐링뷰보며 먹빌랑과 나온다는 땡맛따잇지는 물론 평상대여, 축박까지 가능해서 힐링코스로 딱 🌊 이번 여름 딱 대...
+                    </div>
+                    <img src="post1.png" alt="행복 우체통">
+                    <div class="my-footer">
+                        <div>😊😍 40</div>
+                        <div>댓글 36</div>
+                        <div>공유 3</div>
+                    </div>
+                </div>
+                <div class="my-post">
+                    <div class="my-title">리차드네 반려식물 이야기</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content">
+                        앞마당 정원수로 많이들 키우시는 백묘국을 2년전 3월 작은 모종부터 시작해서 키우고 있는데요 이녀석이 2년만에 첫꽃을 보여주네요 많이 컸어요. 중간에 분열본갈이를 2번 해주었어요. 백묘국은 노지월동도 가능하여 앞마당에 정원수로 많이들 키운다고 하는데 작은 화분에서 2...
+                    </div>
+                    <img src="post2.png" alt="리차드네 반려식물 이야기">
+                    <div class="my-footer">
+                        <div>😊😍 37</div>
+                        <div>댓글 41</div>
+                    </div>
+                </div>
+                <div class="my-post">
+                    <div class="my-title">마운틴TV 공식밴드</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content">
+                        #산행후기 관악산 산행후기 들머리서울대 공학관 날머리 사당역 산행시간 3시간 어제 비가 내려서 그런지 날씨도 화창하고 바람도 시원하게 불어서 좋은산행 하고 왔네요
+                    </div>
+                    <img src="post3.png" alt="마운틴TV 공식밴드">
+                    <div class="my-footer">
+                        <div>😊😍 42</div>
+                        <div>댓글 2</div>
+                    </div>
+                </div>
+                <div class="my-post">
+                    <div class="my-title">마음이끄는글</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content">
+                        😊😍 55 댓글 5 공유 4
+                    </div>
+                    <img src="post4.png" alt="마음이끄는글">
+                    <div class="my-footer"></div>
+                </div>
             </div>
-            <button class="scroll-button" onclick="scrollRight()">&#9654;</button>
         </div>
-        <div class="category-social-list row mt-4">
-
+    </div>
+    <div class="my-full-width-section my-section4">
+        <div class="my-section">
+            <h2>이런 소셜은 어때요</h2>
+            <div class="my-recommendation-container">
+                <div class="my-recommendation-item">
+                    <img src="image.png" alt="우주,천체관측,천체사진 밴드">
+                    <div class="my-details">
+                        <div class="my-title">우주,천체관측,천체사진 밴드</div>
+                        <div class="my-subtitle">유튜브 에서 천체관측 관련 유튜브를 하고 있는 딥스카이 입니다. 천...</div>
+                    </div>
+                    <button class="my-more-button">전체관측 밴드 더보기 ></button>
+                </div>
+                <div class="my-recommendation-item">
+                    <img src="image.png" alt="애플 사용자들의 모임">
+                    <div class="my-details">
+                        <div class="my-title">애플 사용자들의 모임</div>
+                        <div class="my-subtitle">안녕하세요. 아이폰, 터치, 셔플, 패드, 워치, 맥북, 에어, 아이맥 등 애...</div>
+                    </div>
+                    <button class="my-more-button">애플 사용자 밴드 더보기 ></button>
+                </div>
+                <div class="my-recommendation-item">
+                    <img src="image.png" alt="인물스케치">
+                    <div class="my-details">
+                        <div class="my-title">인물스케치</div>
+                        <div class="my-subtitle">예술을 사랑하는분들과 그림그리기를 좋아하는분들이 모여서 함께공...</div>
+                    </div>
+                    <button class="my-more-button">스케치 밴드 더보기 ></button>
+                </div>
+                <div class="my-recommendation-item">
+                    <img src="image.png" alt="WE ARE LIVERPOOL">
+                    <div class="my-details">
+                        <div class="my-title">WE ARE LIVERPOOL</div>
+                        <div class="my-subtitle">리버풀 서포터즈 클럽 소식 & 중계방</div>
+                    </div>
+                    <button class="my-more-button">축구밴드 밴드 더보기 ></button>
+                </div>
+                <div class="my-recommendation-item">
+                    <img src="image.png" alt="실내자전거 인증밴드">
+                    <div class="my-details">
+                        <div class="my-title">실내자전거 인증밴드</div>
+                        <div class="my-subtitle">집에서 즐거운 실내자전거 하루 매일 인증하기 밴드입니다 남녀노소...</div>
+                    </div>
+                    <button class="my-more-button">실내자전거 밴드 더보기 ></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="my-full-width-section my-section4">
+        <div class="my-section">
+            <h2>오늘의 인기글</h2>
+            <div class="my-posts-container">
+                <div class="my-post">
+                    <div class="my-title">행복 우체통</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content">
+                        급산가면 꼭 가봐야하는 휴양지감성 계곡식당 💙 아냐,?! 벌써부터 여름날씨 실화냐,..?! 윤막 차르르 펼쳐지는 마운틴뷰 공둥공당각나오는 계곡물이라니,.. 💙 힐링뷰보며 먹빌랑과 나온다는 땡맛따잇지는 물론 평상대여, 축박까지 가능해서 힐링코스로 딱 🌊 이번 여름 딱 대...
+                    </div>
+                    <img src="post1.png" alt="행복 우체통">
+                    <div class="my-footer">
+                        <div>😊😍 40</div>
+                        <div>댓글 36</div>
+                        <div>공유 3</div>
+                    </div>
+                </div>
+                <div class="my-post">
+                    <div class="my-title">리차드네 반려식물 이야기</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content">
+                        앞마당 정원수로 많이들 키우시는 백묘국을 2년전 3월 작은 모종부터 시작해서 키우고 있는데요 이녀석이 2년만에 첫꽃을 보여주네요 많이 컸어요. 중간에 분열본갈이를 2번 해주었어요. 백묘국은 노지월동도 가능하여 앞마당에 정원수로 많이들 키운다고 하는데 작은 화분에서 2...
+                    </div>
+                    <img src="post2.png" alt="리차드네 반려식물 이야기">
+                    <div class="my-footer">
+                        <div>😊😍 37</div>
+                        <div>댓글 41</div>
+                    </div>
+                </div>
+                <div class="my-post">
+                    <div class="my-title">마운틴TV 공식밴드</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content">
+                        #산행후기 관악산 산행후기 들머리서울대 공학관 날머리 사당역 산행시간 3시간 어제 비가 내려서 그런지 날씨도 화창하고 바람도 시원하게 불어서 좋은산행 하고 왔네요
+                    </div>
+                    <img src="post3.png" alt="마운틴TV 공식밴드">
+                    <div class="my-footer">
+                        <div>😊😍 42</div>
+                        <div>댓글 2</div>
+                    </div>
+                </div>
+                <div class="my-post">
+                    <div class="my-title">마음이끄는글</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content">
+                        😊😍 55 댓글 5 공유 4
+                    </div>
+                    <img src="post4.png" alt="마음이끄는글">
+                    <div class="my-footer"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-
+<div id="tab-2" class="tab-content">
+    <div class="my-full-width-section my-section3">
+        <div class="my-section">
+            <h2>주제별 소셜을 찾아보세요!</h2>
+            <div class="my-search-bar">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="검색어를 입력하세요...">
+            </div>
+            <div class="my-scroll-container">
+                <button class="my-scroll-button" id="scroll-left">&lt;</button>
+                <div class="my-scroll-wrapper" id="scroll-wrapper">
+                    <div class="my-scroll-item">전체</div>
+                    <div class="my-scroll-item">💪 운동</div>
+                    <div class="my-scroll-item">🔴 습관</div>
+                    <div class="my-scroll-item">📚 독서</div>
+                    <div class="my-scroll-item">📖 스터디</div>
+                    <div class="my-scroll-item">🌐 외국어</div>
+                    <div class="my-scroll-item">✏️ 글쓰기</div>
+                    <div class="my-scroll-item">🥗 다이어트/식단</div>
+                    <div class="my-scroll-item">🎨 그림/공예</div>
+                    <div class="my-scroll-item">💻 컴퓨터</div>
+                    <div class="my-scroll-item">🚬 흡연</div>
+                    <div class="my-scroll-item">☕ 카페</div>
+                    <div class="my-scroll-item">📱 아이폰</div>
+                    <div class="my-scroll-item">📱 안드로이드폰</div>
+                </div>
+                <button class="my-scroll-button" id="scroll-right">&gt;</button>
+            </div>
+        </div>
+    </div>
+    <div class="my-full-width-section my-section1">
+        <div class="my-section">
+            <div class="my-grid-container">
+                <div class="my-grid-item">
+                    <img src="reading.png" alt="Reading">
+                    <div class="my-details">
+                        <div class="my-title">2024년 용과 함께 독서♡</div>
+                        <div class="my-subtitle">매일 · 365일간</div>
+                        <div class="my-participants">3,150명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="exercise.png" alt="Exercise">
+                    <div class="my-details">
+                        <div class="my-title">운동장 뛰기</div>
+                        <div class="my-subtitle">주 5회 · 30일간</div>
+                        <div class="my-participants">2명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="painting.png" alt="Painting">
+                    <div class="my-details">
+                        <div class="my-title">그림 솜씨 자랑하기 3차</div>
+                        <div class="my-subtitle">매일 · 365일간</div>
+                        <div class="my-participants">341명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="daily_life.png" alt="Daily Life">
+                    <div class="my-details">
+                        <div class="my-title">소소한 나의 일상 이야기</div>
+                        <div class="my-subtitle">매일 · 365일간</div>
+                        <div class="my-participants">5,648명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="thai.png" alt="Thai Language">
+                    <div class="my-details">
+                        <div class="my-title">매일 태국어 <한문장/한단어>씩 써보기</div>
+                        <div class="my-subtitle">매일 · 365일간</div>
+                        <div class="my-participants">1,576명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="sunglasses.png" alt="Sunglasses">
+                    <div class="my-details">
+                        <div class="my-title">역학 공식암기+문제풀이</div>
+                        <div class="my-subtitle">주 4회 · 300일간</div>
+                        <div class="my-participants">5명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="cleaning.png" alt="Cleaning">
+                    <div class="my-details">
+                        <div class="my-title">매일 10분 이상 청소, 쾌적한 집 만들기 (5월, 6월)</div>
+                        <div class="my-subtitle">매일 · 61일간</div>
+                        <div class="my-participants">3,567명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="exercise_challenge.png" alt="Exercise Challenge">
+                    <div class="my-details">
+                        <div class="my-title">운동챌린지</div>
+                        <div class="my-subtitle">주 5회 · 100일간</div>
+                        <div class="my-participants">10명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="bear.png" alt="Bear">
+                    <div class="my-details">
+                        <div class="my-title">6월은 너무 덥지만 운동해야지</div>
+                        <div class="my-subtitle">매일 · 30일간</div>
+                        <div class="my-participants">352명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="english.png" alt="English">
+                    <div class="my-details">
+                        <div class="my-title">매일 영어 원서 3페이지씩 읽고 한줄평 작성</div>
+                        <div class="my-subtitle">매일 · 365일간</div>
+                        <div class="my-participants">890명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+            </div>
+            <div class="my-pagination">
+                <button class="disabled">&lt; 이전</button>
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>다음 &gt;</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const tabButtons = document.querySelectorAll('.tab-button'); // 모든 탭 버튼 가져오기
-        const tabContents = document.querySelectorAll('.tab-content'); // 모든 탭 콘텐츠 가져오기
+    // 탭 전환
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
 
-        // 탭 버튼 클릭 시 처리하는 함수
-        function handleTabButtonClick(button) {
-            // 모든 버튼에서 'active' 클래스 제거
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            // 클릭된 버튼에 'active' 클래스 추가
-            button.classList.add('active');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tabContents.forEach(tc => tc.classList.remove('active'));
 
-            // 클릭된 버튼에 해당하는 탭 ID 가져오기
-            const tabId = button.getAttribute('data-tab');
-            if (tabId) {
-                // 모든 탭 콘텐츠 숨기기
-                tabContents.forEach(content => {
-                    content.style.display = 'none';
-                });
-
-                // 클릭된 버튼에 해당하는 콘텐츠 보이기
-                const tabContent = document.getElementById(tabId);
-
-                // 탭 네비게이션에 파란색 줄 추가
-                const tabNav = document.querySelector('.tab-nav');
-                if (tabContent) {
-                    tabContent.style.display = 'block';
-
-                } else {
-                    console.error(`Tab content with ID '${tabId}' not found.`);
-                }
-            } else {
-                console.error('Button does not have data-tab attribute.');
-            }
-        }
-
-        // 모든 탭 버튼에 클릭 이벤트 리스너 등록
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                handleTabButtonClick(button);
-
-                // 만약 클릭된 버튼의 data-tab 값이 'findSocial'이면 소셜 찾기 버튼에 active 클래스 추가
-                if (button.getAttribute('data-tab') === 'findSocial') {
-                    document.querySelector('.tab-button[data-tab="findSocial"]').classList.add('active');
-                }
-            });
+            tab.classList.add('active');
+            document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
         });
+    });
 
+    // 카테고리 가로스크롤
+    const scrollWrapper = document.getElementById('scroll-wrapper');
+    const scrollLeft = document.getElementById('scroll-left');
+    const scrollRight = document.getElementById('scroll-right');
 
-        // 페이지 로드 시 첫 번째 탭 기본으로 보이게 함
-        document.querySelector('.tab-button').click();
+    scrollLeft.addEventListener('click', () => {
+        scrollWrapper.scrollBy({
+            left: -200,
+            behavior: 'smooth'
+        });
+    });
 
-        // 카테고리 버튼 클릭 시 AJAX 요청 처리
-        document.querySelectorAll('.category-item button').forEach(button => {
-            button.addEventListener('click', function () {
-                const categoryId = this.getAttribute('data-category-id');
-
-                $.ajax({
-                    url: "/main/category",
-                    type: "GET",
-                    data: {categoryId: categoryId},
-                    success: function (response) {
-                        const socialList = response; // 서버에서 반환된 소셜 리스트
-                        console.log(response);
-                        const categorySocialList = document.querySelector('.category-social-list');
-
-                        // 기존 소셜 리스트 초기화
-                        categorySocialList.innerHTML = '';
-
-                        // 새로운 소셜 리스트 추가
-                        socialList.forEach(social => {
-                            const socialCard = `
-                            <div class="col-md-6 mb-4">
-                                <div class="card h-100">
-                                    <div class="card-body d-flex justify-content-center">
-                                        <div>
-                                            <img src="${social.image}" alt="이미지">
-                                        </div>
-                                        <div>
-                                            <h5 class="card-title truncate2">${social.name}</h5>
-                                            <p class="card-text truncate2">${social.info}</p>
-                                            <p class="card-text"><small class="text-muted">멤버수 : ${social.memberCount}<br>리더이름 : ${social.nickName}</small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            `;
-                            categorySocialList.innerHTML += socialCard;
-                        });
-                    },
-                    error: function (error) {
-                        alert('소셜 목록을 불러오는 데 실패했습니다.');
-                    }
-                });
-            });
+    scrollRight.addEventListener('click', () => {
+        scrollWrapper.scrollBy({
+            left: 200,
+            behavior: 'smooth'
         });
     });
 </script>
-
-{{> layout/footer}}

@@ -3,16 +3,19 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: white;
 }
 
 .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
     background-color: #fff;
-    padding: 10px 20px;
     border-bottom: 1px solid #ddd;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 1000;
 }
 
 .header .logo {
@@ -77,6 +80,14 @@ body {
     margin-left: 20px;
     text-decoration: none;
     color: #333;
+}
+
+.main-container {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .footer {
@@ -161,7 +172,7 @@ body {
 }
 
 /* notJoinedForm.mustache */
-.container {
+.notjoined-container {
     display: flex;
     flex: 1;
     padding: 20px;
@@ -560,22 +571,28 @@ body {
 }
 
 .tab-content {
-    display: none;
-    width: 100%;
-    max-width: 600px;
+    display: flex;
+    width: 100vw;
     background-color: #fff;
     padding: 20px;
     border-top: none;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 150px;
 }
 
 .tab-content.active {
-    display: block;
+    /*display: block;*/
 }
 
 /* 메인페이지 */
+.popular-section {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    border-radius: 5px;
+}
 .create-band-card {
+    padding: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -689,7 +706,7 @@ body {
     /* 모서리 둥글게 */
 }
 
-/* board.mustache 네브바 부분 */
+/* detail.mustache 네브바 부분 */
 .navbar {
     background-color: #fff;
     border-bottom: 1px solid #ddd;
@@ -710,7 +727,7 @@ body {
     background-color: #f1f1f1;
 }
 
-/* board.mustache 사이드바 부분 */
+/* detail.mustache 사이드바 부분 */
 .main-container {
     display: flex;
     flex: 1;
@@ -774,7 +791,7 @@ body {
     cursor: pointer;
 }
 
-/* board.mustache 해시태그 부분 */
+/* detail.mustache 해시태그 부분 */
 .hashtag-container {
     display: flex;
     overflow-x: auto;
@@ -809,7 +826,7 @@ body {
     padding: 5px 10px 15px 10px;
 }
 
-/* board.mustache 게시판 부분 */
+/* detail.mustache 게시판 부분 */
 .board-container {
     display: flex;
     flex-direction: column;
@@ -854,7 +871,7 @@ body {
     color: #777;
 }
 
-/* board.mustache 채팅 부분 */
+/* detail.mustache 채팅 부분 */
 .chat-container {
     width: 300px;
     background-color: #fff;
@@ -1341,10 +1358,22 @@ body {
     flex-direction: column;
 }
 
+.tab-nav-container {
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
 .tab-nav {
     display: flex;
     border-bottom: 1px solid #e9ecef;
-    margin-bottom: 20px;
+    margin-bottom: 0; /* No margin */
+    padding: 10px 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .tab-button {
@@ -1363,6 +1392,7 @@ body {
 .tab-content {
     display: none;
     width: 100%;
+
 }
 
 .tab-content.active {

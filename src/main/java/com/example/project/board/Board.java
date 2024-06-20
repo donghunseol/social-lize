@@ -29,9 +29,6 @@ public class Board {
     private User userId; // 유저 번호
 
     @Column(nullable = false)
-    private String title; // 게시글 제목
-
-    @Column(nullable = false)
     private String content; // 게시글 내용
 
     @Column(nullable = false)
@@ -46,7 +43,7 @@ public class Board {
         this.id = id;
         this.socialId = socialId;
         this.userId = userId;
-        this.title = title;
+
         this.content = content;
         this.role = role;
         this.createdAt = createdAt;

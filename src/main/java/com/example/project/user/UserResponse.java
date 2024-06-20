@@ -50,7 +50,6 @@ public class UserResponse {
         private List<PopularPostDTO> popularPostList;
         private List<CategoryDTO> categoryList;
 
-
         public MainDTO(List<Object[]> mySocialList,
                        List<Object[]> mySocialPopularList,
                        List<Object[]> popularPostList,
@@ -64,13 +63,13 @@ public class UserResponse {
         @Data
         private static class MySocialDTO {
             private Integer id;
-            private String title;
+            private String name;
             private String imagePath;
             private Long memberCount;
 
             public MySocialDTO(Object[] mySocialList) {
                 this.id = (Integer) mySocialList[0];
-                this.title = (String) mySocialList[1];
+                this.name = (String) mySocialList[1];
                 this.imagePath = (String) mySocialList[2];
                 this.memberCount = (Long) mySocialList[3];
             }
@@ -79,7 +78,6 @@ public class UserResponse {
         @Data
         private static class MySocialPopularDTO {
             private Integer id;
-            private String title;
             private String content;
             private String nickname;
             private Long likeCount;
@@ -87,18 +85,16 @@ public class UserResponse {
 
             public MySocialPopularDTO(Object[] mySocialPopularList) {
                 this.id = (Integer) mySocialPopularList[0];
-                this.title = (String) mySocialPopularList[1];
-                this.content = (String) mySocialPopularList[2];
-                this.nickname = (String) mySocialPopularList[3];
-                this.likeCount = (Long) mySocialPopularList[4];
-                this.replyCount = (Long) mySocialPopularList[5];
+                this.content = (String) mySocialPopularList[1];
+                this.nickname = (String) mySocialPopularList[2];
+                this.likeCount = (Long) mySocialPopularList[3];
+                this.replyCount = (Long) mySocialPopularList[4];
             }
         }
 
         @Data
         private static class PopularPostDTO {
             private Integer id;
-            private String title;
             private String content;
             private String nickname;
             private Long likeCount;
@@ -106,11 +102,10 @@ public class UserResponse {
 
             public PopularPostDTO(Object[] popularPostList) {
                 this.id = (Integer) popularPostList[0];
-                this.title = (String) popularPostList[1];
-                this.content = (String) popularPostList[2];
-                this.nickname = (String) popularPostList[3];
-                this.likeCount = (Long) popularPostList[4];
-                this.replyCount = (Long) popularPostList[5];
+                this.content = (String) popularPostList[1];
+                this.nickname = (String) popularPostList[2];
+                this.likeCount = (Long) popularPostList[3];
+                this.replyCount = (Long) popularPostList[4];
             }
         }
 

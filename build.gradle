@@ -23,6 +23,19 @@ repositories {
 }
 
 dependencies {
+    // Spring Boot에서 Redis를 쉽게 사용하기 위한 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // - Spring Data Redis를 통해 Redis와 상호작용
+    // - RedisTemplate 제공으로 간편한 Redis 명령 실행
+    // - 자동 구성 기능을 통해 간편한 설정
+
+    // Spring Session을 사용하여 Redis 기반의 세션 관리를 위한 의존성
+    implementation 'org.springframework.session:spring-session-data-redis' // 랩핑 클래스 (추상 클래스) 이다. 세션을 통해서 어디든 간단히 접근
+    // - Spring Session으로 HttpSession 대체
+    // - Redis에 세션 데이터 저장하여 다중 인스턴스 환경에서 세션 공유
+    // - 자동 구성 기능을 통해 간편한 설정
+
+
     // API 문서화
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
