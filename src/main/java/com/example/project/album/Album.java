@@ -1,5 +1,6 @@
 package com.example.project.album;
 
+import com.example.project._core.enums.AlbumEnum;
 import com.example.project.board.Board;
 import com.example.project.user.User;
 import jakarta.persistence.*;
@@ -30,15 +31,20 @@ public class Album {
     @Column(nullable = false)
     private String path; // 이미지 경로
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AlbumEnum type; // 이미지 또는 영상 타입
+
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자
 
     @Builder
-    public Album(Integer id, User userId, Board boardId, String path, LocalDateTime createdAt) {
+    public Album(Integer id, User userId, Board boardId, String path, AlbumEnum type, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.boardId = boardId;
         this.path = path;
+        this.type = type;
         this.createdAt = createdAt;
     }
 }

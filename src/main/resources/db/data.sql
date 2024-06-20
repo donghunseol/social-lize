@@ -245,18 +245,19 @@ VALUES (1, 2, 21, null, null, '2번 유저가 1번 유저의 21번 게시글을 
 
 
 -- 첨부 파일 테이블
-INSERT INTO file_tb (social_id, user_id, board_id, path, created_at)
-VALUES (1, 5, 4, 'file1', now()),
-       (2, 1, 8, 'file2', now()),
-       (3, 5, 12, 'file3', now()),
-       (4, 2, 16, 'file4', now()),
-       (5, 4, 20, 'file5', now());
+INSERT INTO file_tb (social_id, user_id, board_id, name, path, created_at)
+VALUES (1, 5, 4, '첨부파일1', 'file1', now()),
+       (2, 1, 8, '첨부파일2', 'file2', now()),
+       (3, 5, 12, '첨부파일3', 'file3', now()),
+       (4, 2, 16, '첨부파일4', 'file4', now()),
+       (5, 4, 20, '첨부파일5', 'file5', now());
 
 
 -- 이미지 및 영상 앨범 테이블
-INSERT INTO album_tb (user_id, board_id, path, created_at)
-VALUES (5, 4, 'image1.png', now()),
-       (1, 8, 'image2.png', now()),
-       (5, 12, 'image3.png', now()),
-       (2, 16, 'image4.png', now()),
-       (4, 20, 'image5.png', now());
+INSERT INTO album_tb (user_id, board_id, path, type, created_at)
+VALUES (5, 4, '/upload/image1.jpg', 'IMAGE', now()),
+       (5, 4, '/upload/video1.mp4', 'VIDEO', now()),
+       (1, 8, './upload/image2.png', 'IMAGE', now()),
+       (5, 12, './upload/image3.png', 'IMAGE', now()),
+       (2, 16, './upload/image4.png', 'IMAGE', now()),
+       (4, 20, './upload/image5.png', 'IMAGE', now());

@@ -1,9 +1,16 @@
 package com.example.project.social;
 
+import com.example.project.album.AlbumRequest;
+import com.example.project.album.AlbumResponse;
+import com.example.project.album.AlbumService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -24,9 +31,11 @@ public class SocialController {
     }
 
     // 서랍 페이지
-    @GetMapping("/social/fileadd")
-    public String fileAdd() {
+    @GetMapping("/social/fileadd/{socialId}")
+    public String fileAdd(@PathVariable Integer socialId, HttpServletRequest request) {
+        SocialResponse.albumAndFileListDTO respDTO = socialService.getSocialAlbumList(socialId);
+        request.setAttribute("models", respDTO);
+
         return "social/fileaddForm";
     }
-
 }
