@@ -1,5 +1,8 @@
 package com.example.project.social;
 
+import com.example.project.file.FileRequest;
+import com.example.project.file.FileService;
+import com.example.project.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class SocialController {
     private final SocialService socialService;
+    private final FileService fileService;
     private final HttpSession session;
 
     // 가입하지 않은 소셜 둘러보기 페이지
@@ -28,8 +32,13 @@ public class SocialController {
 
     // 서랍 페이지
     @GetMapping("/social/fileadd/{socialId}")
-    public String fileAdd(@PathVariable Integer socialId, HttpServletRequest request) {
-        SocialResponse.albumAndFileListDTO respDTO = socialService.getSocialAlbumList(socialId);
+    public String fileAdd(@PathVariable Integer socialId, HttpServletRequest request, FileRequest.FileUploadDTO reqDTO) {
+        // 파일 업로드 시 저장
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        fileService.fileUpload(reqDTO, sessionUser.getId(), socialId);
+
+        // 페이지에 뿌릴 데이터
+        SocialResponse.AlbumAndFileListDTO respDTO = socialService.getSocialAlbumList(socialId);
         request.setAttribute("models", respDTO);
 
         return "social/fileaddForm";

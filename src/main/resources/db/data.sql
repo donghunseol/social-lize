@@ -245,12 +245,12 @@ VALUES (1, 2, 21, null, null, '2번 유저가 1번 유저의 21번 게시글을 
 
 
 -- 첨부 파일 테이블
-INSERT INTO file_tb (social_id, user_id, board_id, name, path, created_at)
-VALUES (1, 5, 4, '첨부파일1', 'file1', now()),
-       (2, 1, 8, '첨부파일2', 'file2', now()),
-       (3, 5, 12, '첨부파일3', 'file3', now()),
-       (4, 2, 16, '첨부파일4', 'file4', now()),
-       (5, 4, 20, '첨부파일5', 'file5', now());
+INSERT INTO file_tb (social_id, user_id, name, path, created_at)
+VALUES (1, 5, '첨부파일1', 'file1', now()),
+       (2, 1, '첨부파일2', 'file2', now()),
+       (3, 5, '첨부파일3', 'file3', now()),
+       (4, 2, '첨부파일4', 'file4', now()),
+       (5, 4, '첨부파일5', 'file5', now());
 
 
 -- 이미지 및 영상 앨범 테이블

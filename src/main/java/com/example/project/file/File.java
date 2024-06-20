@@ -28,10 +28,6 @@ public class File {
     @ManyToOne(fetch = FetchType.LAZY)
     private User userId; // 유저 번호
 
-    @JoinColumn(name = "boardId")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Board boardId; // 게시글 번호
-
     @Column(nullable = false)
     private String name; // 첨부파일 이름
 
@@ -42,11 +38,11 @@ public class File {
     private LocalDateTime createdAt; // 생성 일자
 
     @Builder
-    public File(Integer id, Social socialId, User userId, Board boardId, String path, LocalDateTime createdAt) {
+    public File(Integer id, Social socialId, User userId, String name, String path, LocalDateTime createdAt) {
         this.id = id;
         this.socialId = socialId;
         this.userId = userId;
-        this.boardId = boardId;
+        this.name = name;
         this.path = path;
         this.createdAt = createdAt;
     }

@@ -33,6 +33,6 @@ public class FileRepositoryTest {
 
         // then
         Assertions.assertThat(files.getFirst().getId()).isEqualTo(1);
-        Assertions.assertThat(files.getFirst().getName()).isEqualTo("file1");
+        Assertions.assertThat(files.getFirst().getName()).isEqualTo("첨부파일1");
     }
 }
