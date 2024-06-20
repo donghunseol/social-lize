@@ -689,7 +689,7 @@ body {
     /* 모서리 둥글게 */
 }
 
-/* board.mustache 네브바 부분 */
+/* detail.mustache 네브바 부분 */
 .navbar {
     background-color: #fff;
     border-bottom: 1px solid #ddd;
@@ -710,7 +710,7 @@ body {
     background-color: #f1f1f1;
 }
 
-/* board.mustache 사이드바 부분 */
+/* detail.mustache 사이드바 부분 */
 .main-container {
     display: flex;
     flex: 1;
@@ -774,7 +774,7 @@ body {
     cursor: pointer;
 }
 
-/* board.mustache 해시태그 부분 */
+/* detail.mustache 해시태그 부분 */
 .hashtag-container {
     display: flex;
     overflow-x: auto;
@@ -809,7 +809,7 @@ body {
     padding: 5px 10px 15px 10px;
 }
 
-/* board.mustache 게시판 부분 */
+/* detail.mustache 게시판 부분 */
 .board-container {
     display: flex;
     flex-direction: column;
@@ -854,7 +854,7 @@ body {
     color: #777;
 }
 
-/* board.mustache 채팅 부분 */
+/* detail.mustache 채팅 부분 */
 .chat-container {
     width: 300px;
     background-color: #fff;
