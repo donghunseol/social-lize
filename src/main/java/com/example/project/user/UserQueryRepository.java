@@ -15,7 +15,6 @@ public class UserQueryRepository {
 
     public List<Object[]> mySocialList(Integer userId) {
         String q = """
-                               
                 SELECT
                       s.id,
                       s.name,

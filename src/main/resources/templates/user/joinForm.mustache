@@ -16,7 +16,7 @@
         </div>
         <div class="signup-box">
             <p class="signup-left-align-title">함께 즐기는 취미생활, Socialize에서 시작하세요!</p>
-            <form>
+            <form action="/join" method="post">
                 <div class="signup-textbox">
                     <input type="email" placeholder="이메일" name="email" id="email" class="short-input" required>
                     <button type="button" class="verify-btn" id="send-verification">인증</button>
@@ -36,13 +36,21 @@
                     <span class="checkmark" id="confirm-password-checkmark">&#10004;</span>
                 </div>
                 <div class="signup-textbox">
-                    <input type="text" placeholder="이름" name="name" required>
+                    {{#kakaoUser}}
+                        <input type="text" placeholder="이름" name="name" required value="{{kakaoUser.properties.nickname}}" readonly>
+                        <input type="hidden" name="provider" value="KAKAO">
+                        <input type="hidden" name="providerId" value="{{kakaoUser.id}}">
+                    {{/kakaoUser}}
+                    {{^kakaoUser}}
+                        <input type="text" placeholder="이름" name="name" required value="">
+                    {{/kakaoUser}}
                 </div>
                 <div class="signup-textbox">
                     <input type="text" id="birthdate" placeholder="생년월일" name="birthdate" required readonly>
                     <input type="date" id="date-picker" style="display: none;">
                 </div>
                 <button type="submit" class="signup-btn">회원가입하기</button>
+                <input type="hidden" name="role" value="USER"/>
             </form>
             <p>이미 계정이 있으신가요? <a href="#">로그인하기</a></p>
         </div>

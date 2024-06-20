@@ -19,9 +19,9 @@
                 Socialize에서
                 시작하세요!</p>
             <form>
-                <button type="submit" class="joinmain-btn">이메일로 가입하기</button>
+                <button type="button" class="joinmain-btn" onclick="window.location.href='/user/joinForm'">이메일로 가입하기</button>
                 <div class="joinmain-divider">또는</div>
-                <button type="button" class="joinmain-btn joinmain-kakao-btn">카카오로 가입하기</button>
+                <button type="button" class="joinmain-btn joinmain-kakao-btn" onclick="window.location.href='https://kauth.kakao.com/oauth/authorize?redirect_uri=http://localhost:8080/oauth/kakao/callback&response_type=code&client_id=378709950e778973b12184070bc6c80e'">카카오로 가입하기</button>
                 <button type="button" class="joinmain-btn joinmain-naver-btn">네이버로 가입하기</button>
             </form>
             <p>이미 계정이 있으신가요? <a href="#">로그인하기</a></p>
