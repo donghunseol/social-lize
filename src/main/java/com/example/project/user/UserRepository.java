@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-    @Query("select u from User u where u.email = :email")
+    @Query("select u from User u where u.email = :email and u.provider=null")
     User findByEmail(String email);
 
     @Query("select u from User u where u.providerId = :providerId and u.provider='KAKAO'")

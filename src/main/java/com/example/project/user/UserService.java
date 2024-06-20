@@ -82,7 +82,7 @@ public class UserService {
         else throw new RuntimeException(msg);
     }
     @Transactional
-    public Object findByKakaoId(String code){
+    public Object getKakaoId(String code){
 
         // 1.1 RestTemplate 설정
         RestTemplate rt = new RestTemplate();
@@ -131,8 +131,9 @@ public class UserService {
         //카카오로 부터 받은 개인 정보로 우리 서버에 회원가입을 했는지 검사한다.
         User user = userRepository.findByKakaoId(kakaoUserDTO.getId());
         if( user!=null ) {
+            //데이터를 받은김에 db에도 동기화
             user.setNickname(kakaoUserDTO.getProperties().getNickname());//닉네임이 변경될 수 있으니 최신정보로 업데이트한다.
-            return user;
+            return new UserResponse.LoggedInUserDTO(user);
         }
         else return kakaoUserDTO;
         //가입되어있으면 메인페이지로 이동
