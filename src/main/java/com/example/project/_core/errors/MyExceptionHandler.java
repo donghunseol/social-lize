@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Slf4j
-// RuntimeException이 터지면 해당 파일로 오류가 모인다
+@Slf4j// RuntimeException이 터지면 해당 파일로 오류가 모인다
 @ControllerAdvice // 데이터 응답
 @Controller
 public class MyExceptionHandler {

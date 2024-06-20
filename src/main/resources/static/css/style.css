@@ -642,6 +642,26 @@ body {
     text-align: center;
 }
 
+/* 문자열이 2줄 이상이면 ... 처리 */
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 원하는 라인 수 */
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
+
+/* 문자열이 1줄 이상이면 ... 처리 */
+.truncate2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* 원하는 라인 수 */
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
+
 /* 넘기는 버튼 스타일 */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
@@ -686,7 +706,7 @@ body {
     /* 모서리 둥글게 */
 }
 
-/* board.mustache 네브바 부분 */
+/* detail.mustache 네브바 부분 */
 .navbar {
     background-color: #fff;
     border-bottom: 1px solid #ddd;
@@ -707,7 +727,7 @@ body {
     background-color: #f1f1f1;
 }
 
-/* board.mustache 사이드바 부분 */
+/* detail.mustache 사이드바 부분 */
 .main-container {
     display: flex;
     flex: 1;
@@ -771,7 +791,7 @@ body {
     cursor: pointer;
 }
 
-/* board.mustache 해시태그 부분 */
+/* detail.mustache 해시태그 부분 */
 .hashtag-container {
     display: flex;
     overflow-x: auto;
@@ -806,7 +826,7 @@ body {
     padding: 5px 10px 15px 10px;
 }
 
-/* board.mustache 게시판 부분 */
+/* detail.mustache 게시판 부분 */
 .board-container {
     display: flex;
     flex-direction: column;
@@ -851,7 +871,7 @@ body {
     color: #777;
 }
 
-/* board.mustache 채팅 부분 */
+/* detail.mustache 채팅 부분 */
 .chat-container {
     width: 300px;
     background-color: #fff;
