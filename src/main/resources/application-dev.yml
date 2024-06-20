@@ -14,6 +14,7 @@ spring:
     servlet:
       expose-session-attributes: true
       expose-request-attributes: true
+
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:test;MODE=MySQL
@@ -41,3 +42,8 @@ spring:
         default_batch_fetch_size: 10
     defer-datasource-initialization: true
     open-in-view: false
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB

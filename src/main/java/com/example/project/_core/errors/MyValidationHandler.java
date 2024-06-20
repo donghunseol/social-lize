@@ -16,7 +16,7 @@ public class MyValidationHandler {
     @Before("@annotation(org.springframework.web.bind.annotation.PostMapping) || @annotation(org.springframework.web.bind.annotation.PutMapping)")
     public void effectiveness(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs(); // 파라미터(매개변수)
-        System.out.println("args/length : " + args.length);
+
 
         for (Object arg : args) {
             if (arg instanceof Errors) {
