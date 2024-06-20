@@ -4,156 +4,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script type="text/javascript" src="/javascript/sidebar.js"></script>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Document</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/boots.min.js"></script>
+    <link rel="stylesheet" href="/css/join.css">
 </head>
-
-<header>
-    <div class="header d-flex align-items-center justify-content-center flex-column">
-        <img src="/images/logo.png" alt="로고" style="height: 70px; width: 70px;">
-    </div>
-</header>
-
 <body>
-<div class="container mt-5">
-    <div class="w-50 mx-auto">
-        <h1 class="text-center mb-5">회원가입</h1>
-        <form id="signupForm" action="/join" method="post">
-            <div class="form-group mb-4">
-                <input type="email" class="form-control border bg-transparent text-muted" id="email" name="email"
-                       placeholder="이메일" style="font-size: 2rem; height: 70px;" required>
-            </div>
-            <div class="form-group mb-4">
-                <input type="password" class="form-control border bg-transparent text-muted" id="password" name="password"
-                       placeholder="비밀번호" style="font-size: 2rem; height: 70px;" required>
-                <small class="form-text text-muted fs-6">8~16자 영문 대소문자, 숫자, 특수문자를 사용하세요.</small>
-            </div>
-            <div class="form-group mb-4">
-
-                {{#isActive}}
-                    <input type="text" class="form-control border bg-transparent text-muted" id="name" name="name" placeholder="이름"
-                           style="font-size: 2rem; height: 70px;" required value="{{kakaoUser.getProperties.nickname}}">
-                {{/isActive}}
-                {{^isActive}}
-                    <input type="text" class="form-control border bg-transparent text-muted" id="name" name="name" placeholder="이름"
-                           style="font-size: 2rem; height: 70px;" required value="">
-                {{/isActive}}
-
-
-
-
-            </div>
-            <div class="form-group mb-5">
-                <label class="form-label text-muted text-left fs-5">생년월일</label>
-                <div class="row gx-2">
-                    <div class="col">
-                        <select class="form-control border bg-transparent text-muted" id="year" name="year"
-                                style="font-size: 2rem; height: 70px;" required>
-                            <option value="">년</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select class="form-control border bg-transparent text-muted" id="month" name="month"
-                                style="font-size: 2rem; height: 70px;" required>
-                            <option value="">월</option>
-                            <option value="1">1월</option>
-                            <option value="2">2월</option>
-                            <option value="3">3월</option>
-                            <option value="4">4월</option>
-                            <option value="5">5월</option>
-                            <option value="6">6월</option>
-                            <option value="7">7월</option>
-                            <option value="8">8월</option>
-                            <option value="9">9월</option>
-                            <option value="10">10월</option>
-                            <option value="11">11월</option>
-                            <option value="12">12월</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select class="form-control border bg-transparent text-muted" id="day" name="day"
-                                style="font-size: 2rem; height: 70px;" required>
-                            <option value="">일</option>
-                            <option value="1">1일</option>
-                            <option value="2">2일</option>
-                            <option value="3">3일</option>
-                            <option value="4">4일</option>
-                            <option value="5">5일</option>
-                            <option value="6">6일</option>
-                            <option value="7">7일</option>
-                            <option value="8">8일</option>
-                            <option value="9">9일</option>
-                            <option value="10">10일</option>
-                            <option value="11">11일</option>
-                            <option value="12">12일</option>
-                            <option value="13">13일</option>
-                            <option value="14">14일</option>
-                            <option value="15">15일</option>
-                            <option value="16">16일</option>
-                            <option value="17">17일</option>
-                            <option value="18">18일</option>
-                            <option value="19">19일</option>
-                            <option value="20">20일</option>
-                            <option value="21">21일</option>
-                            <option value="22">22일</option>
-                            <option value="23">23일</option>
-                            <option value="24">24일</option>
-                            <option value="25">25일</option>
-                            <option value="26">26일</option>
-                            <option value="27">27일</option>
-                            <option value="28">28일</option>
-                            <option value="29">29일</option>
-                            <option value="30">30일</option>
-                            <option value="31">31일</option>
-                        </select>
-                    </div>
+<div class="background"></div>
+<div class="signup-container">
+    <div class="signup-box-container">
+        <h1 class="signup-title">회원가입</h1>
+        <div class="signup-breadcrumb">
+            <a href="#">홈</a> &gt; <span>회원가입</span>
+        </div>
+        <div class="signup-box">
+            <p class="signup-left-align-title">함께 즐기는 취미생활, Socialize에서 시작하세요!</p>
+            <form action="/join" method="post">
+                <div class="signup-textbox">
+                    <input type="email" placeholder="이메일" name="email" id="email" class="short-input" required>
+                    <button type="button" class="verify-btn" id="send-verification">인증</button>
                 </div>
-            </div>
-            <input type="hidden" name="role" value="USER">
-            <button type="submit" class="btn btn-secondary w-100 mb-5" style="height: 70px; font-size: 1.5rem;"
-                    disabled id="submitBtn">확인</button>
-        </form>
+                <div class="signup-textbox verification-box" id="verification-box">
+                    <input type="text" placeholder="인증번호 입력" name="verification_code" id="verification_code" class="short-input">
+                    <button type="button" class="verify-btn">확인</button>
+                </div>
+                <div class="signup-textbox">
+                    <input type="password" placeholder="비밀번호" name="password" id="password" required>
+                    <button type="button" class="signup-password-toggle"></button>
+                    <span class="checkmark" id="password-checkmark">&#10004;</span>
+                </div>
+                <div class="signup-textbox">
+                    <input type="password" placeholder="비밀번호 확인" name="confirm_password" id="confirm_password" required>
+                    <button type="button" class="signup-password-toggle"></button>
+                    <span class="checkmark" id="confirm-password-checkmark">&#10004;</span>
+                </div>
+                <div class="signup-textbox">
+                    {{#kakaoUser}}
+                        <input type="text" placeholder="이름" name="name" required value="{{kakaoUser.properties.nickname}}" readonly>
+                        <input type="hidden" name="provider" value="KAKAO">
+                        <input type="hidden" name="providerId" value="{{kakaoUser.id}}">
+                    {{/kakaoUser}}
+                    {{^kakaoUser}}
+                        <input type="text" placeholder="이름" name="name" required value="">
+                    {{/kakaoUser}}
+                </div>
+                <div class="signup-textbox">
+                    <input type="text" id="birthdate" placeholder="생년월일" name="birthdate" required readonly>
+                    <input type="date" id="date-picker" style="display: none;">
+                </div>
+                <button type="submit" class="signup-btn">회원가입하기</button>
+                <input type="hidden" name="role" value="USER"/>
+            </form>
+            <p>이미 계정이 있으신가요? <a href="#">로그인하기</a></p>
+        </div>
     </div>
 </div>
-<!-- 년도 출력 스크립트 -->
+
 <script>
-    const selectYear = document.getElementById('year');
-    const currentYear = new Date().getFullYear();
-    for (let year = currentYear; year >= currentYear - 100; year--) {
-        const option = document.createElement('option');
-        option.value = year;
-        option.textContent = year + '년';
-        selectYear.appendChild(option);
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirm_password');
+    const passwordCheckmark = document.getElementById('password-checkmark');
+    const confirmPasswordCheckmark = document.getElementById('confirm-password-checkmark');
+    const sendVerificationBtn = document.getElementById('send-verification');
+    const verificationBox = document.getElementById('verification-box');
+    const birthdateInput = document.getElementById('birthdate');
+    const datePicker = document.getElementById('date-picker');
+
+    function checkPasswords() {
+        if (password.value === confirmPassword.value && password.value !== '') {
+            passwordCheckmark.classList.add('visible');
+            confirmPasswordCheckmark.classList.add('visible');
+        } else {
+            passwordCheckmark.classList.remove('visible');
+            confirmPasswordCheckmark.classList.remove('visible');
+        }
     }
-</script>
-<!-- 로그인 form 모두 입력후 버튼 활성화 -->
-<script>
-    document.getElementById('signupForm').addEventListener('input', function () {
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const name = document.getElementById('name').value;
-        const year = document.getElementById('year').value;
-        const month = document.getElementById('month').value;
-        const day = document.getElementById('day').value;
-        const isFormFilled = email && password && name && year && month && day;
-        document.getElementById('submitBtn').disabled = !isFormFilled;
+
+    password.addEventListener('input', checkPasswords);
+    confirmPassword.addEventListener('input', checkPasswords);
+
+    sendVerificationBtn.addEventListener('click', function() {
+        verificationBox.style.display = 'flex';
+    });
+
+    birthdateInput.addEventListener('click', function() {
+        datePicker.style.display = 'block';
+        datePicker.focus();
+    });
+
+    datePicker.addEventListener('change', function() {
+        birthdateInput.value = datePicker.value;
+        datePicker.style.display = 'none';
     });
 </script>
-</body>
-
-{{> layout/footer}}

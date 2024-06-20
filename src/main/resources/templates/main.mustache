@@ -46,12 +46,12 @@
             <button class="scroll-button" onclick="scrollLeft()">&#9664;</button>
             <div class="d-flex flex-nowrap overflow-auto category-wrap-vertical">
                 {{#model.categoryList}}
-                <li class="category-item">
-                    <button class="tab-button" data-tab="findSocial" name="categoryNameId" value="{{id}}">
-                        <img src="{{imagePath}}" class="rounded-circle category-img" alt="...">
-                        <h5 class="mt-2 text-center">{{name}}</h5>
-                    </button>
-                </li>
+                    <li class="category-item">
+                        <button class="tab-button category-button" data-tab="findSocial" data-category-id="{{id}}">
+                            <img src="{{imagePath}}" class="rounded-circle category-img" alt="...">
+                            <h5 class="mt-2 text-center">{{name}}</h5>
+                        </button>
+                    </li>
                 {{/model.categoryList}}
             </div>
             <button class="scroll-button" onclick="scrollRight()">&#9654;</button>
@@ -84,7 +84,7 @@
             <div class="d-flex flex-nowrap overflow-auto category-wrap-vertical">
                 {{#model.categoryList}}
                     <li class="category-item">
-                        <button name="categoryNameId" value="{{id}}">
+                        <button class="tab-button category-button" data-tab="findSocial" data-category-id="{{id}}">
                             <img src="{{imagePath}}" class="rounded-circle category-img" alt="...">
                             <h5 class="mt-2 text-center">{{name}}</h5>
                         </button>
@@ -93,68 +93,13 @@
             </div>
             <button class="scroll-button" onclick="scrollRight()">&#9654;</button>
         </div>
-        <div class="mt-4">
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body d-flex justify-content-center">
-                            <div>
-                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
-                            </div>
-                            <div>
-                                <h5 class="card-title">첫번째 밴드 이름</h5>
-                                <p class="card-text">첫번째 밴드 소개글</p>
-                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body d-flex justify-content-center">
-                            <div>
-                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
-                            </div>
-                            <div>
-                                <h5 class="card-title">두번째 밴드 이름</h5>
-                                <p class="card-text">두번째 밴드 소개글</p>
-                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body d-flex justify-content-center">
-                            <div>
-                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
-                            </div>
-                            <div>
-                                <h5 class="card-title">세번째 밴드 이름</h5>
-                                <p class="card-text">세번째 밴드 소개글</p>
-                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body d-flex justify-content-center">
-                            <div>
-                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
-                            </div>
-                            <div>
-                                <h5 class="card-title">네번째 밴드 이름</h5>
-                                <p class="card-text">네번째 밴드 소개글</p>
-                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="category-social-list row mt-4">
+
         </div>
     </div>
 </div>
+
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -168,14 +113,28 @@
             // 클릭된 버튼에 'active' 클래스 추가
             button.classList.add('active');
 
-            // 모든 탭 콘텐츠 숨기기
-            tabContents.forEach(content => content.style.display = 'none');
-            // 클릭된 버튼에 해당하는 콘텐츠 보이기
+            // 클릭된 버튼에 해당하는 탭 ID 가져오기
             const tabId = button.getAttribute('data-tab');
-            document.getElementById(tabId).style.display = 'block';
+            if (tabId) {
+                // 모든 탭 콘텐츠 숨기기
+                tabContents.forEach(content => {
+                    content.style.display = 'none';
+                });
 
-            // 탭 네비게이션에 파란색 줄 추가
-            const tabNav = document.querySelector('.tab-nav');
+                // 클릭된 버튼에 해당하는 콘텐츠 보이기
+                const tabContent = document.getElementById(tabId);
+
+                // 탭 네비게이션에 파란색 줄 추가
+                const tabNav = document.querySelector('.tab-nav');
+                if (tabContent) {
+                    tabContent.style.display = 'block';
+
+                } else {
+                    console.error(`Tab content with ID '${tabId}' not found.`);
+                }
+            } else {
+                console.error('Button does not have data-tab attribute.');
+            }
         }
 
         // 모든 탭 버튼에 클릭 이벤트 리스너 등록
@@ -190,10 +149,55 @@
             });
         });
 
+
         // 페이지 로드 시 첫 번째 탭 기본으로 보이게 함
         document.querySelector('.tab-button').click();
-    });
 
+        // 카테고리 버튼 클릭 시 AJAX 요청 처리
+        document.querySelectorAll('.category-item button').forEach(button => {
+            button.addEventListener('click', function () {
+                const categoryId = this.getAttribute('data-category-id');
+
+                $.ajax({
+                    url: "/main/category",
+                    type: "GET",
+                    data: {categoryId: categoryId},
+                    success: function (response) {
+                        const socialList = response; // 서버에서 반환된 소셜 리스트
+                        console.log(response);
+                        const categorySocialList = document.querySelector('.category-social-list');
+
+                        // 기존 소셜 리스트 초기화
+                        categorySocialList.innerHTML = '';
+
+                        // 새로운 소셜 리스트 추가
+                        socialList.forEach(social => {
+                            const socialCard = `
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex justify-content-center">
+                                        <div>
+                                            <img src="${social.image}" alt="인기 카테고리">
+                                        </div>
+                                        <div>
+                                            <h5 class="card-title">${social.name}</h5>
+                                            <p class="card-text">${social.info}</p>
+                                            <p class="card-text"><small class="text-muted">멤버수 : ${social.memberCount} 리더이름 : ${social.nickName}</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            `;
+                            categorySocialList.innerHTML += socialCard;
+                        });
+                    },
+                    error: function (error) {
+                        alert('소셜 목록을 불러오는 데 실패했습니다.');
+                    }
+                });
+            });
+        });
+    });
 </script>
 
 {{> layout/footer}}

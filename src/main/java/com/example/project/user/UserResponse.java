@@ -25,7 +25,7 @@ public class UserResponse {
         private LocalDate birth; // 생년 월일
         private UserEnum role; // 권한
         private UserProviderEnum provider;
-        private Long provide_id; //프로바이더 고유번호 ( 소셜로그인에서 제공하는 고유 식별번호, 카카오는 Long 타입 )
+        private Long providerId; //프로바이더 고유번호 ( 소셜로그인에서 제공하는 고유 식별번호, 카카오는 Long 타입 )
         private LocalDateTime createdAt; // 유저 가입 일자
 
         public LoggedInUserDTO(User user) {
@@ -37,7 +37,7 @@ public class UserResponse {
             this.birth = user.getBirth();
             this.role = user.getRole();
             this.provider = user.getProvider();
-            this.provide_id = user.getProvide_id();
+            this.providerId = user.getProviderId();
             this.createdAt = user.getCreatedAt();
         }
     }
@@ -49,18 +49,16 @@ public class UserResponse {
         private List<MySocialPopularDTO> mySocialPopularList;
         private List<PopularPostDTO> popularPostList;
         private List<CategoryDTO> categoryList;
-        private List<CategorySocialDTO> categorySocialList;
+
 
         public MainDTO(List<Object[]> mySocialList,
                        List<Object[]> mySocialPopularList,
                        List<Object[]> popularPostList,
-                       List<CategoryName> categoryList,
-                       List<Object[]> categorySocialList) {
+                       List<CategoryName> categoryList) {
             this.mySocialList = mySocialList.stream().map(MySocialDTO::new).toList();
             this.mySocialPopularList = mySocialPopularList.stream().map(MySocialPopularDTO::new).toList();
             this.popularPostList = popularPostList.stream().map(PopularPostDTO::new).toList();
             this.categoryList = categoryList.stream().map(CategoryDTO::new).toList();
-            this.categorySocialList = categorySocialList.stream().map(CategorySocialDTO::new).toList();
         }
 
         @Data
@@ -128,6 +126,15 @@ public class UserResponse {
                 this.name = categoryName.getName();
             }
         }
+    }
+
+    @Data
+    public static class MainAjaxDTO {
+        private List<CategorySocialDTO> categorySocialList;
+
+        public MainAjaxDTO(List<Object[]> categorySocialList) {
+            this.categorySocialList = categorySocialList.stream().map(CategorySocialDTO::new).toList();
+        }
 
         @Data
         private static class CategorySocialDTO {
@@ -136,6 +143,7 @@ public class UserResponse {
             private String image;
             private String info;
             private Long memberCount;
+            private String nickName;
 
             public CategorySocialDTO(Object[] categorySocialList) {
                 this.id = (Integer) categorySocialList[0];
@@ -143,6 +151,7 @@ public class UserResponse {
                 this.image = (String) categorySocialList[2];
                 this.info = (String) categorySocialList[3];
                 this.memberCount = (Long) categorySocialList[4];
+                this.nickName = (String) categorySocialList[5];
             }
         }
     }

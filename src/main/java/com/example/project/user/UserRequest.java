@@ -1,5 +1,7 @@
 package com.example.project.user;
 
+import com.example.project._core.enums.UserEnum;
+import com.example.project._core.enums.UserProviderEnum;
 import lombok.Data;
 
 //요청 바디 데이터 관리
@@ -12,7 +14,10 @@ public class UserRequest {
         private String year;
         private String month;
         private String day;
-        private String role;
+        private String birthdate;
+        private UserEnum role;
+        private UserProviderEnum provider;
+        private Long providerId;
     }
     @Data
     public static class LoginDTO{

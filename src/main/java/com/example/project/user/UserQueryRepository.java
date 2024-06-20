@@ -15,7 +15,6 @@ public class UserQueryRepository {
 
     public List<Object[]> mySocialList(Integer userId) {
         String q = """
-                               
                 SELECT
                       s.id,
                       s.name,
@@ -35,7 +34,7 @@ public class UserQueryRepository {
                 """;
 
         Query query = em.createNativeQuery(q);
-        query.setParameter(1, 1);
+        query.setParameter(1, userId);
 
         return query.getResultList();
     }
@@ -72,7 +71,7 @@ public class UserQueryRepository {
                 """;
 
         Query query = em.createNativeQuery(q);
-        query.setParameter(1, 1);
+        query.setParameter(1, userId);
 
         return query.getResultList();
     }
@@ -134,7 +133,7 @@ public class UserQueryRepository {
                 """;
 
         Query query = em.createNativeQuery(q);
-        query.setParameter(1, 1);
+        query.setParameter(1, userId);
 
         return query.getResultList();
     }

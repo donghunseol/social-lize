@@ -2,15 +2,14 @@ package com.example.project.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 
 public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select u from User u where u.email = :email")
     User findByEmail(String email);
 
-    @Query("select u from User u where u.provide_id = :provider_id")
-    User findByKakaoId(Long provider_id);
+    @Query("select u from User u where u.providerId = :providerId and u.provider='KAKAO'")
+    User findByKakaoId(Long providerId);
 }
 /*
 로그인시 입력받은 이메일과 비밀번호로 쿼리로 날려 로그인 검증하는 방식을 사용하지 말아야 하는 이유 (출처:ChatGPT 4, 2024.06.19)

@@ -25,9 +25,9 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String mainPage(Integer categoryNameId, HttpServletRequest request) {
+    public String mainPage(HttpServletRequest request) {
         Integer userId = 1;
-        UserResponse.MainDTO model = userService.mainPage(userId, categoryNameId);
+        UserResponse.MainDTO model = userService.mainPage(userId);
         request.setAttribute("model", model);
 
         return "main";
@@ -47,9 +47,9 @@ public class UserController {
 
     //회원가입 페이지
     @GetMapping("/user/joinForm")
-    public String joinForm(UserRequest.JoinDTO joinDTO, HttpServletRequest request){
-        KakaoResponse.KakaoUserDTO kakaoUser = (KakaoResponse.KakaoUserDTO) session.getAttribute("kakaoUser");
-        System.out.println(kakaoUser);
+    public String joinForm(HttpServletRequest request){
+        KakaoResponse.KakaoUserDTO kakaoUser =
+                (KakaoResponse.KakaoUserDTO) session.getAttribute("kakaoUser");
         return "user/joinForm";
     }
 
@@ -70,9 +70,7 @@ public class UserController {
             return "redirect:/";
         }
         if (theUser instanceof KakaoResponse.KakaoUserDTO) {   //조회 결과 : 아직 가입하지 않은 회원
-            System.out.println((KakaoResponse.KakaoUserDTO) theUser);
-            System.out.println(((KakaoResponse.KakaoUserDTO) theUser).getProperties().getNickname());
-            System.out.println("회원가입 로직 타야함");
+            session.invalidate();
             session.setAttribute("kakaoUser", theUser);
             return "redirect:/user/joinForm";
         }
