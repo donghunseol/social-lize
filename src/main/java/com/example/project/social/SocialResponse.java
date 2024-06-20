@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 public class SocialResponse {
 
     @Data
-    public static class albumAndFileListDTO {
+    public static class AlbumAndFileListDTO {
         private Integer socialId; // 어디 소속된 앨범인지 확인
         private List<AlbumDTO> albums;
         private List<FileDTO> files;
 
-        public albumAndFileListDTO(Integer socialId, List<Album> albumList, List<File> fileList) {
+        public AlbumAndFileListDTO(Integer socialId, List<Album> albumList, List<File> fileList) {
             this.socialId = socialId;
             this.albums = albumList.stream()
                     .map(AlbumDTO::new).collect(Collectors.toList());
