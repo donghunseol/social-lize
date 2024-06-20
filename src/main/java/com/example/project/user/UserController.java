@@ -1,5 +1,6 @@
 package com.example.project.user;
 
+import com.example.project._core.errors.exception.Exception400;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class UserController {
 
     @GetMapping("/test")
     public String test() {
-        return "/social/fileaddForm";
+        throw new Exception400("failed to get");
     }
 
 
@@ -45,7 +46,7 @@ public class UserController {
     //회원가입 페이지 - 자체가입
     @GetMapping("/user/joinForm")
     public String joinForm(HttpServletRequest request){
-        //kakaUser세션값을 날리기위해서 함. 이게있으면 닉네임을 세션에서 불러오고 readonly함.
+        //kakaoUser세션값을 날리기위해서 함. 이게있으면 닉네임을 세션에서 불러오고 readonly함.
         // 카카오 가입하기 했다가 이메일로 가입하기 누르면 값이 남아있는 문제갑라생함
         session.invalidate();
         return "user/joinForm";
@@ -66,13 +67,14 @@ public class UserController {
         return "redirect:/user/login";
     }
 
-    //카카오로그인 콜백
+    //카카오로그인 콜백 & 카카오 로그인
     @GetMapping("/oauth/kakao/callback")
     public String oauthKakaoCallback(String code,HttpServletRequest request) {
-        Object theUser = userService.findByKakaoId(code);
+        Object theUser = userService.getKakaoId(code);
 
-        if (theUser instanceof User) { //조회 결과: 이미 가입한 회원
-            System.out.println((User) theUser);
+        if (theUser instanceof UserResponse.LoggedInUserDTO ) { //조회 결과: 이미 가입한 회원 - 로그인처리
+            System.out.println((UserResponse.LoggedInUserDTO) theUser);
+            session.setAttribute("user",theUser);
             return "redirect:/";
         }
         if (theUser instanceof KakaoResponse.KakaoUserDTO) {   //조회 결과 : 아직 가입하지 않은 회원
@@ -92,7 +94,7 @@ public class UserController {
         else return "user/login";
     }
 
-    //로그인 처리
+    //로그인 처리 (자체로그인)
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO loginDTO) {
         UserResponse.LoggedInUserDTO loggedInUserDTO = userService.login(loginDTO);
