@@ -18,6 +18,12 @@ public class SocialController {
     private final FileService fileService;
     private final HttpSession session;
 
+    @GetMapping("/social/detail/{socialId}")
+    public String socialDetail(@PathVariable int socialId) {
+
+        return "social/detail";
+    }
+
     // 가입하지 않은 소셜 둘러보기 페이지
     @GetMapping("/social/notJoined")
     public String socialNotJoin() {
