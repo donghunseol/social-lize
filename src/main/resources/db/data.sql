@@ -1,11 +1,11 @@
--- 유저 테이블
+-- 유저 테이블 (비밀번호는 암호호되서 저장됨. 1234임)
 INSERT INTO user_tb (email, password, nickname, image, phone, birth, role, created_at, provider)
-VALUES ('ssar@nate.com', '1234', '하승진', 'image1.png', '010-1234-5678', '1994-12-26', 'USER', now(), null),
-       ('cos@daum.net', '1234', '김세운', 'image2.png', '010-2345-6789', '1992-10-24', 'USER', now(), null),
-       ('jane@kakao.com', '1234', '박제인', 'image3.png', '010-3456-7890', '1995-07-19', 'USER', now(), 'KAKAO'),
-       ('john@naver.com', '1234', '설조온', 'image4.png', '010-4567-8901', '1993-03-15', 'USER', now(), 'NAVER'),
-       ('lucy@gmail.com', '1234', '김루씨', 'image5.png', '010-5678-1234', '1996-08-30', 'USER', now(), null),
-       ('manager@gmail.com', '1234', '소셜 매니저', 'image5.png', null, null, 'MANAGER', now(), null);
+VALUES ('ssar@nate.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '하승진', 'image1.png', '010-1234-5678', '1994-12-26', 'USER', now(), null),
+       ('1@1.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김세운', 'image2.png', '010-2345-6789', '1992-10-24', 'USER', now(), null),
+       ('jane@kakao.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '박제인', 'image3.png', '010-3456-7890', '1995-07-19', 'USER', now(), 'KAKAO'),
+       ('john@naver.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '설조온', 'image4.png', '010-4567-8901', '1993-03-15', 'USER', now(), 'NAVER'),
+       ('lucy@gmail.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김루씨', 'image5.png', '010-5678-1234', '1996-08-30', 'USER', now(), null),
+       ('manager@gmail.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '소셜 매니저', 'image5.png', null, null, 'MANAGER', now(), null);
 
 -- 소셜 테이블
 INSERT INTO social_tb (name, image, info, created_at)
