@@ -29,7 +29,7 @@ public class SocialController {
     // 서랍 페이지
     @GetMapping("/social/fileadd/{socialId}")
     public String fileAdd(@PathVariable Integer socialId, HttpServletRequest request) {
-        SocialResponse.albumAndFileListDTO respDTO = socialService.getSocialAlbumList(socialId);
+        SocialResponse.AlbumAndFileListDTO respDTO = socialService.getSocialAlbumList(socialId);
         request.setAttribute("models", respDTO);
 
         return "social/fileaddForm";

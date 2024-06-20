@@ -19,7 +19,7 @@ public class SocialService {
     private final FileRepository fileRepository;
 
     // 소셜 별 앨범, 파일 리스트 출력
-    public SocialResponse.albumAndFileListDTO getSocialAlbumList(Integer socialId){
+    public SocialResponse.AlbumAndFileListDTO getSocialAlbumList(Integer socialId){
 
         // 소셜 별 앨범 리스트 가져오기
         List<Album> albumList = albumRepository.findBySocialId(socialId);
@@ -36,6 +36,6 @@ public class SocialService {
         }
 
         // 앨범, 파일 리스트 DTO 담기
-        return new SocialResponse.albumAndFileListDTO(socialId, albumList, fileList);
+        return new SocialResponse.AlbumAndFileListDTO(socialId, albumList, fileList);
     }
 }

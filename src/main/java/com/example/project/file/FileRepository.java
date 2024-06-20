@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface FileRepository extends JpaRepository<File, Integer> {
+
+    // 소셜 별 파일 리스트 출력
     @Query("""
         SELECT f FROM File f
         JOIN FETCH f.boardId b
