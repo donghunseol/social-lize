@@ -3,7 +3,7 @@
 <div class="modal fade" id="boardModal" tabindex="-1" aria-labelledby="boardModalLabel" aria-hidden="true"
      style="text-align: start">
     <div class="modal-dialog">
-        <div class="board-modal-content">
+        <div class="board-modal-content modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="boardModalLabel">이벤트 공지</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -42,3 +42,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        // 모달 내부 클릭 시 닫히지 않도록 설정
+        $('#boardModal .modal-content').on('click', function (event) {
+            event.stopPropagation();
+        });
+    });
+</script>

@@ -33,6 +33,9 @@ public class File {
     private Board boardId; // 게시글 번호
 
     @Column(nullable = false)
+    private String name; // 첨부파일 이름
+
+    @Column(nullable = false)
     private String path; // 첨부파일 경로
 
     @CreationTimestamp
