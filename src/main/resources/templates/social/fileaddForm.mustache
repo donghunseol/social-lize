@@ -656,7 +656,7 @@
 <body>
 <div class="header">
     <div class="logo">
-        <img src="../images/logo.png" alt="로고">
+        <img src="/images/logo.png" alt="로고">
     </div>
     <div class="search-bar">
         <input type="text" placeholder="소셜, 페이지, 게시글 검색">
@@ -675,7 +675,7 @@
 <div class="container">
     <div class="sidebar">
         <div class="social-info">
-            <img src="../images/puppy.png" alt="소셜 사진">
+            <img src="/images/puppy.png" alt="소셜 사진">
             <h2>포메와의 산책</h2>
             <div>리더 포실장과 아이들</div>
             <div>멤버 2,215</div>
@@ -693,27 +693,16 @@
         <div id="Album" class="tab-content">
             <div class="content-header"><span id="albumCount">0</span></div>
             <div class="grid-container">
-                <div class="grid-item photo">
-                    <img src="/images/logo.png" alt="#" onclick="openModal(this.src)">
-                </div>
-                <div class="grid-item video">
-                    <video src="/videos/API 문서화_02.mp4" onclick="openModal(this.src, true)"></video>
-                </div>
-                <div class="grid-item photo">
-                    <img src="/images/plus.png" alt="#" onclick="openModal(this.src)">
-                </div>
-                <div class="grid-item photo">
-                    <img src="/images/socialCover.jpg" alt="#" onclick="openModal(this.src)">
-                </div>
-                <div class="grid-item video">
-                    <video src="/videos/와이어샤크.mp4" onclick="openModal(this.src, true)"></video>
-                </div>
-                <div class="grid-item photo">
-                    <img src="/images/plus.png" alt="#" onclick="openModal(this.src)">
-                </div>
-                <div class="grid-item photo">
-                    <img src="/images/socialCover.jpg" alt="#" onclick="openModal(this.src)">
-                </div>
+                {{# models.albums}}
+                    <div class="grid-item {{#isVideo}}video{{/isVideo}}{{^isVideo}}photo{{/isVideo}}" data-type="{{type}}">
+                        {{#isVideo}}
+                            <video src="{{path}}" onclick="openModal(this.src, true)"></video>
+                        {{/isVideo}}
+                        {{^isVideo}}
+                            <img src="{{path}}" alt="#" onclick="openModal(this.src, false)">
+                        {{/isVideo}}
+                    </div>
+                {{/models.albums}}
             </div>
         </div>
         <div id="File" class="tab-content">
@@ -728,18 +717,12 @@
             </div>
             <div class="content-header"><span id="fileCount">0</span></div>
             <div class="file-list" id="fileList">
-                <!-- 파일을 올리면 동적으로 파일이 추가 -->
-                <div class="file-item">
-                    <span onclick="downloadFile('/images/logo.png', 'image')" class="file-name">sample1.txt</span>
-                    <button class="file-download-btn" onclick="downloadFile('/images/logo.png', 'image')"><i
-                            class="fas fa-download"></i></button>
-                </div>
-                <div class="file-item">
-                        <span onclick="downloadFile('/videos/API 문서화_02.mp4', 'video')"
-                              class="file-name">sample2.jpg</span>
-                    <button class="file-download-btn" onclick="downloadFile('/videos/API 문서화_02.mp4', 'video')"><i
-                            class="fas fa-download"></i></button>
-                </div>
+                {{# models.files}}
+                    <div class="file-item">
+                        <span onclick="downloadFile('{{path}}', 'file')" class="file-name">{{name}}</span>
+                        <button class="file-download-btn" onclick="downloadFile('{{path}}', 'file')"><i class="fas fa-download"></i></button>
+                    </div>
+                {{/ models.files}}
             </div>
         </div>
     </div>
@@ -751,7 +734,7 @@
         <div class="chat-messages">
             <div class="chat-date">2024년 6월 17일</div>
             <div class="chat-message">
-                <img src="images/puppy.png" alt="프로필 사진" class="profile-pic">
+                <img src="/images/puppy.png" alt="프로필 사진" class="profile-pic">
                 <div class="message-content">
                     <div class="sender">설동훈</div>
                     <div class="message-container">
