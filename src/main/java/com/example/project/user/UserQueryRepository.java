@@ -110,12 +110,12 @@ public class UserQueryRepository {
                     s.name,
                     s.image,
                     s.info,
-                    COUNT(sm.user_id) AS total_members,
+                    COUNT(CASE WHEN sm.state = 'APPROVED' THEN sm.user_id END) AS total_members,
                     (SELECT u.nickname
-                    FROM social_member_tb sm
-                JOIN user_tb u ON sm.user_id = u.id
-                WHERE sm.social_id = s.id AND sm.role = 'MANAGER'
-                LIMIT 1) AS manager_name
+                     FROM social_member_tb sm
+                     JOIN user_tb u ON sm.user_id = u.id
+                     WHERE sm.social_id = s.id AND sm.role = 'MANAGER'
+                     LIMIT 1) AS manager_name
                 FROM
                     social_tb s
                 LEFT JOIN
@@ -125,7 +125,7 @@ public class UserQueryRepository {
                        SELECT social_id
                        FROM category_tb
                        WHERE category_name_id = ?
-                )
+                    )
                 GROUP BY
                     s.id, s.name, s.image, s.info
                 ORDER BY

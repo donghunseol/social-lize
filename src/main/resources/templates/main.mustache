@@ -1,4 +1,5 @@
 {{> layout/header}}
+
 <div class="container">
     <div class="tab-nav">
         <button class="tab-button active" data-tab="mySocial">내 소셜</button>
@@ -16,7 +17,7 @@
                 <div class="card">
                     <img src="{{imagePath}}" class="card-img-top" alt="image">
                     <div class="card-body">
-                        <h5 class="card-title">{{title}}</h5>
+                        <h5 class="card-title truncate">{{title}}</h5>
                         <p class="card-text">{{memberCount}}</p>
                     </div>
                 </div>
@@ -29,8 +30,8 @@
                     <div class="col-md-6 mb-4">
                         <div class="card h-100">
                             <div class="card-body w-100">
-                                <h5 class="card-title">{{title}}</h5>
-                                <p class="card-text">{{content}}</p>
+                                <h5 class="card-title truncate2">{{title}}</h5>
+                                <p class="card-text truncate">{{{content}}}</p>
                                 <p class="card-text"><small class="text-muted">작성자: {{nickname}}</small></p>
                             </div>
                             <div class="card-footer">
@@ -63,8 +64,8 @@
                     <div class="col-md-6 mb-4">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h5 class="card-title">{{title}}</h5>
-                                <p class="card-text">{{content}}</p>
+                                <h5 class="card-title truncate2">{{title}}</h5>
+                                <p class="card-text truncate">{{{content}}}</p>
                                 <p class="card-text"><small class="text-muted">작성자: {{nickname}}</small></p>
                             </div>
                             <div class="card-footer">
@@ -177,12 +178,12 @@
                                 <div class="card h-100">
                                     <div class="card-body d-flex justify-content-center">
                                         <div>
-                                            <img src="${social.image}" alt="인기 카테고리">
+                                            <img src="${social.image}" alt="이미지">
                                         </div>
                                         <div>
-                                            <h5 class="card-title">${social.name}</h5>
-                                            <p class="card-text">${social.info}</p>
-                                            <p class="card-text"><small class="text-muted">멤버수 : ${social.memberCount} 리더이름 : ${social.nickName}</small></p>
+                                            <h5 class="card-title truncate2">${social.name}</h5>
+                                            <p class="card-text truncate2">${social.info}</p>
+                                            <p class="card-text"><small class="text-muted">멤버수 : ${social.memberCount}<br>리더이름 : ${social.nickName}</small></p>
                                         </div>
                                     </div>
                                 </div>
