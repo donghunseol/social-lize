@@ -1,11 +1,7 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-}
+
 .my-section {
-    padding: 50px;
-    margin: 0 auto;
+    padding: 15px;
+    margin: 30px auto;
     max-width: 1200px;
 }
 .my-full-width-section {
@@ -13,18 +9,23 @@ body {
     margin: 0;
 }
 .my-section1 {
+    margin-top: 30px;
     background-color: #ffffff;
 }
 .my-section2 {
+    padding: 10px;
+    margin-top: 30px;
     background-color: #e9ecef;
 }
 .my-section3 {
+    padding: 10px;
     background-color: #dee2e6;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 .my-section4 {
+    padding: 20px;
     background-color: #e9ecef;
 }
 .my-cards-container {
@@ -54,6 +55,7 @@ body {
     font-size: 14px;
 }
 .my-posts-container {
+    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -80,13 +82,16 @@ body {
 }
 .my-post .my-separator {
     border-bottom: 1px solid #ddd;
-    margin: 10px 0;
+    margin: 5px 0;
 }
-.my-post .my-content {
-    font-size: 14px;
-    color: #333;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.my-content-flex {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+.my-content {
+    flex: 1;
+    max-width: calc(100% - 70px); /* Adjust based on image width + margin */
 }
 .my-post .my-footer {
     margin-top: 10px;
@@ -207,7 +212,7 @@ body {
 }
 .my-search-bar .fa-search {
     position: absolute;
-    left: 437px;
+    left: 446px;
     top: 50%;
     transform: translateY(-50%);
     color: #666;
@@ -255,4 +260,10 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 12px;
+}
+.my-image-right {
+    margin-left: 10px;
+    width: 60px;
+    height: auto;
+    flex-shrink: 0;
 }
