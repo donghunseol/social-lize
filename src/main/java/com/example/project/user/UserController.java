@@ -15,14 +15,11 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
-    @GetMapping("/test1")
-    public String socialAddForm(){
-        return "user/joinForm";
+    @GetMapping("/test")
+    public String test() {
+        return "/social/fileaddForm";
     }
-    @GetMapping("/test2")
-    public String socialAdddForm(){
-        return "user/joinMain";
-    }
+
 
     @GetMapping("/")
     public String mainPage(HttpServletRequest request) {
