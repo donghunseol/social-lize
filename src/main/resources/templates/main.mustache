@@ -1,386 +1,390 @@
 {{> layout/header}}
-
-<div class="container mt-4 d-flex flex-column">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link active" href="#" onclick="openTab(event, 'mySocial')">내 소셜</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" onclick="openTab(event, 'findSocial')">소셜 찾기</a>
-        </li>
-    </ul>
-    <div id="mySocial" name="mySocial" class="tab-content active mt-4 my-social">
-        <div class="card-deck">
-            <div class="card create-band-card">
-                <div class="card-body text-center">
-                    <i class="fas fa-plus-circle"></i>
-                    <p class="card-text">만들기</p>
+<div class="tab-nav-container">
+    <div class="tab-nav">
+        <button class="tab-button active" data-tab="tab-1">내 소셜</button>
+        <button class="tab-button" data-tab="tab-2">소셜 찾기</button>
+    </div>
+</div>
+<div id="tab-1" class="tab-content active">
+    <div class="my-full-width-section my-section1">
+        <div class="my-section">
+            <div class="my-cards-container">
+                <div class="my-card">
+                    <div class="plus-icon" style="font-size: 50px;">+</div>
+                    <div class="my-title">새 소셜 만들기</div>
                 </div>
-            </div>
-            <div class="card">
-                <img src="path/to/image1.jpg" class="card-img-top" alt="Image 1">
-                <div class="card-body">
-                    <h5 class="card-title">SNS 프로젝트 1조</h5>
-                    <p class="card-text">멤버 4</p>
+                <div class="my-card">
+                    <img src="donut.png" alt="SNS Project 1">
+                    <div class="my-title">SNS 프로젝트 1조</div>
+                    <div class="my-subtitle">멤버 4</div>
                 </div>
-            </div>
-            <div class="card">
-                <img src="path/to/image2.jpg" class="card-img-top" alt="Image 2">
-                <div class="card-body">
-                    <h5 class="card-title">SNS 프로젝트 1조</h5>
-                    <p class="card-text">멤버 1</p>
+                <div class="my-card">
+                    <img src="donut.png" alt="SNS Project 1">
+                    <div class="my-title">SNS 프로젝트 1조</div>
+                    <div class="my-subtitle">멤버 4</div>
                 </div>
-            </div>
-            <div class="card">
-                <img src="path/to/image3.jpg" class="card-img-top" alt="Image 3">
-                <div class="card-body">
-                    <h5 class="card-title">지금 홍황 터졌네요, 천도 복숭아</h5>
-                    <p class="card-text">AD - 밴드 미리보기</p>
+                <div class="my-card">
+                    <img src="donut.png" alt="SNS Project 1">
+                    <div class="my-title">SNS 프로젝트 1조</div>
+                    <div class="my-subtitle">멤버 4</div>
                 </div>
-            </div>
-        </div>
-        <div class="mt-4">
-            <h3>내 소셜 인기글</h3>
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body w-100">
-                            <h5 class="card-title">첫번째 인기글 제</h5>
-                            <p class="card-text">첫번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저1</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 11 💬 10</small>
-                        </div>
-                    </div>
+                <div class="my-card">
+                    <img src="donut.png" alt="SNS Project 1">
+                    <div class="my-title">SNS 프로젝트 1조</div>
+                    <div class="my-subtitle">멤버 4</div>
                 </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100 w-100">
-                        <div class="card-body">
-                            <h5 class="card-title">두번째 인기글 제목</h5>
-                            <p class="card-text">두번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저2</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 19 💬 12</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">세번째 인기글 제목</h5>
-                            <p class="card-text">세번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저3</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 34 💬 5</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">네번째 인기글 제목</h5>
-                            <p class="card-text">네번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저4</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 7 💬 3</small>
-                        </div>
-                    </div>
+                <div class="my-card">
+                    <img src="donut.png" alt="SNS Project 1">
+                    <div class="my-title">SNS 프로젝트 1조</div>
+                    <div class="my-subtitle">멤버 4</div>
                 </div>
             </div>
         </div>
-        <div class="mt-4 bg-light" style="width: 100%; margin-left: 0; margin-right: 0;">
-            <h3>주제별 소셜을 찾아보세요</h3>
-            <div id="mySocialCarousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="d-flex justify-content-center">
-                            <div class="band-category">
-                                <img src="path/to/sports-leisure.jpg" class="circle" alt="스포츠/레저">
-                                <p>스포츠/레저</p>
-                            </div>
-                            <div class="band-category">
-                                <img src="path/to/travel-camping.jpg" class="circle" alt="여행/캠핑">
-                                <p>여행/캠핑</p>
-                            </div>
-                            <div class="band-category">
-                                <img src="path/to/daily-life.jpg" class="circle" alt="일상이야기">
-                                <p>일상이야기</p>
-                            </div>
-                            <div class="band-category">
-                                <img src="path/to/food-dining.jpg" class="circle" alt="집/요리">
-                                <p>맛집/요리</p>
-                            </div>
-                            <div class="band-category">
-                                <img src="path/to/entertainment.jpg" class="circle" alt="방송/연예">
-                                <p>방송/연예</p>
-                            </div>
-                            <div class="band-category">
-                                <img src="path/to/living-info.jpg" class="circle" alt="생활정보/인테리어">
-                                <p>생활정보/인테리어</p>
-                            </div>
+    </div>
+    <div class="my-full-width-section my-section2">
+        <div class="my-section">
+            <h3>내 소셜의 인기글</h3>
+            <div class="my-posts-container">
+                <div class="my-post">
+                    <div class="my-title">행복 우체통</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content-flex">
+                        <div class="my-content">
+                            급산가면 꼭 가봐야하는 휴양지감성 계곡식당 💙 아냐,?! 벌써부터 여름날씨 실화냐,..?! 윤막 차르르 펼쳐지는 마운틴뷰 공둥공당각나오는 계곡물이라니,.. 💙 힐링뷰보며 먹빌랑과 나온다는 땡맛따잇지는 물론 평상대여, 축박까지 가능해서 힐링코스로 딱 🌊 이번 여름 딱 대...
                         </div>
+                        <img src="/images/space.png" alt="행복 우체통" class="my-image-right">
                     </div>
-                    <!-- 추가 슬라이드 -->
-                    <div class="carousel-item">
-                        <div class="d-flex justify-content-center">
-                            <div class="band-category">
-                                <img src="path/to/language.jpg" class="circle" alt="/외국어">
-                                <p>어학/외국어</p>
-                            </div>
-                            <div class="band-category">
-                                <img src="path/to/games.jpg" class="circle" alt="게임">
-                                <p>게임</p>
-                            </div>
-                            <div class="band-category">
-                                <img src="path/to/age-group.jpg" class="circle" alt="나이/또래모임">
-                                <p>나이/또래모임</p>
-                            </div>
-                            <div class="band-category">
-                                <img src="path/to/fan-club.jpg" class="circle" alt="팬클럽">
-                                <p>팬클럽</p>
-                            </div>
-                            <div class="band-category">
-                                <img src="path/to/another-category1.jpg" class="circle" alt="추가 카테고리1">
-                                <p>추가 카테고리1</p>
-                            </div>
-                            <div class="band-category">
-                                <img src="path/to/another-category2.jpg" class="circle" alt="추가 카테고리2">
-                                <p>추가 카테고리2</p>
-                            </div>
-                        </div>
+                    <div class="my-footer">
+                        <div>😊😍 40</div>
+                        <div>댓글 36</div>
                     </div>
                 </div>
-                <!-- 넘기는 버튼 -->
-                <!-- mySocial 캐러셀 제어 버튼 -->
-                <a class="carousel-control-prev" href="#mySocialCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#mySocialCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </div>
-        <div class="mt-4">
-            <h3>오늘의 인기글</h3>
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">첫번째 인기글 제</h5>
-                            <p class="card-text">첫번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저1</small></p>
+                <div class="my-post">
+                    <div class="my-title">리차드네 반려식물 이야기</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content-flex">
+                        <div class="my-content">
+                            앞마당 정원수로 많이들 키우시는 백묘국을 2년전 3월 작은 모종부터 시작해서 키우고 있는데요 이녀석이 2년만에 첫꽃을 보여주네요 많이 컸어요. 중간에 분열본갈이를 2번 해주었어요. 백묘국은 노지월동도 가능하여 앞마당에 정원수로 많이들 키운다고 하는데 작은 화분에서 2...
                         </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 11 💬 10</small>
-                        </div>
+                        <img src="/images/plant.png" alt="리차드네 반려식물 이야기" class="my-image-right">
+                    </div>
+                    <div class="my-footer">
+                        <div>😊😍 37</div>
+                        <div>댓글 41</div>
                     </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">두번째 인기글 제목</h5>
-                            <p class="card-text">두번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저2</small></p>
+                <div class="my-post">
+                    <div class="my-title">마운틴TV 공식밴드</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content-flex">
+                        <div class="my-content">
+                            #산행후기 관악산 산행후기 들머리서울대 공학관 날머리 사당역 산행시간 3시간 어제 비가 내려서 그런지 날씨도 화창하고 바람도 시원하게 불어서 좋은산행 하고 왔네요
                         </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 19 💬 12</small>
-                        </div>
+                        <img src="/images/football.png" alt="마운틴TV 공식밴드" class="my-image-right">
+                    </div>
+                    <div class="my-footer">
+                        <div>😊😍 42</div>
+                        <div>댓글 2</div>
                     </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">세번째 인기글 제목</h5>
-                            <p class="card-text">세번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작성자: 유저3</small></p>
+                <div class="my-post">
+                    <div class="my-title">영화후기모임</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content-flex">
+                        <div class="my-content">
+                            이번 주에 본 영화에 대한 개인적인 생각입니다.
                         </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 34 💬 5</small>
-                        </div>
+                        <img src="/images/indoor.png" alt="영화후기모임" class="my-image-right">
                     </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">네번째 인기글 제목</h5>
-                            <p class="card-text">네번째 인기글 내용...</p>
-                            <p class="card-text"><small class="text-muted">작자: 유저4</small></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">👍 7 💬 3</small>
-                        </div>
+                    <div class="my-footer">
+                        <div>😊😍 42</div>
+                        <div>댓글 2</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <!-- 소셜 찾기 -->
-    <div id="findSocial" name="findSocial" class="tab-content mt-4 d-flex flex-column find-social">
-        <h3>주제별 소셜을 찾아보세요</h3>
-        <div id="findSocialCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="d-flex justify-content-center">
-                        <div class="band-category">
-                            <img src="path/to/sports-leisure.jpg" class="circle" alt="스포츠/레저">
-                            <p>스포츠/레저</p>
-                        </div>
-                        <div class="band-category">
-                            <img src="path/to/travel-camping.jpg" class="circle" alt="여행/캠핑">
-                            <p>여행/캠핑</p>
-                        </div>
-                        <div class="band-category">
-                            <img src="path/to/daily-life.jpg" class="circle" alt="일상이야기">
-                            <p>일상이야기</p>
-                        </div>
-                        <div class="band-category">
-                            <img src="path/to/food-dining.jpg" class="circle" alt="집/요리">
-                            <p>맛집/요리</p>
-                        </div>
-                        <div class="band-category">
-                            <img src="path/to/entertainment.jpg" class="circle" alt="방송/연예">
-                            <p>방송/연예</p>
-                        </div>
-                        <div class="band-category">
-                            <img src="path/to/living-info.jpg" class="circle" alt="생활정보/인테리어">
-                            <p>생활정보/인테리어</p>
-                        </div>
+    <div class="my-full-width-section my-section4">
+        <div class="my-section">
+            <h3>이런 소셜은 어때요</h3>
+            <div class="my-recommendation-container">
+                <div class="my-recommendation-item">
+                    <img src="/images/space.png" alt="우주,천체관측,천체사진 밴드">
+                    <div class="my-details">
+                        <div class="my-title">우주,천체관측,천체사진 밴드</div>
+                        <div class="my-subtitle">유튜브 에서 천체관측 관련 유튜브를 하고 있는 딥스카이 입니다. 천...</div>
                     </div>
+                    <button class="my-more-button">전체관측 밴드 더보기 ></button>
                 </div>
-                <!-- 추가 슬라이드 -->
-                <div class="carousel-item">
-                    <div class="d-flex justify-content-center">
-                        <div class="band-category">
-                            <img src="path/to/language.jpg" class="circle" alt="/외국어">
-                            <p>어학/외국어</p>
-                        </div>
-                        <div class="band-category">
-                            <img src="path/to/games.jpg" class="circle" alt="게임">
-                            <p>게임</p>
-                        </div>
-                        <div class="band-category">
-                            <img src="path/to/age-group.jpg" class="circle" alt="나이/또래모임">
-                            <p>나이/또래모임</p>
-                        </div>
-                        <div class="band-category">
-                            <img src="path/to/fan-club.jpg" class="circle" alt="팬클럽">
-                            <p>팬클럽</p>
-                        </div>
-                        <div class="band-category">
-                            <img src="path/to/another-category1.jpg" class="circle" alt="추가 카테고리1">
-                            <p>추가 카테고리1</p>
-                        </div>
-                        <div class="band-category">
-                            <img src="path/to/another-category2.jpg" class="circle" alt="추가 카테고리2">
-                            <p>추가 카테고리2</p>
-                        </div>
+                <div class="my-recommendation-item">
+                    <img src="/images/apple.png" alt="애플 사용자들의 모임">
+                    <div class="my-details">
+                        <div class="my-title">애플 사용자들의 모임</div>
+                        <div class="my-subtitle">안녕하세요. 아이폰, 터치, 셔플, 패드, 워치, 맥북, 에어, 아이맥 등 애...</div>
                     </div>
+                    <button class="my-more-button">애플 사용자 밴드 더보기 ></button>
+                </div>
+                <div class="my-recommendation-item">
+                    <img src="/images/sketch.png" alt="인물스케치">
+                    <div class="my-details">
+                        <div class="my-title">인물스케치</div>
+                        <div class="my-subtitle">예술을 사랑하는분들과 그림그리기를 좋아하는분들이 모여서 함께공...</div>
+                    </div>
+                    <button class="my-more-button">스케치 밴드 더보기 ></button>
+                </div>
+                <div class="my-recommendation-item">
+                    <img src="/images/football.png" alt="WE ARE LIVERPOOL">
+                    <div class="my-details">
+                        <div class="my-title">WE ARE LIVERPOOL</div>
+                        <div class="my-subtitle">리버풀 서포터즈 클럽 소식 & 중계방</div>
+                    </div>
+                    <button class="my-more-button">축구밴드 밴드 더보기 ></button>
+                </div>
+                <div class="my-recommendation-item">
+                    <img src="/images/indoor.png" alt="실내자전거 인증밴드">
+                    <div class="my-details">
+                        <div class="my-title">실내자전거 인증밴드</div>
+                        <div class="my-subtitle">집에서 즐거운 실내자전거 하루 매일 인증하기 밴드입니다 남녀노소...</div>
+                    </div>
+                    <button class="my-more-button">실내자전거 밴드 더보기 ></button>
                 </div>
             </div>
-            <!-- 넘기는 버튼 -->
-            <!-- findSocial 캐러셀 제어 버튼 -->
-            <a class="carousel-control-prev" href="#findSocialCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#findSocialCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
-        <div class="mt-4">
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body d-flex justify-content-center">
-                            <div>
-                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
-                            </div>
-                            <div>
-                                <h5 class="card-title">첫번째 밴드 이름</h5>
-                                <p class="card-text">첫번째 밴드 소개글</p>
-                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
-                            </div>
-                        </div>
+    </div>
+    <div class="my-full-width-section my-section4">
+        <div class="my-section">
+            <h3>오늘의 인기글</h3>
+            <div class="my-posts-container">
+                <div class="my-post">
+                    <div class="my-title">행복 우체통</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content-flex">
+                    <div class="my-content">
+                        급산가면 꼭 가봐야하는 휴양지감성 계곡식당 💙 아냐,?! 벌써부터 여름날씨 실화냐,..?! 윤막 차르르 펼쳐지는 마운틴뷰 공둥공당각나오는 계곡물이라니,.. 💙 힐링뷰보며 먹빌랑과 나온다는 땡맛따잇지는 물론 평상대여, 축박까지 가능해서 힐링코스로 딱 🌊 이번 여름 딱 대...
+                    </div>
+                    <img src="/images/space.png" alt="행복 우체통" class="my-image-right">
+                    </div>
+                    <div class="my-footer">
+                        <div>😊😍 40</div>
+                        <div>댓글 36</div>
                     </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body d-flex justify-content-center">
-                            <div>
-                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
-                            </div>
-                            <div>
-                                <h5 class="card-title">두번째 밴드 이름</h5>
-                                <p class="card-text">두번째 밴드 소개글</p>
-                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
-                            </div>
+                <div class="my-post">
+                    <div class="my-title">리차드네 반려식물 이야기</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content-flex">
+                        <div class="my-content">
+                            앞마당 정원수로 많이들 키우시는 백묘국을 2년전 3월 작은 모종부터 시작해서 키우고 있는데요 이녀석이 2년만에 첫꽃을 보여주네요 많이 컸어요. 중간에 분열본갈이를 2번 해주었어요. 백묘국은 노지월동도 가능하여 앞마당에 정원수로 많이들 키운다고 하는데 작은 화분에서 2...
                         </div>
+                        <img src="/images/plant.png" alt="리차드네 반려식물 이야기" class="my-image-right">
+                    </div>
+                    <div class="my-footer">
+                        <div>😊😍 37</div>
+                        <div>댓글 41</div>
                     </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body d-flex justify-content-center">
-                            <div>
-                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
-                            </div>
-                            <div>
-                                <h5 class="card-title">세번째 밴드 이름</h5>
-                                <p class="card-text">세번째 밴드 소개글</p>
-                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
-                            </div>
-                        </div>
+                <div class="my-post">
+                    <div class="my-title">마운틴TV 공식밴드</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content-flex">
+                    <div class="my-content">
+                        #산행후기 관악산 산행후기 들머리서울대 공학관 날머리 사당역 산행시간 3시간 어제 비가 내려서 그런지 날씨도 화창하고 바람도 시원하게 불어서 좋은산행 하고 왔네요
+                    </div>
+                    <img src="/images/football.png" alt="마운틴TV 공식밴드" class="my-image-right">
+                    </div>
+                    <div class="my-footer">
+                        <div>😊😍 42</div>
+                        <div>댓글 2</div>
                     </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body d-flex justify-content-center">
-                            <div>
-                                <img src="path/to/another-category1.jpg" alt="인기 카테고리">
-                            </div>
-                            <div>
-                                <h5 class="card-title">네번째 밴드 이름</h5>
-                                <p class="card-text">네번째 밴드 소개글</p>
-                                <p class="card-text"><small class="text-muted">멤버수 : 0 리더이름 : 설동훈</small></p>
-                            </div>
-                        </div>
+                <div class="my-post">
+                    <div class="my-title">영화후기모임</div>
+                    <div class="my-separator"></div>
+                    <div class="my-content-flex">
+                    <div class="my-content">
+                        이번 주에 본 영화에 대한 개인적인 생각입니다.
+                    </div>
+                    <img src="/images/indoor.png" alt="영화후기모임" class="my-image-right">
+                </div>
+                    <div class="my-footer">
+                        <div>😊😍 42</div>
+                        <div>댓글 2</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div id="tab-2" class="tab-content">
+    <div class="my-full-width-section my-section3">
+        <div class="my-section">
+            <h3>주제별 소셜을 찾아보세요!</h3>
+            <div class="my-search-bar">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="검색어를 입력하세요...">
+            </div>
+            <div class="my-scroll-container">
+                <button class="my-scroll-button" id="scroll-left">&lt;</button>
+                <div class="my-scroll-wrapper" id="scroll-wrapper">
+                    <div class="my-scroll-item">전체</div>
+                    <div class="my-scroll-item">💪 운동</div>
+                    <div class="my-scroll-item">🔴 습관</div>
+                    <div class="my-scroll-item">📚 독서</div>
+                    <div class="my-scroll-item">📖 스터디</div>
+                    <div class="my-scroll-item">🌐 외국어</div>
+                    <div class="my-scroll-item">✏️ 글쓰기</div>
+                    <div class="my-scroll-item">🥗 다이어트/식단</div>
+                    <div class="my-scroll-item">🎨 그림/공예</div>
+                    <div class="my-scroll-item">💻 컴퓨터</div>
+                    <div class="my-scroll-item">🚬 흡연</div>
+                    <div class="my-scroll-item">☕ 카페</div>
+                    <div class="my-scroll-item">📱 아이폰</div>
+                    <div class="my-scroll-item">📱 안드로이드폰</div>
+                </div>
+                <button class="my-scroll-button" id="scroll-right">&gt;</button>
+            </div>
+        </div>
+    </div>
+    <div class="my-full-width-section my-section1">
+        <div class="my-section">
+            <div class="my-grid-container">
+                <div class="my-grid-item">
+                    <img src="reading.png" alt="Reading">
+                    <div class="my-details">
+                        <div class="my-title">2024년 용과 함께 독서♡</div>
+                        <div class="my-subtitle">매일 · 365일간</div>
+                        <div class="my-participants">3,150명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="exercise.png" alt="Exercise">
+                    <div class="my-details">
+                        <div class="my-title">운동장 뛰기</div>
+                        <div class="my-subtitle">주 5회 · 30일간</div>
+                        <div class="my-participants">2명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="painting.png" alt="Painting">
+                    <div class="my-details">
+                        <div class="my-title">그림 솜씨 자랑하기 3차</div>
+                        <div class="my-subtitle">매일 · 365일간</div>
+                        <div class="my-participants">341명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="daily_life.png" alt="Daily Life">
+                    <div class="my-details">
+                        <div class="my-title">소소한 나의 일상 이야기</div>
+                        <div class="my-subtitle">매일 · 365일간</div>
+                        <div class="my-participants">5,648명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="thai.png" alt="Thai Language">
+                    <div class="my-details">
+                        <div class="my-title">매일 태국어 한단어 씩 써보기</div>
+                        <div class="my-subtitle">매일 · 365일간</div>
+                        <div class="my-participants">1,576명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="sunglasses.png" alt="Sunglasses">
+                    <div class="my-details">
+                        <div class="my-title">역학 공식암기+문제풀이</div>
+                        <div class="my-subtitle">주 4회 · 300일간</div>
+                        <div class="my-participants">5명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="cleaning.png" alt="Cleaning">
+                    <div class="my-details">
+                        <div class="my-title">매일 10분 이상 청소, 쾌적한 집 만들기 (5월, 6월)</div>
+                        <div class="my-subtitle">매일 · 61일간</div>
+                        <div class="my-participants">3,567명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="exercise_challenge.png" alt="Exercise Challenge">
+                    <div class="my-details">
+                        <div class="my-title">운동챌린지</div>
+                        <div class="my-subtitle">주 5회 · 100일간</div>
+                        <div class="my-participants">10명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="bear.png" alt="Bear">
+                    <div class="my-details">
+                        <div class="my-title">6월은 너무 덥지만 운동해야지</div>
+                        <div class="my-subtitle">매일 · 30일간</div>
+                        <div class="my-participants">352명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+                <div class="my-grid-item">
+                    <img src="english.png" alt="English">
+                    <div class="my-details">
+                        <div class="my-title">매일 영어 원서 3페이지씩 읽고 한줄평 작성</div>
+                        <div class="my-subtitle">매일 · 365일간</div>
+                        <div class="my-participants">890명이 함께하고 있어요.</div>
+                        <div class="my-join-button">지금 참여하기</div>
+                    </div>
+                </div>
+            </div>
+            <div class="my-pagination">
+                <button class="disabled">&lt; 이전</button>
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>다음 &gt;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
+    // 탭 전환
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
 
-        // 모든 탭 컨텐츠를 숨깁니다.
-        tabcontent = document.querySelectorAll(".tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";  // 모든 탭 컨텐츠를 숨김
-        }
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tabContents.forEach(tc => tc.classList.remove('active'));
 
-        // 모든 탭 링크에서 'active' 클래스를 제거합니다.
-        tablinks = document.querySelectorAll(".nav-link");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove('active');
-        }
+            tab.classList.add('active');
+            document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+        });
+    });
 
-        // 클릭된 탭에 해당하는 컨텐츠를 보이게 합니다.
-        var selectedTabContent = document.getElementById(tabName);
-        selectedTabContent.style.display = "block";  // 선택된 탭의 컨텐츠만 보이게 설정
+    // 카테고리 가로스크롤
+    const scrollWrapper = document.getElementById('scroll-wrapper');
+    const scrollLeft = document.getElementById('scroll-left');
+    const scrollRight = document.getElementById('scroll-right');
 
-        // 클릭된 탭 링크에 'active' 클래스를 추가합니다.
-        evt.currentTarget.classList.add('active');
-    }
+    scrollLeft.addEventListener('click', () => {
+        scrollWrapper.scrollBy({
+            left: -200,
+            behavior: 'smooth'
+        });
+    });
+
+    scrollRight.addEventListener('click', () => {
+        scrollWrapper.scrollBy({
+            left: 200,
+            behavior: 'smooth'
+        });
+    });
 </script>
 
-{{> layout/footer}}
+{{> layout/footer }}
+

@@ -1,0 +1,269 @@
+
+.my-section {
+    padding: 15px;
+    margin: 30px auto;
+    max-width: 1200px;
+}
+.my-full-width-section {
+    width: 100%;
+    margin: 0;
+}
+.my-section1 {
+    margin-top: 30px;
+    background-color: #ffffff;
+}
+.my-section2 {
+    padding: 10px;
+    margin-top: 30px;
+    background-color: #e9ecef;
+}
+.my-section3 {
+    padding: 10px;
+    background-color: #dee2e6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.my-section4 {
+    padding: 20px;
+    background-color: #e9ecef;
+}
+.my-cards-container {
+    display: flex;
+    gap: 20px;
+}
+.my-card {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 150px;
+}
+.my-card img {
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+}
+.my-card .my-title {
+    margin: 10px 0 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.my-card .my-subtitle {
+    color: #666;
+    font-size: 14px;
+}
+.my-posts-container {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.my-post {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.my-post img {
+    border-radius: 10px;
+    width: 60px;
+    height: auto;
+    float: right;
+}
+.my-post .my-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.my-post .my-separator {
+    border-bottom: 1px solid #ddd;
+    margin: 5px 0;
+}
+.my-content-flex {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+.my-content {
+    flex: 1;
+    max-width: calc(100% - 70px); /* Adjust based on image width + margin */
+}
+.my-post .my-footer {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #999;
+    display: flex;
+    justify-content: space-between;
+}
+.my-scroll-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.my-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px 0;
+    scroll-behavior: smooth;
+}
+.my-scroll-wrapper::-webkit-scrollbar {
+    display: none;
+}
+.my-scroll-button {
+    background-color: #ccc;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.my-scroll-item {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.my-grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.my-grid-item {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.my-grid-item img {
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+}
+.my-grid-item .my-details {
+    display: flex;
+    flex-direction: column;
+}
+.my-grid-item .my-details .my-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.my-grid-item .my-details .my-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+.my-grid-item .my-details .my-participants {
+    font-size: 14px;
+    color: #007bff;
+}
+.my-grid-item .my-details .my-join-button {
+    font-size: 14px;
+    color: #007bff;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.my-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+.my-pagination button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.my-pagination button.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.my-pagination button:hover:not(.disabled) {
+    background-color: #0056b3;
+}
+.my-search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.my-search-bar input {
+    padding: 10px 20px 10px 40px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+}
+.my-search-bar .fa-search {
+    position: absolute;
+    left: 446px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+.my-recommendation-container {
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+.my-recommendation-container h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.my-recommendation-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.my-recommendation-item img {
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+.my-recommendation-item .my-details {
+    flex: 1;
+}
+.my-recommendation-item .my-details .my-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+.my-recommendation-item .my-details .my-subtitle {
+    font-size: 14px;
+    color: #555;
+}
+.my-recommendation-item .my-more-button {
+    background-color: #5C9CFA;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.my-image-right {
+    margin-left: 10px;
+    width: 60px;
+    height: auto;
+    flex-shrink: 0;
+}

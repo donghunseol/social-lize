@@ -22,6 +22,11 @@ spring:
   h2:
     console:
       enabled: true
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password:
   sql:
     init:
       data-locations:

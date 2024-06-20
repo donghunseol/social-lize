@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface AlbumRepository extends JpaRepository<Album, Integer> {
 
+    // 소셜 별 이미지 및 영상 리스트 출력
     @Query("""
         SELECT a FROM Album a
         JOIN FETCH a.boardId b

@@ -6,10 +6,15 @@
                 <button id="closeModalBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/board/" method="post" id="boardForm" enctype="application/x-www-form-urlencoded">
+                <form action="/board/" method="post" id="boardForm" enctype="multipart/form-data">
                     <div class="mb-3">
-                        <label for="content" class="form-label">내용</label>
-                        <textarea class="form-control" id="content" name="content" rows="5"></textarea>
+                        <!-- 텍스트 에디터 -->
+                        <input id="content" contenteditable="true"
+                             style="padding: 5px 15px; border: 1px solid #D6D6D6; border-radius: 4px; height: 300px; overflow-y: auto;">
+
+                        <!-- 이미지 및 비디오 파일 선택 -->
+                        <input name="imgFiles" id="imgFiles" type="file" style="border-radius: 4px; margin-top: 8px" accept="image/*" multiple>
+                        <input name="videoFiles" id="videoFiles" type="file" style="border-radius: 4px; margin-top: 8px" accept="video/*" multiple>
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">게시</button>
@@ -21,9 +26,9 @@
 </div>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // 모달 내부 클릭 시 닫히지 않도록 설정
-        $('#boardSaveModal .modal-content').on('click', function(event) {
+        $('#boardSaveModal .modal-content').on('click', function (event) {
             event.stopPropagation();
         });
 
@@ -33,30 +38,6 @@
             var modal = $(this);
             var form = modal.find('form');
             form.attr('action', '/board/' + socialId);
-        });
-
-        // 폼 submit 이벤트 처리
-        $('#boardForm').on('submit', function(event) {
-            event.preventDefault(); // 폼이 실제로 제출되지 않도록 막음
-
-            var form = $(this);
-            var formData = form.serialize(); // 폼 데이터를 직렬화하여 변수에 저장
-
-            // AJAX 요청을 보냄
-            $.ajax({
-                type: form.attr('method'),
-                url: form.attr('action'),
-                data: formData,
-                success: function(response) {
-                    console.log('게시 성공');
-                    $('#boardSaveModal').modal('hide'); // 성공 시 모달 닫기
-                    // 여기에 필요한 추가 작업을 수행할 수 있음
-                },
-                error: function(error) {
-                    console.error('게시 에러', error);
-                    // 실패 시 처리 로직 추가
-                }
-            });
         });
 
         // URL에서 socialId를 추출하는 함수
@@ -69,5 +50,45 @@
                 return 1; // 기본값 설정 (추출 실패 시)
             }
         }
+
+        // 이미지 및 동영상 미리보기 기능
+        $('#imgFiles, #videoFiles').change(function (event) {
+            const content = document.getElementById('content');
+            const files = this.files;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const mediaContainer = document.createElement('div');
+                        mediaContainer.style.display = 'inline-block';
+                        mediaContainer.style.margin = '10px';
+
+                        if (file.type.startsWith('image')) {
+                            // 이미지 파일 처리
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.style.width = '250px';
+                            img.style.height = '250px';
+                            mediaContainer.appendChild(img);
+                        } else if (file.type.startsWith('video')) {
+                            // 동영상 파일 처리
+                            const video = document.createElement('video');
+                            video.src = e.target.result;
+                            video.style.width = '250px';
+                            video.style.height = '250px';
+                            video.controls = true; // 비디오 컨트롤러 표시
+                            mediaContainer.appendChild(video);
+                        }
+
+                        content.appendChild(mediaContainer);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+            // 파일 입력 후 초기화
+            this.value = "";
+        });
     });
+
 </script>
