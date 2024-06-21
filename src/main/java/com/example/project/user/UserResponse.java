@@ -3,11 +3,7 @@ package com.example.project.user;
 import com.example.project._core.enums.UserEnum;
 import com.example.project._core.enums.UserProviderEnum;
 import com.example.project.category_name.CategoryName;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,7 +24,8 @@ public class UserResponse {
         private String providerId; //프로바이더 고유번호 ( 소셜로그인에서 제공하는 고유 식별번호, 카카오는 Long 타입 )
         private LocalDateTime createdAt; // 유저 가입 일자
 
-        public LoggedInUserDTO() {}
+        public LoggedInUserDTO() {
+        }
 
         public LoggedInUserDTO(User user) {
             this.id = user.getId();
@@ -150,6 +147,26 @@ public class UserResponse {
                 this.memberCount = (Long) categorySocialList[4];
                 this.nickName = (String) categorySocialList[5];
             }
+        }
+    }
+
+    // 회원 리스트 조회 (관리자)
+    @Data
+    public static class UserList {
+        private Integer id;
+        private String email;
+        private String nickname;
+        private LocalDate birth;
+        private UserProviderEnum provider;
+        private LocalDateTime createdAt;
+
+        public UserList(User user) {
+            this.id = user.getId();
+            this.email = user.getEmail();
+            this.nickname = user.getNickname();
+            this.birth = user.getBirth();
+            this.provider = user.getProvider();
+            this.createdAt = user.getCreatedAt();
         }
     }
 }
