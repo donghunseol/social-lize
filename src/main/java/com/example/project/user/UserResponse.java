@@ -28,6 +28,8 @@ public class UserResponse {
         private String providerId; //프로바이더 고유번호 ( 소셜로그인에서 제공하는 고유 식별번호, 카카오는 Long 타입 )
         private LocalDateTime createdAt; // 유저 가입 일자
 
+        public LoggedInUserDTO() {}
+
         public LoggedInUserDTO(User user) {
             this.id = user.getId();
             this.email = user.getEmail();

@@ -1,6 +1,8 @@
 package com.example.project.user;
 
 import com.example.project._core.errors.exception.Exception400;
+import com.example.project._core.utils.JsonRedisSerializer;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import static com.example.project.user.UserUtil.getLoggedInUser;
+import static com.example.project.user.UserUtil.saveLoginUser;
 
 
 @RequiredArgsConstructor
@@ -78,8 +83,7 @@ public class UserController {
         Object theUser = userService.getKakaoId(code);
 
         if (theUser instanceof UserResponse.LoggedInUserDTO ) { //조회 결과: 이미 가입한 회원 - 로그인처리
-            System.out.println((UserResponse.LoggedInUserDTO) theUser);
-            session.setAttribute("user",theUser);
+            saveLoginUser(session, (UserResponse.LoggedInUserDTO) theUser);
             return "redirect:/";
         }
         if (theUser instanceof KakaoResponse.KakaoUserDTO) {
@@ -96,8 +100,7 @@ public class UserController {
         Object theUser = userService.getNaverId(code, state);
 
         if (theUser instanceof UserResponse.LoggedInUserDTO ) { //조회 결과: 이미 가입한 회원 - 로그인처리
-            System.out.println((UserResponse.LoggedInUserDTO) theUser);
-            session.setAttribute("user",theUser);
+            saveLoginUser(session, (UserResponse.LoggedInUserDTO) theUser);
             return "redirect:/";
         }
         if (theUser instanceof NaverResponse.NaverUserDTO) {   //조회 결과 : 아직 가입하지 않은 회원
@@ -110,21 +113,17 @@ public class UserController {
 
     // 로그인 페이지
     @GetMapping("/user/login")
-    public String loginForm() {
-        UserResponse.LoggedInUserDTO user =
-                (UserResponse.LoggedInUserDTO) session.getAttribute("user");
+    public String loginForm() throws JsonProcessingException {
+        UserResponse.LoggedInUserDTO user = getLoggedInUser(session);
         if(user!=null) return "redirect:/"; //로그인되어있다면 메인페이지로 이동
         else return "user/login";
     }
 
     //로그인 처리 (자체로그인)
     @PostMapping("/login")
-    public String login(UserRequest.LoginDTO loginDTO) {
-        System.out.println(loginDTO.getEmail());
+    public String login(UserRequest.LoginDTO loginDTO) throws JsonProcessingException {
         UserResponse.LoggedInUserDTO loggedInUserDTO = userService.login(loginDTO);
-
-        session.setAttribute("user",loggedInUserDTO);
-//        UserResponse.LoggedInUserDTO loggedInUser = (UserResponse.LoggedInUserDTO)session.getAttribute("user");
+        saveLoginUser(session, loggedInUserDTO);
         return "redirect:/";
     }
 
