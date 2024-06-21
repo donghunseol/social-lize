@@ -37,8 +37,16 @@ public class SocialController {
     }
 
     // 서랍 페이지
-    @GetMapping("/social/fileadd")
-    public String fileAdd() {
+    @GetMapping("/social/fileadd/{socialId}")
+    public String fileAdd(@PathVariable Integer socialId, HttpServletRequest request, FileRequest.FileUploadDTO reqDTO) {
+        // 파일 업로드 시 저장
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        fileService.fileUpload(reqDTO, sessionUser.getId(), socialId);
+
+        // 페이지에 뿌릴 데이터
+        SocialResponse.AlbumAndFileListDTO respDTO = socialService.getSocialAlbumList(socialId);
+        request.setAttribute("models", respDTO);
+
         return "social/fileaddForm";
     }
 }
