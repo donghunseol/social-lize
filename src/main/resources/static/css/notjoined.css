@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #EDEFF4;
+    color: #333333;
+}
+.socialnotjoin-container-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 80px;
+    padding-bottom: 60px;
+}
+.socialnotjoin-container {
+    display: flex;
+    max-width: 1000px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.socialnotjoin-sidebar {
+    width: 250px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 20px;
+}
+.socialnotjoin-social-info {
+    text-align: left;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    color: #555;
+}
+.socialnotjoin-social-info img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+.socialnotjoin-social-info .socialnotjoin-join-button {
+    background-color: #333333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+.socialnotjoin-highlight {
+    color: #000000;
+    font-weight: bold;
+}
+.socialnotjoin-content {
+    flex-grow: 1;
+    max-width: 700px;
+    width: 100%;
+    margin-left: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+.socialnotjoin-social-description {
+    margin-top: 20px;
+}
+.socialnotjoin-social-activity {
+    margin-top: 20px;
+}
+.socialnotjoin-social-activity h3 {
+    margin-top: 0;
+}
+.socialnotjoin-social-activity ul {
+    list-style: none;
+    padding: 0;
+}
+.socialnotjoin-social-activity ul li {
+    margin-bottom: 5px;
+    color: #777;
+}
+.socialnotjoin-social-chart {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    height: 300px;
+}
+.socialnotjoin-social-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+.socialnotjoin-divider {
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+.socialnotjoin-hashtags {
+    color: #555;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.socialnotjoin-hashtags span {
+    background-color: #EDEFF4;
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 768px) {
+    .socialnotjoin-container {
+        flex-direction: column;
+    }
+    .socialnotjoin-sidebar {
+        margin-right: 0;
+        margin-bottom: 20px;
+        width: 100%;
+        position: static;
+    }
+    .socialnotjoin-content {
+        margin-left: 0;
+        max-width: 100%;
+    }
+}

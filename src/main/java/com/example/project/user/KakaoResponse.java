@@ -54,6 +54,4 @@ public class KakaoResponse {
             private String nickname;
         }
     }
-
-
 }

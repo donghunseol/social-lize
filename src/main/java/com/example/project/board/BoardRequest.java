@@ -1,7 +1,8 @@
 package com.example.project.board;
 
+import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.enums.BoardEnum;
-import com.example.project.file.File;
+import com.example.project.album.Album;
 import com.example.project.social.Social;
 import com.example.project.user.User;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class BoardRequest {
         private List<MultipartFile> imgFiles;
         private List<MultipartFile> videoFiles;
 
-        public Board toEntity(Social socialId, User userId) {
+        public Board boardToEntity(Social socialId, User userId) {
             return Board.builder()
                     .userId(userId)
                     .socialId(socialId)
@@ -26,16 +27,13 @@ public class BoardRequest {
                     .role(BoardEnum.POST)
                     .build();
         }
-    }
 
-    @Data
-    public static class FileDTO {
-        private String path;
-
-        public File toEntity(Social socialId, Board boardId, User userId) {
-            return File.builder()
-                    .socialId(socialId)
+        public Album albumToEntity(User userId, Board boardId, String path, AlbumEnum type) {
+            return Album.builder()
                     .userId(userId)
+                    .boardId(boardId)
+                    .path(path)
+                    .type(type)
                     .build();
         }
     }

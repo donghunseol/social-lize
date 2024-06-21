@@ -54,6 +54,8 @@ public class User {
 
     private String providerId; //프로바이더 고유번호 ( 소셜로그인에서 제공하는 고유 식별번호, 카카오는 Long 타입 )
 
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @CreationTimestamp
     private LocalDateTime createdAt; // 유저 가입 일자
 

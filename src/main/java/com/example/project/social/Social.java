@@ -1,5 +1,6 @@
 package com.example.project.social;
 
+import com.example.project._core.enums.SocialStateEnum;
 import com.example.project.category.Category;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -28,8 +29,12 @@ public class Social {
     @Column(nullable = false)
     private String info; // 소셜 소개글
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Category> category;
+    @OneToMany(mappedBy = "socialId", cascade = CascadeType.ALL)
+    private List<Category> category; // 카테고리
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SocialStateEnum status; // 소셜 상태
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자
@@ -44,5 +49,3 @@ public class Social {
         this.createdAt = createdAt;
     }
 }
-
-

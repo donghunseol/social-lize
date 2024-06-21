@@ -1,6 +1,10 @@
 /* 공통 스타일 */
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #EDEFF4;
+    color: #333333;
 }
 
 .header {
@@ -55,17 +59,17 @@ body {
 }
 
 .fa-bell {
-    color: #5C9CFA;
+    color: #888;
     font-size: 25px;
 }
 
 .fa-comments {
-    color: #5C9CFA;
+    color: #888;
     font-size: 25px;
 }
 
 .fa-user {
-    color: #5C9CFA;
+    color: #888;
     font-size: 25px;
 }
 
