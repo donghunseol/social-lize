@@ -364,6 +364,7 @@ body {
 .comment-section-container {
     display: flex;
     align-items: center;
+    margin-bottom: 8px;
 }
 
 .comment-section {
@@ -443,13 +444,24 @@ body {
     font-size: 14px;
 }
 
+/* 기본 상태의 좋아요 버튼 스타일 */
 .like-button {
     border: none;
     background: none;
     cursor: pointer;
     padding: 0;
-    color: red;
+    color: #aaaaaa;
     margin-right: 10px;
+}
+
+/* 좋아요 된 상태의 하트 색상 */
+.like-button.liked .fa-heart {
+    color: red;
+}
+
+/* 좋아요 되지 않은 상태의 하트 색상 */
+.like-button:not(.liked) .fa-heart {
+    color: #aaaaaa;
 }
 
 /* profileUpdateForm.mustache */

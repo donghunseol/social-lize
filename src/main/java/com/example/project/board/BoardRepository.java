@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
-    @Query("select b from Board b where b.socialId.id = :socialId")
+    @Query("select b from Board b where b.socialId.id = :socialId order by b.id desc")
     List<Board> findByBoardSocialId(@Param("socialId") Integer socialId);
 }

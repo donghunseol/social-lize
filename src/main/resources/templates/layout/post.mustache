@@ -38,13 +38,21 @@
                 </div>
             </div>
         </div>
-    {{/boardList.boards}}
+        {{liked}}
+        {{boardId}}
     <div class="comment-section-container">
-        <button class="like-button"><i class="fas fa-heart"></i></button>
+        <button onclick="likeToggle{{boardId}}" class="like-button"><i class="fas fa-heart"></i></button>
         <div class="comment-section">
             <img src="/images/userprofile.jpeg" alt="Commenter Picture" class="comment-picture">
             <input type="text" placeholder="댓글을 남겨주세요.">
         </div>
         <button class="send-button">보내기</button>
     </div>
+    {{/boardList.boards}}
 </div>
+
+<script>
+    function likeToggle(boardId) {
+
+    }
+</script>

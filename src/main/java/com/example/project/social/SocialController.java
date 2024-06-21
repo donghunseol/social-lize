@@ -23,7 +23,7 @@ public class SocialController {
 
     @GetMapping("/social/detail/{socialId}")
     public String socialDetail(@PathVariable int socialId, HttpServletRequest request) {
-        BoardResponse.BoardListDTO boardList = boardService.boardList(socialId);
+        BoardResponse.BoardListDTO boardList = boardService.boardList(socialId, 1);
         request.setAttribute("boardList", boardList);
         return "social/detail";
     }
