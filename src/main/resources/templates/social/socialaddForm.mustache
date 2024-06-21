@@ -1,79 +1,123 @@
 {{> layout/header}}
 
-<body>
-<div class="container d-flex justify-content-center flex-column">
+<div class="socialadd-container socialadd-flex-container socialadd-center-content socialadd-column-direction">
     <div class="socialadd-form-section">
         <div class="socialadd-form-title">소셜 이름</div>
-        <input type="text" placeholder="소셜 이름 입력" class="form-control">
+        <input type="text" placeholder="소셜 이름 입력" class="socialadd-form-input">
     </div>
     <div class="socialadd-form-title">카테고리</div>
     <div class="socialadd-form-section">
-        <div class="socialadd-form-input-group d-flex align-items-center">
-            <select id="subject" class="form-select">
+        <div class="socialadd-input-group socialadd-flex-container socialadd-align-center">
+            <select id="subject" class="socialadd-form-select socialadd-select-input">
                 <option value="카테고리1">카테고리 1</option>
                 <option value="카테고리2">카테고리 2</option>
             </select>
-            <div class="socialadd-form-hashtag-group" style="white-space: nowrap;">
-                <div class="border rounded-pill px-3 py-1 border-dark"># 해시태그 1</div>
-                <div class="border rounded-pill px-3 py-1 border-dark"># 해시태그 2</div>
+            <div class="socialadd-hashtag-group" id="hashtagContainer">
+                <!-- 해시태그가 여기에 추가됩니다 -->
             </div>
         </div>
     </div>
     <div class="socialadd-form-title">소셜 메인 커버</div>
-    <div class="d-flex justify-content-center align-items-center flex-column">
-        <img class="socialadd-form-cover-title-image border me-3" src="/image/socialCover.jpg" alt="#">
-        <div class="socialadd-form-section">
-            <div class="socialadd-form-title mb-3 mt-2">커버선택</div>
-            <div class="socialadd-form-cover-selection">
-                <div
-                        class="socialadd-form-image-cover d-flex justify-content-center flex-column align-items-center">
-                    <i class="fas fa-camera text-secondary"></i>
-                    <div class="text-secondary">
-                        사진 추가
-                    </div>
+    <div class="socialadd-flex-container socialadd-align-center">
+        <img class="socialadd-selected-cover" src="/image/socialCover.jpg" alt="#">
+        <div class="socialadd-image-cover-wrapper">
+            <div class="socialadd-cover-selection">
+                <div class="socialadd-image-cover socialadd-flex-container socialadd-center-content socialadd-column-direction socialadd-align-center">
+                    <i class="fas fa-camera socialadd-text-gray"></i>
+                    <div class="socialadd-text-gray">사진 추가</div>
                 </div>
-                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
-                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
-                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
-                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
-                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
-                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
-                <img class="socialadd-form-image-cover" src="/image/socialCover.jpg" alt="#"></img>
+                <img class="socialadd-image-cover" src="/image/socialCover.jpg" alt="#">
+                <img class="socialadd-image-cover" src="/image/socialCover.jpg" alt="#">
+                <img class="socialadd-image-cover" src="/image/socialCover.jpg" alt="#">
+            </div>
+            <div class="socialadd-cover-selection">
+                <img class="socialadd-image-cover" src="/image/socialCover.jpg" alt="#">
+                <img class="socialadd-image-cover" src="/image/socialCover.jpg" alt="#">
+                <img class="socialadd-image-cover" src="/image/socialCover.jpg" alt="#">
+                <img class="socialadd-image-cover" src="/image/socialCover.jpg" alt="#">
             </div>
         </div>
     </div>
-    <div class="socialadd-form-section">
+    <div class="socialadd-form-section socialadd-margin-top-section">
         <div class="socialadd-form-title">소개글</div>
-        <textarea id="description" rows="4" class="form-control border-bottom" placeholder="소개글 입력"></textarea>
+        <textarea id="description" rows="4" class="socialadd-form-input socialadd-border-style" placeholder="소개글 입력"></textarea>
     </div>
-    <div class="socialadd-form-section d-flex justify-content-between align-items-center">
+    <div class="socialadd-form-section socialadd-flex-container socialadd-justify-content-between socialadd-align-center">
         <div>
             <div class="socialadd-form-title">멤버가입 알림글</div>
-            <div class="member-alrim-text text-body-secondary">멤버가 가입할 때 마다 알림글이 작성됩니다</div>
+            <div class="socialadd-text-light-gray">멤버가 가입할 때 마다 알림글이 작성됩니다</div>
         </div>
-        <div class="socialadd-form-toggle-switch" onclick="toggleSwitch(this)"></div>
+        <div class="socialadd-toggle-switch" id="memberNotificationToggle"></div>
     </div>
     <br>
     <div class="socialadd-form-title">게시판 관리</div>
     <br>
-    <div class="socialadd-form-section d-flex justify-content-between align-items-center mb-0">
+    <div class="socialadd-form-section socialadd-form-section-full-width socialadd-margin-bottom-0">
         <div class="socialadd-form-title">게시판 해시태그 설정</div>
-        <div class="socialadd-form-input-group ml-auto w-auto">
-            <label for="hashtag-count" class="mr-2">3</label>
-            <button class="w-auto">&gt;</button>
+        <div class="socialadd-input-group socialadd-width-auto">
+            <label for="hashtag-count" id="hashtagCount" class="socialadd-margin-right">5</label>
+            <button class="socialadd-width-auto" id="toggleHashtagListButton">&gt;</button>
         </div>
     </div>
-    <div class="border"></div>
-    <div class="socialadd-form-section socialadd-form-button-group mt-4">
-        <div class="fw-bold">소셜 탈퇴하기</div>
-        <button class="text-danger border-danger">탈퇴하기</button>
+    <div class="socialadd-border-style"></div>
+    <div class="socialadd-hashtag-list" id="hashtagList">
+        <div class="socialadd-hashtag socialadd-border-style socialadd-rounded-pill-style socialadd-padding-x socialadd-padding-y"># 해시태그1</div>
+        <div class="socialadd-hashtag socialadd-border-style socialadd-rounded-pill-style socialadd-padding-x socialadd-padding-y"># 해시태그2</div>
+        <div class="socialadd-hashtag socialadd-border-style socialadd-rounded-pill-style socialadd-padding-x socialadd-padding-y"># 해시태그3</div>
+        <div class="socialadd-hashtag socialadd-border-style socialadd-rounded-pill-style socialadd-padding-x socialadd-padding-y"># 해시태그4</div>
+        <div class="socialadd-hashtag socialadd-border-style socialadd-rounded-pill-style socialadd-padding-x socialadd-padding-y"># 해시태그5</div>
     </div>
-    <div class="text-center fw-bold my-3">또는</div>
-    <div class="socialadd-form-section socialadd-form-button-group">
-        <div class="fw-bold">소셜 삭제하기</div>
-        <button class="text-danger border-danger">삭제하기</button>
+    <div class="socialadd-form-section socialadd-button-group socialadd-margin-top-large">
+        <button class="socialadd-submit-button">소셜 생성하기</button>
+        <button class="socialadd-cancel-button">취소</button>
     </div>
 </div>
-</body>
+
+<script>
+    document.getElementById('subject').addEventListener('change', function () {
+        const selectedValue = this.value;
+        const hashtagContainer = document.getElementById('hashtagContainer');
+
+        // 중복된 해시태그가 있는지 확인
+        if (![...hashtagContainer.children].some(child => child.textContent.includes(selectedValue))) {
+            // 새로운 해시태그 요소 생성
+            const hashtag = document.createElement('div');
+            hashtag.className = 'socialadd-border-style socialadd-rounded-pill-style socialadd-padding-x socialadd-padding-y socialadd-border-dark-style socialadd-hashtag';
+            hashtag.textContent = `# ${selectedValue}`;
+
+            // 해시태그 클릭 이벤트 추가 (삭제 기능)
+            hashtag.addEventListener('click', function () {
+                hashtagContainer.removeChild(hashtag);
+            });
+
+            // 해시태그를 해시태그 컨테이너에 추가
+            hashtagContainer.appendChild(hashtag);
+        }
+    });
+
+    document.getElementById('memberNotificationToggle').addEventListener('click', function () {
+        this.classList.toggle('active');
+    });
+
+    document.getElementById('toggleHashtagListButton').addEventListener('click', function () {
+        const hashtagList = document.getElementById('hashtagList');
+        hashtagList.style.display = hashtagList.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    document.querySelectorAll('.socialadd-hashtag-list .socialadd-hashtag').forEach(function (hashtag) {
+        hashtag.addEventListener('click', function () {
+            hashtag.classList.toggle('selected');
+            updateHashtagCount();
+        });
+    });
+
+    function updateHashtagCount() {
+        const selectedHashtags = document.querySelectorAll('.socialadd-hashtag-list .socialadd-hashtag.selected').length;
+        document.getElementById('hashtagCount').innerText = selectedHashtags;
+    }
+
+    // 초기 해시태그 수 업데이트
+    updateHashtagCount();
+</script>
 
 {{> layout/footer}}
