@@ -169,4 +169,28 @@ public class UserResponse {
             this.createdAt = user.getCreatedAt();
         }
     }
+
+    // 회원 상세 조회 (관리자)
+    @Data
+    public static class UserDetail {
+        private Integer id;
+        private String email;
+        private String nickname;
+        private String image;
+        private String phone;
+        private LocalDate birth;
+        private UserProviderEnum provider;
+        private LocalDateTime createdAt;
+
+        public UserDetail(User user) {
+            this.id = user.getId();
+            this.email = user.getEmail();
+            this.nickname = user.getNickname();
+            this.image = user.getImage();
+            this.phone = user.getPhone();
+            this.birth = user.getBirth();
+            this.provider = user.getProvider();
+            this.createdAt = user.getCreatedAt();
+        }
+    }
 }
