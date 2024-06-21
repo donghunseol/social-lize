@@ -1,18 +1,16 @@
 package com.example.project.user;
 
 import com.example.project._core.errors.exception.Exception400;
-import com.example.project._core.utils.JsonRedisSerializer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import static com.example.project.user.UserUtil.getLoggedInUser;
-import static com.example.project.user.UserUtil.saveLoginUser;
+import static com.example.project._core.utils.UserUtil.getLoggedInUser;
+import static com.example.project._core.utils.UserUtil.saveLoginUser;
 
 
 @RequiredArgsConstructor
@@ -131,6 +129,6 @@ public class UserController {
     @GetMapping("/user/logout")
     public String logout() {
         session.invalidate();
-        return "redirect:/";
+        return "redirect:/user/notloggedinmain";
     }
 }
