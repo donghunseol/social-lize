@@ -28,8 +28,8 @@ public class Social {
     @Column(nullable = false)
     private String info; // 소셜 소개글
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Category> category;
+    @OneToMany(mappedBy = "socialId", cascade = CascadeType.ALL)
+    private List<Category> category; // 카테고리
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자
