@@ -1,12 +1,19 @@
 package com.example.project.user;
 
+import com.example.project._core.enums.UserEnum;
 import com.example.project._core.enums.UserProviderEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
+
 
 public interface UserRepository extends JpaRepository<User, Integer> {
+    @Query("select u from User u where u.role = :role")
+    List<User> findByRole(@Param("role") UserEnum role);
+
     @Query("select u from User u where u.email = :email and u.provider is null")
     User findByEmail(String email);
 
