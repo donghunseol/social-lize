@@ -4,9 +4,7 @@ import com.example.project._core.utils.ApiUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,5 +18,13 @@ public class SocialRestController {
 //        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         socialService.createSocial(CreateDTO);
         return ResponseEntity.ok(new ApiUtil<>(CreateDTO));
+    }
+
+    // 소셜 수정
+    @PutMapping("/social/update/{socialId}")
+    public ResponseEntity<?> update(@PathVariable Integer socialId, @RequestBody SocialRequest.Update UpdateDTO) {
+//        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        socialService.updateSocial(socialId, UpdateDTO);
+        return ResponseEntity.ok(new ApiUtil<>(UpdateDTO));
     }
 }

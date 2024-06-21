@@ -14,10 +14,20 @@ public class SocialRequest {
         private String image;
         private String info;
         private List<Category> categories;
+    }
 
-        @Data
-        public static class Category {
-            private Integer categoryNameId;
-        }
+    // 소셜 수정 DTO
+    @Data
+    public static class Update {
+        private String name;
+        private String image;
+        private String info;
+        private List<Category> categories;
+    }
+
+    // 카테고리 DTO
+    @Data
+    public static class Category {
+        private Integer categoryNameId;
     }
 }
