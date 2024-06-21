@@ -46,6 +46,7 @@ public class UserService {
         return new UserResponse.MainAjaxDTO(categorySocialList);
     }
 
+
     //회원가입
     public void join(UserRequest.JoinDTO joinDTO) {
         User user = new User();

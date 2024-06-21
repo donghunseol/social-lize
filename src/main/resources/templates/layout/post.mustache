@@ -1,25 +1,44 @@
 <div class="content-box">
-    <div class="group-name">SNS프로젝트 1조</div>
-    <div class="remove-bookmark" style="top: 20px; right: 20px;"><i class="fas fa-times"></i></div>
-    <div class="post">
-        <div class="author-box">
-            <img src="/images/userprofile.jpeg" alt="Profile Picture" class="profile-picture" id="openModalBtn"
-                 data-bs-toggle="modal" data-bs-target="#profileModal">
-            <div>
-                <div class="author">김세운</div>
-                <div class="date">2024년 6월 14일 오후 2:39</div>
+    {{#boardList.boards}}
+        <div class="group-name">{{socialName}}</div>
+        <div class="remove-bookmark" style="top: 20px; right: 20px;">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="post">
+            <div class="author-box">
+                <img src="{{userImage}}" alt="Profile Picture" class="profile-picture" id="openModalBtn"
+                     data-bs-toggle="modal" data-bs-target="#profileModal">
+                <div>
+                    <div class="author">{{nickname}}</div>
+                    <div class="date">{{createdAt}}</div>
+                </div>
+            </div>
+            <div class="message-box">
+                {{#albums}}
+                    <div class="media-item">
+                        {{#isImage}}
+                            <img src="{{path}}" alt="Image" style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
+                        {{/isImage}}
+                        {{#isVideo}}
+                            <video controls style="max-width: 100%; max-height: 300px;">
+                                <source src="{{path}}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {{/isVideo}}
+                    </div>
+                {{/albums}}
+                <div class="message" id="openModalBtn" data-bs-toggle="modal" data-bs-target="#boardModal">
+                    {{{content}}}
+                </div>
+                <div class="media-box">
+                </div>
+                <div class="comments">
+                    <div class="like-count">좋아요 {{likeCount}}</div>
+                    <div class="comment-count">댓글 {{replyCount}}</div>
+                </div>
             </div>
         </div>
-        <div class="message-box">
-            <div class="message" id="openModalBtn" data-bs-toggle="modal" data-bs-target="#boardModal">
-                설동훈님의 초대로 김세운님이 가입했습니다. 댓글로 반갑게 인사해주세요!
-            </div>
-            <div class="comments">
-                <div class="like-count">좋아요 3</div>
-                <div class="comment-count">댓글 0</div>
-            </div>
-        </div>
-    </div>
+    {{/boardList.boards}}
     <div class="comment-section-container">
         <button class="like-button"><i class="fas fa-heart"></i></button>
         <div class="comment-section">

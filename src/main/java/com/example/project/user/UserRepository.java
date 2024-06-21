@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
+
 public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select u from User u where u.role = :role")
     List<User> findByRole(@Param("role") UserEnum role);
@@ -18,6 +19,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u from User u where u.providerId = :providerId and u.provider =:provider")
     User findByIdAndProvider(UserProviderEnum provider, String providerId);
+
+    @Query("select u from User u where u.image = :userId")
+    String findByUserImage(@Param("userId") Integer userId);
 }
 /*
 로그인시 입력받은 이메일과 비밀번호로 쿼리로 날려 로그인 검증하는 방식을 사용하지 말아야 하는 이유 (출처:ChatGPT 4, 2024.06.19)
