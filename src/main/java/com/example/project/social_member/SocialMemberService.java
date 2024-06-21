@@ -3,6 +3,8 @@ package com.example.project.social_member;
 import com.example.project._core.enums.SocialMemberRoleEnum;
 import com.example.project._core.enums.SocialMemberStateEnum;
 import com.example.project._core.errors.exception.Exception400;
+import com.example.project._core.errors.exception.Exception401;
+import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
 import com.example.project.social.Social;
 import com.example.project.social.SocialRepository;
@@ -54,6 +56,27 @@ public class SocialMemberService {
                 .state(SocialMemberStateEnum.WAITING) // 가입 대기 상태로 설정
                 .build();
 
+        socialMemberRepository.save(socialMember);
+    }
+
+    // 소셜 가입 승인, 거절
+    @Transactional
+    public void updateSocialMemberState(Integer userId, Integer socialMemberId, SocialMemberRequest.UpdateStateDTO newState) {
+        SocialMember socialMember = socialMemberRepository.findById(socialMemberId)
+                .orElseThrow(() -> new Exception404("해당 소셜 멤버를 찾을 수 없습니다."));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다."));
+
+        // 현재 요청하는 유저가 소셜의 마스터인지 확인
+        SocialMember masterMember = socialMemberRepository.findByUserIdAndSocialId(user.getId(), socialMember.getSocialId().getId())
+                .orElseThrow(() -> new Exception401("해당 소셜의 멤버가 아닙니다."));
+
+        if (masterMember.getRole() != SocialMemberRoleEnum.MANAGER) {
+            throw new Exception403("멤버 가입 승인 및 거절은 소셜 마스터만 가능합니다.");
+        }
+
+        socialMember.setState(newState.getNewState());
         socialMemberRepository.save(socialMember);
     }
 }

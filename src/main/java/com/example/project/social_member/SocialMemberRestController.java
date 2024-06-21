@@ -4,9 +4,7 @@ import com.example.project._core.utils.ApiUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -15,10 +13,18 @@ public class SocialMemberRestController {
     private final HttpSession session;
 
     // 소셜 가입 신청
-    @PostMapping("/social-members/apply/{socialId}")
+    @PostMapping("/{socialId}/social-members/apply")
     public ResponseEntity<?> applySocialMember(@PathVariable Integer socialId) {
 //        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         socialMemberService.applySocialMember(socialId, 5);
+        return ResponseEntity.ok(new ApiUtil<>(null));
+    }
+
+    // 소셜 가입 승인, 거절
+    @PutMapping("/social-members/{socialMemberId}/state")
+    public ResponseEntity<?> updateSocialMemberState(@PathVariable Integer socialMemberId, @RequestBody SocialMemberRequest.UpdateStateDTO newState) {
+//        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        socialMemberService.updateSocialMemberState(2, socialMemberId, newState);
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 }
