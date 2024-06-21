@@ -46,6 +46,7 @@ public class UserService {
         return new UserResponse.MainAjaxDTO(categorySocialList);
     }
 
+
     //회원가입
     public void join(UserRequest.JoinDTO joinDTO) {
         User user = new User();
@@ -65,6 +66,7 @@ public class UserService {
         user.setBirth(bod);
         userRepository.save(user);
     }
+
     //로그인
     public UserResponse.LoggedInUserDTO login(UserRequest.LoginDTO loginDTO) {
         String msg = "이메일 혹은 비밀번호가 일치하지 않습니다.";

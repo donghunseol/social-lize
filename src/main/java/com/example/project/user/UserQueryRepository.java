@@ -46,13 +46,15 @@ public class UserQueryRepository {
                     b.content,
                     u.nickname,
                     COUNT(l.id) AS like_count,
-                    (SELECT COUNT(*) FROM reply_tb WHERE board_id = b.id) AS reply_count
+                    (COUNT(r.id) + (SELECT COUNT(*) FROM reply_tb WHERE board_id = b.id)) AS total_reply_count
                 FROM
                     board_tb b
                 JOIN
                     user_tb u ON b.user_id = u.id
                 LEFT JOIN
                     like_tb l ON b.id = l.board_id
+                LEFT JOIN
+                    rereply_tb r ON r.reply_id = (SELECT id FROM reply_tb WHERE board_id = b.id LIMIT 1)
                 WHERE
                     b.social_id = (
                         SELECT social_id
@@ -82,13 +84,17 @@ public class UserQueryRepository {
                     b.content,
                     u.nickname,
                     COUNT(l.id) AS like_count,
-                    (SELECT COUNT(*) FROM reply_tb WHERE board_id = b.id) AS reply_count
+                    COUNT(r.id) + COUNT(rr.id) AS total_reply_count
                 FROM
                     board_tb b
                 JOIN
                     user_tb u ON b.user_id = u.id
                 LEFT JOIN
                     like_tb l ON b.id = l.board_id
+                LEFT JOIN
+                    reply_tb r ON b.id = r.board_id
+                LEFT JOIN
+                    rereply_tb rr ON r.id = rr.reply_id
                 GROUP BY
                     b.id, b.content, u.nickname
                 ORDER BY
