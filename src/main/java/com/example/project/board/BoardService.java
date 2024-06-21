@@ -3,7 +3,11 @@ package com.example.project.board;
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.errors.exception.Exception401;
 import com.example.project._core.utils.ImageVideoUtil;
+import com.example.project.album.Album;
 import com.example.project.album.AlbumRepository;
+import com.example.project.like.Like;
+import com.example.project.like.LikeRepository;
+import com.example.project.reply.ReplyRepository;
 import com.example.project.social.Social;
 import com.example.project.social.SocialRepository;
 import com.example.project.user.User;
@@ -13,6 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @Service
@@ -21,6 +28,26 @@ public class BoardService {
     private final UserRepository userRepository;
     private final SocialRepository socialRepository;
     private final AlbumRepository albumRepository;
+    private final LikeRepository likeRepository;
+    private final ReplyRepository replyRepository;
+
+
+    public BoardResponse.BoardListDTO boardList(int socialId) {
+        List<Board> boards = boardRepository.findByBoardSocialId(socialId);
+        List<BoardResponse.BoardListDTO.BoardDTO> boardDTOs = new ArrayList<>();
+
+        for (Board board : boards) {
+            Integer likeCount = likeRepository.findByLikeCount(board.getId());
+            Integer replyCount = replyRepository.replyCount(board.getId());
+            List<Album> albums = albumRepository.findByBoardId(board.getId());
+            List<BoardResponse.BoardListDTO.AlbumDTO> albumDTOs = albums.stream()
+                    .map(BoardResponse.BoardListDTO.AlbumDTO::new)
+                    .toList();
+            boardDTOs.add(new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage()));
+        }
+
+        return new BoardResponse.BoardListDTO(boardDTOs);
+    }
 
     @Transactional
     public void save(Integer socialId, BoardRequest.SaveDTO reqDTO, Integer userId) {

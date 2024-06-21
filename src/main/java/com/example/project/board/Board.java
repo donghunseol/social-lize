@@ -43,7 +43,6 @@ public class Board {
         this.id = id;
         this.socialId = socialId;
         this.userId = userId;
-
         this.content = content;
         this.role = role;
         this.createdAt = createdAt;
