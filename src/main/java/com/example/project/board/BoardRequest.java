@@ -35,7 +35,6 @@ public class BoardRequest {
         public File toEntity(Social socialId, Board boardId, User userId) {
             return File.builder()
                     .socialId(socialId)
-                    .boardId(boardId)
                     .userId(userId)
                     .build();
         }
