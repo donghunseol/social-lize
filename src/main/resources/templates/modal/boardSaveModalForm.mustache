@@ -14,7 +14,7 @@
                             <div id="imagePreview"
                                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100px; overflow-y: auto; display: flex; flex-wrap: wrap; overflow-x: auto;"></div>
                             <textarea name="content" id="content"
-                                      style="padding: 5px 15px; border: none; border-top: 1px solid #D6D6D6; border-radius: 4px; height: 300px; width: 100%; resize: none; box-sizing: border-box; position: absolute; top: 100px;"></textarea>
+                                      style="padding: 5px 15px; border: none; border-top: 1px solid #D6D6D6; border-radius: 4px; height: 280px; width: 100%; resize: none; box-sizing: border-box; position: absolute; top: 100px;"></textarea>
                         </div>
                         <!-- 이미지 및 비디오 파일 선택 -->
                         <input name="imgFiles" id="imgFiles" type="file" style="border-radius: 4px; margin-top: 8px"
@@ -141,8 +141,8 @@
                 contentType: false,
                 success: function () {
                     // 성공 시 처리
-                    console.log(selectedImgFiles.length);
-                    console.log('서버로 전송 완료');
+                    location.reload();
+
                     $('#boardSaveModal').modal('hide');
                 },
                 error: function (error) {
@@ -153,6 +153,4 @@
         });
 
     });
-
-
 </script>
