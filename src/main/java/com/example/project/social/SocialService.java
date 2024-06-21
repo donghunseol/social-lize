@@ -2,6 +2,7 @@ package com.example.project.social;
 
 import com.example.project._core.enums.SocialMemberRoleEnum;
 import com.example.project._core.enums.SocialMemberStateEnum;
+import com.example.project._core.enums.SocialStateEnum;
 import com.example.project._core.errors.exception.Exception400;
 import com.example.project._core.errors.exception.Exception401;
 import com.example.project._core.errors.exception.Exception404;
@@ -115,6 +116,17 @@ public class SocialService {
 
         social.setCategory(categories);
 
+        socialRepository.save(social);
+    }
+
+    // 소셜 삭제
+    @Transactional
+    public void deleteSocial(Integer id) {
+        Social social = socialRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 소셜은 존재하지 않습니다."));
+
+        // 상태를 DELETED로 변경
+        social.setStatus(SocialStateEnum.DELETED);
         socialRepository.save(social);
     }
 
