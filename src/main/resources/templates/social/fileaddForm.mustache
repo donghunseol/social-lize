@@ -731,74 +731,24 @@
             <div class="chat-title">SNS프로젝트 1조</div>
             <div class="chat-menu">⋮</div>
         </div>
-        <div class="chat-messages" id="chatMessages">
-            <!-- 실시간 채팅 메시지가 여기에 추가됩니다 -->
+        <div class="chat-messages">
+            <div class="chat-date">2024년 6월 17일</div>
+            <div class="chat-message">
+                <img src="/images/puppy.png" alt="프로필 사진" class="profile-pic">
+                <div class="message-content">
+                    <div class="sender">설동훈</div>
+                    <div class="message-container">
+                        <div class="message-bubble">안녕</div>
+                        <span class="time">오전 11:45</span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="chat-input">
-            <input type="text" id="comment" placeholder="메시지를 입력하세요">
-            <button onclick="sendMessage()">보내기</button>
+            <input type="text" placeholder="메시지를 입력하세요">
+            <button>보내기</button>
         </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.2.0/mustache.min.js"></script>
-    <script>
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-
-        // 메시지를 전송하는 함수
-        function sendMessage() {
-            const message = chatInput.value;
-            if (message.trim() !== '') {
-                const messageData = {
-                    socialId: 1, // 실제 소셜 ID로 대체
-                    userId: 1, // 실제 사용자 ID로 대체
-                    comment: message
-                };
-                fetch('/send', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(messageData)
-                })
-                        .then(response => response.json())
-                        .then(data => {
-                            displayMessage(data);
-                            chatInput.value = '';
-                        })
-                        .catch(error => console.error('Error:', error));
-            }
-        }
-
-        // 메시지를 화면에 표시하는 함수
-        function displayMessage(messageData) {
-            const template = document.getElementById('message-template').innerHTML;
-            const rendered = Mustache.render(template, {
-                userId: messageData.userId,
-                comment: messageData.comment,
-                createdAt: new Date(messageData.createdAt).toLocaleTimeString()
-            });
-            chatMessages.insertAdjacentHTML('beforeend', rendered);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // 스프링 서버에서 메시지를 가져오는 함수
-        function fetchMessages() {
-            fetch('/messages')
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(messageData => {
-                            displayMessage(messageData);
-                        });
-                    })
-                    .catch(error => console.error('Error:', error));
-        }
-
-        // 페이지 로드 시 메시지 가져오기
-        document.addEventListener('DOMContentLoaded', function () {
-            fetchMessages();
-        });
-    </script>
     <div id="mediaModal" class="file-modal">
         <span class="close" onclick="closeModal()">&times;</span>
         <img class="file-modal-content-img" id="modal-img">
