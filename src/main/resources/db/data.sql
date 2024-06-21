@@ -202,6 +202,7 @@ VALUES (1, 1, now()),
 INSERT INTO like_tb (user_id, board_id, created_at)
 VALUES (1, 2, now()),
        (1, 3, now()),
+       (1, 4, now()),
        (2, 3, now()),
        (3, 3, now()),
        (4, 3, now()),

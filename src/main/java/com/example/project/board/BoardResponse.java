@@ -23,6 +23,7 @@ public class BoardResponse {
 
         @Data
         public static class BoardDTO {
+            private Integer boardId;
             private String socialName;
             private String nickname;
             private String createdAt;
@@ -31,8 +32,10 @@ public class BoardResponse {
             private Integer replyCount;
             private List<AlbumDTO> albums;
             private String userImage;
+            private Boolean liked;
 
-            public BoardDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage) {
+            public BoardDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked) {
+                this.boardId = board.getId();
                 this.socialName = board.getSocialId().getName();
                 this.nickname = board.getUserId().getNickname();
                 LocalDateTime format = board.getCreatedAt();
@@ -43,6 +46,7 @@ public class BoardResponse {
                 this.replyCount = replyCount;
                 this.albums = albums;
                 this.userImage = userImage;
+                this.liked = liked;
             }
         }
 

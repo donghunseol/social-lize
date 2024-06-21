@@ -9,4 +9,7 @@ public interface LikeRepository extends JpaRepository<Like, Integer> {
     // 게시물(boardId)에 대한 좋아요 개수 조회
     @Query("select count(l) from Like l where l.boardId.id = :boardId")
     Integer findByLikeCount(@Param("boardId") Integer boardId);
+
+    @Query("select count(l) from Like l where l.boardId.id = :boardId and l.userId.id = :userId")
+    Integer findByLikeUserId(@Param("boardId") Integer boardId, @Param("userId") Integer userId);
 }

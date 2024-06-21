@@ -32,9 +32,10 @@ public class BoardService {
     private final ReplyRepository replyRepository;
 
 
-    public BoardResponse.BoardListDTO boardList(int socialId) {
+    public BoardResponse.BoardListDTO boardList(int socialId, Integer userId) {
         List<Board> boards = boardRepository.findByBoardSocialId(socialId);
         List<BoardResponse.BoardListDTO.BoardDTO> boardDTOs = new ArrayList<>();
+        Boolean liked = false;
 
         for (Board board : boards) {
             Integer likeCount = likeRepository.findByLikeCount(board.getId());
@@ -43,7 +44,16 @@ public class BoardService {
             List<BoardResponse.BoardListDTO.AlbumDTO> albumDTOs = albums.stream()
                     .map(BoardResponse.BoardListDTO.AlbumDTO::new)
                     .toList();
-            boardDTOs.add(new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage()));
+
+            Integer like = likeRepository.findByLikeUserId(board.getId(), userId);
+
+            if(like <= 0) {
+                liked = true;
+            } else {
+                liked = false;
+            }
+
+            boardDTOs.add(new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked));
         }
 
         return new BoardResponse.BoardListDTO(boardDTOs);
