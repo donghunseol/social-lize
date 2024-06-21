@@ -210,4 +210,11 @@ public class UserService {
         List<User> userList = userRepository.findByRole(UserEnum.USER);
         return userList.stream().map(UserResponse.UserList::new).collect(Collectors.toList());
     }
+
+    // 회원 상세 조회 (관리자)
+    public UserResponse.UserDetail getUserDetail(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다."));
+        return new UserResponse.UserDetail(user);
+    }
 }
