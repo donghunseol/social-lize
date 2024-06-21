@@ -49,5 +49,3 @@ public class Social {
         this.createdAt = createdAt;
     }
 }
-
-
