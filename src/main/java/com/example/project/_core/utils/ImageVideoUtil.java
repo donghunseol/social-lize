@@ -41,7 +41,7 @@ public class ImageVideoUtil {
     }
 
     // 하나의 파일을 업로드하는 메서드
-    public static FileUploadResult uploadFile(String s, MultipartFile file) {
+    public static FileUploadResult uploadFile(MultipartFile file) {
         // 파일이 이미지 또는 영상이 아닌 경우 예외를 던짐
         if (!isImageOrVideoFile(file)) {
             throw new IllegalArgumentException("이미지 또는 영상 파일만 업로드할 수 있습니다.");
@@ -73,7 +73,7 @@ public class ImageVideoUtil {
         List<FileUploadResult> uploadResults = new ArrayList<>();
         // 각 파일을 순회하면서 업로드
         for (MultipartFile file : files) {
-            uploadResults.add(uploadFile("./upload", file));
+            uploadResults.add(uploadFile(file));
         }
         // 업로드 결과 리스트를 반환
         return uploadResults;
