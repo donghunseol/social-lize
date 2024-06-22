@@ -33,8 +33,9 @@ public class BoardResponse {
             private List<AlbumDTO> albums;
             private String userImage;
             private Boolean liked;
+            private Boolean book;
 
-            public BoardDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked) {
+            public BoardDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book) {
                 this.boardId = board.getId();
                 this.socialName = board.getSocialId().getName();
                 this.nickname = board.getUserId().getNickname();
@@ -47,6 +48,7 @@ public class BoardResponse {
                 this.albums = albums;
                 this.userImage = userImage;
                 this.liked = liked;
+                this.book = book;
             }
         }
 

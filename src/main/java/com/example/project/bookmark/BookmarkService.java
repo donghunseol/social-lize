@@ -1,5 +1,14 @@
 package com.example.project.bookmark;
 
+import com.example.project._core.errors.exception.Exception403;
+import com.example.project._core.errors.exception.Exception404;
+import com.example.project.board.Board;
+import com.example.project.board.BoardRepository;
+import com.example.project.like.Like;
+import com.example.project.like.LikeRepository;
+import com.example.project.user.User;
+import com.example.project.user.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -7,4 +16,34 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookmarkService {
     private final BookmarkRepository bookmarkRepository;
+    private final UserRepository userRepository;
+    private final BoardRepository boardRepository;
+
+    @Transactional
+    public boolean save(Integer boardId, Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요합니다."));
+
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+
+        bookmarkRepository.save(Bookmark.builder().userId(user).boardId(board).build());
+        return true;  // 성공 시 true 반환
+    }
+
+    @Transactional
+    public boolean delete(Integer boardId, Integer userId) {
+        userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요합니다."));
+
+        boardRepository.findById(boardId)
+                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+
+        Bookmark bookmark = bookmarkRepository.findByUserAndBoard(userId, boardId)
+                .orElseThrow(() -> new Exception404("좋아요가 없습니다."));
+
+        bookmarkRepository.deleteById(bookmark.getId());
+
+        return true;  // 성공 시 true 반환
+    }
 }
