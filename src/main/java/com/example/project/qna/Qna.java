@@ -1,5 +1,7 @@
 package com.example.project.qna;
 
+import com.example.project._core.enums.AlbumEnum;
+import com.example.project._core.enums.QnaEnum;
 import com.example.project.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -30,18 +32,22 @@ public class Qna {
 
     private String replyContent; // 문의 사항 관리자 답변
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private QnaEnum state; // 처리완료, 대기중
+
     private LocalDateTime replyCreatedAt; // 답변 일자
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자
 
     @Builder
-
-    public Qna(Integer id, User userId, String title, String content, String replyContent, LocalDateTime replyCreatedAt, LocalDateTime createdAt) {
+    public Qna(Integer id, User userId, String title, String content, String replyContent, QnaEnum state, LocalDateTime replyCreatedAt, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.content = content;
+        this.state = state;
         this.replyContent = replyContent;
         this.replyCreatedAt = replyCreatedAt;
         this.createdAt = createdAt;
