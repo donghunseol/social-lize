@@ -19,7 +19,6 @@ public class BoardController {
 //        User user = (User) session.getAttribute("user");
         boardService.save(socialId, reqDTO, 1);
 
-
         // 나머지 데이터 처리 로직
         return "redirect:/social/detail/" + socialId;
     }

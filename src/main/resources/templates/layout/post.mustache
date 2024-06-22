@@ -33,26 +33,73 @@
                 <div class="media-box">
                 </div>
                 <div class="comments">
-                    <div class="like-count">좋아요 {{likeCount}}</div>
+                    <div class="like-count">좋아요 <span class="like-count-value">{{likeCount}}</span></div>
                     <div class="comment-count">댓글 {{replyCount}}</div>
                 </div>
             </div>
         </div>
-        {{liked}}
-        {{boardId}}
-    <div class="comment-section-container">
-        <button onclick="likeToggle{{boardId}}" class="like-button"><i class="fas fa-heart"></i></button>
-        <div class="comment-section">
-            <img src="/images/userprofile.jpeg" alt="Commenter Picture" class="comment-picture">
-            <input type="text" placeholder="댓글을 남겨주세요.">
+        <div class="comment-section-container">
+            <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}"><i class="fas fa-heart"></i></button>
+            <div class="comment-section">
+                <img src="/images/userprofile.jpeg" alt="Commenter Picture" class="comment-picture">
+                <input type="text" placeholder="댓글을 남겨주세요.">
+            </div>
+            <button class="send-button">보내기</button>
         </div>
-        <button class="send-button">보내기</button>
-    </div>
     {{/boardList.boards}}
 </div>
 
 <script>
-    function likeToggle(boardId) {
+    $(document).ready(function() {
+        $('.like-button').on('click', function() {
+            var $this = $(this);
+            var boardId = $this.data('board-id');
+            var isLiked = $this.hasClass('liked');
+            var method = isLiked ? 'DELETE' : 'POST';
+            var url = isLiked ? '/like/delete' : '/like/save';
 
-    }
+            // 즉시 UI 업데이트
+            $this.toggleClass('liked');
+            var likeCountElement = $this.closest('.post').find('.like-count-value');
+            var currentLikeCount = parseInt(likeCountElement.text(), 10);
+            if (isLiked) {
+                likeCountElement.text(currentLikeCount - 1);
+                $this.find('.fa-heart').css('color', '#aaaaaa'); // 좋아요 되지 않은 상태의 하트 색상
+            } else {
+                likeCountElement.text(currentLikeCount + 1);
+                $this.find('.fa-heart').css('color', 'red'); // 좋아요 된 상태의 하트 색상
+            }
+
+            // 서버에 상태 업데이트 요청
+            $.ajax({
+                type: method,
+                url: url + '?boardId=' + boardId, // URL 매개변수로 boardId 전송
+                success: function(response) {
+                    if (!response.success) {
+                        // 서버 요청이 실패하면 UI를 다시 원래 상태로 돌림
+                        $this.toggleClass('liked');
+                        if (isLiked) {
+                            likeCountElement.text(currentLikeCount);
+                            $this.find('.fa-heart').css('color', 'red');
+                        } else {
+                            likeCountElement.text(currentLikeCount - 2);
+                            $this.find('.fa-heart').css('color', '#aaaaaa');
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    // 에러가 발생하면 UI를 다시 원래 상태로 돌림
+                    $this.toggleClass('liked');
+                    if (isLiked) {
+                        likeCountElement.text(currentLikeCount);
+                        $this.find('.fa-heart').css('color', 'red');
+                    } else {
+                        likeCountElement.text(currentLikeCount - 2);
+                        $this.find('.fa-heart').css('color', '#aaaaaa');
+                    }
+                }
+            });
+        });
+    });
 </script>
