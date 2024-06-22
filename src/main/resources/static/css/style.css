@@ -225,19 +225,21 @@ body {
     margin-top: 10px;
     margin-left: 28px;
 }
-
 .mpsidebar {
     width: 200px;
     background-color: #fff;
     border-right: 1px solid #ddd;
-    padding: 10px;
+    padding: 20px;
     border-radius: 10px;
 }
-
+.mpsidebar-container {
+    padding-top: 70px;
+}
 .mpsidebar ul {
     list-style: none;
     padding: 0;
 }
+
 
 .mpsidebar ul li {
     margin-bottom: 10px;

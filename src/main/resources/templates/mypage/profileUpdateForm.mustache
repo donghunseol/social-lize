@@ -1,66 +1,61 @@
 {{> layout/header}}
 
-<body>
-<div class="container w-50">
-    {{> layout/mpsidebar}}
-    <div class="content">
-        <form action="" method="post" enctype="multipart/form-data">
-            <div>
-                <div class="section">
-                    <h6 class="fw-bold mb-3">사용중인 프로필</h6>
-                    <div class="profile-info text-center">
-                        <label for="profileImageUpload" class="profile-image-label" style="cursor: pointer;">
-                            <div class="position-relative d-inline-block">
-                                <img src="/images/plus.jpg" alt="프로필" id="profileImagePreview"
-                                     class="img-thumbnail rounded-circle" style="width: 150px; height: 150px;">
-                                <input type="file" id="profileImageUpload" class="d-none"
-                                       onchange="updateProfileImage()">
-                            </div>
-                        </label>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <div class="input-group mt-2 w-auto">
-                                <input class="form-control text-center" value="설동훈"
-                                       style="display: inline-block; height: 40px;">
-                                <div class="input-group-append">
-                                        <span class="input-group-text" style="height: 40px;">
-                                            <img src="/images/profile_pencil.png" alt="프로필 편집"
-                                                 style="width: 20px; height: 20px;">
-                                        </span>
+<div class="profileupdate-wrapper">
+    <div class="profileupdate-container">
+        <div class="profileupdate-sidebar">
+            {{> layout/mpsidebar}}
+        </div>
+        <div class="profileupdate-content">
+            <form action="" method="post" enctype="multipart/form-data">
+                <div>
+                    <div class="profileupdate-section">
+                        <h6 class="profileupdate-section-title">사용중인 프로필</h6>
+                        <div class="profileupdate-profile-info">
+                            <label for="profileImageUpload" class="profileupdate-profile-image-label">
+                                <div class="profileupdate-profile-image-container">
+                                    <img src="/images/plus.jpg" alt="프로필" id="profileImagePreview"
+                                         class="profileupdate-profile-image">
+                                    <input type="file" id="profileImageUpload" class="d-none"
+                                           onchange="updateProfileImage()">
                                 </div>
+                            </label>
+                            <div class="profileupdate-name-container">
+                                <span id="profileName" class="profileupdate-profile-name">설동훈</span>
+                                <input type="text" id="profileNameInput" class="profileupdate-form-control profileupdate-input-control text-center d-none" value="설동훈">
+                                <img src="/images/profile_pencil.png" alt="프로필 편집" class="profileupdate-icon" id="editIcon">
                             </div>
                         </div>
                     </div>
-                </div>
-                <hr class="border-dark">
-                <div class="section profile-title text-left">
-                    <h6 class="fw-bold mb-3">개인 정보</h6>
-                    <div class="d-flex flex-column align-items-start">
-                        <div class="info-item d-flex flex-column align-items-start w-100 px-3">
-                            <label class="form-label w-100 text-start">이메일</label>
-                            <input type="email" class="form-control w-100 me-3" value="ssar@nate.com" readonly>
+                    <hr class="profileupdate-divider">
+                    <div class="profileupdate-section profileupdate-profile-title">
+                        <h6 class="profileupdate-section-title">개인 정보</h6>
+                        <div class="profileupdate-info-list">
+                            <div class="profileupdate-info-item">
+                                <label class="profileupdate-form-label">이메일</label>
+                                <p class="profileupdate-email-text">ssar@nate.com</p>
+                            </div>
+                            <div class="profileupdate-info-item">
+                                <label class="profileupdate-form-label">비밀번호</label>
+                                <input type="password" class="profileupdate-form-control" value="1234">
+                            </div>
+                            <div class="profileupdate-info-item">
+                                <label class="profileupdate-form-label">비밀번호 확인</label>
+                                <input type="password" class="profileupdate-form-control" value="1234">
+                            </div>
+                            <div class="profileupdate-info-item">
+                                <label class="profileupdate-form-label">생년 월일</label>
+                                <input type="date" class="profileupdate-form-control" id="birthdate">
+                            </div>
+                            <div class="profileupdate-info-item">
+                                <label class="profileupdate-form-label">전화 번호</label>
+                                <input type="text" class="profileupdate-form-control" value="010-1234-5678">
+                            </div>
+                            <button class="profileupdate-save-button">저장</button>
                         </div>
-                        <div class="info-item d-flex flex-column align-items-start w-100 px-3">
-                            <label class="form-label w-100 text-start">비밀번호</label>
-                            <input type="password" class="form-control w-100" value="1234">
-                        </div>
-                        <div class="info-item d-flex flex-column align-items-start w-100 px-3">
-                            <label class="form-label w-100 text-start">비밀번호 확인</label>
-                            <input type="password" class="form-control w-100" value="1234">
-                        </div>
-                        <div class="info-item d-flex flex-column align-items-start w-100 px-3">
-                            <label class="form-label w-100 text-start">생년 월일</label>
-                            <input type="date" class="form-control w-100" id="birthdate">
-                        </div>
-                        <div class="info-item d-flex flex-column align-items-start w-100 px-3">
-                            <label class="form-label w-100 text-start">전화 번호</label>
-                            <input type="text" class="form-control w-100" value="010-1234-5678">
-                        </div>
-                        <button class="btn btn-primary mt-3 mx-auto d-block"
-                                style="width: 50%; border-radius: 20px; background-color: #343a40; border: none; float: right;">저장</button>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 <!-- 이미지 클릭 시 변경 창 스크립트 -->
@@ -70,6 +65,23 @@
         var file = document.getElementById('profileImageUpload').files[0];
         preview.src = window.URL.createObjectURL(file);
     }
+
+    document.getElementById('editIcon').addEventListener('click', function() {
+        var profileName = document.getElementById('profileName');
+        var profileNameInput = document.getElementById('profileNameInput');
+        profileName.classList.toggle('d-none');
+        profileNameInput.classList.toggle('d-none');
+        if (!profileNameInput.classList.contains('d-none')) {
+            profileNameInput.focus();
+        }
+    });
+
+    document.getElementById('profileNameInput').addEventListener('blur', function() {
+        var profileName = document.getElementById('profileName');
+        var profileNameInput = document.getElementById('profileNameInput');
+        profileName.textContent = profileNameInput.value;
+        profileName.classList.remove('d-none');
+        profileNameInput.classList.add('d-none');
+    });
 </script>
-</body>
 {{> layout/footer}}
