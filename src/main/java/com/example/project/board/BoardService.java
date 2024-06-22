@@ -35,7 +35,7 @@ public class BoardService {
     public BoardResponse.BoardListDTO boardList(int socialId, Integer userId) {
         List<Board> boards = boardRepository.findByBoardSocialId(socialId);
         List<BoardResponse.BoardListDTO.BoardDTO> boardDTOs = new ArrayList<>();
-        Boolean liked = false;
+        Boolean liked;
 
         for (Board board : boards) {
             Integer likeCount = likeRepository.findByLikeCount(board.getId());
@@ -48,9 +48,9 @@ public class BoardService {
             Integer like = likeRepository.findByLikeUserId(board.getId(), userId);
 
             if(like <= 0) {
-                liked = true;
-            } else {
                 liked = false;
+            } else {
+                liked = true;
             }
 
             boardDTOs.add(new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked));
