@@ -466,6 +466,28 @@ body {
     color: #aaaaaa;
 }
 
+/* 기본 상태의 북마크 버튼 스타일 */
+.book-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    color: #aaaaaa;
+    margin-right: 10px;
+    position: absolute;
+    margin-left: 600px;
+}
+
+/* 북마크 된 상태의 별 색상 */
+.book-button.bookd .fa-star {
+    color: yellow;
+}
+
+/* 북마크 되지 않은 상태의 별 색상 */
+.book-button:not(.bookd) .fa-star {
+    color: #aaaaaa;
+}
+
 /* profileUpdateForm.mustache */
 .profile-container {
     width: 320px; /* 너비를 400px로 조정 */

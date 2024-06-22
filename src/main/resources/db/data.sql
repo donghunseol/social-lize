@@ -227,6 +227,7 @@ VALUES (1, 2, now()),
 INSERT INTO bookmark_tb (user_id, board_id, created_at)
 VALUES (1, 2, now()),
        (2, 1, now()),
+       (1, 3, now()),
        (3, 15, now()),
        (4, 7, now()),
        (5, 10, now());
