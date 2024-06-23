@@ -1,35 +1,39 @@
 {{> layout/header}}
-<div class="container">
-    {{> layout/mpsidebar}}
-    <div class="content">
-        <div class="content-box">
-            <div class="bookmark-box">
-                <h2>내가 쓴 글</h2>
+<div class="myrecord-wrapper">
+    <div class="myrecord-container">
+        <div class="myrecord-sidebar">
+            {{> layout/mpsidebar}}
+        </div>
+        <div class="myrecord-content">
+            <div class="myrecord-content-box">
+                <div class="myrecord-bookmark-box">
+                    <h2>내가 쓴 글</h2>
+                </div>
             </div>
-        </div>
-        <div class="tabs">
-            <button class="tablink active" onclick="openTab(event, '게시글')">게시글</button>
-            <button class="tablink" onclick="openTab(event, '댓글')">댓글</button>
-        </div>
-        <div id="게시글" class="tab-content active">
-            {{> layout/post}}
-            {{> layout/post}}
-        </div>
-        <div id="댓글" class="tab-content">
-            {{> layout/post}}
-            {{> layout/post}}
+            <div class="myrecord-tabs">
+                <button class="myrecord-tablink active" onclick="openTab(event, '게시글')">게시글</button>
+                <button class="myrecord-tablink" onclick="openTab(event, '댓글')">댓글</button>
+            </div>
+            <div id="게시글" class="myrecord-tab-content active">
+                {{> layout/post}}
+                {{> layout/post}}
+            </div>
+            <div id="댓글" class="myrecord-tab-content">
+                {{> layout/post}}
+                {{> layout/post}}
+            </div>
         </div>
     </div>
 </div>
 <script>
     function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tab-content");
+        tabcontent = document.getElementsByClassName("myrecord-tab-content");
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
             tabcontent[i].classList.remove("active");
         }
-        tablinks = document.getElementsByClassName("tablink");
+        tablinks = document.getElementsByClassName("myrecord-tablink");
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].classList.remove("active");
         }
