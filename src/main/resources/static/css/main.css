@@ -91,7 +91,7 @@
 }
 .my-content {
     flex: 1;
-    max-width: calc(100% - 70px); /* Adjust based on image width + margin */
+    max-width: calc(100% - 70px);
 }
 .my-post .my-footer {
     margin-top: 10px;
