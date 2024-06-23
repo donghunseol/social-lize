@@ -1,13 +1,19 @@
 {{> layout/header}}
-<div class="container">
-    {{> layout/mpsidebar}}
-    <div class="content">
-        <div class="content-box">
-            <div class="bookmark-box">
-                <h2>북마크</h2>
+<div class="bookmark-wrapper">
+    <div class="bookmark-container">
+        <div class="bookmark-sidebar">
+            {{> layout/mpsidebar}}
+        </div>
+        <div class="bookmark-content">
+            <div class="bookmark-content-box">
+                <div class="bookmark-bookmark-box">
+                    <h2>북마크</h2>
+                </div>
+            </div>
+            <div class="posts-container">
+                {{> layout/post}}
             </div>
         </div>
-        {{> layout/post}}
     </div>
 </div>
 {{> layout/footer}}
