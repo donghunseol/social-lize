@@ -1,6 +1,5 @@
 package com.example.project.chat;
 
-import com.example.project._core.errors.exception.Exception401;
 import com.example.project._core.errors.exception.Exception404;
 import com.example.project.social.Social;
 import com.example.project.social.SocialRepository;
@@ -9,7 +8,6 @@ import com.example.project.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,40 +18,51 @@ public class ChatService {
     private final SocialRepository socialRepository;
     private final UserRepository userRepository;
 
-    // 클라이언트로부터 받은 채팅 메시지를 데이터베이스에 저장하고, 저장된 메시지를 DTO로 반환
+    // 채팅 메시지 저장 메서드
     public ChatResponse.LiveChatDTO saveMessage(ChatRequest.LiveChatDTO reqDTO) {
-        reqDTO.setUserId(1);
-        reqDTO.setSocialId(1);
+        // 객체 조회
         Social social = socialRepository.findById(reqDTO.getSocialId())
-                .orElseThrow(() -> new Exception404("존재하지 않는 소셜입니다"));
-        User sessionUser = userRepository.findById(reqDTO.getUserId())
-                .orElseThrow(() -> new Exception401("존재하지 않는 유저입니다"));
+                .orElseThrow(() -> new Exception404("소셜을 찾을 수 없습니다"));
+        User user = userRepository.findById(reqDTO.getUserId())
+                .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다"));
 
-        Chat chat = new Chat();
-        chat.setSocialId(social); // Social 엔티티 생성자로 설정
-        chat.setUserId(sessionUser); // User 엔티티 생성자로 설정
-        chat.setComment(reqDTO.getComment());
-        chat.setCreatedAt(LocalDateTime.now());
-        chatRepository.save(chat);
+        // 받은 DTO를 기반으로 채팅 객체 생성
+        Chat chat = Chat.builder()
+                .socialId(social)
+                .userId(user)
+                .comment(reqDTO.getComment())
+                .build();
 
-        return null;
-    }
+        // 채팅 객체 DB 에 저장
+        Chat savedChat = chatRepository.save(chat);
 
-    // 데이터베이스에 저장된 모든 채팅 메시지를 가져와 DTO 리스트로 반환
-    public List<ChatResponse.LiveChatDTO> getAllMessages() {
-        return chatRepository.findAll().stream()
-                .map(this::convertToResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    // DTO로 변환
-    private ChatResponse.LiveChatDTO convertToResponseDTO(Chat chat) {
         return new ChatResponse.LiveChatDTO(
-                chat.getId(),
-                chat.getSocialId().getId(), // Social 엔티티의 ID를 가져옴
-                chat.getUserId().getId(), // User 엔티티의 ID를 가져옴
-                chat.getComment(),
-                chat.getCreatedAt()
+                savedChat.getId(),
+                savedChat.getSocialId().getId(),
+                savedChat.getUserId().getId(),
+                savedChat.getComment(),
+                savedChat.getCreatedAt()
         );
+    }
+
+    // 소셜 별 채팅 조회 메서드
+    public List<ChatResponse.LiveChatDTO> getChatMessages(Integer socialId) {
+        // 객체 조회
+        Social social = socialRepository.findById(socialId)
+                .orElseThrow(() -> new Exception404("소셜을 찾을 수 없습니다"));
+
+        // 해당 소셜 그룹 채팅 조회
+        List<Chat> chats = chatRepository.findBySocialId(social.getId());
+
+        // 조회된 채팅 메시지를 DTO 리스트로 변환하여 반환
+        return chats.stream()
+                .map(chat -> new ChatResponse.LiveChatDTO(
+                        chat.getId(),
+                        chat.getSocialId().getId(),
+                        chat.getUserId().getId(),
+                        chat.getComment(),
+                        chat.getCreatedAt()
+                ))
+                .collect(Collectors.toList());
     }
 }
