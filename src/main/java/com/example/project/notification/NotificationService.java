@@ -1,8 +1,9 @@
 package com.example.project.notification;
 
-import com.example.project.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -11,5 +12,10 @@ public class NotificationService {
 
     public int getUnCheckedCountByUserId(Integer userid){
         return notificationRepository.getUnCheckedCountByUserId(userid);
+    }
+
+    public NotificationResponse.ListDTO getAllByUserId(Integer userid){
+        List<Notification> notificationList = notificationRepository.getAllByUserId(userid);
+        return new NotificationResponse.ListDTO(notificationList);
     }
 }

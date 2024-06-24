@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
+import java.util.List;
+
 @Import(UserQueryRepository.class)
 @DataJpaTest
 public class NotificationTest {
@@ -21,5 +23,8 @@ public class NotificationTest {
 //        user.setId(1);
         Integer count = notificationRepository.getUnCheckedCountByUserId(1);
         System.out.println(count);
+
+        List<Notification> notificationList = notificationRepository.getAllByUserId(1);
+        System.out.println("notificationList = " + notificationList);
     }
 }

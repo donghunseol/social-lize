@@ -1,5 +1,6 @@
 package com.example.project.notification;
 
+import com.example.project._core.utils.UserUtil;
 import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -12,11 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class NotificationController {
     private final NotificationService notificationService;
     private final HttpSession session;
+    private final UserUtil userUtil;
+
 
     //회원가입 페이지 - 자체가입
     @GetMapping("/notiTest")
@@ -42,16 +47,24 @@ public class NotificationController {
     // 테스트용
     @GetMapping("/send")
     public @ResponseBody String sendNoticeNotification(@RequestParam(value = "count", defaultValue = "5") String count) {
-//        UserResponse.LoggedInUserDTO user = getLoggedInUser(session);
+        UserResponse.LoggedInUserDTO user = userUtil.getSessionUser();
         //현재 읽지 않은 알림의 개수를 불러온다.
-        //Integer countToSend = notificationService.getUnCheckedCountByUserId(user.getId());
+        Integer countToSend = notificationService.getUnCheckedCountByUserId(user.getId());
 //        Integer countToSend = user.getUnCheckedNotifications();
 
         //현재 읽지 않은 알림 개수 + 1한 값을 메세지로 보낸다.
-//        template.convertAndSend("/topic/notice", countToSend+1);
-//        System.out.println(countToSend);
-//        return "Sended : "+countToSend;
-        return "0";
+        template.convertAndSend("/topic/notice", countToSend+1);
+        System.out.println(countToSend);
+        return "Sended : "+countToSend;
+    }
+
+    @GetMapping("/get")
+    public @ResponseBody NotificationResponse.ListDTO getNotice() {
+        UserResponse.LoggedInUserDTO user = userUtil.getSessionUser();
+        NotificationResponse.ListDTO notiList = notificationService.getAllByUserId(user.getId());
+        System.out.println("notiList = " + notiList);
+//        Integer countToSend = user.getUnCheckedNotifications();
+        return notiList;
     }
 }
 
