@@ -1,6 +1,8 @@
 package com.example.project.board;
 
+import com.example.project._core.utils.UserUtil;
 import com.example.project.user.User;
+import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +20,12 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final HttpSession session;
+    private final UserUtil userUtil;
 
     @PostMapping("/board/{socialId}")
     public String save(@PathVariable Integer socialId, BoardRequest.SaveDTO reqDTO) {
-//        User user = (User) session.getAttribute("user");
-
-        boardService.save(socialId, reqDTO, 1);
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        boardService.save(socialId, reqDTO, sessionUser.getId());
 
         // 나머지 데이터 처리 로직
         return "redirect:/social/detail/" + socialId;

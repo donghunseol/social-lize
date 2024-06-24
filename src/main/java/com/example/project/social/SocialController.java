@@ -1,10 +1,12 @@
 package com.example.project.social;
 
+import com.example.project._core.utils.UserUtil;
 import com.example.project.board.BoardResponse;
 import com.example.project.board.BoardService;
 import com.example.project.file.FileRequest;
 import com.example.project.file.FileService;
 import com.example.project.user.User;
+import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +22,12 @@ public class SocialController {
     private final BoardService boardService;
     private final FileService fileService;
     private final HttpSession session;
+    private final UserUtil userUtil;
 
     @GetMapping("/social/detail/{socialId}")
     public String socialDetail(@PathVariable int socialId, HttpServletRequest request) {
-        BoardResponse.BoardListDTO boardList = boardService.boardList(socialId, 1);
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        BoardResponse.BoardListDTO boardList = boardService.boardList(socialId, sessionUser.getId());
         request.setAttribute("boardList", boardList);
         return "social/detail";
     }

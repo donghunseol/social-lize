@@ -1,5 +1,7 @@
 package com.example.project.bookmark;
 
+import com.example.project._core.utils.UserUtil;
+import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +19,12 @@ import java.util.Map;
 public class BookmarkController {
     private final BookmarkService bookmarkService;
     private final HttpSession session;
+    private final UserUtil userUtil;
 
     @PostMapping("/bookmark/save")
     public ResponseEntity<?> save(@RequestParam("boardId") Integer boardId) {
-        Integer userId = 1;
-        Boolean success = bookmarkService.save(boardId, userId);
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        Boolean success = bookmarkService.save(boardId, sessionUser.getId());
         Map<String, Object> response = new HashMap<>();
         response.put("success", success);
         return ResponseEntity.ok(response);
@@ -29,8 +32,8 @@ public class BookmarkController {
 
     @DeleteMapping("/bookmark/delete")
     public ResponseEntity<?> delete(@RequestParam("boardId") Integer boardId) {
-        Integer userId = 1;
-        Boolean success = bookmarkService.delete(boardId, userId);
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        Boolean success = bookmarkService.delete(boardId, sessionUser.getId());
         Map<String, Object> response = new HashMap<>();
         response.put("success", success);
         return ResponseEntity.ok(response);
