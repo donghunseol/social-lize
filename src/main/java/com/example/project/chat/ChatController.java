@@ -28,8 +28,9 @@ public class ChatController {
         return chatService.getChatMessages(socialId);
     }
 
-    @GetMapping("/chat/test")
-    public String test() {
-        return "social/fileaddForm";
+
+    @GetMapping("test/chat")
+    public String testChat() {
+        return "null";
     }
 }
