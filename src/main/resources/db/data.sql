@@ -117,22 +117,22 @@ VALUES (1, '카테고리 추가해주세요', '공포 카테고리 추가해주�
        (1, '여기 답장 제대로 해주냐?', '테스트 해본다 ㅋ', null, 'DELETE', null, '2024-06-20');
 
 -- 알림 테이블
-INSERT INTO notification_tb(user_id, role, created_at)
-VALUES (1, 'BOARD', now()),
-       (1, 'REPLY', now()),
-       (1, 'REREPLY', now()),
-       (2, 'BOARD', now()),
-       (2, 'REPLY', now()),
-       (2, 'REREPLY', now()),
-       (3, 'BOARD', now()),
-       (3, 'REPLY', now()),
-       (3, 'REREPLY', now()),
-       (4, 'BOARD', now()),
-       (4, 'REPLY', now()),
-       (4, 'REREPLY', now()),
-       (5, 'BOARD', now()),
-       (5, 'REPLY', now()),
-       (5, 'REREPLY', now());
+INSERT INTO notification_tb(user_id, role, created_at, checked)
+VALUES (1, 'BOARD', now(), false),
+       (1, 'REPLY', now(), false),
+       (1, 'REREPLY', now(), false),
+       (2, 'BOARD', now(), false),
+       (2, 'REPLY', now(), false),
+       (2, 'REREPLY', now(), false),
+       (3, 'BOARD', now(), false),
+       (3, 'REPLY', now(), false),
+       (3, 'REREPLY', now(), false),
+       (4, 'BOARD', now(), false),
+       (4, 'REPLY', now(), false),
+       (4, 'REREPLY', now(), false),
+       (5, 'BOARD', now(), false),
+       (5, 'REPLY', now(), false),
+       (5, 'REREPLY', now(), false);
 
 -- 소셜 채팅 테이블
 INSERT INTO chat_tb (social_id, user_id, comment, created_at)

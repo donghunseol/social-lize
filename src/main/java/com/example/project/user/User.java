@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "user_tb")
 @Entity
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
