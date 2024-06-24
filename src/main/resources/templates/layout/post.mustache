@@ -17,7 +17,8 @@
                 {{#albums}}
                     <div class="media-item">
                         {{#isImage}}
-                            <img src="{{path}}" alt="Image" style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
+                            <img src="{{path}}" alt="Image"
+                                 style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
                         {{/isImage}}
                         {{#isVideo}}
                             <video controls style="max-width: 100%; max-height: 300px;">
@@ -32,9 +33,9 @@
                 </div>
                 <div class="media-box">
                     <div class="hashtag-box">
-                        <button class="hashtag-btn">해시태그1</button>
-                        <button class="hashtag-btn">해시태그2</button>
-                        <button class="hashtag-btn">해시태그3</button>
+                        {{#hashtagList}}
+                            <button class="hashtag-btn">{{name}}</button>
+                        {{/hashtagList}}
                     </div>
                 </div>
                 <div class="comments">
@@ -44,7 +45,8 @@
             </div>
         </div>
         <div class="comment-section-container">
-            <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}"><i class="fas fa-heart"></i></button>
+            <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}"><i
+                    class="fas fa-heart"></i></button>
             <div class="comment-section">
                 <img src="/images/userprofile.jpeg" alt="Commenter Picture" class="comment-picture">
                 <input type="text" placeholder="댓글을 남겨주세요.">
@@ -71,7 +73,8 @@
                 {{#albums}}
                     <div class="media-item">
                         {{#isImage}}
-                            <img src="{{path}}" alt="Image" style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
+                            <img src="{{path}}" alt="Image"
+                                 style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
                         {{/isImage}}
                         {{#isVideo}}
                             <video controls style="max-width: 100%; max-height: 300px;">
@@ -93,7 +96,8 @@
             </div>
         </div>
         <div class="comment-section-container">
-            <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}"><i class="fas fa-heart"></i></button>
+            <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}"><i
+                    class="fas fa-heart"></i></button>
             <div class="comment-section">
                 <img src="/images/userprofile.jpeg" alt="Commenter Picture" class="comment-picture">
                 <input type="text" placeholder="댓글을 남겨주세요.">
@@ -104,8 +108,8 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('.like-button').on('click', function() {
+    $(document).ready(function () {
+        $('.like-button').on('click', function () {
             var $this = $(this);
             var boardId = $this.data('board-id');
             var isLiked = $this.hasClass('liked');
@@ -125,7 +129,7 @@
             $.ajax({
                 type: method,
                 url: url + '?boardId=' + boardId, // URL 매개변수로 boardId 전송
-                success: function(response) {
+                success: function (response) {
                     if (!response.success) {
                         // 서버 요청이 실패하면 UI를 다시 원래 상태로 돌림
                         $this.toggleClass('liked');
@@ -136,7 +140,7 @@
                         }
                     }
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error('Error:', error);
                     // 에러가 발생하면 UI를 다시 원래 상태로 돌림
                     $this.toggleClass('liked');
@@ -150,8 +154,8 @@
         });
     });
 
-    $(document).ready(function() {
-        $('.book-button').each(function() {
+    $(document).ready(function () {
+        $('.book-button').each(function () {
             var $this = $(this);
             if ($this.hasClass('book')) {
                 $this.find('.fa-star').css('color', 'yellow');
@@ -161,7 +165,7 @@
         });
 
         // 북마크 버튼 클릭 시
-        $('.book-button').each(function() {
+        $('.book-button').each(function () {
             var $this = $(this);
             if ($this.hasClass('book')) {
                 $this.find('.fa-star').css('color', 'yellow');
@@ -170,7 +174,7 @@
             }
         });
         // 북마크 버튼 클릭 시
-        $('.book-button').on('click', function() {
+        $('.book-button').on('click', function () {
             var $this = $(this);
             var boardId = $this.data('board-id');
             var isBooked = $this.hasClass('book');
@@ -189,7 +193,7 @@
             $.ajax({
                 type: method,
                 url: url + '?boardId=' + boardId, // URL 매개변수로 boardId 전송
-                success: function(response) {
+                success: function (response) {
                     if (!response.success) {
                         // 서버 요청이 실패하면 UI를 다시 원래 상태로 돌림
                         $this.toggleClass('book');
@@ -205,7 +209,7 @@
                         }
                     }
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error('Error:', error);
                     // 에러가 발생하면 UI를 다시 원래 상태로 돌림
                     $this.toggleClass('book');
