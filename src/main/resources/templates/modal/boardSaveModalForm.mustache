@@ -1,39 +1,58 @@
+<link rel="stylesheet" href="/css/boardsavemodal.css">
+
 <div class="modal fade" id="boardSaveModal" tabindex="-1" aria-labelledby="boardModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="boardModalLabel">글쓰기</h5>
-                <button id="closeModalBtn" type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="boardForm" action="/board/1" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
-                        <!-- 텍스트 에디터와 이미지 미리보기 컨테이너 -->
-                        <div style="position: relative; height: 400px; border: 1px solid #D6D6D6; border-radius: 4px;">
-                            <div id="imagePreview"
-                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100px; overflow-y: auto; display: flex; flex-wrap: wrap; overflow-x: auto;"></div>
-                            <textarea name="content" id="content"
-                                      style="padding: 5px 15px; border: none; border-top: 1px solid #D6D6D6; border-radius: 4px; height: 280px; width: 100%; resize: none; box-sizing: border-box; position: absolute; top: 100px;"></textarea>
+                        <label for="title" class="form-label">제목</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label">내용</label>
+                        <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="hashtags" class="form-label">해시태그 추가</label>
+                        <div class="d-flex">
+                            <select id="hashtagSelect" class="form-select">
+                                <option value="카테고리1">카테고리1</option>
+                                <option value="카테고리2">카테고리2</option>
+                                <option value="카테고리3">카테고리3</option>
+                            </select>
                         </div>
-                        <!-- 이미지 및 비디오 파일 선택 -->
-                        <input name="imgFiles" id="imgFiles" type="file" style="border-radius: 4px; margin-top: 8px"
-                               accept="image/*" multiple>
-                        <input name="videoFiles" id="videoFiles" type="file" style="border-radius: 4px; margin-top: 8px"
-                               accept="video/*" multiple>
+                        <div id="selectedHashtags" class="mt-2"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">파일 첨부</label>
+                        <div class="d-flex gap-2">
+                            <input type="file" id="imageFiles" name="imageFiles" accept="image/*" multiple>
+                            <input type="file" id="videoFiles" name="videoFiles" accept="video/*" multiple>
+                        </div>
+                        <div id="filePreview" class="boardsave-file-preview"></div>
                     </div>
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary">게시</button>
+                        <button type="submit" class="boardsave-submit-btn">게시</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {
         var selectedImgFiles = []; // 선택된 이미지 파일들을 저장할 배열
         var selectedVideoFiles = []; // 선택된 비디오 파일들을 저장할 배열
+        var selectedHashtags = []; // 선택된 해시태그를 저장할 배열
 
         // 모달 내부 클릭 시 닫히지 않도록 설정
         $('#boardSaveModal .modal-content').on('click', function (event) {
@@ -59,14 +78,13 @@
             }
         }
 
-        // 이미지 및 동영상 미리보기 기능
-        $('#imgFiles, #videoFiles').change(function (event) {
-            const imagePreview = $('#imagePreview');
+        // 이미지 및 동영상 파일 변경 시 미리보기 기능
+        $('#imageFiles, #videoFiles').change(function (event) {
+            const filePreview = $('#filePreview');
             const files = event.target.files;
 
-            // 각 파일 순서대로 미리보기에 추가
             $.each(files, function (index, file) {
-                if (file.size > 0) { // 필터링: 파일 크기가 0보다 큰 경우에만 처리
+                if (file.size > 0) {
                     const reader = new FileReader();
                     reader.onload = function (e) {
                         const mediaContainer = $('<div>').addClass('media-container').css({
@@ -75,25 +93,39 @@
                             alignItems: 'center',
                             width: '100px',
                             height: '100px',
-                            margin: '5px 0'
+                            margin: '5px 0',
+                            position: 'relative'
                         });
 
+                        // 삭제 버튼 추가
+                        const removeBtn = $('<i>').addClass('btn-close').css({
+                            position: 'absolute',
+                            top: '5px',
+                            right: '5px',
+                            cursor: 'pointer'
+                        }).on('click', function () {
+                            mediaContainer.remove();
+                            if (file.type.startsWith('image')) {
+                                selectedImgFiles = selectedImgFiles.filter(f => f !== file);
+                            } else if (file.type.startsWith('video')) {
+                                selectedVideoFiles = selectedVideoFiles.filter(f => f !== file);
+                            }
+                        });
+
+                        // 이미지 파일 처리
                         if (file.type.startsWith('image')) {
-                            // 이미지 파일 처리
                             const img = $('<img>').attr({
                                 src: e.target.result,
                                 alt: 'image'
                             }).css({
                                 width: '100px',
                                 height: '100px',
-                                objectFit: 'cover',
-                                marginRight: '10px'
+                                objectFit: 'cover'
                             });
-                            mediaContainer.append(img);
-                            selectedImgFiles.push(file); // 배열에 이미지 파일 추가
-                            console.log(selectedImgFiles)
-                        } else if (file.type.startsWith('video')) {
+                            mediaContainer.append(img).append(removeBtn);
+                            selectedImgFiles.push(file);
                             // 동영상 파일 처리
+                        } else if (file.type.startsWith('video')) {
                             const video = $('<video>').attr({
                                 src: e.target.result,
                                 controls: true,
@@ -101,22 +133,34 @@
                             }).css({
                                 width: '100px',
                                 height: '100px',
-                                objectFit: 'cover',
-                                marginRight: '10px'
+                                objectFit: 'cover'
                             });
-                            mediaContainer.append(video);
-                            selectedVideoFiles.push(file); // 배열에 비디오 파일 추가
+                            mediaContainer.append(video).append(removeBtn);
+                            selectedVideoFiles.push(file);
                         }
-
-                        // 새로운 미리보기 항목을 가장 마지막에 추가
-                        imagePreview.append(mediaContainer);
+                        filePreview.append(mediaContainer);
                     };
                     reader.readAsDataURL(file);
                 }
             });
         });
 
-        // 게시 버튼 클릭 시
+        // 해시태그 선택 시 추가 기능
+        $('#hashtagSelect').change(function () {
+            const selectedOption = $(this).val();
+            if (!selectedHashtags.includes(selectedOption)) {
+                selectedHashtags.push(selectedOption);
+                const hashtagElement = $('<div>').addClass('boardsave-tag').text('# ' + selectedOption).append(
+                        $('<i>').addClass('btn-close').on('click', function () {
+                            $(this).parent().remove();
+                            selectedHashtags = selectedHashtags.filter(tag => tag !== selectedOption);
+                        })
+                );
+                $('#selectedHashtags').append(hashtagElement);
+            }
+        });
+
+        // 게시 버튼 클릭 시 폼 데이터 전송
         $('#boardForm').submit(function (event) {
             event.preventDefault();
 
@@ -124,13 +168,16 @@
 
             // 선택된 이미지 파일들을 FormData에 추가
             $.each(selectedImgFiles, function (index, file) {
-                formData.append('imgFiles', file);
+                formData.append('imageFiles', file);
             });
 
             // 선택된 비디오 파일들을 FormData에 추가
             $.each(selectedVideoFiles, function (index, file) {
                 formData.append('videoFiles', file);
             });
+
+            // 선택된 해시태그를 FormData에 추가
+            formData.append('hashtags', selectedHashtags.join(','));
 
             // Ajax를 통해 서버로 데이터 전송
             $.ajax({
@@ -140,17 +187,14 @@
                 processData: false,
                 contentType: false,
                 success: function () {
-                    // 성공 시 처리
                     location.reload();
-
                     $('#boardSaveModal').modal('hide');
                 },
                 error: function (error) {
-                    // 오류 시 처리
                     console.error('전송 오류:', error);
                 }
             });
         });
-
     });
+
 </script>
