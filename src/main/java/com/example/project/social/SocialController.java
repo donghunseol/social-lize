@@ -1,5 +1,7 @@
 package com.example.project.social;
 
+import com.example.project.board.BoardResponse;
+import com.example.project.board.BoardService;
 import com.example.project.file.FileRequest;
 import com.example.project.file.FileService;
 import com.example.project.user.User;
@@ -15,12 +17,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class SocialController {
     private final SocialService socialService;
+    private final BoardService boardService;
     private final FileService fileService;
     private final HttpSession session;
 
     @GetMapping("/social/detail/{socialId}")
-    public String socialDetail(@PathVariable int socialId) {
-
+    public String socialDetail(@PathVariable int socialId, HttpServletRequest request) {
+        BoardResponse.BoardListDTO boardList = boardService.boardList(socialId, 1);
+        request.setAttribute("boardList", boardList);
         return "social/detail";
     }
 

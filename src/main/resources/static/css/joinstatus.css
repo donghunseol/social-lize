@@ -1,0 +1,95 @@
+.joinstatus-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 100px;
+}
+
+.joinstatus-container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+.joinstatus-sidebar {
+    flex: 0 0 20%;
+    margin-right: 20px;
+}
+
+.joinstatus-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 700px;
+}
+
+.joinstatus-content-box {
+    margin-bottom: 20px;
+}
+
+.joinstatus-bookmark-box h2 {
+    font-size: 1.5em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.joinstatus-social-approval-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+}
+
+.joinstatus-social-approval-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.joinstatus-details {
+    flex: 1;
+}
+
+.joinstatus-name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.joinstatus-members {
+    color: #888;
+}
+
+.joinstatus-status {
+    font-weight: bold;
+}
+
+.joinstatus-status-pending .joinstatus-status {
+    color: #888;
+}
+
+.joinstatus-status-rejected .joinstatus-status {
+    color: #8b0000;
+}
+
+.joinstatus-cancel-button {
+    background-color: #f1f1f1;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.joinstatus-cancel-button:hover {
+    background-color: #e1e1e1;
+}

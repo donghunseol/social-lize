@@ -1,11 +1,11 @@
 -- 유저 테이블 (비밀번호는 암호호되서 저장됨. 1234임)
 INSERT INTO user_tb (email, password, nickname, image, phone, birth, role, created_at, provider)
-VALUES ('ssar@nate.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '하승진', 'image1.png', '010-1234-5678', '1994-12-26', 'USER', now(), null),
-       ('1@1.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김세운', 'image2.png', '010-2345-6789', '1992-10-24', 'USER', now(), null),
-       ('jane@kakao.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '박제인', 'image3.png', '010-3456-7890', '1995-07-19', 'USER', now(), 'KAKAO'),
-       ('john@naver.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '설조온', 'image4.png', '010-4567-8901', '1993-03-15', 'USER', now(), 'NAVER'),
-       ('lucy@gmail.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김루씨', 'image5.png', '010-5678-1234', '1996-08-30', 'USER', now(), null),
-       ('manager@gmail.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '소셜 매니저', 'image5.png', null, null, 'MANAGER', now(), null);
+VALUES ('ssar@nate.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '하승진', '/images/userprofile.jpeg', '010-1234-5678', '1994-12-26', 'USER', now(), null),
+       ('1@1.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김세운', '/images/userprofile.jpeg', '010-2345-6789', '1992-10-24', 'USER', now(), null),
+       ('jane@kakao.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '박제인', '/images/userprofile.jpeg', '010-3456-7890', '1995-07-19', 'USER', now(), 'KAKAO'),
+       ('john@naver.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '설조온', '/images/userprofile.jpeg', '010-4567-8901', '1993-03-15', 'USER', now(), 'NAVER'),
+       ('lucy@gmail.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김루씨', '/images/userprofile.jpeg', '010-5678-1234', '1996-08-30', 'USER', now(), null),
+       ('manager@gmail.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '소셜 매니저', '/images/userprofile.jpeg', null, null, 'MANAGER', now(), null);
 
 -- 소셜 테이블
 INSERT INTO social_tb (name, image, info, status, created_at)
@@ -107,12 +107,14 @@ VALUES
     (20, 5, '이견이 있지만 토론이 재미있을 것 같네요.', now());
 
 -- 문의사항 테이블
-INSERT INTO qna_tb (user_id, title, content, reply_content, reply_created_at, created_at)
-VALUES (1, '카테고리 추가해주세요', '공포 카테고리 추가해주세요', '빠른 시일내로 추가해 드리겠습니다.', '2024-06-17', '2024-06-16'),
-       (2, '대댓글에도 댓글을 달고 싶어요', '기능 추가 가능한가요?', '죄송합니다 대댓글에 댓글을 다는 기능은 추가해드리기 어렵습니다.', '2024-06-15', '2024-06-14'),
-       (3, '오늘 점심 뭐먹죠?', '관리자님! 짜장면 vs 볶음밥 뭐먹죠?', '타협해서 짜장밥 어떠십니까.', '2024-06-14', '2024-06-13'),
-       (4, '멤버 추가가 안되요 ㅠㅠ', '고쳐 주세요 ㅠㅠ', '오류 화면을 캡쳐하여 알려주시면 빠른 시일내로 고쳐드리겠습니다.', '2024-06-13', '2024-06-12'),
-       (5, '오늘 가입했는데요', '다른 사람 소셜에는 어떻게 들어가나요?', null, null, '2024-06-18');
+INSERT INTO qna_tb (user_id, title, content, reply_content, state, reply_created_at, created_at)
+VALUES (1, '카테고리 추가해주세요', '공포 카테고리 추가해주세요', '빠른 시일내로 추가해 드리겠습니다.', 'ANSWER', '2024-06-17', '2024-06-16'),
+       (2, '대댓글에도 댓글을 달고 싶어요', '기능 추가 가능한가요?', '죄송합니다 대댓글에 댓글을 다는 기능은 추가해드리기 어렵습니다.', 'ANSWER', '2024-06-15', '2024-06-14'),
+       (3, '오늘 점심 뭐먹죠?', '관리자님! 짜장면 vs 볶음밥 뭐먹죠?', '타협해서 짜장밥 어떠십니까.', 'ANSWER', '2024-06-14', '2024-06-13'),
+       (4, '멤버 추가가 안되요 ㅠㅠ', '고쳐 주세요 ㅠㅠ', '오류 화면을 캡쳐하여 알려주시면 빠른 시일내로 고쳐드리겠습니다.', 'ANSWER', '2024-06-13', '2024-06-12'),
+       (5, '오늘 가입했는데요', '다른 사람 소셜에는 어떻게 들어가나요?', null, 'WAITING', null, '2024-06-18'),
+       (1, '여기 답장 제대로 해주냐?', '테스트 해본다 ㅋ', null, 'WAITING', null, '2024-06-20'),
+       (1, '여기 답장 제대로 해주냐?', '테스트 해본다 ㅋ', null, 'DELETE', null, '2024-06-20');
 
 -- 알림 테이블
 INSERT INTO notification_tb(user_id, role, created_at)
@@ -202,6 +204,7 @@ VALUES (1, 1, now()),
 INSERT INTO like_tb (user_id, board_id, created_at)
 VALUES (1, 2, now()),
        (1, 3, now()),
+       (1, 4, now()),
        (2, 3, now()),
        (3, 3, now()),
        (4, 3, now()),
@@ -226,6 +229,7 @@ VALUES (1, 2, now()),
 INSERT INTO bookmark_tb (user_id, board_id, created_at)
 VALUES (1, 2, now()),
        (2, 1, now()),
+       (1, 3, now()),
        (3, 15, now()),
        (4, 7, now()),
        (5, 10, now());

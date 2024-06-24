@@ -18,8 +18,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -46,6 +46,7 @@ public class UserService {
         return new UserResponse.MainAjaxDTO(categorySocialList);
     }
 
+
     //회원가입
     public void join(UserRequest.JoinDTO joinDTO) {
         User user = new User();
@@ -65,6 +66,7 @@ public class UserService {
         user.setBirth(bod);
         userRepository.save(user);
     }
+
     //로그인
     public UserResponse.LoggedInUserDTO login(UserRequest.LoginDTO loginDTO) {
         String msg = "이메일 혹은 비밀번호가 일치하지 않습니다.";
@@ -75,14 +77,15 @@ public class UserService {
 
         //사용자가 입력한 비밀번호와 db에 저장된 비밀번호를 비교한다.
         //일치하는 경우
-        if(EncryptUtil.checkPw(loginDTO.getPassword(), user.getPassword()) ){
+        if (EncryptUtil.checkPw(loginDTO.getPassword(), user.getPassword())) {
             return new UserResponse.LoggedInUserDTO(user);
         }
         //비밀번호 불일치
-        else throw new RuntimeException("BBB:"+msg);
+        else throw new RuntimeException("BBB:" + msg);
     }
+
     @Transactional
-    public Object getKakaoId(String code){
+    public Object getKakaoId(String code) {
 
         // 1.1 RestTemplate 설정
         RestTemplate rt = new RestTemplate();
@@ -110,12 +113,12 @@ public class UserService {
                 KakaoResponse.TokenDTO.class);
 
         // 1.6 값 확인
-        System.out.println("1-6토큰받기:"+ response.getBody().toString());
+        System.out.println("1-6토큰받기:" + response.getBody().toString());
 
         // 2. 토큰으로 사용자 정보 받기 (PK, Email)
         HttpHeaders headers2 = new HttpHeaders();
         headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-        headers2.add("Authorization", "Bearer "+response.getBody().getAccessToken());
+        headers2.add("Authorization", "Bearer " + response.getBody().getAccessToken());
 
         HttpEntity<MultiValueMap<String, String>> request2 =
                 new HttpEntity<>(headers2);
@@ -131,18 +134,17 @@ public class UserService {
 
         //카카오로 부터 받은 개인 정보로 우리 서버에 회원가입을 했는지 검사한다.
         User user = userRepository.findByIdAndProvider(UserProviderEnum.KAKAO, kakaoUserDTO.getId());
-        if( user!=null ) {
+        if (user != null) {
             //데이터를 받은김에 db에도 동기화
             user.setNickname(kakaoUserDTO.getProperties().getNickname());//닉네임이 변경될 수 있으니 최신정보로 업데이트한다.
             return new UserResponse.LoggedInUserDTO(user);
-        }
-        else return kakaoUserDTO;
+        } else return kakaoUserDTO;
         //가입되어있으면 메인페이지로 이동
         //안되어 있으면 추가 정보를 받기 위해 회원가입페이지로 이동
     }
 
     @Transactional
-    public Object getNaverId(String code, String state){
+    public Object getNaverId(String code, String state) {
 
         // 1.1 RestTemplate 설정
         RestTemplate rt = new RestTemplate();
@@ -178,7 +180,7 @@ public class UserService {
         // 2. 토큰으로 사용자 정보 받기 (PK, Email)
         HttpHeaders headers2 = new HttpHeaders();
         headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-        headers2.add("Authorization", "Bearer "+response.getBody().getAccessToken());
+        headers2.add("Authorization", "Bearer " + response.getBody().getAccessToken());
 
         HttpEntity<MultiValueMap<String, String>> request2 =
                 new HttpEntity<>(headers2);
@@ -194,13 +196,25 @@ public class UserService {
         System.out.println(response2.getBody());
         //카카오로 부터 받은 개인 정보로 우리 서버에 회원가입을 했는지 검사한다.
         User user = userRepository.findByIdAndProvider(UserProviderEnum.NAVER, naverUserDTO.getResponse().getId());
-        if( user!=null ) {
+        if (user != null) {
             //데이터를 받은김에 db에도 동기화
             user.setNickname(naverUserDTO.getResponse().getName());//닉네임이 변경될 수 있으니 최신정보로 업데이트한다.
             return new UserResponse.LoggedInUserDTO(user);
-        }
-        else return naverUserDTO;
+        } else return naverUserDTO;
         //가입되어있으면 메인페이지로 이동
         //안되어 있으면 추가 정보를 받기 위해 회원가입페이지로 이동
+    }
+
+    // 회원 리스트 조회 (관리자)
+    public List<UserResponse.UserList> getUserList() {
+        List<User> userList = userRepository.findByRole(UserEnum.USER);
+        return userList.stream().map(UserResponse.UserList::new).collect(Collectors.toList());
+    }
+
+    // 회원 상세 조회 (관리자)
+    public UserResponse.UserDetail getUserDetail(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다."));
+        return new UserResponse.UserDetail(user);
     }
 }

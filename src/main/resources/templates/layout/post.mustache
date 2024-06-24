@@ -1,31 +1,216 @@
 <div class="content-box">
-    <div class="group-name">SNS프로젝트 1조</div>
-    <div class="remove-bookmark" style="top: 20px; right: 20px;"><i class="fas fa-times"></i></div>
-    <div class="post">
-        <div class="author-box">
-            <img src="/images/userprofile.jpeg" alt="Profile Picture" class="profile-picture" id="openModalBtn"
-                 data-bs-toggle="modal" data-bs-target="#profileModal">
-            <div>
-                <div class="author">김세운</div>
-                <div class="date">2024년 6월 14일 오후 2:39</div>
+    {{#boardList.boards}}
+        <div class="group-name">{{socialName}}</div>
+        <div class="post">
+            <div class="author-box">
+                <img src="{{userImage}}" alt="Profile Picture" class="profile-picture" id="openModalBtn"
+                     data-bs-toggle="modal" data-bs-target="#profileModal">
+                <div>
+                    <button data-board-id="{{boardId}}" class="book-button {{#book}}book{{/book}}">
+                        <i class="fas fa-star"></i>
+                    </button>
+                    <div class="author">{{nickname}}</div>
+                    <div class="date">{{createdAt}}</div>
+                </div>
+            </div>
+            <div class="message-box">
+                {{#albums}}
+                    <div class="media-item">
+                        {{#isImage}}
+                            <img src="{{path}}" alt="Image" style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
+                        {{/isImage}}
+                        {{#isVideo}}
+                            <video controls style="max-width: 100%; max-height: 300px;">
+                                <source src="{{path}}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {{/isVideo}}
+                    </div>
+                {{/albums}}
+                <div class="message" id="openModalBtn" data-bs-toggle="modal" data-bs-target="#boardModal">
+                    {{{content}}}
+                </div>
+                <div class="media-box">
+                </div>
+                <div class="comments">
+                    <div class="like-count">좋아요 <span class="like-count-value">{{likeCount}}</span></div>
+                    <div class="comment-count">댓글 {{replyCount}}</div>
+                </div>
             </div>
         </div>
-        <div class="message-box">
-            <div class="message" id="openModalBtn" data-bs-toggle="modal" data-bs-target="#boardModal">
-                설동훈님의 초대로 김세운님이 가입했습니다. 댓글로 반갑게 인사해주세요!
+        <div class="comment-section-container">
+            <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}"><i class="fas fa-heart"></i></button>
+            <div class="comment-section">
+                <img src="/images/userprofile.jpeg" alt="Commenter Picture" class="comment-picture">
+                <input type="text" placeholder="댓글을 남겨주세요.">
             </div>
-            <div class="comments">
-                <div class="like-count">좋아요 3</div>
-                <div class="comment-count">댓글 0</div>
+            <button class="send-button">보내기</button>
+        </div>
+    {{/boardList.boards}}
+
+    {{#boardBookList.boards}}
+        <div class="group-name">{{socialName}}</div>
+        <div class="post">
+            <div class="author-box">
+                <img src="{{userImage}}" alt="Profile Picture" class="profile-picture" id="openModalBtn"
+                     data-bs-toggle="modal" data-bs-target="#profileModal">
+                <div>
+                    <button data-board-id="{{boardId}}" class="book-button {{#book}}book{{/book}}">
+                        <i class="fas fa-star"></i>
+                    </button>
+                    <div class="author">{{nickname}}</div>
+                    <div class="date">{{createdAt}}</div>
+                </div>
+            </div>
+            <div class="message-box">
+                {{#albums}}
+                    <div class="media-item">
+                        {{#isImage}}
+                            <img src="{{path}}" alt="Image" style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
+                        {{/isImage}}
+                        {{#isVideo}}
+                            <video controls style="max-width: 100%; max-height: 300px;">
+                                <source src="{{path}}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {{/isVideo}}
+                    </div>
+                {{/albums}}
+                <div class="message" id="openModalBtn" data-bs-toggle="modal" data-bs-target="#boardModal">
+                    {{{content}}}
+                </div>
+                <div class="media-box">
+                </div>
+                <div class="comments">
+                    <div class="like-count">좋아요 <span class="like-count-value">{{likeCount}}</span></div>
+                    <div class="comment-count">댓글 {{replyCount}}</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="comment-section-container">
-        <button class="like-button"><i class="fas fa-heart"></i></button>
-        <div class="comment-section">
-            <img src="/images/userprofile.jpeg" alt="Commenter Picture" class="comment-picture">
-            <input type="text" placeholder="댓글을 남겨주세요.">
+        <div class="comment-section-container">
+            <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}"><i class="fas fa-heart"></i></button>
+            <div class="comment-section">
+                <img src="/images/userprofile.jpeg" alt="Commenter Picture" class="comment-picture">
+                <input type="text" placeholder="댓글을 남겨주세요.">
+            </div>
+            <button class="send-button">보내기</button>
         </div>
-        <button class="send-button">보내기</button>
-    </div>
+    {{/boardBookList.boards}}
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('.like-button').on('click', function() {
+            var $this = $(this);
+            var boardId = $this.data('board-id');
+            var isLiked = $this.hasClass('liked');
+            var method = isLiked ? 'DELETE' : 'POST';
+            var url = isLiked ? '/like/delete' : '/like/save';
+
+            // 즉시 UI 업데이트
+            $this.toggleClass('liked');
+
+            if (isLiked) {
+                $this.find('.fa-heart').css('color', '#aaaaaa'); // 좋아요 되지 않은 상태의 하트 색상
+            } else {
+                $this.find('.fa-heart').css('color', 'red'); // 좋아요 된 상태의 하트 색상
+            }
+
+            // 서버에 상태 업데이트 요청
+            $.ajax({
+                type: method,
+                url: url + '?boardId=' + boardId, // URL 매개변수로 boardId 전송
+                success: function(response) {
+                    if (!response.success) {
+                        // 서버 요청이 실패하면 UI를 다시 원래 상태로 돌림
+                        $this.toggleClass('liked');
+                        if (isLiked) {
+                            $this.find('.fa-heart').css('color', 'red');
+                        } else {
+                            $this.find('.fa-heart').css('color', '#aaaaaa');
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    // 에러가 발생하면 UI를 다시 원래 상태로 돌림
+                    $this.toggleClass('liked');
+                    if (isLiked) {
+                        $this.find('.fa-heart').css('color', 'red');
+                    } else {
+                        $this.find('.fa-heart').css('color', '#aaaaaa');
+                    }
+                }
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        $('.book-button').each(function() {
+            var $this = $(this);
+            if ($this.hasClass('book')) {
+                $this.find('.fa-star').css('color', 'yellow');
+            } else {
+                $this.find('.fa-star').css('color', '#aaaaaa');
+            }
+        });
+
+        // 북마크 버튼 클릭 시
+        $('.book-button').each(function() {
+            var $this = $(this);
+            if ($this.hasClass('book')) {
+                $this.find('.fa-star').css('color', 'yellow');
+            } else {
+                $this.find('.fa-star').css('color', '#aaaaaa');
+            }
+        });
+        // 북마크 버튼 클릭 시
+        $('.book-button').on('click', function() {
+            var $this = $(this);
+            var boardId = $this.data('board-id');
+            var isBooked = $this.hasClass('book');
+            var method = isBooked ? 'DELETE' : 'POST';
+            var url = isBooked ? '/bookmark/delete' : '/bookmark/save';
+
+            // 즉시 UI 업데이트
+            $this.toggleClass('book');
+            if (isBooked) {
+                $this.find('.fa-star').css('color', '#aaaaaa'); // 북마크 되지 않은 상태의 별 색상
+            } else {
+                $this.find('.fa-star').css('color', 'yellow'); // 북마크 된 상태의 별 색상
+            }
+
+            // 서버에 상태 업데이트 요청
+            $.ajax({
+                type: method,
+                url: url + '?boardId=' + boardId, // URL 매개변수로 boardId 전송
+                success: function(response) {
+                    if (!response.success) {
+                        // 서버 요청이 실패하면 UI를 다시 원래 상태로 돌림
+                        $this.toggleClass('book');
+                        if (isBooked) {
+                            $this.find('.fa-star').css('color', 'yellow');
+                        } else {
+                            $this.find('.fa-star').css('color', '#aaaaaa');
+                        }
+                    } else {
+                        // 성공적으로 북마크 상태가 업데이트된 경우, 페이지 리로드
+                        if (isBooked) {
+                            location.reload(); // 북마크 삭제 시에만 페이지 리로드
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    // 에러가 발생하면 UI를 다시 원래 상태로 돌림
+                    $this.toggleClass('book');
+                    if (isBooked) {
+                        $this.find('.fa-star').css('color', 'yellow');
+                    } else {
+                        $this.find('.fa-star').css('color', '#aaaaaa');
+                    }
+                }
+            });
+        });
+    });
+</script>

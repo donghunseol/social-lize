@@ -1,0 +1,70 @@
+.myrecord-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 100px;
+}
+
+.myrecord-container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+.myrecord-sidebar {
+    flex: 0 0 20%;
+    margin-right: 20px;
+}
+
+.myrecord-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 700px;
+}
+
+.myrecord-content-box {
+    margin-bottom: 20px;
+}
+
+.myrecord-bookmark-box h2 {
+    font-size: 1.5em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.myrecord-tabs {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.myrecord-tablink {
+    background-color: #f1f1f1;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1em;
+}
+
+.myrecord-tablink:hover {
+    background-color: #ddd;
+}
+
+.myrecord-tablink.active {
+    background-color: #ccc;
+}
+
+.myrecord-tab-content {
+    display: none;
+}
+
+.myrecord-tab-content.active {
+    display: block;
+}

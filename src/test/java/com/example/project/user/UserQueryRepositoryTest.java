@@ -37,7 +37,6 @@ public class UserQueryRepositoryTest {
             System.out.println(row[2]);
             System.out.println(row[3]);
             System.out.println(row[4]);
-            System.out.println(row[5]);
         }
     }
 

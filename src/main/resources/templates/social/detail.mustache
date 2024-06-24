@@ -1,64 +1,85 @@
 {{> layout/header}}
 
-<div class="navbar">
+<div class="detail-navbar">
     <a href="#">게시글</a>
     <a href="#">서랍</a>
     <a href="#">멤버</a>
 </div>
-<div class="main-container">
-    <div class="sidebar">
-        <div class="social-info">
-            <img src="../images/puppy.png" alt="소셜 사진">
+<div class="detail-main-container">
+    <div class="detail-sidebar">
+        <div class="detail-social-info">
+            <img src="/images/puppy.png" alt="소셜 사진">
             <h2>포메와의 산책</h2>
-            <div>리더 포실장과 아이들</div>
-            <div>멤버 2,215</div>
-            <div class="postwrite" id="openModalBtn" data-bs-toggle="modal" data-bs-target="#boardSaveModal">글 작성하기</div>
-            <div class="invite-text">초대링크 복사</div>
-            <div class="description">포메라니안과 함께하는 즐거운 산책 모임입니다. 다양한 이벤트와 정보를 공유하세요!</div>
-            <div class="settings"><a href="#"><i class="fas fa-cog"></i></a></div>
-        </div>
-    </div>
-    <div class="board-content">
-        <div class="hashtag-container">
-            <div class="wrap-vertical">
-                <div class="hashtag active">전체</div>
-                <div class="hashtag">해시태그</div>
-                <div class="hashtag">해시태그2</div>
-                <div class="hashtag">해시태그3</div>
-                <div class="hashtag">해시태그4</div>
-                <div class="hashtag">해시태그5</div>
-                <div class="hashtag">해시태그6</div>
-                <div class="hashtag">해시태그7</div>
+            <div>리더 <span class="detail-highlight">포실장과 아이들</span></div>
+            <div>멤버 <span class="detail-highlight">2,215</span></div>
+            <button class="detail-postwrite" id="openModalBtn" data-bs-toggle="modal" data-bs-target="#boardSaveModal">글 작성하기</button>
+            <div class="detail-invite-text" id="copyLinkButton">초대링크 복사</div>
+            <div class="detail-description">포메라니안과 함께하는 즐거운 산책 모임입니다. 다양한 이벤트와 정보를 공유하세요!</div>
+            <div class="detail-settings-wrapper">
+                <div class="detail-settings"><a href="#"><i class="fas fa-cog"></i></a></div>
+                <div>소셜 설정하기</div>
             </div>
         </div>
-        <div class="board-container">
+    </div>
+    <div class="detail-board-content">
+        <div class="detail-hashtag-container">
+            <div class="detail-wrap-vertical">
+                <div class="detail-hashtag active">전체</div>
+                <div class="detail-hashtag">해시태그</div>
+                <div class="detail-hashtag">해시태그2</div>
+                <div class="detail-hashtag">해시태그3</div>
+                <div class="detail-hashtag">해시태그4</div>
+                <div class="detail-hashtag">해시태그5</div>
+                <div class="detail-hashtag">해시태그6</div>
+                <div class="detail-hashtag">해시태그7</div>
+            </div>
+        </div>
+        <div class="detail-board-container">
             {{> layout/post }}
         </div>
     </div>
-    <div class="chat-container">
-        <div class="chat-header">
-            <div class="chat-title">SNS프로젝트 1조</div>
-            <div class="chat-menu">⋮</div>
+    <div class="detail-chat-container">
+        <div class="detail-chat-header">
+            <div class="detail-chat-title">SNS프로젝트 1조</div>
+            <div class="detail-chat-menu">⋮</div>
         </div>
-        <div class="chat-messages">
-            <div class="chat-date">2024년 6월 17일</div>
-            <div class="chat-message">
-                <img src="images/puppy.png" alt="프로필 사진" class="profile-pic" id="openModalBtn" data-bs-toggle="modal"
+        <div class="detail-chat-messages">
+            <div class="detail-chat-date">2024년 6월 17일</div>
+            <div class="detail-chat-message">
+                <img src="/images/puppy.png" alt="프로필 사진" class="detail-profile-pic" id="openModalBtn" data-bs-toggle="modal"
                      data-bs-target="#profileModal">
-                <div class="message-content">
-                    <div class="sender">설동훈</div>
-                    <div class="message-container">
-                        <div class="message-bubble">안녕</div>
-                        <span class="time">오전 11:45</span>
+                <div class="detail-message-content">
+                    <div class="detail-sender">설동훈</div>
+                    <div class="detail-message-container">
+                        <div class="detail-message-bubble">안녕</div>
+                        <span class="detail-time">오전 11:45</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="chat-input">
+        <div class="detail-chat-input">
             <input type="text" placeholder="메시지를 입력하세요">
-            <button>send</button>
+            <button>보내기</button>
         </div>
     </div>
 </div>
 
-{{> layout/footer }}
+<div id="mediaModal" class="detail-file-modal">
+    <span class="detail-close" onclick="closeModal()">&times;</span>
+    <img class="detail-file-modal-content-img" id="modal-img">
+    <video class="detail-file-modal-content-video" controls id="modal-video"></video>
+    <button class="detail-album-download-btn" id="download-btn">다운로드</button>
+</div>
+
+<script>
+    document.getElementById("copyLinkButton").addEventListener("click", function() {
+        const link = "#"; // 여기에 실제 초대 링크를 입력
+        navigator.clipboard.writeText(link).then(function() {
+            alert("초대 링크가 클립보드에 복사되었습니다.");
+        }, function(err) {
+            console.error("초대 링크 복사 실패: ", err);
+        });
+    });
+</script>
+
+{{> layout/footer}}

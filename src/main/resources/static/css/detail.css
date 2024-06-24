@@ -1,18 +1,4 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.fileadd-tab-content {
-    display: none;
-}
-
-.fileadd-navbar {
+.detail-navbar {
     background-color: #fff;
     border-bottom: 1px solid #ddd;
     display: flex;
@@ -20,7 +6,7 @@ body {
     padding: 10px 0;
 }
 
-.fileadd-navbar a {
+.detail-navbar a {
     text-decoration: none;
     color: #333;
     font-weight: bold;
@@ -28,23 +14,24 @@ body {
     border-radius: 5px;
 }
 
-.fileadd-navbar a:hover {
+.detail-navbar a:hover {
     background-color: #f1f1f1;
 }
 
-.fileadd-container {
-    padding-top: 60px;
-    padding-bottom: 40px;
+.detail-main-container {
     display: flex;
     flex: 1;
+    padding-top: 50px;
+    padding-bottom: 50px;
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
+    position: sticky;
     gap: 20px;
 }
 
-.fileadd-sidebar {
+.detail-sidebar {
     width: 250px;
     background-color: #fff;
     border-right: 1px solid #ddd;
@@ -55,25 +42,25 @@ body {
     flex-shrink: 0;
 }
 
-.fileadd-sidebar .fileadd-social-info {
+.detail-social-info {
     text-align: left;
     margin-bottom: 20px;
     color: #555;
 }
 
-.fileadd-sidebar .fileadd-social-info img {
+.detail-social-info img {
     width: 100%;
     border-radius: 10px;
     margin-bottom: 10px;
 }
 
-.fileadd-sidebar .fileadd-social-info .fileadd-highlight {
+.detail-highlight {
     color: #000;
     font-weight: bold;
 }
 
-.fileadd-sidebar .fileadd-social-info .fileadd-join-button,
-.fileadd-sidebar .fileadd-social-info .fileadd-postwrite {
+.detail-postwrite,
+.detail-invite-text {
     background-color: #333;
     color: #fff;
     padding: 10px 20px;
@@ -83,15 +70,16 @@ body {
     display: block;
     width: 100%;
     margin-top: 10px;
+    text-align: center;
 }
 
-.fileadd-sidebar .fileadd-social-info .fileadd-description {
+.detail-description {
     margin-top: 10px;
     font-size: 14px;
     color: #555;
 }
 
-.fileadd-sidebar .fileadd-social-info .fileadd-settings-wrapper {
+.detail-settings-wrapper {
     display: flex;
     align-items: center;
     margin-top: 10px;
@@ -99,25 +87,14 @@ body {
     padding-top: 10px;
 }
 
-.fileadd-sidebar .fileadd-social-info .fileadd-settings {
-    text-align: left;
-    margin-right: 10px;
-}
-
-.fileadd-sidebar .fileadd-social-info .fileadd-settings a {
+.detail-settings a {
     color: #333;
     text-decoration: none;
     font-size: 20px;
+    margin-right: 10px;
 }
 
-.fileadd-sidebar .fileadd-social-info .fileadd-invite-text {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #555;
-    cursor: pointer;
-}
-
-.fileadd-content {
+.detail-board-content {
     flex-grow: 1;
     padding: 20px;
     background-color: #fff;
@@ -128,116 +105,45 @@ body {
     box-sizing: border-box;
 }
 
-.fileadd-tabs {
+.detail-hashtag-container {
     display: flex;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 10px;
-}
-
-.fileadd-tabs .fileadd-tab {
-    flex: 1;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.fileadd-tabs .fileadd-tab.active {
-    border-bottom: 2px solid #333;
-}
-
-.fileadd-content-header {
-    margin-bottom: 10px;
-}
-
-.fileadd-grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-}
-
-.fileadd-grid-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow-x: auto;
+    white-space: nowrap;
     border: 1px solid #ddd;
+    padding: 10px;
     border-radius: 10px;
-    padding: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #f5f5f5;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-}
-
-.fileadd-grid-item.photo {
-    width: 100%;
-    height: 100%;
-    background-color: #e0f7fa;
-    box-sizing: border-box;
-}
-
-.fileadd-grid-item.video {
-    width: 100%;
-    height: 100%;
-    background-color: #ffccbc;
-    box-sizing: border-box;
-}
-
-.fileadd-grid-item.photo img,
-.fileadd-grid-item.video video {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-.fileadd-file-container {
-    display: none;
-    flex-grow: 1;
-    padding: 20px;
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
-.fileadd-file-container.active {
-    display: block;
-}
-
-.fileadd-file-search-upload {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.fileadd-file-search {
-    width: 70%;
-}
-
-.fileadd-file-search input {
-    width: 90%;
-    padding: 10px;
-    border: 1px solid #ddd;
+.detail-hashtag {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f1f1f1;
     border-radius: 20px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
-.fileadd-file-upload {
-    display: flex;
-    align-items: center;
-}
-
-.fileadd-file-upload button {
+.detail-hashtag.active {
     background-color: #333;
     color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 130px;
 }
 
-.fileadd-chat-container {
+.detail-wrap-vertical {
+    width: 689px;
+    overflow: scroll;
+    color: #112031;
+    overflow: auto;
+    white-space: nowrap;
+    padding: 5px 10px 15px 10px;
+}
+
+.detail-board-container {
+    flex-grow: 1;
+}
+
+.detail-chat-container {
     width: 300px;
     background-color: #fff;
     border-left: 1px solid #ddd;
@@ -250,7 +156,7 @@ body {
     height: 400px;
 }
 
-.fileadd-chat-header {
+.detail-chat-header {
     padding: 10px;
     border-bottom: 1px solid #ddd;
     display: flex;
@@ -258,64 +164,64 @@ body {
     justify-content: space-between;
 }
 
-.fileadd-chat-header .fileadd-chat-title {
+.detail-chat-title {
     font-size: 18px;
     font-weight: bold;
 }
 
-.fileadd-chat-header .fileadd-chat-menu {
+.detail-chat-menu {
     cursor: pointer;
 }
 
-.fileadd-chat-messages {
+.detail-chat-messages {
     flex-grow: 1;
     padding: 10px;
     overflow-y: auto;
 }
 
-.fileadd-chat-date {
+.detail-chat-date {
     text-align: center;
     font-size: 13px;
     color: #777;
     margin-bottom: 10px;
 }
 
-.fileadd-chat-message {
+.detail-chat-message {
     display: flex;
     align-items: flex-start;
     margin-bottom: 10px;
 }
 
-.fileadd-chat-message .fileadd-profile-pic {
+.detail-profile-pic {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
 
-.fileadd-chat-message .fileadd-message-content {
+.detail-message-content {
     display: flex;
     flex-direction: column;
     max-width: 200px;
 }
 
-.fileadd-chat-message .fileadd-sender {
+.detail-sender {
     font-weight: bold;
 }
 
-.fileadd-message-container {
+.detail-message-container {
     display: flex;
     align-items: center;
 }
 
-.fileadd-message-bubble {
+.detail-message-bubble {
     background-color: #f1f1f1;
     padding: 10px;
     border-radius: 10px;
     position: relative;
 }
 
-.fileadd-message-bubble:before {
+.detail-message-bubble:before {
     content: "";
     position: absolute;
     top: 10px;
@@ -327,29 +233,28 @@ body {
     border-right: 10px solid #f1f1f1;
 }
 
-.fileadd-chat-message .fileadd-time {
+.detail-time {
     font-size: 12px;
     color: #777;
     margin-left: 10px;
     align-self: flex-end;
 }
 
-.fileadd-chat-input {
+.detail-chat-input {
     display: flex;
     padding: 10px;
     border-top: 1px solid #ddd;
 }
 
-.fileadd-chat-input input {
+.detail-chat-input input {
     flex-grow: 1;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 20px;
     margin-right: 10px;
-    width: 60px;
 }
 
-.fileadd-chat-input button {
+.detail-chat-input button {
     padding: 10px 15px;
     background-color: #333;
     color: #fff;
@@ -358,29 +263,7 @@ body {
     cursor: pointer;
 }
 
-.fileadd-footer {
-    padding: 20px;
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-    text-align: center;
-    font-size: 12px;
-    color: #999;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.fileadd-divider {
-    border-top: 1px solid #ddd;
-    margin: 20px 0;
-}
-
-.fileadd-icon {
-    font-size: 24px;
-    color: #333;
-    margin-left: 20px;
-}
-
-.fileadd-file-modal {
+.detail-file-modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -395,7 +278,7 @@ body {
     align-items: flex-start;
 }
 
-.fileadd-file-modal-content-img {
+.detail-file-modal-content-img {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -408,7 +291,7 @@ body {
     height: auto;
 }
 
-.fileadd-file-modal-content-video {
+.detail-file-modal-content-video {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -421,7 +304,7 @@ body {
     height: auto;
 }
 
-.fileadd-album-download-btn {
+.detail-album-download-btn {
     position: fixed;
     right: 20px;
     bottom: 20px;
@@ -436,29 +319,29 @@ body {
     transition: background-color 0.3s;
 }
 
-.fileadd-album-download-btn:hover {
+.detail-album-download-btn:hover {
     background-color: #303030;
 }
 
-.fileadd-close {
+.detail-close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
-.fileadd-close:hover,
-.fileadd-close:focus {
+.detail-close:hover,
+.detail-close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
 }
 
-.fileadd-file-input {
+.detail-file-input {
     display: none;
 }
 
-.fileadd-file-item {
+.detail-file-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -470,7 +353,7 @@ body {
     margin-right: auto;
 }
 
-.fileadd-file-download-btn {
+.detail-file-download-btn {
     background: none;
     color: #333;
     border: none;
@@ -482,15 +365,11 @@ body {
     justify-content: center;
 }
 
-.fileadd-file-download-btn i {
+.detail-file-download-btn i {
     margin-right: 0;
 }
 
-.fileadd-file-name:hover {
+.detail-file-name:hover {
     font-weight: bold;
     cursor: pointer;
-}
-
-.fileadd-file-list {
-    width: 90%;
 }

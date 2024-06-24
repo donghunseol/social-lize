@@ -1,22 +1,44 @@
 {{> layout/header}}
-<div class="container">
-    {{> layout/mpsidebar}}
-    <div class="content">
-        <div class="content-box">
-            <div class="bookmark-box">
-                <h2>가입 신청중인 소셜</h2>
-            </div>
+<div class="joinstatus-wrapper">
+    <div class="joinstatus-container">
+        <div class="joinstatus-sidebar">
+            {{> layout/mpsidebar}}
         </div>
-        <div class="content-box">
-            <div class="social-approval-item">
-                <img src="/images/puppy.png" alt="소셜 사진">
-                <div class="details">
-                    <div class="name">포메라이언을 사랑하는 가슴 따스한 분들의 방!</div>
-                    <div class="members">회원수 2,215</div>
+        <div class="joinstatus-content">
+            <div class="joinstatus-content-box">
+                <div class="joinstatus-bookmark-box">
+                    <h2>가입 신청중인 소셜</h2>
                 </div>
-                <div class="status">승인대기중</div>
+            </div>
+            <div class="joinstatus-content-box joinstatus-status-pending">
+                <div class="joinstatus-social-approval-item">
+                    <img src="/images/puppy.png" alt="소셜 사진">
+                    <div class="joinstatus-details">
+                        <div class="joinstatus-name">포메라이언을 사랑하는 가슴 따스한 분들의 방!</div>
+                        <div class="joinstatus-members">회원수 2,215</div>
+                        <div class="joinstatus-status">승인대기중</div>
+                    </div>
+                    <button class="joinstatus-cancel-button" onclick="cancelJoinRequest(this)">가입 신청 취소</button>
+                </div>
+            </div>
+            <div class="joinstatus-content-box joinstatus-status-rejected">
+                <div class="joinstatus-social-approval-item">
+                    <img src="/images/cat.png" alt="소셜 사진">
+                    <div class="joinstatus-details">
+                        <div class="joinstatus-name">고양이를 사랑하는 모임</div>
+                        <div class="joinstatus-members">회원수 1,500</div>
+                        <div class="joinstatus-status">승인거절</div>
+                    </div>
+                    <button class="joinstatus-cancel-button" onclick="cancelJoinRequest(this)">가입 신청 취소</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function cancelJoinRequest(button) {
+        var contentBox = button.closest('.joinstatus-content-box');
+        contentBox.remove();
+    }
+</script>
 {{> layout/footer}}

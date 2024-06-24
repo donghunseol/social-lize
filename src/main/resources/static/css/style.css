@@ -35,7 +35,7 @@
 }
 /*유력*/
 @font-face {
-    font-family: 'TmoneyRoundWindExtraBold';
+    font-family: 'Dovemayo_gothic';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff') format('woff');
     font-weight: normal;
     font-style: normal;
@@ -48,7 +48,7 @@ body {
     padding: 0;
     background-color: #EDEFF4;
     color: #333333;
-    font-family: 'LINESeedKR-Bd';
+    font-family: 'GyeonggiTitleM';
 }
 
 .header {
@@ -225,19 +225,21 @@ body {
     margin-top: 10px;
     margin-left: 28px;
 }
-
 .mpsidebar {
     width: 200px;
     background-color: #fff;
     border-right: 1px solid #ddd;
-    padding: 10px;
+    padding: 20px;
     border-radius: 10px;
 }
-
+.mpsidebar-container {
+    padding-top: 70px;
+}
 .mpsidebar ul {
     list-style: none;
     padding: 0;
 }
+
 
 .mpsidebar ul li {
     margin-bottom: 10px;
@@ -364,6 +366,7 @@ body {
 .comment-section-container {
     display: flex;
     align-items: center;
+    margin-bottom: 8px;
 }
 
 .comment-section {
@@ -443,18 +446,31 @@ body {
     font-size: 14px;
 }
 
+/* 기본 상태의 좋아요 버튼 스타일 */
 .like-button {
     border: none;
     background: none;
     cursor: pointer;
     padding: 0;
-    color: red;
+    color: #aaaaaa;
     margin-right: 10px;
 }
 
+/* 좋아요 된 상태의 하트 색상 */
+.like-button.liked .fa-heart {
+    color: red;
+}
+
+/* 좋아요 되지 않은 상태의 하트 색상 */
+.like-button:not(.liked) .fa-heart {
+    color: #aaaaaa;
+}
+
+
+
 /* profileUpdateForm.mustache */
 .profile-container {
-    width: 320px; /* 너비를 400px로 조정 */
+    width: 320px;
     margin: 0 auto;
     border: 1px solid #000;
     padding: 10px;
@@ -536,7 +552,7 @@ body {
     flex-grow: 1;
     margin-left: 10px;
     display: flex;
-    flex-direction: column; /* 세로 배치 */
+    flex-direction: column;
 }
 
 .member-info .name, .request-info .name {
@@ -866,41 +882,6 @@ body {
     font-size: 14px;
     color: #555;
     cursor: pointer;
-}
-
-/* detail.mustache 해시태그 부분 */
-.hashtag-container {
-    display: flex;
-    overflow-x: auto;
-    white-space: nowrap;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #fff;
-    margin-bottom: 20px;
-}
-
-.hashtag {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #f1f1f1;
-    border-radius: 20px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.hashtag.active {
-    background-color: #333;
-    color: #fff;
-}
-
-.wrap-vertical {
-    width: 689px;
-    overflow: scroll;
-    color: #112031;
-    overflow: auto;
-    white-space: nowrap;
-    padding: 5px 10px 15px 10px;
 }
 
 /* detail.mustache 게시판 부분 */
