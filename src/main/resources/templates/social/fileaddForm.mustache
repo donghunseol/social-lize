@@ -1,25 +1,7 @@
 {{> layout/header}}
-<div class="fileadd-navbar">
-    <a href="#">게시글</a>
-    <a href="#">서랍</a>
-    <a href="#">멤버</a>
-</div>
+{{> layout/socialtab}}
 <div class="fileadd-container">
-    <div class="fileadd-sidebar">
-        <div class="fileadd-social-info">
-            <img src="/images/puppy.png" alt="소셜 사진">
-            <h2>포메와의 산책</h2>
-            <div>리더 <span class="fileadd-highlight">포실장과 아이들</span></div>
-            <div>멤버 <span class="fileadd-highlight">2,215</span></div>
-            <button class="fileadd-postwrite">글 작성하기</button>
-            <div class="fileadd-invite-text" id="copyLinkButton">초대링크 복사</div>
-            <div class="fileadd-description">포메라니안과 함께하는 즐거운 산책 모임입니다. 다양한 이벤트와 정보를 공유하세요!</div>
-            <div class="fileadd-settings-wrapper">
-                <div class="fileadd-settings"><a href="#"><i class="fas fa-cog"></i></a></div>
-                <div>소셜 설정하기</div>
-            </div>
-        </div>
-    </div>
+    {{> layout/socialsidebar}}
     <div class="fileadd-content">
         <div class="fileadd-tabs">
             <div class="fileadd-tab active" id="defaultOpen" onclick="switchTab(event, 'Album')">앨범</div>
@@ -66,22 +48,14 @@
             <div class="fileadd-chat-title">SNS프로젝트 1조</div>
             <div class="fileadd-chat-menu">⋮</div>
         </div>
-        <div class="fileadd-chat-messages">
-            <div class="fileadd-chat-date">2024년 6월 17일</div>
-            <div class="fileadd-chat-message">
-                <img src="/images/puppy.png" alt="프로필 사진" class="fileadd-profile-pic">
-                <div class="fileadd-message-content">
-                    <div class="fileadd-sender">설동훈</div>
-                    <div class="fileadd-message-container">
-                        <div class="fileadd-message-bubble">안녕</div>
-                        <span class="fileadd-time">오전 11:45</span>
-                    </div>
-                </div>
-            </div>
+        <div id="response" class="fileadd-chat-messages">
+            <!-- 채팅 메시지가 이곳에 추가됩니다 -->
         </div>
         <div class="fileadd-chat-input">
-            <input type="text" placeholder="메시지를 입력하세요">
-            <button>보내기</button>
+            <input type="hidden" id="socialId" value="1" /> <!-- 소셜 ID -->
+            <input type="hidden" id="userId" value="1" /> <!-- 유저 ID -->
+            <input type="text" id="comment" placeholder="메시지를 입력하세요">
+            <button onclick="sendMessage()">보내기</button>
         </div>
     </div>
     <div id="mediaModal" class="fileadd-file-modal">
@@ -211,6 +185,66 @@
                 console.error("초대 링크 복사 실패: ", err);
             });
         });
+
+
+        var stompClient = null;
+
+        function connect() {
+            // /chat-websocket 엔드포인트로 WebSocket 연결 설정
+            var socket = new SockJS('/chat-websocket');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+                // /topic/messages 주소로 구독, 서버가 이 주소로 메시지를 브로드캐스트하면 메시지를 수신함
+                stompClient.subscribe('/topic/messages', function (messageOutput) {
+                    showMessage(JSON.parse(messageOutput.body));
+                });
+            });
+        }
+
+        function sendMessage() {
+            var socialId = document.getElementById('socialId').value;
+            var userId = document.getElementById('userId').value;
+            var comment = document.getElementById('comment').value;
+            // /app/sendMessage 주소로 메시지를 보냄
+            stompClient.send("/app/sendMessage", {}, JSON.stringify({
+                'socialId': socialId,
+                'userId': userId,
+                'comment': comment
+            }));
+            document.getElementById('comment').value = '';
+        }
+
+        function showMessage(message) {
+            var response = document.getElementById('response');
+            var messageElement = document.createElement('div');
+            messageElement.className = 'fileadd-chat-message';
+            messageElement.innerHTML = `
+                <img src="/images/puppy.png" alt="프로필 사진" class="fileadd-profile-pic">
+                <div class="fileadd-message-content">
+                    <div class="fileadd-sender">User ID: ${message.userId}</div>
+                    <div class="fileadd-message-container">
+                        <div class="fileadd-message-bubble">${message.comment}</div>
+                        <span class="fileadd-time">${new Date(message.createdAt).toLocaleTimeString()}</span>
+                    </div>
+                </div>`;
+            response.appendChild(messageElement);
+        }
+
+        function loadMessages(socialId) {
+            // 해당 소셜 그룹의 채팅 메시지를 조회하여 화면에 표시하는 함수
+            fetch(`/chat/${socialId}`)
+                    .then(response => response.json())
+                    .then(messages => {
+                        messages.forEach(showMessage);
+                    });
+        }
+
+        window.onload = function() {
+            var socialId = document.getElementById('socialId').value;
+            connect(); // WebSocket 연결 설정
+            loadMessages(socialId); // 초기 채팅 메시지 로딩
+        };
     </script>
 </div>
 {{> layout/footer}}

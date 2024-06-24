@@ -1,0 +1,74 @@
+{{> admin/layout/header}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> admin/layout/sidebar}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>회원 정보</p>
+                    </div>
+                    <div class="tab-item company info">
+                        <p class="tab-title">회원 정보</p>
+                        <div class="room-tab_menu">
+                            <div class="cont_area">
+
+                                <div class="join-form-item">
+                                    <label for="name">프로필 이미지</label>
+                                    <div class="input-wrapper">
+                                        <div class="user-profile-image-box">
+                                            <img class="user-profile-image" src="/images/socialCover.jpg"
+                                                 alt="프로필 이미지">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="join-form-item">
+                                    <label for="name">이름</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="name" value="설동훈" disabled>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="email">이메일</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="email" value="seoldh@nate.com" disabled>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="birth">생년월일</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="birth" value="1996.04.29" disabled>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="provider">프로바이더</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="provider" value="카카오톡" disabled>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="created-at">가입 일자</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="created-at" value="2024.06.24" disabled>
+                                    </div>
+                                </div>
+                                <div class="modal-button-wrapper">
+                                    <button type="submit" class="btn black join"
+                                            onclick="history.back()">뒤로가기</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+{{> admin/layout/header}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> admin/layout/sidebar}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>소셜 상세보기</p>
+                    </div>
+                    <div class="tab-item company stay">
+                        <p class="tab-title">소셜 상세</p>
+                        <div class="stay-detail">
+                            <div class="content top">
+                                <div class="img-wrapper">
+                                    <img style="border: 1px solid #F8F8F8; border-radius: 15px;"
+                                         src="/images/socialCover.jpg" alt="소셜 이미지">
+
+                                </div>
+                                <div class="text-wrapper">
+                                    <p class="text-item">
+                                        <span class="head"><i class="fa-solid fa-house"></i><em>소셜명</em></span>
+                                        <span class="body">그린컴퓨터아카데미</span>
+                                    </p>
+                                    <p class="text-item">
+                                            <span class="head"><i class="fa-solid fa-calendar-alt"></i><em>소셜
+                                                    생성일</em></span>
+                                        <span class="body">2024.06.21</span>
+                                    </p>
+                                    <p class="text-item">
+                                        <span class="head"><i class="fa-solid fa-tags"></i><em>카테고리</em></span>
+                                        <span class="body" style="display: flex; gap: 1px;">
+                                                <span class="social-category-box-text">#교육</span>
+                                                <span class="social-category-box-text">#코딩</span>
+                                                <span class="social-category-box-text">#컴퓨터</span>
+                                                <span class="social-category-box-text">#학원</span>
+                                            </span>
+                                    </p>
+                                    <p class="text-item">
+                                            <span class="head"><i class="fa-solid fa-user-friends"></i><em>멤버
+                                                    수</em></span>
+                                        <span class="body">34 명</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="stay button-wrapper">
+                                <form action="/admin/social/socialListForm.html" method="get">
+                                    <button class="soscial-delete-button">소셜 삭제</button>
+                                </form>
+                            </div>
+                            <div class="tab-content current">
+                                <div class="tab-item">
+                                    <form action="/admin/users" method="get" style="width: 100%;">
+                                        <ul class="search-box">
+                                            <li class="search-left">
+                                                <span>총 회원<em> 2</em> 명</span>
+                                            </li>
+                                            <li class="search-right">
+                                                <div>
+                                                    <div class="tab-input-wrapper">
+                                                        <input class="input-id" type="text" name="keyword"
+                                                               placeholder="검색어 입력">
+                                                        <input class="submit-btn" type="submit" value="Search">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                    <table>
+                                        <colgroup>
+                                            <col width="20%">
+                                            <col width="25%">
+                                            <col width="20%">
+                                            <col width="20%">
+                                            <col width="15%">
+                                        </colgroup>
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">회원명</th>
+                                            <th scope="col">이메일</th>
+                                            <th scope="col">생년월일</th>
+                                            <th scope="col">권한</th>
+                                            <th scope="col">상세보기</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr>
+                                            <td>설동훈</td>
+                                            <td>seoldh@nate.com</td>
+                                            <td>1996.04.29</td>
+                                            <td>소셜관리자</td>
+                                            <td><span class="detail"
+                                                      onclick="location.href='/admin/user/userDetailForm.html'">상세보기</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>김완준</td>
+                                            <td>kimwj@nate.com</td>
+                                            <td>1995.06.22</td>
+                                            <td>일반회원</td>
+                                            <td><span class="detail"
+                                                      onclick="location.href='/admin/user/userDetailForm.html'">상세보기</span>
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>

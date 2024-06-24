@@ -176,20 +176,21 @@ VALUES (1, 1, 'MANAGER', 'APPROVED', now()),
        (5, 5, 'MEMBER', 'RESIGN', now());
 
 -- 소셜 카테고리 이름 테이블
-INSERT INTO category_name_tb (name)
-VALUES ('💻 컴퓨터'),
-       ('🚬 담배'),
-       ('☕ 카페'),
-       ('📱 아이폰'),
-       ('💪 운동'),
-       ('🔴 습관'),
-       ('📚 독서'),
-       ('📖 스터디'),
-       ('🌐 외국어'),
-       ('✏️ 글쓰기'),
-       ('🥗 다이어트/식단'),
-       ('🎨 그림/공예'),
-       ('📱 안드로이드폰');
+INSERT INTO category_name_tb (name, image_path, status)
+VALUES (''💻 컴퓨터'', '이미지', 'ACTIVE'),
+       ('🚬 담배', '이미지', 'ACTIVE'),
+       ('☕ 카페', '이미지', 'ACTIVE'),
+       ('📱 아이폰', '이미지', 'ACTIVE'),
+       ('💪 운동', '이미지', 'ACTIVE'),
+       ('🔴 습관', '이미지', 'ACTIVE'),
+       ('📚 독서', '이미지', 'ACTIVE'),
+       ('📖 스터디', '이미지', 'ACTIVE'),
+       ('🌐 외국어', '이미지', 'ACTIVE'),
+       ('✏️ 글쓰기', '이미지', 'ACTIVE'),
+       ('🥗 다이어트/식단', '이미지', 'ACTIVE'),
+       ('🎨 그림/공예', '이미지', 'ACTIVE'),
+       ('📱 안드로이드폰', '이미지', 'ACTIVE');
+
 
 -- 소셜 카테고리 테이블
 INSERT INTO category_tb (social_id, category_name_id, created_at)

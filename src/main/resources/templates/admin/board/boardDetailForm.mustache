@@ -1,0 +1,72 @@
+{{> admin/layout/header}}
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> admin/layout/sidebar}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>게시글 상세보기</p>
+                    </div>
+                    <div class="tab-item company info">
+                        <p class="tab-title">게시글 상세</p>
+                        <div class="room-tab_menu">
+                            <div class="cont_area">
+
+                                <div class="join-form-item">
+                                    <label for="name">게시글 등록 이미지 및 영상</label>
+                                    <div class="input-wrapper">
+                                        <div class="user-profile-image-box">
+                                            <img class="user-profile-image" src="/images/socialCover.jpg"
+                                                 alt="게시글 이미지">
+                                        </div>
+                                        <div class="user-profile-video-box">
+                                            <video class="user-profile-video" controls>
+                                                <source src="/videos/socialVideo.mp4" type="video/mp4">
+                                                브라우저가 비디오 태그를 지원하지 않습니다.
+                                            </video>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="join-form-item">
+                                    <label for="name">작성자</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="name" value="설동훈" disabled>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="content">내용</label>
+                                    <div class="input-wrapper">
+                                        <textarea id="content" disabled resize="none">아 배고프다 밥좀 주세요 제발 부탁드립니다 오늘 하루가 너무 기네요 오늘은 뭘 먹을지 다같이 정해봐요! 댓글에 남겨주세요!</textarea>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="birth">작성 소셜명</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="social" value="오늘의 점심식사" disabled>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="created-at">작성 일자</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="created-at" value="2024.06.24" disabled>
+                                    </div>
+                                </div>
+                                <div class="modal-button-wrapper">
+                                    <button type="submit" class="btn black join"
+                                            onclick="history.back()">뒤로가기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>

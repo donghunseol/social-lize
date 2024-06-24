@@ -1,0 +1,78 @@
+{{> admin/layout/header}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> admin/layout/sidebar}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <ul class="tab-nav">
+                    <li class="tab-link current"><a href="/admin/user/userListForm.html">회원</a></li>
+                    <li class="tab-link"><a href="/admin/social/socialListForm.html">소셜</a></li>
+                    <li class="tab-link"><a href="/admin/board/boardListForm.html">게시글</a></li>
+                    <li class="tab-link"><a href="/admin/social/socialCategoryListForm.html">카테고리</a></li>
+                    <li class="tab-link"><a href="/admin/management/qnaListForm.html">문의</a></li>
+                    <li class="tab-link"><a href="/admin/management/reportListForm.html">신고</a></li>
+                </ul>
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>회원 목록</p>
+                    </div>
+                    <div class="tab-item">
+                        <form action="/admin/users" method="get" style="width: 100%;">
+                            <ul class="search-box">
+                                <li class="search-left">
+                                    <span>총 회원<em> 10</em> 명</span>
+                                </li>
+                                <li class="search-right">
+                                    <div>
+                                        <div class="tab-input-wrapper">
+                                            <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
+                                            <input class="submit-btn" type="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                        <table>
+                            <colgroup>
+                                <col width="25%">
+                                <col width="20%">
+                                <col width="20%">
+                                <col width="20%">
+                                <col width="15%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">회원명</th>
+                                <th scope="col">이메일</th>
+                                <th scope="col">생년월일</th>
+                                <th scope="col">프로바이더</th>
+                                <th scope="col">생성일자</th>
+                                <th scope="col">상세보기</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td class="title">설동훈</td>
+                                <td>seoldh@nate.com</td>
+                                <td>1996.04.29</td>
+                                <td>카카오</td>
+                                <td>2024.06.21</td>
+                                <td><span class="detail"
+                                          onclick="location.href='/admin/user/userDetailForm.html'">상세보기</span>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>

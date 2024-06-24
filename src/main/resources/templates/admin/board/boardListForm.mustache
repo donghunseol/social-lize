@@ -1,0 +1,94 @@
+{{> admin/layout/header}}
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> admin/layout/sidebar}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <ul class="tab-nav">
+                    <li class="tab-link"><a href="/admin/user/userListForm.html">회원</a></li>
+                    <li class="tab-link"><a href="/admin/social/socialListForm.html">소셜</a></li>
+                    <li class="tab-link current"><a href="/admin/board/boardListForm.html">게시글</a></li>
+                    <li class="tab-link"><a href="/admin/social/socialCategoryListForm.html">카테고리</a></li>
+                    <li class="tab-link"><a href="/admin/management/qnaListForm.html">문의</a></li>
+                    <li class="tab-link"><a href="/admin/management/reportListForm.html">신고</a></li>
+                </ul>
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>게시글 목록</p>
+                    </div>
+                    <div class="tab-item">
+                        <form action="/admin/users" method="get" style="width: 100%;">
+                            <ul class="search-box">
+                                <li class="search-left">
+                                    <span>총 게시글<em> 2</em> 개</span>
+                                </li>
+                                <li class="search-right">
+                                    <div>
+                                        <div class="tab-input-wrapper">
+                                            <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
+                                            <input class="submit-btn" type="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                        <table>
+                            <colgroup>
+                                <col width="20%">
+                                <col width="15%">
+                                <col width="30%">
+                                <col width="20%">
+                                <col width="15%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">소셜명</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">내용</th>
+                                <th scope="col">작성일자</th>
+                                <th scope="col">상세보기</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>그린컴퓨터아카데미</td>
+                                <td>설동훈</td>
+                                <td class="board-content-text">스크립트 코드 짜는게 어렵네요 난이도 조절이 필요할듯 해요!</td>
+                                <td>2024.06.21</td>
+                                <td><span class="detail"
+                                          onclick="location.href='/admin/board/boardDetailForm.html'">상세보기</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>한사랑산악동호회</td>
+                                <td>김판수</td>
+                                <td class="board-content-text">오늘 정병산 등반 06:00 까지 참여해주십시오</td>
+                                <td>2024.06.23</td>
+                                <td><span class="detail"
+                                          onclick="location.href='/admin/board/boardDetailForm.html'">상세보기</span>
+                                </td>
+                            </tr>
+
+                            <!-- 검색 부분 -->
+                            <!-- {{#keywordList}}
+                                <tr>
+                                    <td class="title">{{name}}</td>
+                                    <td>{{email}}</td>
+                                    <td>{{reportCount}}</td>
+                                    <td><span class="state {{stateColor}}">{{stateMessage}}</span></td>
+                                    <td><span class="detail" onclick="location.href='/admin/users/{{userId}}'">상세보기</span></td>
+                                </tr>
+                            {{/keywordList}} -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>
