@@ -3,8 +3,10 @@ package com.example.project.social;
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project.album.Album;
 import com.example.project.file.File;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,5 +51,16 @@ public class SocialResponse {
                 this.path = file.getPath();
             }
         }
+    }
+
+    // 소셜 리스트 DTO
+    @AllArgsConstructor
+    @Data
+    public static class SocialDTO {
+        private Integer id;
+        private String name;
+        private List<String> categories;
+        private Integer memberCount;
+        private LocalDateTime createdAt;
     }
 }

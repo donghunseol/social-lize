@@ -4,6 +4,8 @@ import com.example.project._core.utils.ApiUtil;
 import com.example.project.category_name.CategoryNameRequest;
 import com.example.project.category_name.CategoryNameResponse;
 import com.example.project.category_name.CategoryNameService;
+import com.example.project.social.SocialResponse;
+import com.example.project.social.SocialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,25 @@ import java.util.List;
 @RequestMapping("/admin")
 @RestController
 public class AdminRestController {
+    private final SocialService socialService;
     private final CategoryNameService categoryNameService;
+    private final UserService userService;
+
+    // 회원 리스트 조회
+    @GetMapping("/user-list")
+    public ResponseEntity<?> userList() {
+//        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        List<UserResponse.UserList> userList = userService.getUserList();
+        return ResponseEntity.ok(new ApiUtil<>(userList));
+    }
+
+    // 회원 상세 조회
+    @GetMapping("/detail/{userId}")
+    public ResponseEntity<?> userDetail(@PathVariable Integer userId) {
+//        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.UserDetail userDetail = userService.getUserDetail(userId);
+        return ResponseEntity.ok(new ApiUtil<>(userDetail));
+    }
 
     // 카테고리 등록
     @PostMapping("/category/create")
@@ -49,5 +69,12 @@ public class AdminRestController {
     public ResponseEntity<?> categoryList() {
         List<CategoryNameResponse.CategoryDTO> categoryList = categoryNameService.getCategoryList();
         return ResponseEntity.ok(new ApiUtil<>(categoryList));
+    }
+
+    // 소셜 리스트 조회
+    @GetMapping("/social-list")
+    public ResponseEntity<?> socialList() {
+        List<SocialResponse.SocialDTO> socialList = socialService.getSocialList();
+        return ResponseEntity.ok(new ApiUtil<>(socialList));
     }
 }
