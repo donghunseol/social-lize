@@ -59,7 +59,7 @@ VALUES
     (5, 6, '모임장소에서의 안전 수칙을 준수해 주세요.<br>모두의 안전을 위해 협력해 주시길 바랍니다.', 'NOTICE', now());
 
 -- 댓글 테이블
-INSERT INTO reply_tb (board_id, user_id, content, created_at)
+INSERT INTO reply_tb (board_id, user_id, comment, created_at)
 VALUES
     (1, 1, '오늘도 좋은 하루 시작하셨나요? 활기찬 하루 되세요!', now()),
     (2, 2, '이 포스트 정말 유익하네요. 더 많은 정보 기대할게요!', now()),
@@ -83,7 +83,7 @@ VALUES
     (20, 5, '글 내용 중 이 부분이 특히 인상적이었습니다.', now());
 
 -- 대댓글 테이블
-INSERT INTO rereply_tb (reply_id, user_id, content, created_at)
+INSERT INTO rereply_tb (reply_id, user_id, comment, created_at)
 VALUES
     (1, 1, '정말 좋은 의견 감사합니다!', now()),
     (2, 2, '아주 도움이 되는 정보네요!', now()),
@@ -236,7 +236,7 @@ VALUES (1, 2, now()),
 
 -- 게시글 해시태그 테이블
 INSERT INTO hashtagk_tb (board_id, name, created_at)
-VALUES (4, '게임추천', now()),
+VALUES (1, '게임추천', now()),
        (8, '노래', now()),
        (12, '스트레스', now()),
        (16, '인테리어', now()),

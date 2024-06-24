@@ -1,5 +1,7 @@
 package com.example.project.qna;
 
+import com.example.project._core.utils.UserUtil;
+import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.List;
 public class QnaController {
     private final QnaService qnaService;
     private final HttpSession session;
+    private final UserUtil userUtil;
 
     @GetMapping("/qna/detail/{qnaId}")
     public String detail(@PathVariable("qnaId") Integer qnaId, HttpServletRequest request) {
@@ -48,8 +51,8 @@ public class QnaController {
 
     @PutMapping("/qna/update/{qnaId}")
     public String update(@PathVariable("qnaId") Integer qnaId, QnaRequest.UpdateDTO reqDTO) {
-        Integer userId = 1;
-        qnaService.update(qnaId, userId, reqDTO);
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        qnaService.update(qnaId, sessionUser.getId(), reqDTO);
 
         return "redirect:/qna/my/list";
     }

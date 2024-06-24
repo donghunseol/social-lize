@@ -30,8 +30,8 @@ public class UserController {
 
     @GetMapping("/")
     public String mainPage(HttpServletRequest request) {
-        Integer userId = 1;
-        UserResponse.MainDTO model = userService.mainPage(userId);
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        UserResponse.MainDTO model = userService.mainPage(sessionUser.getId());
         request.setAttribute("model", model);
 
         UserResponse.LoggedInUserDTO user = userUtil.getSessionUser();

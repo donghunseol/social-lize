@@ -1,6 +1,7 @@
 package com.example.project.board;
 
 import com.example.project._core.enums.BoardEnum;
+import com.example.project.reply.Reply;
 import com.example.project.social.Social;
 import com.example.project.user.User;
 import jakarta.persistence.*;
@@ -10,6 +11,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -37,6 +40,10 @@ public class Board {
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자
+
+    @OrderBy("id desc")
+    @OneToMany(mappedBy = "boardId", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Reply> replies = new ArrayList<>();
 
     @Builder
     public Board(Integer id, Social socialId, User userId, String title, String content, BoardEnum role, LocalDateTime createdAt) {

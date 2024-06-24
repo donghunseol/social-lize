@@ -1,5 +1,7 @@
 package com.example.project.like;
 
+import com.example.project._core.utils.UserUtil;
+import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +18,12 @@ import java.util.Map;
 public class LikeController {
     private final LikeService likeService;
     private final HttpSession session;
+    private final UserUtil userUtil;
 
     @PostMapping("/like/save")
     public ResponseEntity<?> save(@RequestParam("boardId") Integer boardId) {
-        Integer userId = 1;
-        Boolean success = likeService.save(boardId, userId);
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        Boolean success = likeService.save(boardId, sessionUser.getId());
         Map<String, Object> response = new HashMap<>();
         response.put("success", success);
         return ResponseEntity.ok(response);
@@ -28,8 +31,8 @@ public class LikeController {
 
     @DeleteMapping("/like/delete")
     public ResponseEntity<?> delete(@RequestParam("boardId") Integer boardId) {
-        Integer userId = 1;
-        Boolean success = likeService.delete(boardId, userId);
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        Boolean success = likeService.delete(boardId, sessionUser.getId());
         Map<String, Object> response = new HashMap<>();
         response.put("success", success);
         return ResponseEntity.ok(response);

@@ -28,17 +28,17 @@ public class Rereply {
     private User userId; // 유저 번호
 
     @Column(nullable = false)
-    private String content;
+    private String comment;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Builder
-    public Rereply(Integer id, Reply replyId, User userId, String content, LocalDateTime createdAt) {
+    public Rereply(Integer id, Reply replyId, User userId, String comment, LocalDateTime createdAt) {
         this.id = id;
         this.replyId = replyId;
         this.userId = userId;
-        this.content = content;
+        this.comment = comment;
         this.createdAt = createdAt;
     }
 }
