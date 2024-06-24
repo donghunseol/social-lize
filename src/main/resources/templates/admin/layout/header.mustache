@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="/javascript/sideber.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="/css/admin/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <script>
+        // 달력
+        $(function () {
+            $('input[name="daterange"]').daterangepicker(
+                    {
+                        locale: {
+                            format: "YYYY-MM-DD",
+                            separator: " ~ ",
+                            applyLabel: "확인",
+                            cancelLabel: "취소",
+                            fromLabel: "From",
+                            toLabel: "To",
+                            customRangeLabel: "Custom",
+                            weekLabel: "W",
+                            daysOfWeek: ["일", "월", "화", "수", "목", "금", "토"],
+                            monthNames: [
+                                "1월",
+                                "2월",
+                                "3월",
+                                "4월",
+                                "5월",
+                                "6월",
+                                "7월",
+                                "8월",
+                                "9월",
+                                "10월",
+                                "11월",
+                                "12월",
+                            ],
+                        },
+                        startDate: $('input[name="startDate"]').val(),
+                        endDate: $('input[name="endDate"]').val(),
+                        drops: "auto",
+                    },
+                    function (start, end, label) {
+                        $('input[name="startDate"]').val(start.format("YYYY-MM-DD"));
+                        $('input[name="endDate"]').val(end.format("YYYY-MM-DD"));
+                        console.log(
+                                "A new date selection was made: " +
+                                start.format("YYYY-MM-DD") +
+                                " to " +
+                                end.format("YYYY-MM-DD")
+                        );
+                    }
+            );
+        });
+    </script>
+</head>

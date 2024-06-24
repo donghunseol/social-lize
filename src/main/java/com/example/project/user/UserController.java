@@ -24,7 +24,7 @@ public class UserController {
 
     @GetMapping("/test")
     public String test() {
-        throw new Exception400("failed to get");
+        return "/admin/social/socialCategoryDetailForm";
     }
 
 

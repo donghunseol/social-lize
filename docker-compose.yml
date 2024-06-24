@@ -3,7 +3,7 @@ version: '3.3'
 services:
   redis:
     build:
-      context: src/main/redis
+      context: ./redis
     restart: always
     container_name: redis-container
     ports:

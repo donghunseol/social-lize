@@ -42,9 +42,9 @@ public class SocialService {
     // TODO 유저 확인 세션으로 수정해야 함
     @Transactional
     public void createSocial(SocialRequest.Create createDTO) {
-        // 소셜명 중복 체크
-        Optional<Social> SocialNameCheck = socialRepository.findByName(createDTO.getName());
-        if (SocialNameCheck.isPresent()) {
+        // 이미 존재하는 소셜명인지 확인
+        Optional<Social> socialNameCheck = socialRepository.findByName(createDTO.getName());
+        if (socialNameCheck.isPresent()) {
             throw new Exception400("해당 소셜명은 이미 존재하는 소셜명입니다.");
         }
 
@@ -128,6 +128,36 @@ public class SocialService {
         // 상태를 DELETED로 변경
         social.setStatus(SocialStateEnum.DELETED);
         socialRepository.save(social);
+    }
+
+    // 소셜 리스트 조회 (관리자)
+    public List<SocialResponse.SocialDTO> getSocialList() {
+        List<Social> socials = socialRepository.findAll();
+        return socials.stream()
+                .map(social -> new SocialResponse.SocialDTO(
+                        social.getId(),
+                        social.getName(),
+                        social.getCategory().stream().map(category -> category.getCategoryNameId().getName()).collect(Collectors.toList()),
+                        socialMemberRepository.countBySocialId(social.getId()),
+                        social.getCreatedAt()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    // 소셜 상세 조회 (관리자)
+    public SocialResponse.Detail getSocialDetail(Integer socialId) {
+        Social social = socialRepository.findById(socialId)
+                .orElseThrow(() -> new Exception404("해당 소셜은 존재하지 않습니다."));
+
+        return new SocialResponse.Detail(
+                social.getId(),
+                social.getName(),
+                social.getImage(),
+                social.getInfo(),
+                social.getCategory().stream().map(category -> category.getCategoryNameId().getName()).collect(Collectors.toList()),
+                socialMemberRepository.countBySocialId(social.getId()),
+                social.getCreatedAt()
+        );
     }
 
     // 소셜 별 앨범, 파일 리스트 출력

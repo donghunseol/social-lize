@@ -35,6 +35,10 @@ dependencies {
     // - Redis에 세션 데이터 저장하여 다중 인스턴스 환경에서 세션 공유
     // - 자동 구성 기능을 통해 간편한 설정
 
+    // 다중 채팅을 위한 의존성 추가
+    implementation 'org.springframework.boot:spring-boot-starter-websocket' // WebSocket 및 STOMP 지원을 위한 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // Thymeleaf 템플릿 엔진을 위한 의존성
+
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
     implementation 'org.springframework.boot:spring-boot-starter-websocket' //알림과 채팅기능을 위한 웹소켓 기능
@@ -53,13 +57,13 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web' // Spring Web MVC를 위한 의존성
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' // 테스트를 위한 의존성
 }
 
 tasks.named('test') {

@@ -37,6 +37,7 @@ public class UserQueryRepositoryTest {
             System.out.println(row[2]);
             System.out.println(row[3]);
             System.out.println(row[4]);
+            System.out.println(row[5]);
         }
     }
 
@@ -50,6 +51,7 @@ public class UserQueryRepositoryTest {
             System.out.println(row[2]);
             System.out.println(row[3]);
             System.out.println(row[4]);
+            System.out.println(row[5]);
         }
     }
 
@@ -64,6 +66,19 @@ public class UserQueryRepositoryTest {
             System.out.println(row[3]);
             System.out.println(row[4]);
             System.out.println(row[5]);
+        }
+    }
+
+    @Test
+    public void socialCategoryList_Test() {
+        List<Object[]> list = userQueryRepository.socialCategoryList();
+
+        for (Object[] row : list) {
+            System.out.println(row[0]);
+            System.out.println(row[1]);
+            System.out.println(row[2]);
+            System.out.println(row[3]);
+            System.out.println(row[4]);
         }
     }
 }

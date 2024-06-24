@@ -1,40 +1,84 @@
 {{> layout/header}}
-<div class="invite-navbar">
-    <a href="#">게시글</a>
-    <a href="#">서랍</a>
-    <a href="#">멤버</a>
-</div>
+{{> layout/socialtab}}
 <div class="invite-container">
-    <div class="invite-sidebar">
-        <div class="invite-social-info">
-            <img src="/images/puppy.png" alt="소셜 사진">
-            <h2>포메와의 산책</h2>
-            <div>리더 <span class="invite-highlight">포실장과 아이들</span></div>
-            <div>멤버 <span class="invite-highlight">2,215</span></div>
-            <button class="invite-postwrite">글 작성하기</button>
-            <button class="invite-invite-button" id="copyLinkButton">초대링크 복사</button>
-            <div class="invite-description">포메라니안과 함께하는 즐거운 산책 모임입니다. 다양한 이벤트와 정보를 공유하세요!</div>
-            <div class="invite-settings-wrapper">
-                <div class="invite-settings"><a href="#"><i class="fas fa-cog"></i></a></div>
-                <div>소셜 설정하기</div>
-            </div>
-        </div>
-    </div>
+    {{> layout/socialsidebar}}
     <div class="invite-content">
         <h2>멤버 20</h2>
         <div class="invite-divider"></div>
 
         <h2>신청목록</h2>
         <div class="invite-divider"></div>
+        <div id="invite-requests">
+            <div class="invite-request-item">
+                <img src="/images/userprofile3.png" alt="프로필 사진" class="invite-request-pic">
+                <span class="invite-request-name">하승진</span>
+                <button class="invite-approve-button" onclick="handleRequest(this, true)">승인</button>
+                <button class="invite-reject-button" onclick="handleRequest(this, false)">거절</button>
+            </div>
+            <div class="invite-request-item">
+                <img src="/images/userprofile2.png" alt="프로필 사진" class="invite-request-pic">
+                <span class="invite-request-name">김완준</span>
+                <button class="invite-approve-button" onclick="handleRequest(this, true)">승인</button>
+                <button class="invite-reject-button" onclick="handleRequest(this, false)">거절</button>
+            </div>
+        </div>
 
         <h2>멤버검색</h2>
         <div class="invite-divider"></div>
+        <div class="invite-member-search">
+            <input type="text" placeholder="멤버 이름 검색">
+            <button>검색</button>
+        </div>
 
         <h2>초대링크</h2>
         <div class="invite-divider"></div>
+        <div class="invite-link-section">
+            <label for="inviteLink">초대링크</label>
+            <div class="invite-link-wrapper">
+                <input type="text" id="inviteLink" value="localhost:8080" readonly>
+                <button class="invite-copy-button" onclick="copyInviteLink()">
+                    <i class="fas fa-copy"></i>
+                </button>
+            </div>
+        </div>
 
         <h2>멤버리스트</h2>
         <div class="invite-divider"></div>
+        <div class="invite-member-sort">
+            <select id="memberSort" onchange="sortMembers()">
+                <option value="name">이름순</option>
+                <option value="recent">최근 가입순</option>
+            </select>
+        </div>
+        <div class="invite-member-list">
+            <div class="invite-member-item leader">
+                <img src="/images/puppy.png" alt="프로필 사진" class="invite-member-pic" id="openModalBtn" data-bs-toggle="modal" data-bs-target="#profileModal">
+                <div class="invite-member-info">
+                    <span class="invite-member-name">설동훈</span>
+                    <span class="invite-member-role">
+                        <i class="fas fa-crown"></i> 리더
+                    </span>
+                </div>
+            </div>
+            <div class="invite-divider"></div>
+            <div class="invite-member-item">
+                <img src="/images/userprofile.jpeg" alt="프로필 사진" class="invite-member-pic">
+                <div class="invite-member-info">
+                    <span class="invite-member-name">김세운</span>
+                    <span class="invite-member-details">24.01.01 가입 | 게시물 16 | 댓글 57</span>
+                </div>
+                <button class="invite-remove-button" onclick="removeMember(this)">삭제</button>
+            </div>
+            <div class="invite-divider"></div>
+            <div class="invite-member-item">
+                <img src="/images/userprofile3.png" alt="프로필 사진" class="invite-member-pic">
+                <div class="invite-member-info">
+                    <span class="invite-member-name">하승진</span>
+                    <span class="invite-member-details">24.04.01 가입 | 게시물 18 | 댓글 30</span>
+                </div>
+                <button class="invite-remove-button" onclick="removeMember(this)">삭제</button>
+            </div>
+        </div>
     </div>
     <div class="invite-chat-container">
         <div class="invite-chat-header">
@@ -131,61 +175,67 @@
             modal.removeEventListener('click', closeModal);
         }
 
-        function handleFileUpload() {
-            var fileInput = document.getElementById('fileInput');
-            var fileList = document.getElementById('fileList');
-            var fileCount = document.getElementById('fileCount');
-            var count = fileList.children.length;
-            var existingFiles = {};
-
-            Array.from(fileList.children).forEach(function (item) {
-                var name = item.textContent.split(' (')[0];
-                existingFiles[name] = (existingFiles[name] || 0) + 1;
-            });
-
-            if (fileInput.files.length > 0) {
-                for (var i = 0; i < fileInput.files.length; i++) {
-                    var file = fileInput.files[i];
-                    var fileName = file.name;
-                    var fileUrl = URL.createObjectURL(file);
-                    var fileElement = document.createElement('div');
-                    fileElement.className = 'invite-grid-item';
-
-                    if (existingFiles[fileName]) {
-                        var newName = fileName + ' (' + existingFiles[fileName] + ')';
-                        fileElement.textContent = newName;
-                        existingFiles[fileName]++;
-                    } else {
-                        fileElement.textContent = fileName;
-                        existingFiles[fileName] = 1;
-                    }
-
-                    fileElement.onclick = function () {
-                        var a = document.createElement('a');
-                        a.href = fileUrl;
-                        a.download = fileName;
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
-                    };
-                    fileList.appendChild(fileElement);
-                }
+        function handleRequest(button, isApproved) {
+            var requestItem = button.parentElement;
+            if (isApproved) {
+                alert(requestItem.querySelector('.invite-request-name').innerText + ' 승인됨');
+            } else {
+                alert(requestItem.querySelector('.invite-request-name').innerText + ' 거절됨');
             }
+            requestItem.remove();
         }
 
-        function updateFileItemCount(tabId, countId) {
-            var itemCount = document.querySelectorAll("#" + tabId + " .invite-file-item").length;
-            document.getElementById(countId).innerText = "전체 " + itemCount;
+        function copyInviteLink() {
+            var inviteLink = document.getElementById("inviteLink");
+            inviteLink.select();
+            inviteLink.setSelectionRange(0, 99999); /* For mobile devices */
+            document.execCommand("copy");
+            alert("초대 링크가 클립보드에 복사되었습니다.");
         }
 
         document.getElementById("copyLinkButton").addEventListener("click", function() {
-            const link = "https://example.com/invite"; // 여기에 실제 초대 링크를 입력하세요.
+            const link = "localhost:8080/";
             navigator.clipboard.writeText(link).then(function() {
                 alert("초대 링크가 클립보드에 복사되었습니다.");
             }, function(err) {
                 console.error("초대 링크 복사 실패: ", err);
             });
         });
+
+        function sortMembers() {
+            var memberSort = document.getElementById('memberSort').value;
+            var memberList = document.querySelector('.invite-member-list');
+            var members = Array.from(memberList.getElementsByClassName('invite-member-item')).filter(function(member) {
+                return !member.classList.contains('leader');
+            });
+
+            if (memberSort === 'name') {
+                members.sort(function(a, b) {
+                    return a.querySelector('.invite-member-name').innerText.localeCompare(b.querySelector('.invite-member-name').innerText, 'ko');
+                });
+            } else if (memberSort === 'recent') {
+                members.sort(function(a, b) {
+                    var dateA = a.querySelector('.invite-member-details').innerText.match(/\d{2}\.\d{2}\.\d{2}/)[0].split('.');
+                    var dateB = b.querySelector('.invite-member-details').innerText.match(/\d{2}\.\d{2}\.\d{2}/)[0].split('.');
+                    var parsedDateA = new Date('20' + dateA[0], dateA[1] - 1, dateA[2]);
+                    var parsedDateB = new Date('20' + dateB[0], dateB[1] - 1, dateB[2]);
+                    return parsedDateB - parsedDateA;
+                });
+            }
+
+            members.forEach(function(member) {
+                memberList.appendChild(member);
+            });
+        }
+
+        function removeMember(button) {
+            if (confirm("정말로 이 멤버를 삭제하시겠습니까?")) {
+                var memberItem = button.parentElement;
+                memberItem.remove();
+                alert("멤버가 삭제되었습니다.");
+            }
+        }
+
     </script>
 </div>
 {{> layout/footer}}

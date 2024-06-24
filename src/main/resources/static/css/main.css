@@ -53,6 +53,7 @@
 .my-card .my-subtitle {
     color: #666;
     font-size: 14px;
+
 }
 .my-posts-container {
     margin-top: 20px;
@@ -92,6 +93,9 @@
 .my-content {
     flex: 1;
     max-width: calc(100% - 70px);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1; overflow: hidden;
 }
 .my-post .my-footer {
     margin-top: 10px;
@@ -164,6 +168,7 @@
     font-size: 14px;
     color: #666;
     margin-bottom: 5px;
+
 }
 .my-grid-item .my-details .my-participants {
     font-size: 14px;
@@ -251,6 +256,9 @@
 .my-recommendation-item .my-details .my-subtitle {
     font-size: 14px;
     color: #555;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1; overflow: hidden;
 }
 .my-recommendation-item .my-more-button {
     background-color: #5C9CFA;

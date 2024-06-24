@@ -35,9 +35,11 @@ public class UserService {
 
         List<Object[]> popularPostList = userQueryRepository.popularPostList();
 
+        List<Object[]> socialCategoryList = userQueryRepository.socialCategoryList();
+
         List<CategoryName> categoryNameList = categoryNameRepository.findAll();
 
-        return new UserResponse.MainDTO(mySocialList, mySocialPopularList, popularPostList, categoryNameList);
+        return new UserResponse.MainDTO(mySocialList, mySocialPopularList, popularPostList, socialCategoryList, categoryNameList);
     }
 
     public UserResponse.MainAjaxDTO mainAjax(Integer categoryId) {

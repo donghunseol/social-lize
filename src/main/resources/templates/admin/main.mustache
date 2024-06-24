@@ -1,0 +1,88 @@
+{{> admin/layout/head}}
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> admin/layout/side}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <ul class="tab-nav">
+                    <li class="tab-link current"><a href="/user/join">가입현황</a></li>
+                    <li class="tab-link "><a href="/user/report">리뷰신고</a></li>
+                    <li class="tab-link"><a href="/user/question">문의사항</a></li>
+                    <li class="tab-link"><a href="/user/faq">자주묻는 질문</a></li>
+                </ul>
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>가입현황</p>
+                    </div>
+                    <div class="tab-item">
+                        <ul class="search-box">
+                            <li class="search-left">
+                                <span>총 기업 수<em> {{companyCount}} </em>개</span>
+                            </li>
+                            <li class="search-right">
+                                <!--                                    <div>-->
+                                <!--                                        <label for="comp-state">문의상태</label>-->
+                                <!--                                        <select name="state" id="comp-state">-->
+                                <!--                                            <option value="">전체</option>-->
+                                <!--                                            <option value="승인">승인</option>-->
+                                <!--                                            <option value="거절">거절</option>-->
+                                <!--                                            <option value="대기중">대기중</option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <div>
+                                    <form action="/admin/companies" method="get">
+                                        <div class="tab-input-wrapper">
+                                            <input class="input-id" type="text" name="keyword" value="{{keyword}}" placeholder="검색어 입력">
+                                            <input class="submit-btn" type="submit" value="Search">
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                        <table>
+                            <colgroup>
+                                <col width="25%">
+                                <col width="20%">
+                                <col width="20%">
+                                <col width="20%">
+                                <col width="15%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">기업명</th>
+                                <th scope="col">전화번호</th>
+                                <th scope="col">대표이름</th>
+                                <th scope="col">상태</th>
+                                <th scope="col">상세보기</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#companyList}}
+                                <tr>
+                                    <td class="title">{{businessName}}</td>
+                                    <td>{{phone}}</td>
+                                    <td>{{name}}</td>
+                                    <td><span class="state {{stateColor}}">{{stateMessage}}</span></td>
+                                    <td><span class="detail" onclick="location.href='/admin/companies/{{companyId}}'">상세보기</span></td>
+                                </tr>
+                            {{/companyList}}
+                            {{#keywordList}}
+                                <tr>
+                                    <td class="title">{{businessName}}</td>
+                                    <td>{{phone}}</td>
+                                    <td>{{name}}</td>
+                                    <td><span class="state {{stateColor}}">{{stateMessage}}</span></td>
+                                    <td><span class="detail" onclick="location.href='/admin/companies/{{companyId}}'">상세보기</span></td>
+                                </tr>
+                            {{/keywordList}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -52,15 +52,19 @@ public class UserResponse {
         private List<MySocialPopularDTO> mySocialPopularList;
         private List<PopularPostDTO> popularPostList;
         private List<CategoryDTO> categoryList;
+        private List<CategoryNameDTO> categoryNameList;
 
         public MainDTO(List<Object[]> mySocialList,
                        List<Object[]> mySocialPopularList,
                        List<Object[]> popularPostList,
-                       List<CategoryName> categoryList) {
+                       List<Object[]> categoryList,
+                       List<CategoryName> categoryNameList) {
+
             this.mySocialList = mySocialList.stream().map(MySocialDTO::new).toList();
             this.mySocialPopularList = mySocialPopularList.stream().map(MySocialPopularDTO::new).toList();
             this.popularPostList = popularPostList.stream().map(PopularPostDTO::new).toList();
             this.categoryList = categoryList.stream().map(CategoryDTO::new).toList();
+            this.categoryNameList = categoryNameList.stream().map(CategoryNameDTO::new).toList();
         }
 
         @Data
@@ -85,6 +89,8 @@ public class UserResponse {
             private String nickname;
             private Long likeCount;
             private Long replyCount;
+            private String socialName;
+            private String socialImage;
 
             public MySocialPopularDTO(Object[] mySocialPopularList) {
                 this.id = (Integer) mySocialPopularList[0];
@@ -92,35 +98,54 @@ public class UserResponse {
                 this.nickname = (String) mySocialPopularList[2];
                 this.likeCount = (Long) mySocialPopularList[3];
                 this.replyCount = (Long) mySocialPopularList[4];
+                this.socialName = (String) mySocialPopularList[5];
+                this.socialImage = (String) mySocialPopularList[6];
             }
         }
 
         @Data
         private static class PopularPostDTO {
             private Integer id;
+            private String name;
             private String content;
-            private String nickname;
             private Long likeCount;
             private Long replyCount;
+            private String image;
 
             public PopularPostDTO(Object[] popularPostList) {
                 this.id = (Integer) popularPostList[0];
-                this.content = (String) popularPostList[1];
-                this.nickname = (String) popularPostList[2];
+                this.name = (String) popularPostList[1];
+                this.content = (String) popularPostList[2];
                 this.likeCount = (Long) popularPostList[3];
                 this.replyCount = (Long) popularPostList[4];
+                this.image = (String) popularPostList[5];
             }
         }
 
         @Data
         private static class CategoryDTO {
             private Integer id;
-            private String imagePath;
+            private String socialName;
+            private String image;
+            private String info;
+            private String categoryName;
+
+            public CategoryDTO(Object[] categoryName) {
+                this.id = (Integer) categoryName[0];
+                this.socialName = (String) categoryName[1];
+                this.image = (String) categoryName[2];
+                this.info = (String) categoryName[3];
+                this.categoryName = (String) categoryName[4];
+            }
+        }
+
+        @Data
+        private static class CategoryNameDTO {
+            private Integer id;
             private String name;
 
-            public CategoryDTO(CategoryName categoryName) {
+            public CategoryNameDTO(CategoryName categoryName) {
                 this.id = categoryName.getId();
-                this.imagePath = categoryName.getImagePath();
                 this.name = categoryName.getName();
             }
         }

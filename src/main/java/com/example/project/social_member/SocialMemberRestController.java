@@ -16,7 +16,7 @@ public class SocialMemberRestController {
     @PostMapping("/{socialId}/social-members/apply")
     public ResponseEntity<?> applySocialMember(@PathVariable Integer socialId) {
 //        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        socialMemberService.applySocialMember(socialId, 5);
+        socialMemberService.applySocialMember(socialId, 3);
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
@@ -24,7 +24,7 @@ public class SocialMemberRestController {
     @PutMapping("/social-members/{socialMemberId}/state")
     public ResponseEntity<?> updateSocialMemberState(@PathVariable Integer socialMemberId, @RequestBody SocialMemberRequest.UpdateStateDTO newState) {
 //        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        socialMemberService.updateSocialMemberState(2, socialMemberId, newState);
+        socialMemberService.updateSocialMemberState(1, socialMemberId, newState);
         return ResponseEntity.ok(new ApiUtil<>(null));
     }
 }

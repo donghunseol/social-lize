@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 public class ChatResponse {
 
+    // 실시간 채팅 응답 DTO
     @Data
     public static class LiveChatDTO {
         private Integer id;
