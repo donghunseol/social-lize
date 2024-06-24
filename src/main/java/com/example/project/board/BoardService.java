@@ -2,6 +2,8 @@ package com.example.project.board;
 
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.errors.exception.Exception401;
+import com.example.project._core.errors.exception.Exception403;
+import com.example.project._core.errors.exception.Exception404;
 import com.example.project._core.utils.ImageVideoUtil;
 import com.example.project.album.Album;
 import com.example.project.album.AlbumRepository;
@@ -138,5 +140,22 @@ public class BoardService {
                 hashtagRepository.save(hashtagEntity);
             }
         }
+    }
+
+    public BoardResponse.BoardDetailDTO detail(Integer boardId) {
+
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new Exception404("게시물을 찾을 수 없습니다"));
+
+        User user = userRepository.findById(board.getUserId().getId())
+                .orElseThrow(() -> new Exception403("로그인 하셔야 합니다"));
+
+        List<Hashtag> hashtag = hashtagRepository.findByBoardId(board.getId());
+
+        Integer likeCount = likeRepository.findByLikeCount(board.getId());
+
+        Integer replyCount = replyRepository.replyCount(board.getId());
+
+        return new BoardResponse.BoardDetailDTO(board, user, likeCount, replyCount, hashtag);
     }
 }
