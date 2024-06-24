@@ -17,12 +17,9 @@ public class CategoryName {
 
     private String name; // 카테고리 네임
 
-    private String imagePath;
-
     @Builder
     public CategoryName(Integer id, String name, String imagePath) {
         this.id = id;
         this.name = name;
-        this.imagePath = imagePath;
     }
 }
