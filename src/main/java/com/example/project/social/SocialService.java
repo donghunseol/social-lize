@@ -130,6 +130,20 @@ public class SocialService {
         socialRepository.save(social);
     }
 
+    // 소셜 리스트 조회 (관리자)
+    public List<SocialResponse.SocialDTO> getSocialList() {
+        List<Social> socials = socialRepository.findAll();
+        return socials.stream()
+                .map(social -> new SocialResponse.SocialDTO(
+                        social.getId(),
+                        social.getName(),
+                        social.getCategory().stream().map(category -> category.getCategoryNameId().getName()).collect(Collectors.toList()),
+                        socialMemberRepository.countBySocialId(social.getId()),
+                        social.getCreatedAt()
+                ))
+                .collect(Collectors.toList());
+    }
+
     // 소셜 별 앨범, 파일 리스트 출력
     public SocialResponse.AlbumAndFileListDTO getSocialAlbumList(Integer socialId) {
 

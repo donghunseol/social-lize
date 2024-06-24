@@ -151,7 +151,7 @@ VALUES (1, 1, '소셜에 가입 하신것을 환영합니다.', now()),
 INSERT INTO social_member_tb(social_id, user_id, role, state, created_at)
 VALUES (1, 1, 'MANAGER', 'APPROVED', now()),
        (1, 2, 'MEMBER', 'APPROVED', now()),
-       (1, 3, 'MEMBER', 'APPROVED', now()),
+--        (1, 3, 'MEMBER', 'APPROVED', now()), // 테스트 중이라 잠시 죽여놓음
        (1, 5, 'MEMBER', 'APPROVED', now()),
        (2, 1, 'MEMBER', 'APPROVED', now()),
        (2, 2, 'MANAGER', 'APPROVED', now()),
