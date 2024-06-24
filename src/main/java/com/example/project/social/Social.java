@@ -2,6 +2,7 @@ package com.example.project.social;
 
 import com.example.project._core.enums.SocialStateEnum;
 import com.example.project.category.Category;
+import com.example.project.social_member.SocialMember;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +32,9 @@ public class Social {
 
     @OneToMany(mappedBy = "socialId", cascade = CascadeType.ALL)
     private List<Category> category; // 카테고리
+
+    @OneToMany(mappedBy = "socialId", cascade = CascadeType.ALL)
+    private List<SocialMember> SocialMember; // 카테고리
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
