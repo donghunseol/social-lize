@@ -4,7 +4,7 @@ import lombok.Data;
 
 public class ChatRequest {
 
-    // 실시간 채팅 리퀘스트
+    // 실시간 채팅 요청 DTO
     @Data
     public static class LiveChatDTO {
         private Integer socialId;
