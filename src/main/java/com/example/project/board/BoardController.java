@@ -1,9 +1,12 @@
 package com.example.project.board;
 
 import com.example.project.user.User;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.HttpRequestHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,5 +27,13 @@ public class BoardController {
 
         // 나머지 데이터 처리 로직
         return "redirect:/social/detail/" + socialId;
+    }
+
+    @GetMapping("/board/detail/{boardId}")
+    public String detail(@PathVariable Integer boardId, HttpServletRequest request) {
+        BoardResponse.BoardDetailDTO detail = boardService.detail(boardId);
+
+        System.out.println(detail);
+        return "modal/boardModalForm";
     }
 }

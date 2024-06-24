@@ -6,6 +6,7 @@ import com.example.project.hashtag.Hashtag;
 import com.example.project.like.Like;
 import com.example.project.reply.Reply;
 import com.example.project.social.SocialResponse;
+import com.example.project.user.User;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -82,4 +83,37 @@ public class BoardResponse {
         }
     }
 
+    @Data
+    public static class BoardDetailDTO {
+        private Integer boardId;
+        private String nickname;
+        private String createdAt;
+        private String content;
+        private Integer likeCount;
+        private Integer replyCount;
+        private List<HashtagDTO> hashtagList;
+        private String userImage;
+
+        public BoardDetailDTO(Board board, User user, Integer likeCount, Integer replyCount, List<Hashtag> hashtagList) {
+            this.boardId = board.getId();
+            this.nickname = user.getNickname();
+            LocalDateTime format = board.getCreatedAt();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h:mm");
+            this.createdAt = format.format(formatter);
+            this.content = board.getContent();
+            this.likeCount = likeCount;
+            this.replyCount = replyCount;
+            this.hashtagList = hashtagList.stream().map(HashtagDTO::new).toList();
+            this.userImage = user.getImage();
+        }
+
+        @Data
+        public static class HashtagDTO {
+            private String name;
+
+            public HashtagDTO(Hashtag hashtag) {
+                this.name = hashtag.getName();
+            }
+        }
+    }
 }
