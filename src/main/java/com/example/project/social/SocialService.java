@@ -144,6 +144,22 @@ public class SocialService {
                 .collect(Collectors.toList());
     }
 
+    // 소셜 상세 조회 (관리자)
+    public SocialResponse.Detail getSocialDetail(Integer socialId) {
+        Social social = socialRepository.findById(socialId)
+                .orElseThrow(() -> new Exception404("해당 소셜은 존재하지 않습니다."));
+
+        return new SocialResponse.Detail(
+                social.getId(),
+                social.getName(),
+                social.getImage(),
+                social.getInfo(),
+                social.getCategory().stream().map(category -> category.getCategoryNameId().getName()).collect(Collectors.toList()),
+                socialMemberRepository.countBySocialId(social.getId()),
+                social.getCreatedAt()
+        );
+    }
+
     // 소셜 별 앨범, 파일 리스트 출력
     public SocialResponse.AlbumAndFileListDTO getSocialAlbumList(Integer socialId) {
 
