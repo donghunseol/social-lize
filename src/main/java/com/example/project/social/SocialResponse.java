@@ -63,4 +63,17 @@ public class SocialResponse {
         private Integer memberCount;
         private LocalDateTime createdAt;
     }
+
+    // 소셜 상세 DTO
+    @AllArgsConstructor
+    @Data
+    public static class Detail {
+        private Integer id;
+        private String name;
+        private String image;
+        private String info;
+        private List<String> categories;
+        private Integer memberCount;
+        private LocalDateTime createdAt;
+    }
 }

@@ -77,4 +77,11 @@ public class AdminRestController {
         List<SocialResponse.SocialDTO> socialList = socialService.getSocialList();
         return ResponseEntity.ok(new ApiUtil<>(socialList));
     }
+
+    // 소셜 상세 조회
+    @GetMapping("/social/{socialId}")
+    public ResponseEntity<?> socialDetail(@PathVariable Integer socialId) {
+        SocialResponse.Detail socialDetail = socialService.getSocialDetail(socialId);
+        return ResponseEntity.ok(new ApiUtil<>(socialDetail));
+    }
 }
