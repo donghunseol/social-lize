@@ -1,3 +1,15 @@
+.hashtag-btn {
+    background-color: #f0f0f0;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 5px 10px;
+    margin-top: 25px;
+    cursor: pointer;
+}
+
+.hashtag-btn:hover {
+    background-color: #e0e0e0;
+}
 .common-sidebar {
     width: 250px;
     background-color: #fff;
