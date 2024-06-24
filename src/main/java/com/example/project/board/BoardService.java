@@ -54,8 +54,10 @@ public class BoardService {
             // 북마크 여부 확인
             Boolean bookmarked = bookRepository.findByBookUserId(board.getId(), userId) > 0;
 
+            List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
+
             // BoardDTO 객체 생성
-            BoardResponse.BoardListDTO.BoardDTO boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked);
+            BoardResponse.BoardListDTO.BoardDTO boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags);
             boardDTOs.add(boardDTO);
         }
 
@@ -80,8 +82,10 @@ public class BoardService {
             // 북마크 여부 확인
             Boolean bookmarked = bookRepository.findByBookUserId(board.getId(), userId) > 0;
 
+            List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
+
             // BoardDTO 객체 생성
-            BoardResponse.BoardListDTO.BoardDTO boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked);
+            BoardResponse.BoardListDTO.BoardDTO boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags);
             boardDTOs.add(boardDTO);
         }
 
@@ -124,11 +128,15 @@ public class BoardService {
             }
         }
 
-        for (int i = 0; i < reqDTO.getHashtags().length; i++) {
-            Hashtag hashtag = new Hashtag();
-            hashtag.setName(reqDTO.getHashtags()[i]);
-            hashtag.setBoardId(board);
-            hashtagRepository.save(hashtag);
+        // 해시태그 처리
+        if (reqDTO.getHashtags() != null) {
+            for (String hashtag : reqDTO.getHashtags()) {
+                String cleanHashtag = hashtag.replaceAll("[\"\\[\\]]", "");
+                Hashtag hashtagEntity = new Hashtag();
+                hashtagEntity.setName(cleanHashtag);
+                hashtagEntity.setBoardId(board);
+                hashtagRepository.save(hashtagEntity);
+            }
         }
     }
 }

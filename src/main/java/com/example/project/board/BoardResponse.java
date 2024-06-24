@@ -2,6 +2,7 @@ package com.example.project.board;
 
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project.album.Album;
+import com.example.project.hashtag.Hashtag;
 import com.example.project.like.Like;
 import com.example.project.reply.Reply;
 import com.example.project.social.SocialResponse;
@@ -34,8 +35,9 @@ public class BoardResponse {
             private String userImage;
             private Boolean liked;
             private Boolean book;
+            private List<HashtagDTO> hashtagList;
 
-            public BoardDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book) {
+            public BoardDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book, List<Hashtag> hashtags) {
                 this.boardId = board.getId();
                 this.socialName = board.getSocialId().getName();
                 this.nickname = board.getUserId().getNickname();
@@ -49,6 +51,7 @@ public class BoardResponse {
                 this.userImage = userImage;
                 this.liked = liked;
                 this.book = book;
+                this.hashtagList = hashtags.stream().map(HashtagDTO::new).toList();
             }
         }
 
@@ -64,6 +67,17 @@ public class BoardResponse {
                 this.type = album.getType();
                 this.isVideo = (this.type == AlbumEnum.VIDEO);
                 this.isImage = (this.type == AlbumEnum.IMAGE);
+            }
+        }
+
+        @Data
+        public static class HashtagDTO {
+            private Integer id;
+            private String name;
+
+            public HashtagDTO(Hashtag hashtag) {
+                this.id = hashtag.getId();
+                this.name = hashtag.getName();
             }
         }
     }
