@@ -31,13 +31,14 @@ public class UserController {
     @GetMapping("/")
     public String mainPage(HttpServletRequest request) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        if(sessionUser == null) {
+            return "redirect:/user/login"; //로그인되어있지 않으면 로그인페이지로 이동
+        }
+
         UserResponse.MainDTO model = userService.mainPage(sessionUser.getId());
         request.setAttribute("model", model);
 
-        UserResponse.LoggedInUserDTO user = userUtil.getSessionUser();
-        if(user == null) {
-            return "redirect:/user/login"; //로그인되어있지 않으면 로그인페이지로 이동
-        }
+
         return "main";
     }
 
