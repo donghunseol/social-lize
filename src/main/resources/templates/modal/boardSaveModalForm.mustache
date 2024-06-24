@@ -10,28 +10,21 @@
             <div class="modal-body">
                 <form id="boardForm" action="/board/1" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
-                        <label for="title" class="form-label">제목</label>
-                        <input type="text" class="form-control" id="title" name="title" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="content" class="form-label">내용</label>
-                        <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                        <textarea class="form-control" id="content" name="content" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="hashtags" class="form-label">해시태그 추가</label>
                         <div class="d-flex">
-                            <select id="hashtagSelect" class="form-select">
-                                <option value="카테고리1">카테고리1</option>
-                                <option value="카테고리2">카테고리2</option>
-                                <option value="카테고리3">카테고리3</option>
-                            </select>
+                            <input type="text" id="hashtagInput" class="form-control me-2" placeholder="해시태그 입력">
+                            <button type="button" id="addHashtagBtn" class="btn btn-primary" style="width: 60px">추가</button>
                         </div>
                         <div id="selectedHashtags" class="mt-2"></div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">파일 첨부</label>
                         <div class="d-flex gap-2">
-                            <input type="file" id="imageFiles" name="imageFiles" accept="image/*" multiple>
+                            <input type="file" id="imgFiles" name="imgFiles" accept="image/*" multiple>
                             <input type="file" id="videoFiles" name="videoFiles" accept="video/*" multiple>
                         </div>
                         <div id="filePreview" class="boardsave-file-preview"></div>
@@ -79,7 +72,7 @@
         }
 
         // 이미지 및 동영상 파일 변경 시 미리보기 기능
-        $('#imageFiles, #videoFiles').change(function (event) {
+        $('#imgFiles, #videoFiles').change(function (event) {
             const filePreview = $('#filePreview');
             const files = event.target.files;
 
@@ -145,18 +138,21 @@
             });
         });
 
-        // 해시태그 선택 시 추가 기능
-        $('#hashtagSelect').change(function () {
-            const selectedOption = $(this).val();
-            if (!selectedHashtags.includes(selectedOption)) {
-                selectedHashtags.push(selectedOption);
-                const hashtagElement = $('<div>').addClass('boardsave-tag').text('# ' + selectedOption).append(
+        // 해시태그 입력 및 추가 기능
+        $('#addHashtagBtn').click(function () {
+            const hashtagInput = $('#hashtagInput');
+            const hashtag = hashtagInput.val().trim();
+
+            if (hashtag !== '' && !selectedHashtags.includes(hashtag)) {
+                selectedHashtags.push(hashtag);
+                const hashtagElement = $('<div>').addClass('boardsave-tag').text('# ' + hashtag).append(
                         $('<i>').addClass('btn-close').on('click', function () {
                             $(this).parent().remove();
-                            selectedHashtags = selectedHashtags.filter(tag => tag !== selectedOption);
+                            selectedHashtags = selectedHashtags.filter(tag => tag !== hashtag);
                         })
                 );
                 $('#selectedHashtags').append(hashtagElement);
+                hashtagInput.val(''); // 입력란 비우기
             }
         });
 
@@ -168,7 +164,7 @@
 
             // 선택된 이미지 파일들을 FormData에 추가
             $.each(selectedImgFiles, function (index, file) {
-                formData.append('imageFiles', file);
+                formData.append('imgFiles', file);
             });
 
             // 선택된 비디오 파일들을 FormData에 추가
@@ -176,8 +172,8 @@
                 formData.append('videoFiles', file);
             });
 
-            // 선택된 해시태그를 FormData에 추가
-            formData.append('hashtags', selectedHashtags.join(','));
+            // 선택된 해시태그들을 FormData에 추가 (배열 형태로)
+            formData.append('hashtags', JSON.stringify(selectedHashtags));
 
             // Ajax를 통해 서버로 데이터 전송
             $.ajax({
@@ -196,5 +192,4 @@
             });
         });
     });
-
 </script>
