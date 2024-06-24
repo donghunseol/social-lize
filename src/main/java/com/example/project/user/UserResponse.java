@@ -4,6 +4,8 @@ import com.example.project._core.enums.UserEnum;
 import com.example.project._core.enums.UserProviderEnum;
 import com.example.project.category_name.CategoryName;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +25,7 @@ public class UserResponse {
         private UserProviderEnum provider;
         private String providerId; //프로바이더 고유번호 ( 소셜로그인에서 제공하는 고유 식별번호, 카카오는 Long 타입 )
         private LocalDateTime createdAt; // 유저 가입 일자
+        private Integer unCheckedNotifications; //미확인 알림 개수
 
         public LoggedInUserDTO() {
         }
@@ -38,6 +41,7 @@ public class UserResponse {
             this.provider = user.getProvider();
             this.providerId = user.getProviderId();
             this.createdAt = user.getCreatedAt();
+            this.unCheckedNotifications = 0;
         }
     }
 
