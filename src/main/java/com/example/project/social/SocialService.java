@@ -42,9 +42,9 @@ public class SocialService {
     // TODO 유저 확인 세션으로 수정해야 함
     @Transactional
     public void createSocial(SocialRequest.Create createDTO) {
-        // 소셜명 중복 체크
-        Optional<Social> SocialNameCheck = socialRepository.findByName(createDTO.getName());
-        if (SocialNameCheck.isPresent()) {
+        // 이미 존재하는 소셜명인지 확인
+        Optional<Social> socialNameCheck = socialRepository.findByName(createDTO.getName());
+        if (socialNameCheck.isPresent()) {
             throw new Exception400("해당 소셜명은 이미 존재하는 소셜명입니다.");
         }
 
