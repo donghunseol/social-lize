@@ -1,138 +1,191 @@
 {{> layout/header}}
-
-<body>
-<div class="container">
-    <div class="content">
-        <div class="d-flex row-flex">
-            <div class="member-invite-title d-flex align-items-center">
-                <h4 class="fw-bold">멤버</h4>
-                <h5 class="ms-3 text-primary">3</h5>
-            </div>
-        </div>
-        <hr class="border border-dark">
-        <div class="d-flex">
-            <div class="member-invite-title d-flex align-items-center">
-                <h5 class="fw-bold">신청목록</h5>
-                <h6 class="ms-3 text-primary">3</h6>
-            </div>
-        </div>
-        <!-- 신청목록 -->
-        <div class="d-flex flex-column">
-            <div class="socialadd-form-section socialadd-form-button-group mt-4">
-                <div class="d-flex align-items-center">
-                    <img class="profile-picture" src="/images/userprofile.jpeg" alt="멤버사진">
-                    <div class="ms-3">멤버 이름1</div>
-                </div>
-                <div>
-                    <button class="text-success border-success me-2">승인</button>
-                    <button class="text-danger border-danger">거절</button>
-                </div>
-            </div>
-            <div class="socialadd-form-section socialadd-form-button-group mt-4">
-                <div class="d-flex align-items-center">
-                    <img class="profile-picture" src="/images/userprofile.jpeg" alt="멤버사진">
-                    <div class="ms-3">멤버 이름2</div>
-                </div>
-                <div>
-                    <button class="text-success border-success me-2">승인</button>
-                    <button class="text-danger border-danger">거절</button>
-                </div>
-            </div>
-        </div>
-        <hr class="border border-dark">
-        <!-- 멤버 검색 -->
-        <div class="row">
-            <span for="inputMemberName" class="col-1 col-form-label fw-bold">멤버 검색</span>
-            <div class="col-11">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="멤버 이름 입력" id="inputMemberName">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
-                            class="fas fa-search"></i></button>
-                </div>
-            </div>
-        </div>
-        <hr class="border border-dark">
-        <!-- 초대 링크 -->
-        <div class="row align-items-center">
-            <span for="inputInviteLink" class="col-1 col-form-label fw-bold">초대 링크</span>
-            <div class="col-11">
-                <div class="input-group">
-                    <input type="text" class="form-control" id="inputInviteLink" value="http://localhost:8080"
-                           readonly>
-                    <button onclick="copyInviteCode()" class="btn btn-outline-secondary" type="button"
-                            id="button-addon2"><i class="fas fa-copy"></i></button>
-                </div>
-            </div>
-        </div>
-        <hr class="border border-dark">
-        <div class="d-flex align-items-center">
-            <h5 class="fw-bold me-3">멤버</h5>
-            <div class="ms-auto" style="width: 150px;">
-                <select class="form-select form-select-sm" aria-label="멤버 정렬">
-                    <option selected>이름순</option>
-                    <option value="1">최근 가입순</option>
-                </select>
-            </div>
-        </div>
-        <div class="socialadd-form-section socialadd-form-button-group mt-4">
-            <!-- 소속 리더 이름 -->
-            <div class="d-flex align-items-center">
-                <img class="profile-picture" src="/images/userprofile.jpeg" alt="멤버사진">
-                <div class="ms-3 d-flex align-items-center">
-                    <i class="fas fa-crown text-warning me-2"></i>
-                    <span>소셜 리더</span>
-                </div>
-            </div>
-        </div>
-        <hr class="border border-dark">
-        <div class="d-flex flex-column">
-            <!-- 소속 멤버 이름 -->
-            <div class="socialadd-form-section socialadd-form-button-group mt-4">
-                <div class="d-flex align-items-center mb-3">
-                    <img class="profile-picture" src="/images/userprofile.jpeg" alt="멤버사진">
-                    <div class="ms-3 w-100">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <div class="fw-bold">멤버 이름1</div>
-                            <div class="text-muted small">가입일자: 2023-01-01</div>
-                        </div>
-                        <div class="d-flex justify-content-start text-muted small">
-                            <div class="me-3">게시글: 10</div>
-                            <div>댓 글: 30</div>
-                        </div>
-                    </div>
-                </div>
-                <button class="text-danger border-danger">삭제</button>
-            </div>
-
-            <div class="socialadd-form-section socialadd-form-button-group mt-4">
-                <div class="d-flex align-items-center mb-3">
-                    <img class="profile-picture" src="/images/userprofile.jpeg" alt="멤버사진">
-                    <div class="ms-3 w-100">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <div class="fw-bold">멤버 이름2</div>
-                            <div class="text-muted small">가입일자: 2023-02-02</div>
-                        </div>
-                        <div class="d-flex justify-content-start text-muted small">
-                            <div class="me-3">게시글: 20</div>
-                            <div>댓 글: 40</div>
-                        </div>
-                    </div>
-                </div>
-                <button class="text-danger border-danger">삭제</button>
+<div class="invite-navbar">
+    <a href="#">게시글</a>
+    <a href="#">서랍</a>
+    <a href="#">멤버</a>
+</div>
+<div class="invite-container">
+    <div class="invite-sidebar">
+        <div class="invite-social-info">
+            <img src="/images/puppy.png" alt="소셜 사진">
+            <h2>포메와의 산책</h2>
+            <div>리더 <span class="invite-highlight">포실장과 아이들</span></div>
+            <div>멤버 <span class="invite-highlight">2,215</span></div>
+            <button class="invite-postwrite">글 작성하기</button>
+            <button class="invite-invite-button" id="copyLinkButton">초대링크 복사</button>
+            <div class="invite-description">포메라니안과 함께하는 즐거운 산책 모임입니다. 다양한 이벤트와 정보를 공유하세요!</div>
+            <div class="invite-settings-wrapper">
+                <div class="invite-settings"><a href="#"><i class="fas fa-cog"></i></a></div>
+                <div>소셜 설정하기</div>
             </div>
         </div>
     </div>
+    <div class="invite-content">
+        <h2>멤버 20</h2>
+        <div class="invite-divider"></div>
+
+        <h2>신청목록</h2>
+        <div class="invite-divider"></div>
+
+        <h2>멤버검색</h2>
+        <div class="invite-divider"></div>
+
+        <h2>초대링크</h2>
+        <div class="invite-divider"></div>
+
+        <h2>멤버리스트</h2>
+        <div class="invite-divider"></div>
+    </div>
+    <div class="invite-chat-container">
+        <div class="invite-chat-header">
+            <div class="invite-chat-title">SNS프로젝트 1조</div>
+            <div class="invite-chat-menu">⋮</div>
+        </div>
+        <div class="invite-chat-messages">
+            <div class="invite-chat-date">2024년 6월 17일</div>
+            <div class="invite-chat-message">
+                <img src="/images/puppy.png" alt="프로필 사진" class="invite-profile-pic">
+                <div class="invite-message-content">
+                    <div class="invite-sender">설동훈</div>
+                    <div class="invite-message-container">
+                        <div class="invite-message-bubble">안녕</div>
+                        <span class="invite-time">오전 11:45</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="invite-chat-input">
+            <input type="text" placeholder="메시지를 입력하세요">
+            <button>보내기</button>
+        </div>
+    </div>
+    <div id="mediaModal" class="invite-file-modal">
+        <span class="invite-close" onclick="closeModal()">&times;</span>
+        <img class="invite-file-modal-content-img" id="modal-img">
+        <video class="invite-file-modal-content-video" controls id="modal-video"></video>
+        <button class="invite-album-download-btn" id="download-btn">다운로드</button>
+    </div>
+    <script>
+        function switchTab(event, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("invite-tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("invite-tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            event.currentTarget.className += " active";
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("defaultOpen").click();
+            updateAlbumItemCount("Album", "albumCount");
+            updateFileItemCount("File", "fileCount");
+        });
+
+        function updateAlbumItemCount(tabId, countId) {
+            var itemCount = document.querySelectorAll("#" + tabId + " .invite-grid-item").length;
+            document.getElementById(countId).innerText = "전체 " + itemCount;
+        }
+
+        function openModal(src, isVideo = false) {
+            var modal = document.getElementById('mediaModal');
+            var modalImg = document.getElementById('modal-img');
+            var modalVideo = document.getElementById('modal-video');
+            var downloadBtn = document.getElementById('download-btn');
+
+            if (isVideo) {
+                modalVideo.src = src;
+                modalVideo.style.display = 'block';
+                modalImg.style.display = 'none';
+                modal.style.display = 'block';
+                modalVideo.play();
+                downloadBtn.onclick = function () { downloadFile(src, 'video'); };
+            } else {
+                modalImg.src = src;
+                modalImg.style.display = 'block';
+                modalVideo.style.display = 'none';
+                modal.style.display = 'block';
+                downloadBtn.onclick = function () { downloadFile(src, 'image'); };
+            }
+            modal.addEventListener('click', closeModal);
+        }
+
+        function downloadFile(src, type) {
+            var a = document.createElement('a');
+            a.href = src;
+            a.download = type === 'video' ? 'video.mp4' : 'image.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function closeModal() {
+            var modal = document.getElementById('mediaModal');
+            var modalVideo = document.getElementById('modal-video');
+            modal.style.display = 'none';
+            modalVideo.pause();
+            modal.removeEventListener('click', closeModal);
+        }
+
+        function handleFileUpload() {
+            var fileInput = document.getElementById('fileInput');
+            var fileList = document.getElementById('fileList');
+            var fileCount = document.getElementById('fileCount');
+            var count = fileList.children.length;
+            var existingFiles = {};
+
+            Array.from(fileList.children).forEach(function (item) {
+                var name = item.textContent.split(' (')[0];
+                existingFiles[name] = (existingFiles[name] || 0) + 1;
+            });
+
+            if (fileInput.files.length > 0) {
+                for (var i = 0; i < fileInput.files.length; i++) {
+                    var file = fileInput.files[i];
+                    var fileName = file.name;
+                    var fileUrl = URL.createObjectURL(file);
+                    var fileElement = document.createElement('div');
+                    fileElement.className = 'invite-grid-item';
+
+                    if (existingFiles[fileName]) {
+                        var newName = fileName + ' (' + existingFiles[fileName] + ')';
+                        fileElement.textContent = newName;
+                        existingFiles[fileName]++;
+                    } else {
+                        fileElement.textContent = fileName;
+                        existingFiles[fileName] = 1;
+                    }
+
+                    fileElement.onclick = function () {
+                        var a = document.createElement('a');
+                        a.href = fileUrl;
+                        a.download = fileName;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    };
+                    fileList.appendChild(fileElement);
+                }
+            }
+        }
+
+        function updateFileItemCount(tabId, countId) {
+            var itemCount = document.querySelectorAll("#" + tabId + " .invite-file-item").length;
+            document.getElementById(countId).innerText = "전체 " + itemCount;
+        }
+
+        document.getElementById("copyLinkButton").addEventListener("click", function() {
+            const link = "https://example.com/invite"; // 여기에 실제 초대 링크를 입력하세요.
+            navigator.clipboard.writeText(link).then(function() {
+                alert("초대 링크가 클립보드에 복사되었습니다.");
+            }, function(err) {
+                console.error("초대 링크 복사 실패: ", err);
+            });
+        });
+    </script>
 </div>
-
-<script>
-    function copyInviteCode() {
-        var copyText = document.getElementById("inputInviteLink");
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); // For mobile devices
-        document.execCommand("copy");
-        alert("초대코드가 복사되었습니다: " + copyText.value);
-    }
-</script>
-</body>
-
 {{> layout/footer}}
