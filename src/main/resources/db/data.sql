@@ -177,7 +177,7 @@ VALUES (1, 1, 'MANAGER', 'APPROVED', now()),
 
 -- 소셜 카테고리 이름 테이블
 INSERT INTO category_name_tb (name, image_path, status)
-VALUES (''💻 컴퓨터'', '이미지', 'ACTIVE'),
+VALUES ('💻 컴퓨터', '이미지', 'ACTIVE'),
        ('🚬 담배', '이미지', 'ACTIVE'),
        ('☕ 카페', '이미지', 'ACTIVE'),
        ('📱 아이폰', '이미지', 'ACTIVE'),
