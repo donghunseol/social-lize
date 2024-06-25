@@ -19,6 +19,17 @@ public class NotificationTest {
     private NotificationRepository notificationRepository;
 
     @Test
+    public void updateAllChecked(){
+        Integer count = notificationRepository.getUnCheckedCountByUserId(1);
+        System.out.println(count);
+
+        notificationRepository.updateAllCheckedById(1);
+
+        count = notificationRepository.getUnCheckedCountByUserId(1);
+        System.out.println(count);
+    }
+
+    @Test
     public void test() {
 //        User user = new User().builder().id(1).build();
 //        User user = new User();
