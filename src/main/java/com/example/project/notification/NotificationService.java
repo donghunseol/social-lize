@@ -18,4 +18,8 @@ public class NotificationService {
         List<Notification> notificationList = notificationRepository.getAllByUserId(userid);
         return new NotificationResponse.ListDTO(notificationList);
     }
+
+    public void updateAllCheckedByUserId(Integer userId){
+        notificationRepository.updateAllCheckedById(userId);
+    }
 }

@@ -21,6 +21,7 @@ public class NotificationController {
     private final NotificationService notificationService;
     private final HttpSession session;
     private final UserUtil userUtil;
+    private final NotificationRepository notificationRepository;
 
 
     //회원가입 페이지 - 자체가입
@@ -58,13 +59,20 @@ public class NotificationController {
         return "Sended : "+countToSend;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/notification/get")
     public @ResponseBody NotificationResponse.ListDTO getNotice() {
         UserResponse.LoggedInUserDTO user = userUtil.getSessionUser();
         NotificationResponse.ListDTO notiList = notificationService.getAllByUserId(user.getId());
         System.out.println("notiList = " + notiList);
 //        Integer countToSend = user.getUnCheckedNotifications();
         return notiList;
+    }
+
+    @GetMapping("/notification/set/allChecked")
+    public @ResponseBody String setAllChecked() {
+        UserResponse.LoggedInUserDTO user = userUtil.getSessionUser();
+        notificationService.updateAllCheckedByUserId(user.getId());
+        return "";
     }
 }
 

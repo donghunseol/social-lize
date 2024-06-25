@@ -7,23 +7,32 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <!-- 알림(socketjs, stompjs 포함-->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
     <script type="text/javascript" src="/javascript/sidebar.js"></script>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/socialadd.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/notjoined.css">
+    <link rel="stylesheet" href="/css/fileadd.css">
+    <link rel="stylesheet" href="/css/detail.css">
+    <link rel="stylesheet" href="/css/bmodal.css">
+    <link rel="stylesheet" href="/css/profileupdate.css">
+    <link rel="stylesheet" href="/css/myrecord.css">
+    <link rel="stylesheet" href="/css/joinstatus.css">
+    <link rel="stylesheet" href="/css/bookmark.css">
+    <link rel="stylesheet" href="/css/memberinvite.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/boardsavemodal.css">
     <!-- Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- Bootstrap JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js"
-            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-            crossorigin="anonymous"></script>
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
@@ -32,7 +41,6 @@
     <link rel="stylesheet" href="/css/style.css">
 
     <title>Document</title>
-
     <style>
         /* 드롭다운 스타일 통일 */
         .header-dropdown-item-content {
@@ -79,6 +87,19 @@
 </head>
 
 <body>
+<script>
+    //알림 구독 처리
+    var socket = new SockJS('/ws');
+    var stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/notice', function (notification) {
+            var element = document.getElementById("test_notification_div");
+            element.innerHTML=notification.body;
+        });
+    });
+</script>
 <div class="header">
     <div class="logo">
         <img src="/images/logonobg.png" alt="로고">
@@ -88,6 +109,7 @@
         <i class="fas fa-search"></i>
     </div>
     <div class="menu">
+        <div id="test_notification_div">{{sessionUser.unCheckedNotifications}}</div>
         <!-- 알림 드롭다운 -->
         <div class="dropdown">
             <a href="#" class="icon dropdown-toggle" id="dropdownNotification" data-bs-toggle="dropdown"
@@ -96,35 +118,17 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownNotification">
                 <!-- 알림 아이템 더미 데이터 -->
-                {{#notifications}
-                <li class="dropdown-item" id="notification-template">
+                {{#notifications.notifications}}
+                <li class="dropdown-item">
                     <div class="header-dropdown-item-content">
                         <div class="header-dropdown-text">
-                            <p class="header-dropdown-title">알림 제목 1</p>
-                            <p class="header-dropdown-message">알림 메시지 1</p>
-                            <p class="header-dropdown-time">10분 전</p>
+                            <p class="header-dropdown-title" boardId="{{id}}">공지사항이 등록되었습니다. {{id}}</p>
+                            <p class="header-dropdown-message">{{createdAt}}</p>
+                            <p class="header-dropdown-time">{{createdAgo}}</p>
                         </div>
                     </div>
                 </li>
-                {{/notifications}
-<!--                <li class="dropdown-item">-->
-<!--                    <div class="header-dropdown-item-content">-->
-<!--                        <div class="header-dropdown-text">-->
-<!--                            <p class="header-dropdown-title">알림 제목 2</p>-->
-<!--                            <p class="header-dropdown-message">알림 메시지 2</p>-->
-<!--                            <p class="header-dropdown-time">20분 전</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </li>-->
-<!--                <li class="dropdown-item">-->
-<!--                    <div class="header-dropdown-item-content">-->
-<!--                        <div class="header-dropdown-text">-->
-<!--                            <p class="header-dropdown-title">알림 제목 3</p>-->
-<!--                            <p class="header-dropdown-message">알림 메시지 3</p>-->
-<!--                            <p class="header-dropdown-time">30분 전</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </li>-->
+                {{/notifications.notifications}}
             </ul>
         </div>
         <!-- 채팅 드롭다운 -->
@@ -175,33 +179,3 @@
         </div>
     </div>
 </div>
-
-<!-- 알림 및 채팅 데이터 업데이트 -->
-<script>
-    $(document).ready(function () {
-        function fetchData() {
-            $.ajax({
-                url: '/api/main', // 서버의 데이터 API 경로
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    // 알림 및 채팅 데이터 처리
-                    var notificationTemplate = $('#notification-template').html();
-                    var renderedNotifications = Mustache.render(notificationTemplate, { notifications: data.notifications });
-
-                    //
-                    // $('#dropdownNotification .dropdown-menu').html(renderedNotifications);
-                    //
-                    // var chatTemplate = $('#chat-template').html();
-                    // var renderedChats = Mustache.render(chatTemplate, { chats: data.chats });
-                    // $('#dropdownChat .dropdown-menu').html(renderedChats);
-                },
-                error: function (error) {
-                    console.log('데이터를 불러오는 데 실패했습니다.', error);
-                }
-            });
-        }
-
-        // 3초마다 알림 및 채팅 데이터를 새로고침
-        // setInterval(fetchData, 3000);
-</script>
