@@ -34,11 +34,12 @@ public class Notification {
     private Boolean checked; // 알림 확인 여부
 
     @Builder
-    public Notification(Integer id, User userId, NotificationEnum role, LocalDateTime createdAt) {
+    public Notification(Integer id, User userId, NotificationEnum role, LocalDateTime createdAt, Boolean checked) {
         this.id = id;
         this.userId = userId;
         this.role = role;
         this.createdAt = createdAt;
+        this.checked = checked;
     }
 }
 
