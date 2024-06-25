@@ -2,10 +2,9 @@ package com.example.project.user;
 
 import com.example.project._core.enums.UserEnum;
 import com.example.project._core.enums.UserProviderEnum;
+import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.category_name.CategoryName;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -180,44 +179,52 @@ public class UserResponse {
     // 회원 리스트 조회 (관리자)
     @Data
     public static class UserList {
-        private Integer id;
+        private Integer userId;
         private String email;
         private String nickname;
         private LocalDate birth;
         private UserProviderEnum provider;
-        private LocalDateTime createdAt;
+        private String createdAt;
 
         public UserList(User user) {
-            this.id = user.getId();
+            this.userId = user.getId();
             this.email = user.getEmail();
             this.nickname = user.getNickname();
             this.birth = user.getBirth();
             this.provider = user.getProvider();
-            this.createdAt = user.getCreatedAt();
+            this.createdAt = LocalDateTimeFormatter.convert(user.getCreatedAt());
+
+            if (user.getProvider() == null) {
+                setProvider(UserProviderEnum.Basic);
+            }
         }
     }
 
     // 회원 상세 조회 (관리자)
     @Data
     public static class UserDetail {
-        private Integer id;
+        private Integer userId;
         private String email;
         private String nickname;
         private String image;
         private String phone;
         private LocalDate birth;
         private UserProviderEnum provider;
-        private LocalDateTime createdAt;
+        private String createdAt;
 
         public UserDetail(User user) {
-            this.id = user.getId();
+            this.userId = user.getId();
             this.email = user.getEmail();
             this.nickname = user.getNickname();
             this.image = user.getImage();
             this.phone = user.getPhone();
             this.birth = user.getBirth();
             this.provider = user.getProvider();
-            this.createdAt = user.getCreatedAt();
+            this.createdAt = LocalDateTimeFormatter.convert(user.getCreatedAt());
+
+            if (user.getProvider() == null) {
+                setProvider(UserProviderEnum.Basic);
+            }
         }
     }
 }

@@ -40,6 +40,13 @@
     text-align: center;
     width: 150px;
 }
+
+.my-card-link {
+    text-decoration: none; /* 기본 링크 스타일 제거 */
+    color: inherit; /* 텍스트 색상을 부모 요소로부터 상속 */
+    display: block; /* 블록 요소로 변환 */
+}
+
 .my-card img {
     border-radius: 10px;
     width: 100%;

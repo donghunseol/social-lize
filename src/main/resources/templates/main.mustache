@@ -1,4 +1,5 @@
 {{> layout/header}}
+
 <div class="tab-nav-container">
     <div class="tab-nav">
         <button class="tab-button active" data-tab="tab-1">내 소셜</button>
@@ -14,12 +15,15 @@
                     <div class="my-title">새 소셜 만들기</div>
                 </div>
                 {{#model.mySocialList}}
-                    <div class="my-card">
-                        <img src="{{imagePath}}" alt="{{name}}">
-                        <div class="my-title">SNS 프로젝트 1조</div>
-                        <div class="my-subtitle">멤버수 : {{memberCount}}</div>
-                    </div>
+                    <a href="/social/detail/{{id}}" class="my-card-link">
+                        <div class="my-card" style="height: 100%;">
+                            <img src="{{imagePath}}" alt="{{name}}">
+                            <div class="my-title">{{name}}</div>
+                            <div class="my-subtitle">멤버수 : {{memberCount}}</div>
+                        </div>
+                    </a>
                 {{/model.mySocialList}}
+
             </div>
         </div>
     </div>
@@ -28,20 +32,22 @@
             <h3>내 소셜의 인기글</h3>
             <div class="my-posts-container">
                 {{#model.mySocialPopularList}}
-                    <div class="my-post">
-                        <div class="my-title">{{socialName}}</div>
-                        <div class="my-separator"></div>
-                        <div class="my-content-flex">
-                            <div class="my-content">
-                                {{{content}}}
+                    <a class="my-card-link" href="/social/detail/{{id}}">
+                        <div class="my-post">
+                            <div class="my-title">{{socialName}}</div>
+                            <div class="my-separator"></div>
+                            <div class="my-content-flex">
+                                <div class="my-content">
+                                    {{{content}}}
+                                </div>
+                                <img src="{{socialImage}}" alt="{{socialName}}" class="my-image-right">
                             </div>
-                            <img src="{{socialImage}}" alt="{{socialName}}" class="my-image-right">
+                            <div class="my-footer">
+                                <div>😊😍 {{likeCount}}</div>
+                                <div>💬 {{replyCount}}</div>
+                            </div>
                         </div>
-                        <div class="my-footer">
-                            <div>😊😍 {{likeCount}}</div>
-                            <div>💬 {{replyCount}}</div>
-                        </div>
-                    </div>
+                    </a>
                 {{/model.mySocialPopularList}}
             </div>
         </div>
@@ -57,7 +63,9 @@
                             <div class="my-title">{{socialName}}</div>
                             <div class="my-subtitle">{{info}}</div>
                         </div>
-                        <button class="tab-button my-more-button my-scroll-item2" data-tab="tab-2" data-category-id="{{id}}">{{categoryName}} 소셜 더보기 ></button>
+                        <button class="tab-button my-more-button my-scroll-item2" data-tab="tab-2"
+                                data-category-id="{{id}}">{{categoryName}} 소셜 더보기 >
+                        </button>
                     </div>
                 {{/model.categoryList}}
             </div>
@@ -68,20 +76,22 @@
             <h3>오늘의 인기글</h3>
             <div class="my-posts-container">
                 {{#model.popularPostList}}
-                    <div class="my-post">
-                        <div class="my-title">{{name}}</div>
-                        <div class="my-separator"></div>
-                        <div class="my-content-flex">
-                            <div class="my-content">
-                                {{{content}}}
+                    <a class="my-card-link" href="/social/detail/{{id}}">
+                        <div class="my-post">
+                            <div class="my-title">{{name}}</div>
+                            <div class="my-separator"></div>
+                            <div class="my-content-flex">
+                                <div class="my-content">
+                                    {{{content}}}
+                                </div>
+                                <img src="{{image}}" alt="{{name}}" class="my-image-right">
                             </div>
-                            <img src="{{image}}" alt="{{name}}" class="my-image-right">
+                            <div class="my-footer">
+                                <div>😊😍 {{likeCount}}</div>
+                                <div>댓글 {{replyCount}}</div>
+                            </div>
                         </div>
-                        <div class="my-footer">
-                            <div>😊😍 {{likeCount}}</div>
-                            <div>댓글 {{replyCount}}</div>
-                        </div>
-                    </div>
+                    </a>
                 {{/model.popularPostList}}
             </div>
         </div>

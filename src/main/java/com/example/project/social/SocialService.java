@@ -5,7 +5,9 @@ import com.example.project._core.enums.SocialMemberStateEnum;
 import com.example.project._core.enums.SocialStateEnum;
 import com.example.project._core.errors.exception.Exception400;
 import com.example.project._core.errors.exception.Exception401;
+import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
+import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.album.AlbumRepository;
 import com.example.project.category.Category;
@@ -37,6 +39,12 @@ public class SocialService {
     private final SocialMemberRepository socialMemberRepository;
     private final AlbumRepository albumRepository;
     private final FileRepository fileRepository;
+
+    public Boolean notJoinedSocial(Integer socialId, Integer userId) {
+
+        return socialMemberRepository.isApproved(socialId, userId);
+    }
+
 
     // 새로운 소셜 생성
     // TODO 유저 확인 세션으로 수정해야 함
@@ -139,7 +147,7 @@ public class SocialService {
                         social.getName(),
                         social.getCategory().stream().map(category -> category.getCategoryNameId().getName()).collect(Collectors.toList()),
                         socialMemberRepository.countBySocialId(social.getId()),
-                        social.getCreatedAt()
+                        LocalDateTimeFormatter.convert(social.getCreatedAt())
                 ))
                 .collect(Collectors.toList());
     }
@@ -156,7 +164,7 @@ public class SocialService {
                 social.getInfo(),
                 social.getCategory().stream().map(category -> category.getCategoryNameId().getName()).collect(Collectors.toList()),
                 socialMemberRepository.countBySocialId(social.getId()),
-                social.getCreatedAt()
+                LocalDateTimeFormatter.convert(social.getCreatedAt())
         );
     }
 
