@@ -16,6 +16,8 @@ public class UserTest {
     @Test
     public void test() {
         User user = userRepository.findByEmail("1@1.com");;
-        System.out.println(user);
+        
+        List<User> userList = userRepository.findAll();
+        System.out.println("userList = " + userList);
     }
 }

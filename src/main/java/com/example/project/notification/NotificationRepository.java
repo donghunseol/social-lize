@@ -13,7 +13,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
     @Query("select count(n) from Notification n where n.checked = false and n.userId.id = :userId")
     Integer getUnCheckedCountByUserId(Integer userId);
 
-    @Query("select n from Notification n where n.userId.id = :userId")
+    @Query("select n from Notification n where n.userId.id = :userId order by n.createdAt desc")
     List<Notification> getAllByUserId(Integer userId);
 
     @Transactional

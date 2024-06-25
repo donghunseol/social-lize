@@ -1,6 +1,9 @@
 package com.example.project.notification;
 
+import com.example.project._core.enums.NotificationEnum;
 import com.example.project._core.utils.UserUtil;
+import com.example.project.user.User;
+import com.example.project.user.UserRepository;
 import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -22,6 +25,7 @@ public class NotificationController {
     private final HttpSession session;
     private final UserUtil userUtil;
     private final NotificationRepository notificationRepository;
+    private final UserRepository userRepository;
 
 
     //회원가입 페이지 - 자체가입
@@ -48,15 +52,22 @@ public class NotificationController {
     // 테스트용
     @GetMapping("/send")
     public @ResponseBody String sendNoticeNotification(@RequestParam(value = "count", defaultValue = "5") String count) {
-        UserResponse.LoggedInUserDTO user = userUtil.getSessionUser();
-        //현재 읽지 않은 알림의 개수를 불러온다.
-        Integer countToSend = notificationService.getUnCheckedCountByUserId(user.getId());
-//        Integer countToSend = user.getUnCheckedNotifications();
-
-        //현재 읽지 않은 알림 개수 + 1한 값을 메세지로 보낸다.
-        template.convertAndSend("/topic/notice", countToSend+1);
-        System.out.println(countToSend);
-        return "Sended : "+countToSend;
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        // 공지글을 작성하면 모든 사용자의 알림을 생성한다.
+        //1. 모든 사용자의 목록 불러오기
+        List<User> userList = userRepository.findAll();
+        for(User user : userList){
+            Notification notification =
+                    new Notification().builder().
+                            userId(user).
+                            role(NotificationEnum.BOARD).
+                            checked(false).build();
+            //2. 알림 내용 db에 저장
+            notificationRepository.save(notification);
+        }
+        //3. 공지 등록 채널에 알림 발송
+        template.convertAndSend("/topic/notice", "");
+        return "";
     }
 
     @GetMapping("/notification/get")

@@ -1,5 +1,6 @@
 package com.example.project.notification;
 
+import com.example.project._core.enums.NotificationEnum;
 import com.example.project.user.User;
 import com.example.project.user.UserQueryRepository;
 import com.example.project.user.UserRepository;
@@ -27,6 +28,30 @@ public class NotificationTest {
 
         count = notificationRepository.getUnCheckedCountByUserId(1);
         System.out.println(count);
+    }
+
+    @Test
+    public void insertNoti(){
+        //
+//        INSERT INTO notification_tb(user_id, role, created_at, checked)
+////        VALUES (1, 'BOARD', now(), false),
+        try {
+            User user = new User();
+            user.setId(1);
+            Notification notification =
+                    new Notification().builder().
+                            userId(user).
+                            role(NotificationEnum.BOARD).
+                            checked(true).build();
+            notificationRepository.save(notification);
+            
+            List<Notification> notiList = notificationRepository.findAll();
+            System.out.println("notiList = " + notiList);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @Test

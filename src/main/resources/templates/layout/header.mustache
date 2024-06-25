@@ -109,22 +109,12 @@
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/notice', function (notification) {
-            var element = document.getElementById("test_notification_div");
-            element.innerHTML=notification.body;
+            renderUnCheckedCount();
         });
     });
     $(document).ready(function() {
         //화면 로딩시 읽지않은 알림 개수를 불러온다.
-        $.ajax({
-            url: '/notification/get/unChecked',
-            method: 'GET',
-            success: function(response) {
-                renderNotificationCount(response)
-            },
-            error: function() {
-                alert('error unchekced');
-            }
-        });
+        renderUnCheckedCount();
 
         //이벤트 핸들러 설정
         $("#dropdownNotification").click(function() {
@@ -132,6 +122,18 @@
         });
     });
 
+    function renderUnCheckedCount(){
+        $.ajax({
+            url: '/notification/get/unChecked',
+            method: 'GET',
+            success: function(response) {
+                renderNotificationCount(response);
+            },
+            error: function() {
+                alert('error unchekced');
+            }
+        });
+    }
     //알림 목록을 가져와서 dropdown 메뉴에 그린다.
     function renderNotification(){
         $.ajax({
@@ -157,6 +159,7 @@
             $("#test_notification_div").hide();
         }else{
             $("#test_notification_div").html(count);
+            $("#test_notification_div").show();
         }
 
     }
