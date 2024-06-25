@@ -28,6 +28,9 @@ public class SocialController {
     public String socialDetail(@PathVariable int socialId, HttpServletRequest request) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         BoardResponse.BoardListDTO boardList = boardService.boardList(socialId, sessionUser.getId());
+
+
+
         request.setAttribute("boardList", boardList);
         return "social/detail";
     }

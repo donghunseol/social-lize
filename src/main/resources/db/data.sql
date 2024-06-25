@@ -1,7 +1,7 @@
 -- 유저 테이블 (비밀번호는 암호호되서 저장됨. 1234임)
 INSERT INTO user_tb (email, password, nickname, image, phone, birth, role, created_at, provider)
-VALUES ('ssar@nate.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '하승진', '/images/userprofile.jpeg', '010-1234-5678', '1994-12-26', 'USER', now(), null),
-       ('1@1.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김세운', '/images/userprofile.jpeg', '010-2345-6789', '1992-10-24', 'USER', now(), null),
+VALUES ('ssar@nate.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '하승진', '/images/userprofile3.png', '010-1234-5678', '1994-12-26', 'USER', now(), null),
+       ('1@1.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김세운', '/images/userprofile3.png', '010-2345-6789', '1992-10-24', 'USER', now(), null),
        ('jane@kakao.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '박제인', '/images/userprofile.jpeg', '010-3456-7890', '1995-07-19', 'USER', now(), 'KAKAO'),
        ('john@naver.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '설조온', '/images/userprofile.jpeg', '010-4567-8901', '1993-03-15', 'USER', now(), 'NAVER'),
        ('lucy@gmail.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김루씨', '/images/userprofile.jpeg', '010-5678-1234', '1996-08-30', 'USER', now(), null),

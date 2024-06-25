@@ -31,13 +31,15 @@
                 <div class="message" id="openModalBtn" data-bs-toggle="modal" data-bs-target="#boardModal">
                     {{{content}}}
                 </div>
-                <div class="media-box">
-                    <div class="hashtag-box">
-                        {{#hashtagList}}
-                            <button class="hashtag-btn">{{name}}</button>
-                        {{/hashtagList}}
+                {{^hashEmpty}}
+                    <div class="media-box">
+                        <div class="hashtag-box">
+                            {{#hashtagList}}
+                                <button class="hashtag-btn">{{name}}</button>
+                            {{/hashtagList}}
+                        </div>
                     </div>
-                </div>
+                {{/hashEmpty}}
                 <div class="comments">
                     <div class="like-count">좋아요 <span class="like-count-value">{{likeCount}}</span></div>
                     <div class="comment-count">댓글 {{replyCount}}</div>
@@ -48,7 +50,7 @@
             <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}"><i
                     class="fas fa-heart"></i></button>
             <div class="comment-section">
-                <img src="/images/userprofile.jpeg" alt="Commenter Picture" class="comment-picture">
+                <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
                 <input type="text" placeholder="댓글을 남겨주세요.">
             </div>
             <button class="send-button">보내기</button>
@@ -87,8 +89,15 @@
                 <div class="message" id="openModalBtn" data-bs-toggle="modal" data-bs-target="#boardModal">
                     {{{content}}}
                 </div>
-                <div class="media-box">
-                </div>
+                {{^hashEmpty}}
+                    <div class="media-box">
+                        <div class="hashtag-box">
+                            {{#hashtagList}}
+                                <button class="hashtag-btn">{{name}}</button>
+                            {{/hashtagList}}
+                        </div>
+                    </div>
+                {{/hashEmpty}}
                 <div class="comments">
                     <div class="like-count">좋아요 <span class="like-count-value">{{likeCount}}</span></div>
                     <div class="comment-count">댓글 {{replyCount}}</div>
@@ -99,7 +108,7 @@
             <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}"><i
                     class="fas fa-heart"></i></button>
             <div class="comment-section">
-                <img src="/images/userprofile.jpeg" alt="Commenter Picture" class="comment-picture">
+                <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
                 <input type="text" placeholder="댓글을 남겨주세요.">
             </div>
             <button class="send-button">보내기</button>
