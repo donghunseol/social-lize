@@ -115,10 +115,25 @@
         });
     });
     $(document).ready(function() {
+        //화면 로딩시 읽지않은 알림 개수를 불러온다.
+        $.ajax({
+            url: '/notification/get/unChecked',
+            method: 'GET',
+            success: function(response) {
+                renderNotificationCount(response)
+            },
+            error: function() {
+                alert('error unchekced');
+            }
+        });
+
+        //이벤트 핸들러 설정
         $("#dropdownNotification").click(function() {
             renderNotification();
         });
     });
+
+    //알림 목록을 가져와서 dropdown 메뉴에 그린다.
     function renderNotification(){
         $.ajax({
             url: '/notification/get',
@@ -136,10 +151,18 @@
         });
     }
 
+    //인자로 받은 값대로 알림 개수를 그린다.
     function renderNotificationCount(count){
-        $("#test_notification_div").html(count);
+        //읽지 않은 알림 개수가 0이면 알림숫자(0)을 표시하지않고 1이상일때만 표시한다.
+        if(count=="0"){
+            $("#test_notification_div").hide();
+        }else{
+            $("#test_notification_div").html(count);
+        }
+
     }
 
+    //모든 알림을 읽음처리 한다
     function updateAllChecked(){
         $.ajax({
             url: '/notification/set/allChecked',
@@ -176,7 +199,7 @@
         <i class="fas fa-search"></i>
     </div>
     <div class="menu">
-        <div class="notificationno" id="test_notification_div">{{sessionUser.unCheckedNotifications}}</div>
+        <div class="notificationno" id="test_notification_div">0</div>
         <!-- 알림 드롭다운 -->
         <div class="dropdown">
             <a href="#" class="icon dropdown-toggle" id="dropdownNotification" data-bs-toggle="dropdown"

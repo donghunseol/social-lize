@@ -68,6 +68,12 @@ public class NotificationController {
         return notiList;
     }
 
+    @GetMapping("/notification/get/unChecked")
+    public @ResponseBody Integer getUnCheckedCount() {
+        UserResponse.LoggedInUserDTO user = userUtil.getSessionUser();
+        return notificationService.getUnCheckedCountByUserId(user.getId());
+    }
+
     @GetMapping("/notification/set/allChecked")
     public @ResponseBody String setAllChecked() {
         UserResponse.LoggedInUserDTO user = userUtil.getSessionUser();

@@ -1,19 +1,15 @@
 package com.example.project.user;
 
-import com.example.project._core.errors.exception.Exception400;
 import com.example.project._core.utils.UserUtil;
-import com.example.project.notification.NotificationResponse;
 import com.example.project.notification.NotificationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.function.ServerRequest;
 
 @RequiredArgsConstructor
 @Controller
@@ -36,13 +32,8 @@ public class UserController {
         if(sessionUser == null) {
             return "redirect:/user/login"; //로그인되어있지 않으면 로그인페이지로 이동
         }
-        NotificationResponse.ListDTO notiList = notificationService.getAllByUserId(sessionUser.getId());
-        request.setAttribute("notifications", notiList);
-
         UserResponse.MainDTO model = userService.mainPage(sessionUser.getId());
         request.setAttribute("model", model);
-
-
         return "main";
     }
 
@@ -79,7 +70,6 @@ public class UserController {
         return "user/joinForm";
     }
 
-
     //회원가입 처리
     @PostMapping("/join")
     public String join(UserRequest.JoinDTO joinDTO){
@@ -94,7 +84,6 @@ public class UserController {
 
         if (theUser instanceof UserResponse.LoggedInUserDTO ) { //조회 결과: 이미 가입한 회원 - 로그인처리
             userUtil.saveSessionUser((UserResponse.LoggedInUserDTO) theUser);
-
             return "redirect:/";
         }
         if (theUser instanceof KakaoResponse.KakaoUserDTO) {
@@ -112,7 +101,6 @@ public class UserController {
 
         if (theUser instanceof UserResponse.LoggedInUserDTO ) { //조회 결과: 이미 가입한 회원 - 로그인처리
             userUtil.saveSessionUser((UserResponse.LoggedInUserDTO) theUser);
-
             return "redirect:/";
         }
         if (theUser instanceof NaverResponse.NaverUserDTO) {   //조회 결과 : 아직 가입하지 않은 회원
@@ -135,13 +123,7 @@ public class UserController {
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO loginDTO, HttpServletRequest request) throws JsonProcessingException {
         UserResponse.LoggedInUserDTO loggedInUserDTO = userService.login(loginDTO);
-        //미확인 알림 개수 불러와서 dto에 저장하기
-        Integer count = notificationService.getUnCheckedCountByUserId(loggedInUserDTO.getId());
-
-        loggedInUserDTO.setUnCheckedNotifications(count);
-        request.setAttribute("loggedInUserDTO", loggedInUserDTO);
         userUtil.saveSessionUser(loggedInUserDTO);
-
         return "redirect:/";
     }
 
