@@ -51,25 +51,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>그린컴퓨터아카데미</td>
-                                <td>설동훈</td>
-                                <td class="board-content-text">스크립트 코드 짜는게 어렵네요 난이도 조절이 필요할듯 해요!</td>
-                                <td>2024.06.21</td>
-                                <td><span class="detail"
-                                          onclick="location.href='/admin/board/1'">상세보기</span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>한사랑산악동호회</td>
-                                <td>김판수</td>
-                                <td class="board-content-text">오늘 정병산 등반 06:00 까지 참여해주십시오</td>
-                                <td>2024.06.23</td>
-                                <td><span class="detail"
-                                          onclick="location.href='/admin/board/1'">상세보기</span>
-                                </td>
-                            </tr>
+                            {{#boardList}}
+                                <tr>
+                                    <td>{{socialName}}</td>
+                                    <td>{{nickname}}</td>
+                                    <td class="board-content-text">{{content}}</td>
+                                    <td>{{formattedCreatedAt}}</td>
+                                    <td><span class="detail"
+                                              onclick="location.href='/admin/board/{{boardId}}'">상세보기</span>
+                                    </td>
+                                </tr>
+                            {{/boardList}}
 
                             <!-- 검색 부분 -->
                             <!-- {{#keywordList}}

@@ -1,12 +1,11 @@
 package com.example.project.board;
 
 import com.example.project._core.enums.AlbumEnum;
+import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.hashtag.Hashtag;
-import com.example.project.like.Like;
-import com.example.project.reply.Reply;
-import com.example.project.social.SocialResponse;
 import com.example.project.user.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -118,6 +117,44 @@ public class BoardResponse {
             public HashtagDTO(Hashtag hashtag) {
                 this.name = hashtag.getName();
             }
+        }
+    }
+
+    // 게시글 리스트 (관리자)
+    @AllArgsConstructor
+    @Data
+    public static class BoardList {
+        private Integer boardId;
+        private String socialName;
+        private String nickname;
+        private String content;
+        private LocalDateTime createdAt;
+        private String formattedCreatedAt;
+
+        public BoardList(Integer boardId, String socialName, String nickname, String content, LocalDateTime createdAt) {
+            this.boardId = boardId;
+            this.socialName = socialName;
+            this.nickname = nickname;
+            this.content = content;
+            this.formattedCreatedAt = LocalDateTimeFormatter.convert(createdAt);
+        }
+    }
+
+    // 게시글 상세 DTO (관리자)
+    @Data
+    public static class Detail {
+        private Integer boardId;
+        private String socialName;
+        private String nickname;
+        private String content;
+        private String createdAt;
+
+        public Detail(Board board) {
+            this.boardId = board.getId();
+            this.socialName = board.getSocialId().getName();
+            this.nickname = board.getUserId().getNickname();
+            this.content = board.getContent();
+            this.createdAt = LocalDateTimeFormatter.convert(board.getCreatedAt());
         }
     }
 }
