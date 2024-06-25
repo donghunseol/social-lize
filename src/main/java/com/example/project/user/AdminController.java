@@ -56,4 +56,20 @@ public class AdminController {
         request.setAttribute("categoryDetail", categoryDetail);
         return "admin/social/socialCategoryDetailForm";
     }
+
+    // 소셜 리스트 조회
+    @GetMapping("/social-list")
+    public String socialListPage(HttpServletRequest request) {
+        List<SocialResponse.SocialDTO> socialList = socialService.getSocialList();
+        request.setAttribute("socialList", socialList);
+        return "admin/social/socialListForm";
+    }
+
+    // 소셜 상세 조회
+    @GetMapping("/social/{socialId}")
+    public String socialDetailPage(HttpServletRequest request, @PathVariable Integer socialId) {
+        SocialResponse.Detail socialDetail = socialService.getSocialDetail(socialId);
+        request.setAttribute("socialDetail", socialDetail);
+        return "admin/social/socialDetailForm";
+    }
 }

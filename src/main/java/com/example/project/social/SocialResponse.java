@@ -61,7 +61,7 @@ public class SocialResponse {
         private String name;
         private List<String> categories;
         private Integer memberCount;
-        private LocalDateTime createdAt;
+        private String createdAt;
     }
 
     // 소셜 상세 DTO

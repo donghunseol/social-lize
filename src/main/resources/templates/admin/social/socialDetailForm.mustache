@@ -16,32 +16,31 @@
                             <div class="content top">
                                 <div class="img-wrapper">
                                     <img style="border: 1px solid #F8F8F8; border-radius: 15px;"
-                                         src="/images/socialCover.jpg" alt="소셜 이미지">
+                                         src="{{socialDetail.image}}" alt="소셜 이미지">
 
                                 </div>
                                 <div class="text-wrapper">
                                     <p class="text-item">
                                         <span class="head"><i class="fa-solid fa-house"></i><em>소셜명</em></span>
-                                        <span class="body">그린컴퓨터아카데미</span>
+                                        <span class="body">{{socialDetail.name}}</span>
                                     </p>
                                     <p class="text-item">
                                             <span class="head"><i class="fa-solid fa-calendar-alt"></i><em>소셜
                                                     생성일</em></span>
-                                        <span class="body">2024.06.21</span>
+                                        <span class="body">{{socialDetail.createdAt}}</span>
                                     </p>
                                     <p class="text-item">
                                         <span class="head"><i class="fa-solid fa-tags"></i><em>카테고리</em></span>
                                         <span class="body" style="display: flex; gap: 1px;">
-                                                <span class="social-category-box-text">#교육</span>
-                                                <span class="social-category-box-text">#코딩</span>
-                                                <span class="social-category-box-text">#컴퓨터</span>
-                                                <span class="social-category-box-text">#학원</span>
+                                            {{#categories}}
+                                                <span class="social-category-box-text">{{name}}</span>
+                                            {{/categories}}
                                             </span>
                                     </p>
                                     <p class="text-item">
                                             <span class="head"><i class="fa-solid fa-user-friends"></i><em>멤버
                                                     수</em></span>
-                                        <span class="body">34 명</span>
+                                        <span class="body">{{socialDetail.memberCount}} 명</span>
                                     </p>
                                 </div>
                             </div>
