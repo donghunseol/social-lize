@@ -322,7 +322,7 @@ ul.tab-nav li.current {
 }
 
 .tab-item table tbody td.title {
-    text-align: left;
+    text-align: center;
 }
 
 .tab-item table tbody td .detail {

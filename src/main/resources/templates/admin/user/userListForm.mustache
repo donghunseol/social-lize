@@ -36,11 +36,11 @@
                         </form>
                         <table>
                             <colgroup>
+                                <col width="20%">
                                 <col width="25%">
-                                <col width="20%">
-                                <col width="20%">
-                                <col width="20%">
                                 <col width="15%">
+                                <col width="15%">
+                                <col width="25%">
                             </colgroup>
                             <thead>
                             <tr>
@@ -54,16 +54,18 @@
                             </thead>
                             <tbody>
 
+                            {{#userList}}
                             <tr>
-                                <td class="title">설동훈</td>
-                                <td>seoldh@nate.com</td>
-                                <td>1996.04.29</td>
-                                <td>카카오</td>
-                                <td>2024.06.21</td>
+                                <td class="title">{{nickname}}</td>
+                                <td>{{email}}</td>
+                                <td>{{birth}}</td>
+                                <td>{{provider}}</td>
+                                <td>{{createdAt}}</td>
                                 <td><span class="detail"
-                                          onclick="location.href='/admin/user/userDetailForm.html'">상세보기</span>
+                                          onclick="location.href='/admin/user/{{userId}}/detail'">상세보기</span>
                                 </td>
                             </tr>
+                            {{/userList}}
 
                             </tbody>
                         </table>

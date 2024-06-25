@@ -19,7 +19,7 @@
                                     <label for="name">프로필 이미지</label>
                                     <div class="input-wrapper">
                                         <div class="user-profile-image-box">
-                                            <img class="user-profile-image" src="/images/socialCover.jpg"
+                                            <img class="user-profile-image" src="{{userDetail.image}}"
                                                  alt="프로필 이미지">
                                         </div>
                                     </div>
@@ -28,37 +28,42 @@
                                 <div class="join-form-item">
                                     <label for="name">이름</label>
                                     <div class="input-wrapper">
-                                        <input type="text" id="name" value="설동훈" disabled>
+                                        <input type="text" id="name" value="{{userDetail.nickname}}" disabled>
                                     </div>
                                 </div>
                                 <div class="join-form-item">
                                     <label for="email">이메일</label>
                                     <div class="input-wrapper">
-                                        <input type="text" id="email" value="seoldh@nate.com" disabled>
+                                        <input type="text" id="email" value="{{userDetail.email}}" disabled>
+                                    </div>
+                                </div>
+                                <div class="join-form-item">
+                                    <label for="phone">이메일</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="phone" value="{{userDetail.phone}}" disabled>
                                     </div>
                                 </div>
                                 <div class="join-form-item">
                                     <label for="birth">생년월일</label>
                                     <div class="input-wrapper">
-                                        <input type="text" id="birth" value="1996.04.29" disabled>
+                                        <input type="text" id="birth" value="{{userDetail.birth}}" disabled>
                                     </div>
                                 </div>
                                 <div class="join-form-item">
                                     <label for="provider">프로바이더</label>
                                     <div class="input-wrapper">
-                                        <input type="text" id="provider" value="카카오톡" disabled>
+                                        <input type="text" id="provider" value="{{userDetail.provider}}" disabled>
                                     </div>
                                 </div>
                                 <div class="join-form-item">
                                     <label for="created-at">가입 일자</label>
                                     <div class="input-wrapper">
-                                        <input type="text" id="created-at" value="2024.06.24" disabled>
+                                        <input type="text" id="created-at" value="{{userDetail.createdAt}}" disabled>
                                     </div>
                                 </div>
                                 <div class="modal-button-wrapper">
                                     <button type="submit" class="btn black join"
                                             onclick="history.back()">뒤로가기</button>
-
                                 </div>
                             </div>
                         </div>
