@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface SocialRepository extends JpaRepository<Social, Integer> {
     @Query("select s from Social s where s.name = :name")
     Optional<Social> findByName(@Param("name") String name);
+
+
 }

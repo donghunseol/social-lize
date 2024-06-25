@@ -32,4 +32,20 @@ public class SocialMemberRepositoryTest {
         // then
 
     }
+
+    @Test
+    public void findByApproved_test(){
+        // given
+        Integer userId = 1;
+        Integer socialId = 1;
+
+        // when
+        Boolean inSocialMember = socialMemberRepository.isApproved(socialId, userId);
+        System.out.println(inSocialMember);
+
+        // eye
+
+        // then
+
+    }
 }
