@@ -7,10 +7,10 @@
         <div class="content-page">
             <div class="content-tab-bar">
                 <ul class="tab-nav">
-                    <li class="tab-link"><a href="/admin/user/userListForm.html">회원</a></li>
-                    <li class="tab-link current"><a href="/admin/social/socialListForm.html">소셜</a></li>
-                    <li class="tab-link"><a href="/admin/board/boardListForm.html">게시글</a></li>
-                    <li class="tab-link"><a href="/admin/social/socialCategoryListForm.html">카테고리</a></li>
+                    <li class="tab-link"><a href="/admin/user-list">회원</a></li>
+                    <li class="tab-link current"><a href="/admin/social-list">소셜</a></li>
+                    <li class="tab-link"><a href="/admin/board-list">게시글</a></li>
+                    <li class="tab-link"><a href="/admin/category-name-list">카테고리</a></li>
                     <li class="tab-link"><a href="/admin/management/qnaListForm.html">문의</a></li>
                     <li class="tab-link"><a href="/admin/management/reportListForm.html">신고</a></li>
                 </ul>
@@ -36,9 +36,9 @@
                         </form>
                         <table>
                             <colgroup>
-                                <col width="25%">
+                                <col width="30%">
                                 <col width="20%">
-                                <col width="20%">
+                                <col width="15%">
                                 <col width="20%">
                                 <col width="15%">
                             </colgroup>
@@ -52,39 +52,25 @@
                             </tr>
                             </thead>
                             <tbody>
+                            {{#socialList}}
                             <tr>
-                                <td class="title">그린컴퓨터아카데미</td>
+                                <td class="title">{{name}}</td>
                                 <td class="social-category">
                                     <div class="social-category-box">
-                                        <span class="social-category-box-text">#교육</span>
-                                        <span class="social-category-box-text">#코딩</span>
-                                        <span class="social-category-box-text">#컴퓨터</span>
-                                        <span class="social-category-box-text">#학원</span>
+                                        {{#categories}}
+                                            <span class="social-category-box-text">{{.}}</span>
+                                        {{/categories}}
                                     </div>
 
                                 </td>
-                                <td>34 명</td>
-                                <td>2024.06.21</td>
+                                <td>{{memberCount}} 명</td>
+                                <td>{{createdAt}}</td>
                                 <td><span class="detail"
-                                          onclick="location.href='/admin/social/socialDetailForm.html'">상세보기</span>
+                                          onclick="location.href='/admin/social/{{id}}'">상세보기</span>
                                 </td>
                             </tr>
+                            {{/socialList}}
 
-                            <tr>
-                                <td class="title">메타 박스 직원 모임</td>
-                                <td class="social-category">
-                                    <div class="social-category-box">
-                                        <span class="social-category-box-text">#영화</span>
-                                        <span class="social-category-box-text">#취업</span>
-                                    </div>
-
-                                </td>
-                                <td>5 명</td>
-                                <td>2024.06.21</td>
-                                <td><span class="detail"
-                                          onclick="location.href='/admin/social/socialDetailForm.html'">상세보기</span>
-                                </td>
-                            </tr>
 
                             <!-- 검색 부분 -->
                             <!-- {{#keywordList}}
