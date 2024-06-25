@@ -10,7 +10,6 @@ import com.example.project.album.AlbumRepository;
 import com.example.project.bookmark.BookmarkRepository;
 import com.example.project.hashtag.Hashtag;
 import com.example.project.hashtag.HashtagRepository;
-import com.example.project.like.Like;
 import com.example.project.like.LikeRepository;
 import com.example.project.reply.ReplyRepository;
 import com.example.project.social.Social;
@@ -191,5 +190,17 @@ public class BoardService {
         Integer replyCount = replyRepository.replyCount(board.getId());
 
         return new BoardResponse.BoardDetailDTO(board, user, likeCount, replyCount, hashtag);
+    }
+
+    // 유저 작성 게시글 리스트 조회
+    public List<BoardResponse.BoardList> getBoardList() {
+        return boardRepository.findAllBoardList();
+    }
+
+    // 유저 작성 게시글 상세 조회
+    public BoardResponse.Detail getBoardDetail(Integer boardId) {
+        Board board = boardRepository.findByBoardId(boardId)
+                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다"));
+        return new BoardResponse.Detail(board);
     }
 }
