@@ -84,6 +84,22 @@
             margin-right: 20px;
             border: #adb5bd solid 1px;
         }
+        .notificationno {
+            position: absolute;
+            top: 15px;
+            right: 155px;
+            font-size: 0.8em;
+            color: white;
+            background-color: red;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            font-weight: bold;
+            border: #6c757d solid 1px;
+            z-index: 1050;
+        }
     </style>
 </head>
 <script>
@@ -160,7 +176,7 @@
         <i class="fas fa-search"></i>
     </div>
     <div class="menu">
-        <div id="test_notification_div">{{sessionUser.unCheckedNotifications}}</div>
+        <div class="notificationno" id="test_notification_div">{{sessionUser.unCheckedNotifications}}</div>
         <!-- 알림 드롭다운 -->
         <div class="dropdown">
             <a href="#" class="icon dropdown-toggle" id="dropdownNotification" data-bs-toggle="dropdown"

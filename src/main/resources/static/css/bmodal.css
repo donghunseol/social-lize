@@ -44,12 +44,12 @@
 
 .bmodal-board-actions {
     display: flex;
-    justify-content: start; /* Left-align the items */
+    justify-content: start;
     align-items: center;
     border-top: 1px solid #ddd;
     padding-top: 10px;
     margin-top: 10px;
-    gap: 20px; /* Add space between the items */
+    gap: 20px;
 }
 
 .bmodal-board-actions .bmodal-likes-comments {
@@ -70,14 +70,55 @@
     padding-top: 10px;
 }
 
-.bmodal-board-comment {
-    margin-bottom: 15px;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
+.bmodal-board-comment,
+.bmodal-reply {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
-.bmodal-board-comment .bmodal-reply {
-    margin-left: 20px;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
+.bmodal-board-comment {
+    padding-left: 10px;
+}
+
+.bmodal-reply {
+    margin-left: 40px;
+    padding-left: 10px;
+}
+
+.comment-profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.reply-profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-content {
+    display: flex;
+    align-items: center;
+}
+
+.delete-comment-button {
+    background: none;
+    border: none;
+    color: #9a9a9a;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.delete-comment-button:hover {
+    color: #c82333;
+}
+
+.delete-comment-button i {
+    font-size: 1em;
 }
