@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface SocialMemberRepository extends JpaRepository<SocialMember, Integer> {
@@ -22,5 +23,13 @@ public interface SocialMemberRepository extends JpaRepository<SocialMember, Inte
     // 소셜 멤버 중 APPROVED 인 멤버 수
     @Query("SELECT CASE WHEN COUNT(sm) > 0 THEN TRUE ELSE FALSE END FROM SocialMember sm WHERE sm.socialId.id = :socialId AND sm.userId.id = :userId AND sm.state = 'APPROVED'")
     Boolean isApproved(@Param("socialId") Integer socialId, @Param("userId") Integer userId);
+
+    // 소셜 멤버 중 APPROVED 인 멤버 리스트
+    @Query("SELECT new com.example.project.social_member.SocialMemberResponse$SocialMemberList(s.id, u.nickname, u.email, u.birth, u.provider) " +
+            "FROM SocialMember sm " +
+            "JOIN sm.socialId s " +
+            "JOIN sm.userId u " +
+            "WHERE sm.state = 'APPROVED' AND s.id = :socialId")
+    List<SocialMemberResponse.SocialMemberList> findSocialMembersBySocialId(@Param("socialId") Integer socialId);
 
 }

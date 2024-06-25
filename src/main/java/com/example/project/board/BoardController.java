@@ -30,12 +30,4 @@ public class BoardController {
         // 나머지 데이터 처리 로직
         return "redirect:/social/detail/" + socialId;
     }
-
-    @GetMapping("/board/detail/{boardId}")
-    public String detail(@PathVariable Integer boardId, HttpServletRequest request) {
-        BoardResponse.BoardDetailDTO detail = boardService.detail(boardId);
-
-        System.out.println(detail);
-        return "modal/boardModalForm";
-    }
 }

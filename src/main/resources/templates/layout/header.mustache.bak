@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -40,6 +39,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Your custom styles -->
     <link rel="stylesheet" href="/css/style.css">
+
     <title>Document</title>
     <style>
         /* 드롭다운 스타일 통일 */
@@ -83,24 +83,10 @@
             margin-right: 20px;
             border: #adb5bd solid 1px;
         }
-        .notificationno {
-            position: absolute;
-            top: 15px;
-            right: 155px;
-            font-size: 0.8em;
-            color: white;
-            background-color: red;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            text-align: center;
-            line-height: 20px;
-            font-weight: bold;
-            border: #6c757d solid 1px;
-            z-index: 1050;
-        }
     </style>
 </head>
+
+<body>
 <script>
     //알림 구독 처리
     var socket = new SockJS('/ws');
@@ -113,82 +99,7 @@
             element.innerHTML=notification.body;
         });
     });
-    $(document).ready(function() {
-        //화면 로딩시 읽지않은 알림 개수를 불러온다.
-        $.ajax({
-            url: '/notification/get/unChecked',
-            method: 'GET',
-            success: function(response) {
-                renderNotificationCount(response)
-            },
-            error: function() {
-                alert('error unchekced');
-            }
-        });
-
-        //이벤트 핸들러 설정
-        $("#dropdownNotification").click(function() {
-            renderNotification();
-        });
-    });
-
-    //알림 목록을 가져와서 dropdown 메뉴에 그린다.
-    function renderNotification(){
-        $.ajax({
-            url: '/notification/get',
-            method: 'GET',
-            success: function(response) {
-                updateAllChecked();
-                Mustache.tags = ['[[', ']]']; //서버 사이드의 구분자와 클라이언트의 구분자를 구분하기위함. 클라이언트에서는 이것을 사용함
-                var template = $('#data-template').html();
-                var rendered = Mustache.render(template, response);
-                $('#data-container').html(rendered);
-            },
-            error: function() {
-                $('#data-container').html('<p>Error loading data.</p>');
-            }
-        });
-    }
-
-    //인자로 받은 값대로 알림 개수를 그린다.
-    function renderNotificationCount(count){
-        //읽지 않은 알림 개수가 0이면 알림숫자(0)을 표시하지않고 1이상일때만 표시한다.
-        if(count=="0"){
-            $("#test_notification_div").hide();
-        }else{
-            $("#test_notification_div").html(count);
-        }
-
-    }
-
-    //모든 알림을 읽음처리 한다
-    function updateAllChecked(){
-        $.ajax({
-            url: '/notification/set/allChecked',
-            method: 'GET',
-            success: function(response) {
-                renderNotificationCount(0);
-            },
-            error: function() {
-                alert('update error');
-            }
-        });
-    }
 </script>
-<script id="data-template" type="text/template">
-    [[#notifications]]
-    <li class="dropdown-item">
-        <div class="header-dropdown-item-content">
-            <div class="header-dropdown-text">
-                <p class="header-dropdown-title" boardId="[[id]]">공지사항이 등록되었습니다.</p>
-                <p class="header-dropdown-message">[[createdAt]]</p>
-                <p class="header-dropdown-time">[[createdAgo]]</p>
-            </div>
-        </div>
-    </li>
-    [[/notifications]]
-</script>
-<body>
 <div class="header">
     <div class="logo">
         <img src="/images/logonobg.png" alt="로고">
@@ -198,15 +109,26 @@
         <i class="fas fa-search"></i>
     </div>
     <div class="menu">
-        <div class="notificationno" id="test_notification_div">0</div>
+        <div id="test_notification_div">{{sessionUser.unCheckedNotifications}}</div>
         <!-- 알림 드롭다운 -->
         <div class="dropdown">
             <a href="#" class="icon dropdown-toggle" id="dropdownNotification" data-bs-toggle="dropdown"
                aria-expanded="false">
                 <i class="fas fa-bell"></i>
             </a>
-            <ul id="data-container" class="dropdown-menu" aria-labelledby="dropdownNotification">
-                <!-- 알림 아이템 데이터 -->
+            <ul class="dropdown-menu" aria-labelledby="dropdownNotification">
+                <!-- 알림 아이템 더미 데이터 -->
+                {{#notifications.notifications}}
+                <li class="dropdown-item">
+                    <div class="header-dropdown-item-content">
+                        <div class="header-dropdown-text">
+                            <p class="header-dropdown-title" boardId="{{id}}">공지사항이 등록되었습니다. {{id}}</p>
+                            <p class="header-dropdown-message">{{createdAt}}</p>
+                            <p class="header-dropdown-time">{{createdAgo}}</p>
+                        </div>
+                    </div>
+                </li>
+                {{/notifications.notifications}}
             </ul>
         </div>
         <!-- 채팅 드롭다운 -->

@@ -1418,7 +1418,7 @@ body {
 
 .tab-nav-container {
     position: fixed;
-    top: 60px;
+    top: 70px;
     width: 100%;
     background-color: #fff;
     z-index: 999;
@@ -1499,6 +1499,28 @@ body {
     cursor: pointer;
 }
 
+.boardModal {
+    display: none;
+    z-index: 1050; /* Bootstrap 기본 모달 z-index 값 */
+}
+
+.modal-backdrop {
+    z-index: 1040; /* 모달 백그라운드 오버레이 z-index 값 */
+}
+
+.boardModal .modal-dialog {
+    max-width: 400px; /* 원하는 크기로 설정 */
+    z-index: 1060; /* 모달 내용물의 z-index 값을 높임 */
+}
+
+.modal-content {
+    background-color: white; /* 모달 창 배경색 설정 */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* 모달 창 그림자 설정 */
+}
+
+.modal-backdrop.show {
+    opacity: 0.5; /* 배경 오버레이 불투명도 설정 */
+}
 .board-modal-content {
     padding: 20px;
     background-color: white;
