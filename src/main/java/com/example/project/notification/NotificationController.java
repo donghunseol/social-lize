@@ -58,7 +58,7 @@ public class NotificationController {
         return "Sended : "+countToSend;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/notification/get")
     public @ResponseBody NotificationResponse.ListDTO getNotice() {
         UserResponse.LoggedInUserDTO user = userUtil.getSessionUser();
         NotificationResponse.ListDTO notiList = notificationService.getAllByUserId(user.getId());

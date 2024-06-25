@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -86,6 +85,8 @@
         }
     </style>
 </head>
+
+<body>
 <script>
     //알림 구독 처리
     var socket = new SockJS('/ws');
@@ -98,41 +99,7 @@
             element.innerHTML=notification.body;
         });
     });
-    $(document).ready(function() {
-        $("#dropdownNotification").click(function() {
-            renderNotification();
-        });
-    });
-    function renderNotification(){
-        $.ajax({
-            url: '/notification/get',
-            method: 'GET',
-            success: function(response) {
-                Mustache.tags = ['[[', ']]']; //서버 사이드의 구분자와 클라이언트의 구분자를 구분하기위함. 클라이언트에서는 이것을 사용함
-                var template = $('#data-template').html();
-                var rendered = Mustache.render(template, response);
-                $('#data-container').html(rendered);
-            },
-            error: function() {
-                $('#data-container').html('<p>Error loading data.</p>');
-            }
-        });
-    }
 </script>
-<script id="data-template" type="text/template">
-    [[#notifications]]
-    <li class="dropdown-item">
-        <div class="header-dropdown-item-content">
-            <div class="header-dropdown-text">
-                <p class="header-dropdown-title" boardId="[[id]]">공지사항이 등록되었습니다.</p>
-                <p class="header-dropdown-message">[[createdAt]]</p>
-                <p class="header-dropdown-time">[[createdAgo]]</p>
-            </div>
-        </div>
-    </li>
-    [[/notifications]]
-</script>
-<body>
 <div class="header">
     <div class="logo">
         <img src="/images/logonobg.png" alt="로고">
@@ -149,8 +116,19 @@
                aria-expanded="false">
                 <i class="fas fa-bell"></i>
             </a>
-            <ul id="data-container" class="dropdown-menu" aria-labelledby="dropdownNotification">
-                <!-- 알림 아이템 데이터 -->
+            <ul class="dropdown-menu" aria-labelledby="dropdownNotification">
+                <!-- 알림 아이템 더미 데이터 -->
+                {{#notifications.notifications}}
+                <li class="dropdown-item">
+                    <div class="header-dropdown-item-content">
+                        <div class="header-dropdown-text">
+                            <p class="header-dropdown-title" boardId="{{id}}">공지사항이 등록되었습니다. {{id}}</p>
+                            <p class="header-dropdown-message">{{createdAt}}</p>
+                            <p class="header-dropdown-time">{{createdAgo}}</p>
+                        </div>
+                    </div>
+                </li>
+                {{/notifications.notifications}}
             </ul>
         </div>
         <!-- 채팅 드롭다운 -->
