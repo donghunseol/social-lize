@@ -88,6 +88,13 @@ public class AdminRestController {
         return ResponseEntity.ok(new ApiUtil<>(socialDetail));
     }
 
+    // 소셜 삭제
+    @PutMapping("/social/{socialId}/delete")
+    public ResponseEntity<?> socialDelete(@PathVariable Integer socialId) {
+        socialService.deleteSocial(socialId);
+        return ResponseEntity.ok(new ApiUtil<>(null));
+    }
+
     // 소셜 멤버 리스트 조회
     @GetMapping("/social/{socialId}/member-list")
     public ResponseEntity<?> socialMemberList(@PathVariable Integer socialId) {
