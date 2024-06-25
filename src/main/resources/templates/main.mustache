@@ -76,20 +76,22 @@
             <h3>오늘의 인기글</h3>
             <div class="my-posts-container">
                 {{#model.popularPostList}}
-                    <div class="my-post">
-                        <div class="my-title">{{name}}</div>
-                        <div class="my-separator"></div>
-                        <div class="my-content-flex">
-                            <div class="my-content">
-                                {{{content}}}
+                    <a class="my-card-link" href="/social/detail/{{id}}">
+                        <div class="my-post">
+                            <div class="my-title">{{name}}</div>
+                            <div class="my-separator"></div>
+                            <div class="my-content-flex">
+                                <div class="my-content">
+                                    {{{content}}}
+                                </div>
+                                <img src="{{image}}" alt="{{name}}" class="my-image-right">
                             </div>
-                            <img src="{{image}}" alt="{{name}}" class="my-image-right">
+                            <div class="my-footer">
+                                <div>😊😍 {{likeCount}}</div>
+                                <div>댓글 {{replyCount}}</div>
+                            </div>
                         </div>
-                        <div class="my-footer">
-                            <div>😊😍 {{likeCount}}</div>
-                            <div>댓글 {{replyCount}}</div>
-                        </div>
-                    </div>
+                    </a>
                 {{/model.popularPostList}}
             </div>
         </div>
