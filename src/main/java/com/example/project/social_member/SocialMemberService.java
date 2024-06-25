@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -78,5 +79,10 @@ public class SocialMemberService {
 
         socialMember.setState(newState.getNewState());
         socialMemberRepository.save(socialMember);
+    }
+
+    // 소셜 멤버 리스트 조회
+    public List<SocialMemberResponse.SocialMemberList> getSocialMembersBySocialId(Integer socialId) {
+        return socialMemberRepository.findSocialMembersBySocialId(socialId);
     }
 }
