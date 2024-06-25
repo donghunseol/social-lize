@@ -33,14 +33,13 @@
                                         <span class="head"><i class="fa-solid fa-tags"></i><em>카테고리</em></span>
                                         <span class="body" style="display: flex; gap: 1px;">
                                             {{#categories}}
-                                                <span class="social-category-box-text">{{name}}</span>
+                                                <span class="social-category-box-text">{{.}}</span>
                                             {{/categories}}
                                             </span>
                                     </p>
                                     <p class="text-item">
-                                            <span class="head"><i class="fa-solid fa-user-friends"></i><em>멤버
-                                                    수</em></span>
-                                        <span class="body">{{socialDetail.memberCount}} 명</span>
+                                            <span class="head"><i class="fa-solid fa-comment"></i><em>소개글</em></span>
+                                        <span class="body">{{socialDetail.info}}</span>
                                     </p>
                                 </div>
                             </div>
@@ -54,7 +53,7 @@
                                     <form action="/admin/users" method="get" style="width: 100%;">
                                         <ul class="search-box">
                                             <li class="search-left">
-                                                <span>총 회원<em> 2</em> 명</span>
+                                                <span>총 회원<em> {{socialDetail.memberCount}}</em> 명</span>
                                             </li>
                                             <li class="search-right">
                                                 <div>

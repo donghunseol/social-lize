@@ -27,7 +27,7 @@ public class AdminController {
 
     // 회원 리스트 조회
     @GetMapping({"/", "/user-list"})
-    public String mainPage(HttpServletRequest request) {
+    public String userListPage(HttpServletRequest request) {
         List<UserResponse.UserList> userList = userService.getUserList();
         request.setAttribute("userList", userList);
         return "admin/user/userListForm";
@@ -71,5 +71,17 @@ public class AdminController {
         SocialResponse.Detail socialDetail = socialService.getSocialDetail(socialId);
         request.setAttribute("socialDetail", socialDetail);
         return "admin/social/socialDetailForm";
+    }
+
+    // 게시글 리스트 조회
+    @GetMapping("/board-list")
+    public String boardListPage(HttpServletRequest request) {
+        return "admin/board/boardListForm";
+    }
+
+    // 게시글 상세 조회
+    @GetMapping("/board/{boardId}")
+    public String boardDetailPage(HttpServletRequest request, @PathVariable Integer boardId) {
+        return "admin/board/boardDetailForm";
     }
 }

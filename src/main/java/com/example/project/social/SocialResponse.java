@@ -2,6 +2,7 @@ package com.example.project.social;
 
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project.album.Album;
+import com.example.project.category_name.CategoryName;
 import com.example.project.file.File;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -74,6 +75,6 @@ public class SocialResponse {
         private String info;
         private List<String> categories;
         private Integer memberCount;
-        private LocalDateTime createdAt;
+        private String createdAt;
     }
 }

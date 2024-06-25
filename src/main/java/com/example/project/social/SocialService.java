@@ -157,7 +157,7 @@ public class SocialService {
                 social.getInfo(),
                 social.getCategory().stream().map(category -> category.getCategoryNameId().getName()).collect(Collectors.toList()),
                 socialMemberRepository.countBySocialId(social.getId()),
-                social.getCreatedAt()
+                LocalDateTimeFormatter.convert(social.getCreatedAt())
         );
     }
 
