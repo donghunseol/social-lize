@@ -40,4 +40,20 @@ public class AdminController {
         request.setAttribute("userDetail", userDetail);
         return "admin/user/userDetailForm";
     }
+
+    // 카테고리 리스트 조회
+    @GetMapping("/category-name-list")
+    public String categoryNameListPage(HttpServletRequest request) {
+        List<CategoryNameResponse.CategoryDTO> categoryList = categoryNameService.getCategoryList();
+        request.setAttribute("categoryList", categoryList);
+        return "admin/social/socialCategoryListForm";
+    }
+
+    // 카테고리 상세 조회
+    @GetMapping("/category-name/{categoryNameId}")
+    public String categoryNameDetailPage(HttpServletRequest request, @PathVariable Integer categoryNameId) {
+        CategoryNameResponse.Detail categoryDetail = categoryNameService.getCategoryDetail(categoryNameId);
+        request.setAttribute("categoryDetail", categoryDetail);
+        return "admin/social/socialCategoryDetailForm";
+    }
 }

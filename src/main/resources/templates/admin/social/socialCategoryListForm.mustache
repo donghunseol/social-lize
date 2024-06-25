@@ -9,10 +9,10 @@
         <div class="content-page">
             <div class="content-tab-bar">
                 <ul class="tab-nav">
-                    <li class="tab-link"><a href="/admin/user/userListForm.html">회원</a></li>
+                    <li class="tab-link"><a href="/admin/user-list">회원</a></li>
                     <li class="tab-link"><a href="/admin/social/socialListForm.html">소셜</a></li>
                     <li class="tab-link"><a href="/admin/board/boardListForm.html">게시글</a></li>
-                    <li class="tab-link current"><a href="/admin/social/socialCategoryListForm.html">카테고리</a></li>
+                    <li class="tab-link current"><a href="/admin/category-name-list">카테고리</a></li>
                     <li class="tab-link"><a href="/admin/management/qnaListForm.html">문의</a></li>
                     <li class="tab-link"><a href="/admin/management/reportListForm.html">신고</a></li>
                 </ul>
@@ -54,39 +54,25 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td style="vertical-align: middle;">운동</td>
-                                <td class="social-category" style="vertical-align: middle;">
-                                    <div class="social-category-box">
-                                        <img src="/images/logo.png" alt="운동"
-                                             style="width: 100px; height: 100px; margin: 10px 0;">
-                                    </div>
-                                </td>
-                                <td style="vertical-align: middle;">2024.06.21</td>
-                                <td style="vertical-align: middle;"><span class="detail"
-                                                                          onclick="location.href='/admin/social/socialDetailForm.html'">상세보기</span>
-                                </td>
-                                <td style="vertical-align: middle;"><span class="detail"
-                                                                          onclick="location.href='/admin/social/socialDetailForm.html'">삭제</span>
-                                </td>
-                            </tr>
 
+                            {{#categoryList}}
                             <tr>
-                                <td style="vertical-align: middle;">교육</td>
+                                <td style="vertical-align: middle;">{{name}}</td>
                                 <td class="social-category" style="vertical-align: middle;">
                                     <div class="social-category-box">
-                                        <img src="/images/socialCover.jpg" alt="운동"
+                                        <img src="{{imagePath}}" alt="사진 준비중"
                                              style="width: 100px; height: 100px; margin: 10px 0;">
                                     </div>
                                 </td>
                                 <td style="vertical-align: middle;">2024.06.21</td>
                                 <td style="vertical-align: middle;"><span class="detail"
-                                                                          onclick="location.href='/admin/social/socialDetailForm.html'">상세보기</span>
+                                                                          onclick="location.href='/admin/category-name/{{id}}'">상세보기</span>
                                 </td>
                                 <td style="vertical-align: middle;"><span class="detail"
                                                                           onclick="location.href='/admin/social/socialDetailForm.html'">삭제</span>
                                 </td>
                             </tr>
+                            {{/categoryList}}
 
                             <!-- 검색 부분 -->
                             <!-- {{#keywordList}}
