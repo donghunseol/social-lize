@@ -37,8 +37,10 @@ public class BoardResponse {
             private Boolean liked;
             private Boolean book;
             private List<HashtagDTO> hashtagList;
+            private String myProfileImage;
+            private Boolean hashEmpty;
 
-            public BoardDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book, List<Hashtag> hashtags) {
+            public BoardDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book, List<Hashtag> hashtags, String myProfileImage, Boolean hashEmpty) {
                 this.boardId = board.getId();
                 this.socialName = board.getSocialId().getName();
                 this.nickname = board.getUserId().getNickname();
@@ -53,6 +55,8 @@ public class BoardResponse {
                 this.liked = liked;
                 this.book = book;
                 this.hashtagList = hashtags.stream().map(HashtagDTO::new).toList();
+                this.myProfileImage = myProfileImage;
+                this.hashEmpty = hashEmpty;
             }
         }
 

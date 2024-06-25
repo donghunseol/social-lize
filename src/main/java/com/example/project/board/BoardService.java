@@ -39,6 +39,9 @@ public class BoardService {
     private final HashtagRepository hashtagRepository;
 
     public BoardResponse.BoardListDTO boardList(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
         List<Board> boards = boardRepository.findByBoards(userId);
         List<BoardResponse.BoardListDTO.BoardDTO> boardDTOs = new ArrayList<>();
 
@@ -58,8 +61,21 @@ public class BoardService {
 
             List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
 
+            Boolean hashEmpty = false;
+
             // BoardDTO 객체 생성
-            BoardResponse.BoardListDTO.BoardDTO boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags);
+            BoardResponse.BoardListDTO.BoardDTO boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+
+            if (boardDTO != null && boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                if (boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                    if (boardDTO.getHashtagList().get(0).getName().equals("")) {
+                        hashEmpty = true;
+                        boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+                        boardDTOs.add(boardDTO);
+                    }
+                }
+            }
+
             boardDTOs.add(boardDTO);
         }
 
@@ -67,6 +83,9 @@ public class BoardService {
     }
 
     public BoardResponse.BoardListDTO boardList(int socialId, Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
         List<Board> boards = boardRepository.findByBoardSocialId(socialId);
         List<BoardResponse.BoardListDTO.BoardDTO> boardDTOs = new ArrayList<>();
 
@@ -84,10 +103,25 @@ public class BoardService {
             // 북마크 여부 확인
             Boolean bookmarked = bookRepository.findByBookUserId(board.getId(), userId) > 0;
 
+
             List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
 
+
+            Boolean hashEmpty = false;
+
             // BoardDTO 객체 생성
-            BoardResponse.BoardListDTO.BoardDTO boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags);
+            BoardResponse.BoardListDTO.BoardDTO boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+
+            if (boardDTO != null && boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                if (boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                    if (boardDTO.getHashtagList().get(0).getName().equals("")) {
+                        hashEmpty = true;
+                        boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+                        boardDTOs.add(boardDTO);
+                    }
+                }
+            }
+
             boardDTOs.add(boardDTO);
         }
 
