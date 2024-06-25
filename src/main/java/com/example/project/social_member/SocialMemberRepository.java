@@ -20,6 +20,10 @@ public interface SocialMemberRepository extends JpaRepository<SocialMember, Inte
     @Query("SELECT COUNT(sm) FROM SocialMember sm WHERE sm.socialId.id = :socialId AND sm.state = 'APPROVED'")
     int countBySocialId(@Param("socialId") Integer socialId);
 
+    // 소셜 멤버 중 APPROVED 인 멤버 수
+    @Query("SELECT CASE WHEN COUNT(sm) > 0 THEN TRUE ELSE FALSE END FROM SocialMember sm WHERE sm.socialId.id = :socialId AND sm.userId.id = :userId AND sm.state = 'APPROVED'")
+    Boolean isApproved(@Param("socialId") Integer socialId, @Param("userId") Integer userId);
+
     // 소셜 멤버 중 APPROVED 인 멤버 리스트
     @Query("SELECT new com.example.project.social_member.SocialMemberResponse$SocialMemberList(s.id, u.nickname, u.email, u.birth, u.provider) " +
             "FROM SocialMember sm " +
@@ -27,4 +31,5 @@ public interface SocialMemberRepository extends JpaRepository<SocialMember, Inte
             "JOIN sm.userId u " +
             "WHERE sm.state = 'APPROVED' AND s.id = :socialId")
     List<SocialMemberResponse.SocialMemberList> findSocialMembersBySocialId(@Param("socialId") Integer socialId);
+
 }

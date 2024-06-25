@@ -36,6 +36,21 @@ public class SocialMemberRepositoryTest {
     }
 
     @Test
+    public void findByApproved_test(){
+        // given
+        Integer userId = 1;
+        Integer socialId = 1;
+
+        // when
+        Boolean inSocialMember = socialMemberRepository.isApproved(socialId, userId);
+        System.out.println(inSocialMember);
+
+        // eye
+
+        // then
+    }
+
+
     public void findSocialMembersBySocialId_test() {
         // given
         int socialId = 2;
@@ -47,5 +62,6 @@ public class SocialMemberRepositoryTest {
         socialMemberList.forEach(System.out::println);
 
         // then
+
     }
 }
