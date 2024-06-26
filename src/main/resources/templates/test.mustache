@@ -1,0 +1,157 @@
+{{> layout/header}}
+<div class="fileadd-container">
+    <div class="fileadd-content">
+        <div class="fileadd-chat-container">
+            <div class="fileadd-chat-header">
+                <div class="fileadd-chat-title">SNS프로젝트 1조</div>
+                <div id="connection-status" class="fileadd-connection-status">연결 중...</div>
+                <div class="fileadd-chat-menu">⋮</div>
+            </div>
+            <div id="response" class="fileadd-chat-messages">
+                <!-- 채팅 메시지가 이곳에 추가됩니다 -->
+            </div>
+            <div class="fileadd-chat-input">
+                <input type="hidden" id="userId" value="1"/> <!-- 유저 ID -->
+                <input type="text" id="comment" placeholder="메시지를 입력하세요">
+                <button id="send-button" onclick="sendMessage()">보내기</button>
+            </div>
+        </div>
+    </div>
+    <div id="mediaModal" class="fileadd-file-modal">
+        <span class="fileadd-close" onclick="closeModal()">&times;</span>
+        <img class="fileadd-file-modal-content-img" id="modal-img">
+        <video class="fileadd-file-modal-content-video" controls id="modal-video"></video>
+        <button class="fileadd-album-download-btn" id="download-btn">다운로드</button>
+    </div>
+
+    <style>
+        /* 이전 스타일 유지 */
+        .fileadd-connection-status {
+            font-size: 0.8em;
+            color: #888;
+            margin-left: 10px;
+        }
+        .fileadd-chat-header {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+
+    <!-- SockJS와 StompJS 라이브러리 포함 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+
+    <script>
+        // WebSocket 연결을 위한 변수 초기화
+        var stompClient = null;
+        var socialId = document.getElementById('socialId').value;
+
+        // WebSocket 연결 함수
+        function connect() {
+            var socket = new SockJS('/chat');
+            stompClient = Stomp.over(socket);
+
+            updateConnectionStatus('연결 중...');
+
+            stompClient.connect({}, function (frame) {
+                // 연결 성공 시 실행되는 콜백
+                console.log('Stomp 연결 성공: ' + frame);
+                updateConnectionStatus('연결됨');
+                subscribeToChat();
+                loadMessages(socialId);
+            }, function (error) {
+                // 연결 실패 시 실행되는 콜백
+                console.error('Stomp 연결 실패:', error);
+                updateConnectionStatus('연결 실패');
+                setTimeout(connect, 5000); // 5초 후 재연결 시도
+            });
+        }
+
+        // 연결 상태 업데이트 함수
+        function updateConnectionStatus(status) {
+            var statusElement = document.getElementById('connection-status');
+            statusElement.textContent = status;
+        }
+
+        // 채팅 주제 구독 함수
+        function subscribeToChat() {
+            stompClient.subscribe('/topic/chat/' + socialId, function (messageOutput) {
+                showMessage(JSON.parse(messageOutput.body));
+            });
+        }
+
+        // 메시지 전송 함수
+        function sendMessage() {
+            var userId = document.getElementById('userId').value;
+            var comment = document.getElementById('comment').value;
+
+            // 연결 상태 확인 및 재연결 시도
+            if (!stompClient || !stompClient.connected) {
+                console.error('WebSocket 연결이 설정되지 않았습니다.');
+                updateConnectionStatus('재연결 중...');
+                connect();
+                return;
+            }
+
+            // 메시지 전송
+            stompClient.send("/app/chat/" + socialId, {}, JSON.stringify({
+                'socialId': socialId,
+                'userId': userId,
+                'comment': comment
+            }));
+
+            // 입력 필드 초기화
+            document.getElementById('comment').value = '';
+        }
+
+        // 메시지 표시 함수
+        function showMessage(message) {
+            var response = document.getElementById('response');
+            var messageElement = document.createElement('div');
+            console.log("메시지 표시: ", message.comment);
+
+            var userId = document.getElementById('userId').value;
+            // 메시지 송신자에 따른 클래스 설정
+            var messageClass = message.userId == userId ? 'fileadd-chat-message sent' : 'fileadd-chat-message received';
+            var senderName = message.userId == userId ? '나' : 'User ID: ' + message.userId;
+
+            // 메시지 HTML 구성
+            messageElement.className = messageClass;
+            messageElement.innerHTML = `
+    <div class="fileadd-message-content">
+        <div class="fileadd-sender">${senderName}</div>
+        <div class="fileadd-message-container">
+            <div class="fileadd-message-bubble">${message.comment}</div>
+            <span class="fileadd-time">${new Date(message.createdAt).toLocaleTimeString()}</span>
+        </div>
+    </div>`;
+            response.appendChild(messageElement);
+            response.scrollTop = response.scrollHeight; // 스크롤을 최신 메시지로 이동
+        }
+
+        // 이전 메시지 로드 함수
+        function loadMessages(socialId) {
+            console.log("메시지 로드 시도: ", socialId);
+            fetch(`/chat/list/${socialId}`)
+                    .then(response => {
+                        console.log("메시지 로드 성공: ", response);
+                        return response.json();
+                    })
+                    .then(messages => {
+                        messages.forEach(message => {
+                            console.log("로드된 메시지: ", message);
+                            showMessage(message);
+                        });
+                    })
+                    .catch(error => {
+                        console.error("메시지 로드 실패: ", error);
+                    });
+        }
+
+        // 페이지 로드 시 WebSocket 연결 시작
+        window.onload = function () {
+            connect();
+        };
+    </script>
+</div>
+{{> layout/footer}}

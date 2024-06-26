@@ -21,11 +21,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // 채팅
-        registry.addEndpoint("/chat-websocket").withSockJS(); // STOMP 엔드포인트를 등록하고 SockJS를 사용하도록 설정
+        registry.addEndpoint("/chat")
+                .setAllowedOrigins("http://localhost:8080")
+                .setHandshakeHandler(new CustomHandshakeHandler())
+                .withSockJS(); // STOMP 엔드포인트를 등록하고 SockJS를 사용하도록 설정
 
         // 알림
         registry.addEndpoint("/ws")
                 .setAllowedOrigins("http://localhost:8080")
                 .withSockJS();
     }
+
 }

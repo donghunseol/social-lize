@@ -1,0 +1,44 @@
+{{> admin/layout/header}}
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> admin/layout/sidebar}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>공지 상세보기</p>
+                    </div>
+                    <div class="tab-item detail">
+                        <div class="review-detail-wrapper">
+                            <div class="detail-head">
+                                <div>
+                                    <p class="title">공지사항</p>
+                                </div>
+                            </div>
+                            <form action="">
+                                <input type="hidden" name="userId" value="{{sessionUser.id}}">
+                                <div class="detail-content">
+                                    <span class="review-title">공지 내용</span>
+                                    <p class="review-content">
+                                        <textarea name="reply" id="" cols="30" rows="10"></textarea>
+                                    </p>
+                                </div>
+                                <div class="report-button-wrapper">
+                                    <button class="btn black">수정하기</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>

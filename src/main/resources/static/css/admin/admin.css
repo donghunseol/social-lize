@@ -2084,3 +2084,20 @@ textarea.input {
     max-width: 250px;
     text-align: center;
 }
+
+.notice-btn {
+    background-color: #343a40;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.notice-content-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    text-align: center;
+}
