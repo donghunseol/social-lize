@@ -12,20 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
     <script type="text/javascript" src="/javascript/sidebar.js"></script>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/socialadd.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/notjoined.css">
-    <link rel="stylesheet" href="/css/fileadd.css">
-    <link rel="stylesheet" href="/css/detail.css">
-    <link rel="stylesheet" href="/css/bmodal.css">
-    <link rel="stylesheet" href="/css/profileupdate.css">
-    <link rel="stylesheet" href="/css/myrecord.css">
-    <link rel="stylesheet" href="/css/joinstatus.css">
-    <link rel="stylesheet" href="/css/bookmark.css">
-    <link rel="stylesheet" href="/css/memberinvite.css">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/boardsavemodal.css">
     <!-- Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <!-- Bootstrap CSS -->
@@ -38,8 +24,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Your custom styles -->
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/socialadd.css">
+
+    <link rel="stylesheet" href="/css/notjoined.css">
+    <link rel="stylesheet" href="/css/fileadd.css">
+    <link rel="stylesheet" href="/css/detail.css">
+    <link rel="stylesheet" href="/css/bmodal.css">
+    <link rel="stylesheet" href="/css/profileupdate.css">
+    <link rel="stylesheet" href="/css/myrecord.css">
+    <link rel="stylesheet" href="/css/joinstatus.css">
+    <link rel="stylesheet" href="/css/bookmark.css">
+    <link rel="stylesheet" href="/css/memberinvite.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/boardsavemodal.css">
     <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Your custom styles -->
+
     <title>Document</title>
     <style>
         /* 드롭다운 스타일 통일 */
@@ -194,7 +197,7 @@
 <body>
 <div class="header">
     <div class="logo">
-        <img src="/images/logonobg.png" alt="로고">
+        <a href="/"><img src="/images/logonobg.png" alt="로고"></a>
     </div>
     <div class="search-bar">
         <input type="text" placeholder="소셜, 페이지, 게시글 검색">
