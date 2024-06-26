@@ -79,12 +79,17 @@ public class QnaResponse {
         private String nickname;
         private String title;
         private String content;
+        private String replyContent;
 
         public QnaDetail(Qna qna) {
             this.id = qna.getId();
             this.nickname = qna.getUserId().getNickname();
             this.title = qna.getTitle();
             this.content = qna.getContent();
+            this.replyContent = qna.getReplyContent();
+            if (replyContent == null) {
+                this.replyContent = "";
+            }
         }
     }
 }

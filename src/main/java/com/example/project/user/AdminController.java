@@ -4,6 +4,7 @@ import com.example.project.board.BoardResponse;
 import com.example.project.board.BoardService;
 import com.example.project.category_name.CategoryNameResponse;
 import com.example.project.category_name.CategoryNameService;
+import com.example.project.qna.QnaRequest;
 import com.example.project.qna.QnaResponse;
 import com.example.project.qna.QnaService;
 import com.example.project.social.SocialResponse;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -107,6 +109,13 @@ public class AdminController {
         QnaResponse.QnaDetail qnaDetail = qnaService.getQnaDetail(qnaId);
         request.setAttribute("qnaDetail", qnaDetail);
         return "admin/management/qnaDetailForm";
+    }
+
+    // 문의 답변하기
+    @PostMapping("/qna/{qnaId}/reply")
+    public String ReplyPage(@PathVariable Integer qnaId, QnaRequest.replyDTO replyDTO) {
+        qnaService.replyQna(qnaId, replyDTO);
+        return "redirect:/admin/qna-list";
     }
 
     // 신고 리스트 조회
