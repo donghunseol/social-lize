@@ -1520,7 +1520,7 @@ body {
     padding: 20px !important;
     border: 1px solid #888 !important;
     width: 80% !important;
-    max-width: 400px !important;
+    max-width: 600px !important;
 }
 
 .modal-backdrop.show {
@@ -1540,6 +1540,12 @@ body {
 .board-comment {
     margin-bottom: 15px;
     border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.board-comment .bmodal-reply {
+    margin-left: 20px;
+    border-top: none; /* 대댓글에는 상단 경계선을 추가하지 않음 */
     padding-top: 10px;
 }
 

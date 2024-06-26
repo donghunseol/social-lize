@@ -66,15 +66,6 @@
                 <input type="text" placeholder="댓글을 남겨주세요.">
             </div>
             <button class="send-button">보내기</button>
-            <div class="recent-comment">
-                <div class="recent-comment-content">
-                    <img src="/images/userprofile2" alt="Profile Picture" class="recent-comment-profile-image">
-                    <div>
-                        <strong>최근 댓글</strong>
-                        <p>가장 최신 댓글</p>
-                    </div>
-                </div>
-            </div>
         </div>
     {{/socialDetail.boards}}
 
@@ -118,8 +109,8 @@
                     </div>
                 {{/hashEmpty}}
                 <div class="comments">
-                    <div class="like-count">좋아요 <span class="like-count-value">{{likeCount}}</span></div>
-                    <div class="comment-count">댓글 {{replyCount}}</div>
+                    <div class="like-count">😊😍좋아요 <span class="like-count-value">{{likeCount}}</span></div>
+                    <div class="comment-count">💬댓글 {{replyCount}}</div>
                 </div>
             </div>
         </div>
@@ -132,15 +123,6 @@
                 <input type="text" placeholder="댓글을 남겨주세요.">
             </div>
             <button class="send-button">보내기</button>
-            <div class="recent-comment">
-                <div class="recent-comment-content">
-                    <img src="recent-comment-user.jpg" alt="Profile Picture" class="recent-comment-profile-image">
-                    <div>
-                        <strong>Recent Commenter</strong>
-                        <p>This is the most recent comment.</p>
-                    </div>
-                </div>
-            </div>
         </div>
     {{/boardBookList.boards}}
 </div>
@@ -269,7 +251,7 @@
                     var replyList = detail.replyList || []; // replyList가 없으면 빈 배열 사용
 
                     var modalBodyHtml = `
-                <div class="bmodal-user-info">
+               <div class="bmodal-user-info">
                     <img src="${detail.userImage}" alt="User Image" class="rounded-circle bmodal-user-image">
                     <div class="bmodal-user-details">
                         <strong>${detail.nickname}</strong>
@@ -293,33 +275,45 @@
                     </div>
                 </div>
                 <div class="bmodal-board-comment-section">
-                    ${replyList.map(reply => `
-                        <div class="bmodal-board-comment" data-comment-id="${reply.id}">
-                            <div class="comment-content">
-                                <img src="${reply.userImage}" alt="Profile Picture" class="comment-profile-image">
-                                <div>
-                                    <strong>${reply.nickname}</strong>
-                                    <p>${reply.content}</p>
+    ${replyList.map(reply => `
+        <div class="bmodal-board-comment" data-comment-id="${reply.id}">
+            <div class="comment-content">
+                <img src="${reply.userImage}" alt="Profile Picture" class="comment-profile-image">
+                <div>
+                    <strong>${reply.nickname}</strong>
+                    <p>${reply.content}</p>
+                    <div class="comment-meta">
+                        <span class="comment-time">${reply.createdAt}</span>
+                        <button class="reply-button">답글쓰기</button>
+                    </div>
+                </div>
+                <button class="delete-comment-button" data-comment-id="${reply.id}">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+            <div class="bmodal-reply-section">
+                ${reply.rereplyList.map(rereply => `
+                    <div class="bmodal-board-comment bmodal-reply" data-comment-id="${rereply.id}">
+                        <div class="comment-content">
+                            <img src="${rereply.userImage}" alt="Profile Picture" class="reply-profile-image">
+                            <div>
+                                <strong>${rereply.nickname}</strong>
+                                <p>${rereply.content}</p>
+                                <div class="comment-meta">
+                                    <span class="comment-time">${rereply.createdAt}</span>
+                                    <button class="reply-button">답글쓰기</button>
                                 </div>
                             </div>
-                            <button class="delete-comment-button" data-comment-id="${reply.id}"><i class="fas fa-trash-alt"></i></button>
-                            <div class="bmodal-reply-section">
-                                ${reply.rereplyList.map(rereply => `
-                                    <div class="bmodal-board-comment bmodal-reply" data-comment-id="${rereply.id}">
-                                        <div class="comment-content">
-                                            <img src="${rereply.userImage}" alt="Profile Picture" class="reply-profile-image">
-                                            <div>
-                                                <strong>${rereply.nickname}</strong>
-                                                <p>${rereply.content}</p>
-                                            </div>
-                                        </div>
-                                        <button class="delete-comment-button" data-comment-id="${rereply.id}"><i class="fas fa-trash-alt"></i></button>
-                                    </div>
-                                `).join('')}
-                            </div>
+                            <button class="delete-comment-button" data-comment-id="${rereply.id}">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
                         </div>
-                    `).join('')}
-                </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('')}
+</div>
             `;
                     $('#boardModal .modal-body').html(modalBodyHtml);
                     $('#boardModal').css('display', 'block'); // 모달을 화면에 표시
