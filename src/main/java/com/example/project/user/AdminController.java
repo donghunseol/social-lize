@@ -104,6 +104,8 @@ public class AdminController {
     // 문의 상세 조회
     @GetMapping("/qna/{qnaId}")
     public String qnaDetailPage(HttpServletRequest request, @PathVariable Integer qnaId) {
+        QnaResponse.QnaDetail qnaDetail = qnaService.getQnaDetail(qnaId);
+        request.setAttribute("qnaDetail", qnaDetail);
         return "admin/management/qnaDetailForm";
     }
 

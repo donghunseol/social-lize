@@ -93,4 +93,12 @@ public class QnaService {
                 .collect(Collectors.toList());
         return new QnaResponse.QnaListAndCount(qnaList, qnaCount);
     }
+
+    // 문의 상세 조회 (관리자)
+    public QnaResponse.QnaDetail getQnaDetail(Integer qnaId) {
+        Qna qna = qnaRepository.findQnaAndUserByQnaId(qnaId)
+                .orElseThrow(() -> new Exception404("해당 문의 사항은 존재하지 않습니다."));
+
+        return new QnaResponse.QnaDetail(qna);
+    }
 }

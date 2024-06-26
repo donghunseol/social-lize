@@ -45,7 +45,7 @@ public class QnaResponse {
         }
     }
 
-    // 문의 리스트 (관리자)
+    // 문의 리스트 조회 (관리자)
     @Data
     public static class QnaListAndCount {
         private List<QnaList> qnaList;
@@ -69,6 +69,22 @@ public class QnaResponse {
                 this.nickname = qna.getUserId().getNickname();
                 this.createdAt = LocalDateTimeFormatter.convert(qna.getCreatedAt());
             }
+        }
+    }
+
+    // 문의 상세 조회 (관리자)
+    @Data
+    public static class QnaDetail {
+        private Integer id;
+        private String nickname;
+        private String title;
+        private String content;
+
+        public QnaDetail(Qna qna) {
+            this.id = qna.getId();
+            this.nickname = qna.getUserId().getNickname();
+            this.title = qna.getTitle();
+            this.content = qna.getContent();
         }
     }
 }
