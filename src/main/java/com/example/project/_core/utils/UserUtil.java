@@ -37,6 +37,7 @@ import org.springframework.stereotype.Component;
 //            e.printStackTrace(); // 에러 처리
 //        }
 //    }
+
 @Component
 @Slf4j
 @RequiredArgsConstructor

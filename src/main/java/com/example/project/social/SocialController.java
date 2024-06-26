@@ -5,8 +5,6 @@ import com.example.project.board.BoardResponse;
 import com.example.project.board.BoardService;
 import com.example.project.file.FileRequest;
 import com.example.project.file.FileService;
-import com.example.project.social_member.SocialMemberService;
-import com.example.project.user.User;
 import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class SocialController {
 
         Boolean notJoinedSocial = socialService.notJoinedSocial(socialId, sessionUser.getId());
 
-        if(!notJoinedSocial) {
+        if (!notJoinedSocial) {
             return "social/notJoinedForm";
         }
 
@@ -57,7 +58,7 @@ public class SocialController {
     @GetMapping("/social/fileadd/{socialId}")
     public String fileAdd(@PathVariable Integer socialId, HttpServletRequest request, FileRequest.FileUploadDTO reqDTO) {
         // 파일 업로드 시 저장
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        UserResponse.LoggedInUserDTO sessionUser = (UserResponse.LoggedInUserDTO) session.getAttribute("sessionUser");
         fileService.fileUpload(reqDTO, sessionUser.getId(), socialId);
 
         // 페이지에 뿌릴 데이터
@@ -66,4 +67,13 @@ public class SocialController {
 
         return "social/fileaddForm";
     }
+
+    //내 소셜 목록을 가져오기. ajax로 가져오기 위해 json으로 리턴한다.
+    @GetMapping("/social/get/my")
+    public @ResponseBody List<UserResponse.MainDTO.MySocialDTO> getMySocialList() {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        List<UserResponse.MainDTO.MySocialDTO> socialList = socialService.getMySocialList(sessionUser.getId());
+        return socialList;
+    }
+
 }

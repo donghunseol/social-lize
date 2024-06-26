@@ -2,42 +2,32 @@
 <body>
 <main role="main">
     <section id="section n1">
+
         {{> admin/layout/sidebar}}
         <div class="content-page">
             <div class="content-tab-bar">
                 <div class="tab-content current">
                     <div class="tab-head">
-                        <p>문의 사항</p>
+                        <p>공지 상세보기</p>
                     </div>
                     <div class="tab-item detail">
                         <div class="review-detail-wrapper">
                             <div class="detail-head">
                                 <div>
-                                    <p class="title">작성</p>
+                                    <p class="title">공지사항</p>
                                 </div>
                             </div>
-                            <form action="/admin/write" method="post">
+                            <form action="">
                                 <input type="hidden" name="userId" value="sessionUser.id">
                                 <div class="detail-content">
-                                    <span class="review-title">문의자</span>
-                                    <p class="review-content">
-                                        <input name="content" type="text" class="input" disabled value="장유진">
-                                    </p>
-                                    <span class="review-title">문의 내용</span>
-                                    <p class="review-content">
-                                        <input name="content" type="text" class="input" disabled
-                                               value="게시판 이용하는데 어떤 방식으로 이용해야할지 모르겠어요">
-                                    </p>
-                                    <br>
-                                    <span class="review-title">답변 내용</span>
+                                    <span class="review-title">공지 내용</span>
                                     <p class="review-content">
                                         <textarea name="reply" id="" cols="30" rows="10"></textarea>
                                     </p>
                                 </div>
                                 <div class="report-button-wrapper">
-                                    <button class="btn black">작성완료</button>
+                                    <button class="btn black">작성하기</button>
                                 </div>
-                            </form>
                             </form>
                         </div>
                     </div>
