@@ -5,7 +5,6 @@ import com.example.project._core.enums.SocialMemberStateEnum;
 import com.example.project._core.enums.SocialStateEnum;
 import com.example.project._core.errors.exception.Exception400;
 import com.example.project._core.errors.exception.Exception401;
-import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
@@ -19,7 +18,9 @@ import com.example.project.file.FileRepository;
 import com.example.project.social_member.SocialMember;
 import com.example.project.social_member.SocialMemberRepository;
 import com.example.project.user.User;
+import com.example.project.user.UserQueryRepository;
 import com.example.project.user.UserRepository;
+import com.example.project.user.UserResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class SocialService {
     private final SocialMemberRepository socialMemberRepository;
     private final AlbumRepository albumRepository;
     private final FileRepository fileRepository;
+    private final UserQueryRepository userQueryRepository;
 
     public Boolean notJoinedSocial(Integer socialId, Integer userId) {
 
@@ -187,5 +189,12 @@ public class SocialService {
 
         // 앨범, 파일 리스트 DTO 담기
         return new SocialResponse.AlbumAndFileListDTO(socialId, albumList, fileList);
+    }
+
+    public List<UserResponse.MainDTO.MySocialDTO> getMySocialList(Integer userId){
+        List<Object[]> mySocialList = userQueryRepository.mySocialList(userId);
+        List<UserResponse.MainDTO.MySocialDTO> mySocialList2 = mySocialList.stream().map(UserResponse.MainDTO.MySocialDTO::new).toList();
+        System.out.println("mySocialList2 = " + mySocialList2);
+        return mySocialList2;
     }
 }

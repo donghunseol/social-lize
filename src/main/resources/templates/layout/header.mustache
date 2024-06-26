@@ -67,6 +67,11 @@
         .header-dropdown-message {
             margin: 0;
             color: #6c757d;
+            /*소셜 소개글이 너무 긴경우 줄여서 표시하기 위한 코드*/
+            white-space: nowrap; /* 텍스트를 한 줄로 표시합니다. */
+            overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
+            text-overflow: ellipsis; /* 넘치는 텍스트를 '...'으로 표시합니다. */
+            max-width: 200px; /* 원하는 너비를 설정합니다. 필요에 따라 값을 조정하세요. */
         }
 
         .header-dropdown-time {
@@ -220,30 +225,21 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownChat">
                 <!-- 채팅 아이템 더미 데이터 -->
+                {{#modelList}}
                 <li class="dropdown-item">
                     <div class="header-dropdown-item-content">
                         <div class="header-dropdown-image">
-                            <img src="/images/logo.png" alt="Chat 1">
+                            <img src="{{imagePath}}" alt="Chat 1">
                         </div>
                         <div class="header-dropdown-text">
-                            <p class="header-dropdown-title">SNS 프로젝트 1조</p>
-                            <p class="header-dropdown-message">밴드 전체 멤버들과 함께 하는 채팅방</p>
-                            <p class="header-dropdown-time">6월 17일</p>
+                            <p class="header-dropdown-title">{{name}}</p>
+                            <p class="header-dropdown-message">{{info}}</p>
                         </div>
                     </div>
                 </li>
-                <li class="dropdown-item">
-                    <div class="header-dropdown-item-content">
-                        <div class="header-dropdown-image">
-                            <img src="/images/socialCover.jpg" alt="Chat 2">
-                        </div>
-                        <div class="header-dropdown-text">
-                            <p class="header-dropdown-title">SNS 프로젝트 1조</p>
-                            <p class="header-dropdown-message">밴드 전체 멤버들과 함께 하는 채팅방</p>
-                            <p class="header-dropdown-time">6월 21일</p>
-                        </div>
-                    </div>
-                </li>
+                {{/modelList}}
+
+
             </ul>
         </div>
         <!-- 마이페이지 드롭다운 -->
