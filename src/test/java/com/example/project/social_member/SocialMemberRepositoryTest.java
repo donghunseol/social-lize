@@ -50,6 +50,20 @@ public class SocialMemberRepositoryTest {
         // then
     }
 
+    @Test
+    public void findBySocialId_test(){
+        // given
+        Integer socialId = 1;
+
+        // when
+        SocialMember sm = socialMemberRepository.findBySocialId(socialId);
+        System.out.println(sm.getUserId().getNickname());
+
+        // eye
+
+        // then
+    }
+
 
     public void findSocialMembersBySocialId_test() {
         // given
