@@ -7,6 +7,8 @@ import com.example.project.category_name.CategoryNameService;
 import com.example.project.qna.QnaRequest;
 import com.example.project.qna.QnaResponse;
 import com.example.project.qna.QnaService;
+import com.example.project.report.ReportResponse;
+import com.example.project.report.ReportService;
 import com.example.project.social.SocialResponse;
 import com.example.project.social.SocialService;
 import com.example.project.social_member.SocialMemberService;
@@ -30,6 +32,7 @@ public class AdminController {
     private final UserService userService;
     private final BoardService boardService;
     private final QnaService qnaService;
+    private final ReportService reportService;
 
     // 회원 리스트 조회
     @GetMapping({"/", "/user-list"})
@@ -121,6 +124,8 @@ public class AdminController {
     // 신고 리스트 조회
     @GetMapping("/report-list")
     public String reportListPage(HttpServletRequest request) {
+        ReportResponse.ReportDTO reportDTO = reportService.getReportList();
+        request.setAttribute("reportDTO", reportDTO);
         return "admin/management/reportListForm";
     }
 
