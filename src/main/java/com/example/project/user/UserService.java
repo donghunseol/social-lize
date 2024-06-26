@@ -15,10 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -136,6 +138,7 @@ public class UserService {
 
         //카카오로 부터 받은 개인 정보로 우리 서버에 회원가입을 했는지 검사한다.
         User user = userRepository.findByIdAndProvider(UserProviderEnum.KAKAO, kakaoUserDTO.getId());
+        System.out.println("user = " + user);
         if (user != null) {
             //데이터를 받은김에 db에도 동기화
             user.setNickname(kakaoUserDTO.getProperties().getNickname());//닉네임이 변경될 수 있으니 최신정보로 업데이트한다.
@@ -218,5 +221,80 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다."));
         return new UserResponse.UserDetail(user);
+    }
+
+    @Transactional
+    public UserResponse.LoggedInUserDTO updateUser(User updatedUser) {
+        User existingUser = userRepository.findById(updatedUser.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+//        if (StringUtils.hasText(updatedUser.getNickname()) && !existingUser.getNickname().equals(updatedUser.getNickname())) {
+//            existingUser.setNickname(updatedUser.getNickname());
+//        }
+//
+//        if (StringUtils.hasText(updatedUser.getEmail()) && !existingUser.getEmail().equals(updatedUser.getEmail())) {
+//            existingUser.setEmail(updatedUser.getEmail());
+//        }
+//
+//        if (StringUtils.hasText(updatedUser.getPassword()) && !existingUser.getPassword().equals(updatedUser.getPassword())) {
+//            existingUser.setPassword(
+//                    EncryptUtil.hashPw(updatedUser.getPassword())
+//            );
+//        }
+//
+//        if (StringUtils.hasText(updatedUser.getBirth().toString()) && !existingUser.getBirth().equals(updatedUser.getBirth())) {
+//            existingUser.setBirth(updatedUser.getBirth());
+//        }
+//
+//        if( updatedUser.getPhone() == null )
+//            updatedUser.setPhone("");
+//        if (StringUtils.hasText(updatedUser.getPhone()) && !existingUser.getPhone().equals(updatedUser.getPhone())) {
+//            existingUser.setPhone(updatedUser.getPhone());
+//        }
+//
+//        if (updatedUser.getImage() != null && !updatedUser.getImage().isEmpty() && !updatedUser.getImage().equals(existingUser.getImage())) {
+//            existingUser.setImage(updatedUser.getImage());
+//        }
+
+
+        boolean isUpdated = false;
+
+        if (updatedUser.getNickname() != null && !Objects.equals(updatedUser.getNickname(), existingUser.getNickname())) {
+            existingUser.setNickname(updatedUser.getNickname());
+            isUpdated = true;
+        }
+
+        if (updatedUser.getEmail() != null && !Objects.equals(updatedUser.getEmail(), existingUser.getEmail())) {
+            existingUser.setEmail(updatedUser.getEmail());
+            isUpdated = true;
+        }
+
+        if (updatedUser.getPassword() != null && !Objects.equals(updatedUser.getPassword(), existingUser.getPassword())) {
+            existingUser.setPassword(
+                    EncryptUtil.hashPw(updatedUser.getPassword())
+            );
+            isUpdated = true;
+        }
+
+        if (updatedUser.getBirth() != null && !Objects.equals(updatedUser.getBirth(), existingUser.getBirth())) {
+            existingUser.setBirth(updatedUser.getBirth());
+            isUpdated = true;
+        }
+
+        if (updatedUser.getPhone() != null && !Objects.equals(updatedUser.getPhone(), existingUser.getPhone())) {
+            existingUser.setPhone(updatedUser.getPhone());
+            isUpdated = true;
+        }
+
+        if (updatedUser.getImage() != null && !Objects.equals(updatedUser.getImage(), existingUser.getImage())) {
+            existingUser.setImage(updatedUser.getImage());
+            isUpdated = true;
+        }
+
+
+        if (isUpdated) {
+            userRepository.save(existingUser);
+        }
+        return new UserResponse.LoggedInUserDTO(existingUser);
     }
 }

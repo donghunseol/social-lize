@@ -5,6 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/login.css">
+    <script>
+        function validateForm() {
+            const email = document.querySelector('input[name="email"]').value.trim();
+            const password = document.querySelector('input[name="password"]').value.trim();
+
+            if (email === '' || password === '') {
+                alert('아이디와 비밀번호를 입력해주세요.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
 <div class="background"></div>
@@ -19,7 +31,7 @@
                 Socialize에서
                 시작하세요!</p>
             <p class="login-left-align-text">이메일로 로그인하기</p>
-            <form action="/login" method="post">
+            <form action="/login" method="post" onsubmit="return validateForm()">
                 <div class="login-textbox">
                     <input type="email" placeholder="Email" name="email" value="ssar@nate.com">
                 </div>

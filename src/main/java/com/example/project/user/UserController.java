@@ -1,5 +1,6 @@
 package com.example.project.user;
 
+import com.example.project._core.utils.FileUtil;
 import com.example.project._core.utils.UserUtil;
 import com.example.project.notification.NotificationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -8,8 +9,12 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Controller
@@ -94,7 +99,7 @@ public class UserController {
         throw new RuntimeException("알 수 없는 오류가 발생했습니다.");
     }
 
-    //네이버 로그인 콜백 & 카카오 로그인
+    //네이버 로그인 콜백 & 네이버 로그인
     @GetMapping("/oauth/naver/callback")
     public String oauthNaverCallback(String code,String state, HttpServletRequest request) {
         Object theUser = userService.getNaverId(code, state);
@@ -124,6 +129,44 @@ public class UserController {
     public String login(UserRequest.LoginDTO loginDTO, HttpServletRequest request) throws JsonProcessingException {
         UserResponse.LoggedInUserDTO loggedInUserDTO = userService.login(loginDTO);
         userUtil.saveSessionUser(loggedInUserDTO);
+        return "redirect:/";
+    }
+
+    // 회원정보수정 페이지
+    @GetMapping("/user/profile")
+    public String profileForm() throws JsonProcessingException {
+        UserResponse.LoggedInUserDTO user = userUtil.getSessionUser();
+        return "mypage/profileUpdateForm";
+    }
+
+    //회원정보수정 처리
+    @PostMapping("/user/update")
+    public String updateUser(UserRequest.UpdateDTO updateDTO, HttpServletRequest request) throws JsonProcessingException {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+
+        User updatingUser = new User();
+        updatingUser.setId(sessionUser.getId());
+
+        if (StringUtils.hasText(updateDTO.getNickname())) {
+            updatingUser.setNickname(updateDTO.getNickname());
+        }
+        if (StringUtils.hasText(updateDTO.getPassword())) {
+            updatingUser.setPassword(updateDTO.getPassword());
+        }
+        if (StringUtils.hasText(updateDTO.getBirth())) {
+            updatingUser.setBirth(LocalDate.parse(updateDTO.getBirth()));
+        }
+        if (StringUtils.hasText(updateDTO.getPhone())) {
+            updatingUser.setPhone(updateDTO.getPhone());
+        }
+
+        if (updateDTO.getImage() != null && !updateDTO.getImage().isEmpty()) {
+            // 이미지 파일 처리 로직
+            FileUtil.FileUploadResult uploadResult = FileUtil.uploadFile("./upload", updateDTO.getImage());
+            updatingUser.setImage(uploadResult.getFilePath());
+        }
+        UserResponse.LoggedInUserDTO updatedUser = userService.updateUser(updatingUser);
+        userUtil.saveSessionUser(updatedUser); //업데이트된 정보로 세션을 업데이트한다
         return "redirect:/";
     }
 
