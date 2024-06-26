@@ -4,6 +4,8 @@ import com.example.project.board.BoardResponse;
 import com.example.project.board.BoardService;
 import com.example.project.category_name.CategoryNameResponse;
 import com.example.project.category_name.CategoryNameService;
+import com.example.project.notice.NoticeResponse;
+import com.example.project.notice.NoticeService;
 import com.example.project.qna.QnaRequest;
 import com.example.project.qna.QnaResponse;
 import com.example.project.qna.QnaService;
@@ -33,6 +35,7 @@ public class AdminController {
     private final BoardService boardService;
     private final QnaService qnaService;
     private final ReportService reportService;
+    private final NoticeService noticeService;
 
     // 회원 리스트 조회
     @GetMapping({"/", "/user-list"})
@@ -138,12 +141,17 @@ public class AdminController {
     // 공지 리스트 조회
     @GetMapping("/notice-list")
     public String noticeListPage(HttpServletRequest request) {
+        NoticeResponse.NoticeDTO noticeDTO = noticeService.getNoticeListAndCount();
+        request.setAttribute("noticeDTO", noticeDTO);
+        System.out.println(noticeDTO);
         return "admin/management/noticeListForm";
     }
 
     // 공지 상세 조회
     @GetMapping("/notice/{noticeId}")
     public String noticeDetailPage(HttpServletRequest request, @PathVariable Integer noticeId) {
+        NoticeResponse.DetailDTO noticeDetail = noticeService.getNoticeDetail(noticeId);
+        request.setAttribute("noticeDetail", noticeDetail);
         return "admin/management/noticeDetailForm";
     }
 
