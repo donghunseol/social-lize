@@ -130,6 +130,7 @@ public class BoardResponse {
             private String userImage;
             private String nickname;
             private String content;
+            private String createdAt;
             private List<RereplyDTO> rereplyList;
 
             public ReplyDTO(Reply reply, List<RereplyDTO> rereplyList) {
@@ -137,6 +138,9 @@ public class BoardResponse {
                 this.userImage = reply.getUserId().getImage();
                 this.nickname = reply.getUserId().getNickname();
                 this.content = reply.getComment();
+                LocalDateTime format = reply.getCreatedAt();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h:mm");
+                this.createdAt = format.format(formatter);
                 this.rereplyList = rereplyList;
             }
         }
@@ -147,12 +151,16 @@ public class BoardResponse {
             private String userImage;
             private String nickname;
             private String content;
+            private String createdAt;
 
             public RereplyDTO(Rereply rereply) {
                 this.id = rereply.getId();
                 this.userImage = rereply.getUserId().getImage();
                 this.nickname = rereply.getUserId().getNickname();
                 this.content = rereply.getComment();
+                LocalDateTime format = rereply.getCreatedAt();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h:mm");
+                this.createdAt = format.format(formatter);
             }
         }
     }
