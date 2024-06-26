@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+import static com.example.project._core.utils.UserUtil.getLoggedInUser;
+
 
 @RequiredArgsConstructor
 @Controller
@@ -61,7 +63,7 @@ public class SocialController {
     @GetMapping("/social/fileadd/{socialId}")
     public String fileAdd(@PathVariable Integer socialId, HttpServletRequest request, FileRequest.FileUploadDTO reqDTO) {
         // 파일 업로드 시 저장
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        UserResponse.LoggedInUserDTO sessionUser = (UserResponse.LoggedInUserDTO) session.getAttribute("sessionUser");
         fileService.fileUpload(reqDTO, sessionUser.getId(), socialId);
 
         // 페이지에 뿌릴 데이터
