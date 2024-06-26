@@ -65,17 +65,19 @@ public class UserResponse {
         }
 
         @Data
-        private static class MySocialDTO {
+        public static class MySocialDTO {
             private Integer id;
             private String name;
             private String imagePath;
             private Long memberCount;
+            private String info;
 
             public MySocialDTO(Object[] mySocialList) {
                 this.id = (Integer) mySocialList[0];
                 this.name = (String) mySocialList[1];
                 this.imagePath = (String) mySocialList[2];
                 this.memberCount = (Long) mySocialList[3];
+                this.info = (String) mySocialList[4];
             }
         }
 

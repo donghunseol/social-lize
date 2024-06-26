@@ -19,7 +19,8 @@ public class UserQueryRepository {
                       s.id,
                       s.name,
                       s.image,
-                      COUNT(sm2.id) AS member_count
+                      COUNT(sm2.id) AS member_count,
+                      s.info
                   FROM
                       social_tb s
                   JOIN
