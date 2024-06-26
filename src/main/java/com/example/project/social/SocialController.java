@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-import static com.example.project._core.utils.UserUtil.getLoggedInUser;
-
 
 @RequiredArgsConstructor
 @Controller

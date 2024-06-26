@@ -37,7 +37,8 @@ public class FileUtil {
         // UUID를 사용하여 고유한 파일 이름 생성
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
         // 지정된 디렉토리에 파일 경로 생성
-        Path filePath = Paths.get("./upload", fileName);
+        //Path filePath = Paths.get("./upload", fileName); //파일 업로드 경로를 인자로 받도록 수정함
+        Path filePath = Paths.get(s, fileName);
 
         try {
             // 업로드 디렉토리가 존재하지 않으면 생성

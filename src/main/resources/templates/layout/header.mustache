@@ -108,6 +108,7 @@
             font-weight: bold;
             border: #6c757d solid 1px;
             z-index: 1050;
+            display:none;
         }
     </style>
 </head>
@@ -204,7 +205,7 @@
 <body>
 <div class="header">
     <div class="logo">
-        <img src="/images/logonobg.png" alt="로고">
+        <a href="/"><img src="/images/logonobg.png" alt="로고"></a>
     </div>
     <div class="search-bar">
         <input type="text" placeholder="소셜, 페이지, 게시글 검색">
@@ -255,8 +256,8 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownUser">
                 <!-- 드롭다운 아이템들 -->
-                <li><a class="dropdown-item m-0" href="#">프로필</a></li>
-                <li><a class="dropdown-item m-0" href="#">설정</a></li>
+                <li><a class="dropdown-item m-0" href="/user/profile">프로필</a></li>
+                <li><a class="dropdown-item m-0" href="/user/logout">로그아웃</a></li>
             </ul>
         </div>
     </div>
