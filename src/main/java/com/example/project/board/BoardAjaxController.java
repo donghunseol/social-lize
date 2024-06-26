@@ -14,7 +14,7 @@ public class BoardAjaxController {
     @GetMapping("/board/detail/")
     public ResponseEntity<?> detail(@RequestParam Integer boardId) {
         BoardResponse.BoardDetailDTO detail = boardService.detail(boardId);
-        System.out.println("1111111111111 : " + boardId);
+
         return ResponseEntity.ok(detail);
     }
 }

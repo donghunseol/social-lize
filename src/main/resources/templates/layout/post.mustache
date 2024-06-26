@@ -1,20 +1,18 @@
-<div class="boardModal modal fade" id="boardModal" tabindex="-1" aria-labelledby="boardModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-        <!-- 중앙에 작게 표시되도록 수정 -->
-        <div class="bmodal-board-modal-content modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="boardModalLabel">이벤트 공지</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- 모달 내용이 동적으로 추가될 부분 -->
-            </div>
+<div class="boardModal modal" id="boardModal">
+    <!-- 중앙에 작게 표시되도록 수정 -->
+    <div class="bmodal-board-modal-content modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="boardModalLabel">이벤트 공지</h5>
+            <button type="button" class="btn-close" id="closeModalBtn" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <!-- 모달 내용이 동적으로 추가될 부분 -->
         </div>
     </div>
 </div>
 
 <div class="content-box">
-    {{#boardList.boards}}
+    {{#socialDetail.boards}}
         <div class="group-name">{{socialName}}</div>
         <div class="post">
             <div class="author-box">
@@ -54,8 +52,8 @@
                     </div>
                 {{/hashEmpty}}
                 <div class="comments">
-                    <div class="like-count">좋아요 <span class="like-count-value">{{likeCount}}</span></div>
-                    <div class="comment-count">댓글 {{replyCount}}</div>
+                    <div class="like-count">😊😍좋아요 <span class="like-count-value">{{likeCount}}</span></div>
+                    <div class="comment-count">💬댓글 {{replyCount}}</div>
                 </div>
             </div>
         </div>
@@ -68,8 +66,17 @@
                 <input type="text" placeholder="댓글을 남겨주세요.">
             </div>
             <button class="send-button">보내기</button>
+            <div class="recent-comment">
+                <div class="recent-comment-content">
+                    <img src="/images/userprofile2" alt="Profile Picture" class="recent-comment-profile-image">
+                    <div>
+                        <strong>최근 댓글</strong>
+                        <p>가장 최신 댓글</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    {{/boardList.boards}}
+    {{/socialDetail.boards}}
 
     {{#boardBookList.boards}}
         <div class="group-name">{{socialName}}</div>
@@ -125,16 +132,22 @@
                 <input type="text" placeholder="댓글을 남겨주세요.">
             </div>
             <button class="send-button">보내기</button>
+            <div class="recent-comment">
+                <div class="recent-comment-content">
+                    <img src="recent-comment-user.jpg" alt="Profile Picture" class="recent-comment-profile-image">
+                    <div>
+                        <strong>Recent Commenter</strong>
+                        <p>This is the most recent comment.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     {{/boardBookList.boards}}
 </div>
 
 <script>
     $(document).ready(function () {
-        // 모달 내부 클릭 시 닫히지 않도록 설정
-        $('#boardModal .modal-content').on('click', function (event) {
-            event.stopPropagation();
-        });
+        let modal = $("#boardModal");
 
         // 좋아요 버튼 클릭 이벤트
         $('.bmodal-like-icon').on('click', function () {
@@ -243,6 +256,7 @@
 
         // 모달 켜는 기능
         $(document).on('click', '.openModalBtn', function () {
+            console.log("버튼 눌림");
             var boardId = $(this).data('board-id');
             $.ajax({
                 url: '/board/detail/',
@@ -252,59 +266,80 @@
                 success: function (data) {
                     var detail = data;
                     var hashtagList = detail.hashtagList || []; // hashtagList가 없으면 빈 배열 사용
-                    var comments = detail.comments || []; // comments가 없으면 빈 배열 사용
+                    var replyList = detail.replyList || []; // replyList가 없으면 빈 배열 사용
 
                     var modalBodyHtml = `
-                    <div class="bmodal-user-info">
-                        <img src="${detail.userImage}" alt="User Image" class="rounded-circle bmodal-user-image">
-                        <div class="bmodal-user-details">
-                            <strong>${detail.nickname}</strong>
-                            <p class="bmodal-date">${detail.createdAt}</p>
-                        </div>
+                <div class="bmodal-user-info">
+                    <img src="${detail.userImage}" alt="User Image" class="rounded-circle bmodal-user-image">
+                    <div class="bmodal-user-details">
+                        <strong>${detail.nickname}</strong>
+                        <p class="bmodal-date">${detail.createdAt}</p>
                     </div>
-                    <p>${detail.content}</p>
-                    <div class="bmodal-hashtags">
-                        ${hashtagList.map(hashtag => `<span class="bmodal-hashtag">${hashtag.name}</span>`).join('')}
+                </div>
+                <p>${detail.content}</p>
+                <div class="bmodal-hashtags">
+                    ${hashtagList.map(hashtag => `<span class="bmodal-hashtag">${hashtag.name}</span>`).join('')}
+                </div>
+                <div class="bmodal-board-actions">
+                    <div class="bmodal-likes-comments">
+                        <i class="far fa-heart bmodal-like-icon"></i>
+                        <span>좋아요</span>
+                        <span class="bmodal-like-count">${detail.likeCount}</span>
                     </div>
-                    <div class="bmodal-board-actions">
-                        <div class="bmodal-likes-comments">
-                            <i class="far fa-heart bmodal-like-icon"></i>
-                            <span>좋아요</span>
-                            <span class="bmodal-like-count">${detail.likeCount}</span>
-                        </div>
-                        <div class="bmodal-likes-comments">
-                            <i class="fas fa-comment bmodal-comment-icon"></i>
-                            <span>댓글쓰기</span>
-                            <span class="bmodal-comment-count">${detail.replyCount}</span>
-                        </div>
+                    <div class="bmodal-likes-comments">
+                        <i class="fas fa-comment bmodal-comment-icon"></i>
+                        <span>댓글쓰기</span>
+                        <span class="bmodal-comment-count">${detail.replyCount}</span>
                     </div>
-                    <div class="bmodal-board-comment-section">
-                        ${comments.map(comment => `
-                            <div class="bmodal-board-comment" data-comment-id="${comment.id}">
-                                <div class="comment-content">
-                                    <img src="${comment.userImage}" alt="Profile Picture" class="comment-profile-image">
-                                    <div>
-                                        <strong>${comment.nickname}</strong>
-                                        <p>${comment.content}</p>
-                                    </div>
+                </div>
+                <div class="bmodal-board-comment-section">
+                    ${replyList.map(reply => `
+                        <div class="bmodal-board-comment" data-comment-id="${reply.id}">
+                            <div class="comment-content">
+                                <img src="${reply.userImage}" alt="Profile Picture" class="comment-profile-image">
+                                <div>
+                                    <strong>${reply.nickname}</strong>
+                                    <p>${reply.content}</p>
                                 </div>
-                                <button class="delete-comment-button" data-comment-id="${comment.id}"><i class="fas fa-trash-alt"></i></button>
                             </div>
-                        `).join('')}
-                    </div>
-                `;
+                            <button class="delete-comment-button" data-comment-id="${reply.id}"><i class="fas fa-trash-alt"></i></button>
+                            <div class="bmodal-reply-section">
+                                ${reply.rereplyList.map(rereply => `
+                                    <div class="bmodal-board-comment bmodal-reply" data-comment-id="${rereply.id}">
+                                        <div class="comment-content">
+                                            <img src="${rereply.userImage}" alt="Profile Picture" class="reply-profile-image">
+                                            <div>
+                                                <strong>${rereply.nickname}</strong>
+                                                <p>${rereply.content}</p>
+                                            </div>
+                                        </div>
+                                        <button class="delete-comment-button" data-comment-id="${rereply.id}"><i class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
                     $('#boardModal .modal-body').html(modalBodyHtml);
                     $('#boardModal').css('display', 'block'); // 모달을 화면에 표시
-                    $('#boardModal').modal('show'); // Bootstrap 모달 활성화
-                    $('#boardModal').modal({
-                        backdrop: true,
-                        keyboard: true
-                    });
                 },
                 error: function (xhr, status, error) {
                     console.error("AJAX 오류:", error);
                 }
             });
+        });
+
+        // 모달 닫기 기능
+        $('#closeModalBtn').on('click', function () {
+            modal.css('display', 'none'); // 모달을 화면에서 숨김
+        });
+
+        // 모달 외부 클릭 시 모달 닫기
+        $(window).on('click', function (event) {
+            if (event.target === modal[0]) {
+                modal.css('display', 'none'); // 모달을 화면에서 숨김
+            }
         });
     });
 </script>

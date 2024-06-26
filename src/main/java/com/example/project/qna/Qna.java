@@ -1,6 +1,5 @@
 package com.example.project.qna;
 
-import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.enums.QnaEnum;
 import com.example.project.user.User;
 import jakarta.persistence.*;
@@ -34,7 +33,7 @@ public class Qna {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private QnaEnum state; // 처리완료, 대기중
+    private QnaEnum state; // 처리완료, 대기중, 문의 삭제
 
     private LocalDateTime replyCreatedAt; // 답변 일자
 

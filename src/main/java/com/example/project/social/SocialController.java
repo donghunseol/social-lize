@@ -5,9 +5,6 @@ import com.example.project.board.BoardResponse;
 import com.example.project.board.BoardService;
 import com.example.project.file.FileRequest;
 import com.example.project.file.FileService;
-import com.example.project.notification.NotificationResponse;
-import com.example.project.social_member.SocialMemberService;
-import com.example.project.user.User;
 import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -32,13 +29,13 @@ public class SocialController {
     @GetMapping("/social/detail/{socialId}")
     public String socialDetail(@PathVariable int socialId, HttpServletRequest request) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
-        BoardResponse.BoardListDTO boardList = boardService.boardList(socialId, sessionUser.getId());
+        BoardResponse.SocialDetailDTO socialDetail = socialService.socialDetail(socialId, sessionUser.getId());
 
-        request.setAttribute("boardList", boardList);
+        request.setAttribute("socialDetail", socialDetail);
 
         Boolean notJoinedSocial = socialService.notJoinedSocial(socialId, sessionUser.getId());
 
-        if(!notJoinedSocial) {
+        if (!notJoinedSocial) {
             return "social/notJoinedForm";
         }
 
