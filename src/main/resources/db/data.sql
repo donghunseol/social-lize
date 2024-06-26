@@ -48,9 +48,9 @@ VALUES
     (4, 4, '최근 설치한 스마트 홈 기기에 대한 리뷰입니다.<br>생활이 얼마나 편리해졌는지 이야기해봅시다.', 'POST', now()),
     (4, 5, '집에서 쉽게 할 수 있는 가드닝 팁을 공유합니다.<br>집안을 더 아름답게 꾸밀 수 있는 방법을 알려드려요.', 'POST', '2024-06-27'),
     (5, 1, '커뮤니티의 최신 소식과 업데이트를 공유합니다.<br>회원님들의 활동을 기다립니다.', 'POST', now()),
-    (5, 2, '심리학에 관심 있는 분들을 위한 강좌 정보입니다.<br>마음을 이해하는 시간을 가져보세요.', 'POST', now()),
-    (5, 3, '저렴하게 여행할 수 있는 팁을 공유합니다.<br>비용을 절약하면서 여행의 즐거움을 누려보세요.', 'POST', now()),
-    (5, 4, '건강을 유지하는 데 필요한 헬스케어 정보를 공유합니다.<br>건강한 생활을 위한 팁을 알려드립니다.', 'POST', now());
+    (5, 2, '심리학에 관심 있는 분들을 위한 강좌 정보입니다.<br>마음을 이해하는 시간을 가져보세요.', 'NOTICE', now()),
+    (5, 3, '저렴하게 여행할 수 있는 팁을 공유합니다.<br>비용을 절약하면서 여행의 즐거움을 누려보세요.', 'NOTICE', now()),
+    (5, 4, '건강을 유지하는 데 필요한 헬스케어 정보를 공유합니다.<br>건강한 생활을 위한 팁을 알려드립니다.', 'NOTICE', now());
 
 -- 소셜 마다 공지사항 등록
 INSERT INTO board_tb (social_id, user_id, content, role, created_at)
@@ -251,6 +251,11 @@ INSERT INTO report_tb (user_id, report_user_id, board_id, reply_id, rereply_id, 
 VALUES (1, 2, 21, null, null, '2번 유저가 1번 유저의 21번 게시글을 신고함', 'Checking', now()),
        (2, 1, 22, null, null, '1번 유저가 2번 유저의 22번 게시글을 신고함', 'Finish', now());
 
+-- 공지 테이블
+INSERT INTO notice_tb (board_id)
+VALUES (17),
+       (18),
+       (19);
 
 -- 첨부 파일 테이블
 INSERT INTO file_tb (social_id, user_id, name, path, created_at)
