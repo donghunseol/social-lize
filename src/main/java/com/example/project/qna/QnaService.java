@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -79,5 +80,17 @@ public class QnaService {
         }
 
         return new QnaResponse.QnaDetailDTO(qna);
+    }
+
+    // 문의 리스트 조회 (관리자)
+    public QnaResponse.QnaListAndCount getQnaListAndCount() {
+        Integer qnaCount = qnaRepository.findAllQnaCount();
+        List<Qna> qnaListDTO = qnaRepository.findAllQnaList();
+
+        // Qna 객체를 QnaList 객체로 변환
+        List<QnaResponse.QnaListAndCount.QnaList> qnaList = qnaListDTO.stream()
+                .map(QnaResponse.QnaListAndCount.QnaList::new)
+                .collect(Collectors.toList());
+        return new QnaResponse.QnaListAndCount(qnaList, qnaCount);
     }
 }

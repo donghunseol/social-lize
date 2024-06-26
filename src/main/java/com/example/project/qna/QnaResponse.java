@@ -1,5 +1,6 @@
 package com.example.project.qna;
 
+import com.example.project._core.utils.LocalDateTimeFormatter;
 import lombok.Data;
 
 import java.util.List;
@@ -41,6 +42,33 @@ public class QnaResponse {
             this.id = qna.getId();
             this.title = qna.getTitle();
             this.content = qna.getContent();
+        }
+    }
+
+    // 문의 리스트 (관리자)
+    @Data
+    public static class QnaListAndCount {
+        private List<QnaList> qnaList;
+        private Integer count;
+
+        public QnaListAndCount(List<QnaList> qnaList, Integer count) {
+            this.qnaList = qnaList;
+            this.count = count;
+        }
+
+        @Data
+        public static class QnaList {
+            private Integer id;
+            private String title;
+            private String nickname;
+            private String createdAt;
+
+            public QnaList(Qna qna) {
+                this.id = qna.getId();
+                this.title = qna.getTitle();
+                this.nickname = qna.getUserId().getNickname();
+                this.createdAt = LocalDateTimeFormatter.convert(qna.getCreatedAt());
+            }
         }
     }
 }

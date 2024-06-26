@@ -17,4 +17,10 @@ public interface QnaRepository extends JpaRepository<Qna, Integer> {
 
     @Query("select q from Qna q where q.userId.id = :userId and q.state != 'DELETE'")
     List<Qna> findByUserId(@Param("userId") Integer userId);
+
+    @Query("select q from Qna q join q.userId u")
+    List<Qna> findAllQnaList();
+
+    @Query("select count(*) from Qna q")
+    Integer findAllQnaCount();
 }
