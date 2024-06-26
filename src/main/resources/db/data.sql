@@ -248,8 +248,8 @@ VALUES (1, '게임추천', now()),
 
 -- 신고 테이블
 INSERT INTO report_tb (user_id, report_user_id, board_id, reply_id, rereply_id, content, result, created_at)
-VALUES (1, 2, 21, null, null, '2번 유저가 1번 유저의 21번 게시글을 신고함', '게시글 삭제 처리', now()),
-       (2, 1, 22, null, null, '1번 유저가 2번 유저의 22번 게시글을 신고함', '게시글 수정 처리', now());
+VALUES (1, 2, 21, null, null, '2번 유저가 1번 유저의 21번 게시글을 신고함', 'Checking', now()),
+       (2, 1, 22, null, null, '1번 유저가 2번 유저의 22번 게시글을 신고함', 'Finish', now());
 
 
 -- 첨부 파일 테이블

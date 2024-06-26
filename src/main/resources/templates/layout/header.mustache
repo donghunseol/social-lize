@@ -12,20 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
     <script type="text/javascript" src="/javascript/sidebar.js"></script>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/socialadd.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/notjoined.css">
-    <link rel="stylesheet" href="/css/fileadd.css">
-    <link rel="stylesheet" href="/css/detail.css">
-    <link rel="stylesheet" href="/css/bmodal.css">
-    <link rel="stylesheet" href="/css/profileupdate.css">
-    <link rel="stylesheet" href="/css/myrecord.css">
-    <link rel="stylesheet" href="/css/joinstatus.css">
-    <link rel="stylesheet" href="/css/bookmark.css">
-    <link rel="stylesheet" href="/css/memberinvite.css">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/boardsavemodal.css">
     <!-- Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <!-- Bootstrap CSS -->
@@ -38,12 +24,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Your custom styles -->
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/socialadd.css">
+
+    <link rel="stylesheet" href="/css/notjoined.css">
+    <link rel="stylesheet" href="/css/fileadd.css">
+    <link rel="stylesheet" href="/css/detail.css">
+    <link rel="stylesheet" href="/css/bmodal.css">
+    <link rel="stylesheet" href="/css/profileupdate.css">
+    <link rel="stylesheet" href="/css/myrecord.css">
+    <link rel="stylesheet" href="/css/joinstatus.css">
+    <link rel="stylesheet" href="/css/bookmark.css">
+    <link rel="stylesheet" href="/css/memberinvite.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/boardsavemodal.css">
     <link rel="stylesheet" href="/css/style.css">
 
-    <!-- SockJS와 StompJS 라이브러리 포함 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+    <!-- Your custom styles -->
 
     <title>Document</title>
     <style>
@@ -72,11 +70,6 @@
         .header-dropdown-message {
             margin: 0;
             color: #6c757d;
-            /*소셜 소개글이 너무 긴경우 줄여서 표시하기 위한 코드*/
-            white-space: nowrap; /* 텍스트를 한 줄로 표시합니다. */
-            overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
-            text-overflow: ellipsis; /* 넘치는 텍스트를 '...'으로 표시합니다. */
-            max-width: 200px; /* 원하는 너비를 설정합니다. 필요에 따라 값을 조정하세요. */
         }
 
         .header-dropdown-time {
@@ -204,7 +197,7 @@
 <body>
 <div class="header">
     <div class="logo">
-        <img src="/images/logonobg.png" alt="로고">
+        <a href="/"><img src="/images/logonobg.png" alt="로고"></a>
     </div>
     <div class="search-bar">
         <input type="text" placeholder="소셜, 페이지, 게시글 검색">
@@ -230,21 +223,30 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownChat">
                 <!-- 채팅 아이템 더미 데이터 -->
-                {{#modelList}}
                 <li class="dropdown-item">
                     <div class="header-dropdown-item-content">
                         <div class="header-dropdown-image">
-                            <img src="{{imagePath}}" alt="Chat 1">
+                            <img src="/images/logo.png" alt="Chat 1">
                         </div>
                         <div class="header-dropdown-text">
-                            <p class="header-dropdown-title">{{name}}</p>
-                            <p class="header-dropdown-message">{{info}}</p>
+                            <p class="header-dropdown-title">SNS 프로젝트 1조</p>
+                            <p class="header-dropdown-message">밴드 전체 멤버들과 함께 하는 채팅방</p>
+                            <p class="header-dropdown-time">6월 17일</p>
                         </div>
                     </div>
                 </li>
-                {{/modelList}}
-
-
+                <li class="dropdown-item">
+                    <div class="header-dropdown-item-content">
+                        <div class="header-dropdown-image">
+                            <img src="/images/socialCover.jpg" alt="Chat 2">
+                        </div>
+                        <div class="header-dropdown-text">
+                            <p class="header-dropdown-title">SNS 프로젝트 1조</p>
+                            <p class="header-dropdown-message">밴드 전체 멤버들과 함께 하는 채팅방</p>
+                            <p class="header-dropdown-time">6월 21일</p>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
         <!-- 마이페이지 드롭다운 -->
