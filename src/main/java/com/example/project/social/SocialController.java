@@ -29,9 +29,9 @@ public class SocialController {
     @GetMapping("/social/detail/{socialId}")
     public String socialDetail(@PathVariable int socialId, HttpServletRequest request) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
-        BoardResponse.BoardListDTO boardList = boardService.boardList(socialId, sessionUser.getId());
+        BoardResponse.SocialDetailDTO socialDetail = socialService.socialDetail(socialId, sessionUser.getId());
 
-        request.setAttribute("boardList", boardList);
+        request.setAttribute("socialDetail", socialDetail);
 
         Boolean notJoinedSocial = socialService.notJoinedSocial(socialId, sessionUser.getId());
 

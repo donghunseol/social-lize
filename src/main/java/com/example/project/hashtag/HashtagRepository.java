@@ -10,4 +10,7 @@ public interface HashtagRepository extends JpaRepository<Hashtag, Integer> {
 
     @Query("select h from Hashtag h where h.boardId.id = :boardId")
     List<Hashtag> findByBoardId(@Param("boardId") Integer boardId);
+
+    @Query("select h from Hashtag h where h.boardId.socialId.id = :socialId")
+    List<Hashtag> findBySocialId(@Param("socialId") Integer socialId);
 }

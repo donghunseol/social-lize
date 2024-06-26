@@ -217,6 +217,7 @@
                         // 새로운 소셜 리스트 추가
                         socialList.forEach(social => {
                             const socialCard = `
+                        <a class="my-card-link" href="/social/detail/${social.id}">
                             <div class="my-grid-item">
                                 <img src="${social.image}" alt="${social.name}">
                                 <div class="my-details">
@@ -226,7 +227,7 @@
                                     <div class="my-join-button">지금 참여하기</div>
                                 </div>
                             </div>
-                            `;
+                        </a>`;
                             categorySocialList.innerHTML += socialCard;
                         });
                     },

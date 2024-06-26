@@ -4,9 +4,13 @@ import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.hashtag.Hashtag;
+
+import com.example.project.social.Social;
+
 import com.example.project.reply.Reply;
 import com.example.project.rereply.Rereply;
 import com.example.project.rereply.RereplyRepository;
+
 import com.example.project.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,10 +22,51 @@ import java.util.List;
 public class BoardResponse {
 
     @Data
-    public static class BoardListDTO {
+    public static class SocialDetailDTO {
+        private List<AllHasTagDTO> allHasTagList;
+        private String title;
+        private String name;
+        private Integer memberCount;
+        private String info;
+        private String image;
+        private String createdAt;
+        private Integer boardCount;
+        private String week;
+        private List<String> weekList;
+        private List<Integer> weekCount;
+
+
+        @Data
+        public static class AllHasTagDTO {
+            private Integer hasTagId;
+            private String hasTagName;
+
+            public AllHasTagDTO(Hashtag hashtag) {
+                this.hasTagId = hashtag.getId();
+                this.hasTagName = hashtag.getName();
+            }
+        }
+
         private List<BoardDTO> boards;
 
-        public BoardListDTO(List<BoardDTO> boards) {
+        public SocialDetailDTO(List<Hashtag> allHasTagList, Social social, String name, Integer memberCount, List<BoardDTO> boards, Integer boardCount, String week, List<String> weekList, List<Integer> weekCount) {
+            this.allHasTagList = allHasTagList.stream().map(AllHasTagDTO::new).toList();
+            this.title = social.getName();
+            this.name = name;
+            this.memberCount = memberCount;
+            this.info = social.getInfo();
+            this.boards = boards;
+            this.image = social.getImage();
+            LocalDateTime format = social.getCreatedAt();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월");
+            this.createdAt = format.format(formatter);
+            this.boardCount = boardCount;
+            this.week = week;
+            this.weekList = weekList;
+            this.weekCount = weekCount;
+        }
+
+        public SocialDetailDTO(List<BoardDTO> boards) {
             this.boards = boards;
         }
 
