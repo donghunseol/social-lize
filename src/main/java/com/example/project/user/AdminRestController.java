@@ -6,6 +6,8 @@ import com.example.project.category_name.CategoryNameResponse;
 import com.example.project.category_name.CategoryNameService;
 import com.example.project.social.SocialResponse;
 import com.example.project.social.SocialService;
+import com.example.project.social_member.SocialMemberResponse;
+import com.example.project.social_member.SocialMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 @RestController
 public class AdminRestController {
     private final SocialService socialService;
+    private final SocialMemberService socialMemberService;
     private final CategoryNameService categoryNameService;
     private final UserService userService;
 
@@ -76,5 +79,26 @@ public class AdminRestController {
     public ResponseEntity<?> socialList() {
         List<SocialResponse.SocialDTO> socialList = socialService.getSocialList();
         return ResponseEntity.ok(new ApiUtil<>(socialList));
+    }
+
+    // 소셜 상세 조회
+    @GetMapping("/social/{socialId}")
+    public ResponseEntity<?> socialDetail(@PathVariable Integer socialId) {
+        SocialResponse.Detail socialDetail = socialService.getSocialDetail(socialId);
+        return ResponseEntity.ok(new ApiUtil<>(socialDetail));
+    }
+
+    // 소셜 삭제
+    @PutMapping("/social/{socialId}/delete")
+    public ResponseEntity<?> socialDelete(@PathVariable Integer socialId) {
+        socialService.deleteSocial(socialId);
+        return ResponseEntity.ok(new ApiUtil<>(null));
+    }
+
+    // 소셜 멤버 리스트 조회
+    @GetMapping("/social/{socialId}/member-list")
+    public ResponseEntity<?> socialMemberList(@PathVariable Integer socialId) {
+        List<SocialMemberResponse.SocialMemberList> socialMemberList = socialMemberService.getSocialMembersBySocialId(socialId);
+        return ResponseEntity.ok(new ApiUtil<>(socialMemberList));
     }
 }

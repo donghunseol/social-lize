@@ -19,26 +19,27 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // 댓글 번호
 
-    @JoinColumn(name = "userId")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User userId; // 유저 번호
-
     @JoinColumn(name = "boardId")
     @ManyToOne(fetch = FetchType.LAZY)
     private Board boardId; // 게시글 번호
 
+    @JoinColumn(name = "userId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User userId; // 유저 번호
+
+
     @Column(nullable = false)
-    private String content; // 댓글 내용
+    private String comment; // 댓글 내용
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자
 
     @Builder
-    public Reply(Integer id, User userId, Board boardId, String content, LocalDateTime createdAt) {
+    public Reply(Integer id, User userId, Board boardId, String comment, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.boardId = boardId;
-        this.content = content;
+        this.comment = comment;
         this.createdAt = createdAt;
     }
 }

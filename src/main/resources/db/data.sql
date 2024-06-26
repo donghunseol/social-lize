@@ -1,7 +1,7 @@
 -- 유저 테이블 (비밀번호는 암호호되서 저장됨. 1234임)
 INSERT INTO user_tb (email, password, nickname, image, phone, birth, role, created_at, provider)
-VALUES ('ssar@nate.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '하승진', '/images/userprofile.jpeg', '010-1234-5678', '1994-12-26', 'USER', now(), null),
-       ('1@1.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김세운', '/images/userprofile.jpeg', '010-2345-6789', '1992-10-24', 'USER', now(), null),
+VALUES ('ssar@nate.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '하승진', '/images/userprofile3.png', '010-1234-5678', '1994-12-26', 'USER', now(), null),
+       ('1@1.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김세운', '/images/userprofile3.png', '010-2345-6789', '1992-10-24', 'USER', now(), null),
        ('jane@kakao.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '박제인', '/images/userprofile.jpeg', '010-3456-7890', '1995-07-19', 'USER', now(), 'KAKAO'),
        ('john@naver.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '설조온', '/images/userprofile.jpeg', '010-4567-8901', '1993-03-15', 'USER', now(), 'NAVER'),
        ('lucy@gmail.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김루씨', '/images/userprofile.jpeg', '010-5678-1234', '1996-08-30', 'USER', now(), null),
@@ -59,7 +59,7 @@ VALUES
     (5, 6, '모임장소에서의 안전 수칙을 준수해 주세요.<br>모두의 안전을 위해 협력해 주시길 바랍니다.', 'NOTICE', now());
 
 -- 댓글 테이블
-INSERT INTO reply_tb (board_id, user_id, content, created_at)
+INSERT INTO reply_tb (board_id, user_id, comment, created_at)
 VALUES
     (1, 1, '오늘도 좋은 하루 시작하셨나요? 활기찬 하루 되세요!', now()),
     (2, 2, '이 포스트 정말 유익하네요. 더 많은 정보 기대할게요!', now()),
@@ -83,7 +83,7 @@ VALUES
     (20, 5, '글 내용 중 이 부분이 특히 인상적이었습니다.', now());
 
 -- 대댓글 테이블
-INSERT INTO rereply_tb (reply_id, user_id, content, created_at)
+INSERT INTO rereply_tb (reply_id, user_id, comment, created_at)
 VALUES
     (1, 1, '정말 좋은 의견 감사합니다!', now()),
     (2, 2, '아주 도움이 되는 정보네요!', now()),
@@ -117,22 +117,22 @@ VALUES (1, '카테고리 추가해주세요', '공포 카테고리 추가해주�
        (1, '여기 답장 제대로 해주냐?', '테스트 해본다 ㅋ', null, 'DELETE', null, '2024-06-20');
 
 -- 알림 테이블
-INSERT INTO notification_tb(user_id, role, created_at)
-VALUES (1, 'BOARD', now()),
-       (1, 'REPLY', now()),
-       (1, 'REREPLY', now()),
-       (2, 'BOARD', now()),
-       (2, 'REPLY', now()),
-       (2, 'REREPLY', now()),
-       (3, 'BOARD', now()),
-       (3, 'REPLY', now()),
-       (3, 'REREPLY', now()),
-       (4, 'BOARD', now()),
-       (4, 'REPLY', now()),
-       (4, 'REREPLY', now()),
-       (5, 'BOARD', now()),
-       (5, 'REPLY', now()),
-       (5, 'REREPLY', now());
+INSERT INTO notification_tb(user_id, role, created_at, checked)
+VALUES (1, 'BOARD', now(), false),
+       (1, 'REPLY', now(), false),
+       (1, 'REREPLY', now(), false),
+       (2, 'BOARD', now(), false),
+       (2, 'REPLY', now(), false),
+       (2, 'REREPLY', now(), false),
+       (3, 'BOARD', now(), false),
+       (3, 'REPLY', now(), false),
+       (3, 'REREPLY', now(), false),
+       (4, 'BOARD', now(), false),
+       (4, 'REPLY', now(), false),
+       (4, 'REREPLY', now(), false),
+       (5, 'BOARD', now(), false),
+       (5, 'REPLY', now(), false),
+       (5, 'REREPLY', now(), false);
 
 -- 소셜 채팅 테이블
 INSERT INTO chat_tb (social_id, user_id, comment, created_at)
@@ -236,7 +236,7 @@ VALUES (1, 2, now()),
 
 -- 게시글 해시태그 테이블
 INSERT INTO hashtagk_tb (board_id, name, created_at)
-VALUES (4, '게임추천', now()),
+VALUES (1, '게임추천', now()),
        (8, '노래', now()),
        (12, '스트레스', now()),
        (16, '인테리어', now()),

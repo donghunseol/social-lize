@@ -2,6 +2,7 @@ package com.example.project.social;
 
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project.album.Album;
+import com.example.project.category_name.CategoryName;
 import com.example.project.file.File;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -61,6 +62,19 @@ public class SocialResponse {
         private String name;
         private List<String> categories;
         private Integer memberCount;
-        private LocalDateTime createdAt;
+        private String createdAt;
+    }
+
+    // 소셜 상세 DTO
+    @AllArgsConstructor
+    @Data
+    public static class Detail {
+        private Integer id;
+        private String name;
+        private String image;
+        private String info;
+        private List<String> categories;
+        private Integer memberCount;
+        private String createdAt;
     }
 }

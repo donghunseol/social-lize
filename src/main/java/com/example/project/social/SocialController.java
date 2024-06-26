@@ -1,9 +1,11 @@
 package com.example.project.social;
 
+import com.example.project._core.utils.UserUtil;
 import com.example.project.board.BoardResponse;
 import com.example.project.board.BoardService;
 import com.example.project.file.FileRequest;
 import com.example.project.file.FileService;
+import com.example.project.social_member.SocialMemberService;
 import com.example.project.user.User;
 import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,19 +25,29 @@ public class SocialController {
     private final BoardService boardService;
     private final FileService fileService;
     private final HttpSession session;
+    private final UserUtil userUtil;
 
     @GetMapping("/social/detail/{socialId}")
     public String socialDetail(@PathVariable int socialId, HttpServletRequest request) {
-        BoardResponse.BoardListDTO boardList = boardService.boardList(socialId, 1);
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        BoardResponse.BoardListDTO boardList = boardService.boardList(socialId, sessionUser.getId());
+
         request.setAttribute("boardList", boardList);
+
+        Boolean notJoinedSocial = socialService.notJoinedSocial(socialId, sessionUser.getId());
+
+        if(!notJoinedSocial) {
+            return "social/notJoinedForm";
+        }
+
         return "social/detail";
     }
 
-    // 가입하지 않은 소셜 둘러보기 페이지
-    @GetMapping("/social/notJoined")
-    public String socialNotJoin() {
-        return "social/notJoinedForm";
-    }
+//    // 가입하지 않은 소셜 둘러보기 페이지
+//    @GetMapping("/social/notJoined")
+//    public String socialNotJoin() {
+//        return "social/notJoinedForm";
+//    }
 
     // 새 소셜 추가하기 페이지
     @GetMapping("/social/socialAdd")

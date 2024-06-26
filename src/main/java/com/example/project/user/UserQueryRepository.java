@@ -42,7 +42,7 @@ public class UserQueryRepository {
     public List<Object[]> mySocialPopularList(Integer userId) {
         String q = """
                 SELECT
-                    b.id,
+                    s.id,
                     b.content,
                     u.nickname,
                     COUNT(l.id) AS like_count,

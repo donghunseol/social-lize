@@ -3,12 +3,12 @@ package com.example.project.board;
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.enums.BoardEnum;
 import com.example.project.album.Album;
+import com.example.project.hashtag.Hashtag;
 import com.example.project.social.Social;
 import com.example.project.user.User;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public class BoardRequest {
@@ -18,6 +18,11 @@ public class BoardRequest {
         private String content;
         private List<MultipartFile> imgFiles;
         private List<MultipartFile> videoFiles;
+        private String[] hashtags;
+
+        public SaveDTO(String[] hashtags) {
+            this.hashtags = hashtags;
+        }
 
         public Board boardToEntity(Social socialId, User userId) {
             return Board.builder()

@@ -2,11 +2,14 @@ package com.example.project.board;
 
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.errors.exception.Exception401;
+import com.example.project._core.errors.exception.Exception403;
+import com.example.project._core.errors.exception.Exception404;
 import com.example.project._core.utils.ImageVideoUtil;
 import com.example.project.album.Album;
 import com.example.project.album.AlbumRepository;
 import com.example.project.bookmark.BookmarkRepository;
-import com.example.project.like.Like;
+import com.example.project.hashtag.Hashtag;
+import com.example.project.hashtag.HashtagRepository;
 import com.example.project.like.LikeRepository;
 import com.example.project.reply.ReplyRepository;
 import com.example.project.social.Social;
@@ -32,8 +35,12 @@ public class BoardService {
     private final LikeRepository likeRepository;
     private final ReplyRepository replyRepository;
     private final BookmarkRepository bookRepository;
+    private final HashtagRepository hashtagRepository;
 
     public BoardResponse.BoardListDTO boardList(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
         List<Board> boards = boardRepository.findByBoards(userId);
         List<BoardResponse.BoardListDTO.BoardDTO> boardDTOs = new ArrayList<>();
 
@@ -51,8 +58,23 @@ public class BoardService {
             // 북마크 여부 확인
             Boolean bookmarked = bookRepository.findByBookUserId(board.getId(), userId) > 0;
 
+            List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
+
+            Boolean hashEmpty = false;
+
             // BoardDTO 객체 생성
-            BoardResponse.BoardListDTO.BoardDTO boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked);
+            BoardResponse.BoardListDTO.BoardDTO boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+
+            if (boardDTO != null && boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                if (boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                    if (boardDTO.getHashtagList().get(0).getName().equals("")) {
+                        hashEmpty = true;
+                        boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+                        boardDTOs.add(boardDTO);
+                    }
+                }
+            }
+
             boardDTOs.add(boardDTO);
         }
 
@@ -60,6 +82,9 @@ public class BoardService {
     }
 
     public BoardResponse.BoardListDTO boardList(int socialId, Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
         List<Board> boards = boardRepository.findByBoardSocialId(socialId);
         List<BoardResponse.BoardListDTO.BoardDTO> boardDTOs = new ArrayList<>();
 
@@ -77,8 +102,25 @@ public class BoardService {
             // 북마크 여부 확인
             Boolean bookmarked = bookRepository.findByBookUserId(board.getId(), userId) > 0;
 
+
+            List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
+
+
+            Boolean hashEmpty = false;
+
             // BoardDTO 객체 생성
-            BoardResponse.BoardListDTO.BoardDTO boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked);
+            BoardResponse.BoardListDTO.BoardDTO boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+
+            if (boardDTO != null && boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                if (boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                    if (boardDTO.getHashtagList().get(0).getName().equals("")) {
+                        hashEmpty = true;
+                        boardDTO = new BoardResponse.BoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+                        boardDTOs.add(boardDTO);
+                    }
+                }
+            }
+
             boardDTOs.add(boardDTO);
         }
 
@@ -96,25 +138,69 @@ public class BoardService {
         Board board = boardRepository.save(reqDTO.boardToEntity(social, user));
 
         // 이미지 파일 처리
-        for (int i = 0; i < reqDTO.getImgFiles().size() - 1; i++) {
-            if (i >= 0) {
-                MultipartFile imgFile = reqDTO.getImgFiles().get(i);
-                ImageVideoUtil.FileUploadResult a = ImageVideoUtil.uploadFile(imgFile);
-                String imgPath = a.getFilePath();
+        if (reqDTO.getImgFiles() != null) {
+            for (int i = 0; i < reqDTO.getImgFiles().size() - 1; i++) {
+                if (i >= 0) {
+                    MultipartFile imgFile = reqDTO.getImgFiles().get(i);
+                    ImageVideoUtil.FileUploadResult a = ImageVideoUtil.uploadFile(imgFile);
+                    String imgPath = a.getFilePath();
 
-                albumRepository.save(reqDTO.albumToEntity(user, board, imgPath, AlbumEnum.IMAGE));
+                    albumRepository.save(reqDTO.albumToEntity(user, board, imgPath, AlbumEnum.IMAGE));
+                }
             }
         }
 
         // 동영상 파일 처리
-        for (int i = 0; i < reqDTO.getVideoFiles().size() - 1; i++) {
-            if (i >= 0) {
-                MultipartFile videoFile = reqDTO.getVideoFiles().get(i);
-                ImageVideoUtil.FileUploadResult a = ImageVideoUtil.uploadFile(videoFile);
-                String videoPath = a.getFilePath();
+        if (reqDTO.getVideoFiles() != null) {
+            for (int i = 0; i < reqDTO.getVideoFiles().size() - 1; i++) {
+                if (i >= 0) {
+                    MultipartFile videoFile = reqDTO.getVideoFiles().get(i);
+                    ImageVideoUtil.FileUploadResult a = ImageVideoUtil.uploadFile(videoFile);
+                    String videoPath = a.getFilePath();
 
-                albumRepository.save(reqDTO.albumToEntity(user, board, videoPath, AlbumEnum.VIDEO));
+                    albumRepository.save(reqDTO.albumToEntity(user, board, videoPath, AlbumEnum.VIDEO));
+                }
             }
         }
+
+        // 해시태그 처리
+        if (reqDTO.getHashtags() != null) {
+            for (String hashtag : reqDTO.getHashtags()) {
+                String cleanHashtag = hashtag.replaceAll("[\"\\[\\]]", "");
+                Hashtag hashtagEntity = new Hashtag();
+                hashtagEntity.setName(cleanHashtag);
+                hashtagEntity.setBoardId(board);
+                hashtagRepository.save(hashtagEntity);
+            }
+        }
+    }
+
+    public BoardResponse.BoardDetailDTO detail(Integer boardId) {
+
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new Exception404("게시물을 찾을 수 없습니다"));
+
+        User user = userRepository.findById(board.getUserId().getId())
+                .orElseThrow(() -> new Exception403("로그인 하셔야 합니다"));
+
+        List<Hashtag> hashtag = hashtagRepository.findByBoardId(board.getId());
+
+        Integer likeCount = likeRepository.findByLikeCount(board.getId());
+
+        Integer replyCount = replyRepository.replyCount(board.getId());
+
+        return new BoardResponse.BoardDetailDTO(board, user, likeCount, replyCount, hashtag);
+    }
+
+    // 유저 작성 게시글 리스트 조회
+    public List<BoardResponse.BoardList> getBoardList() {
+        return boardRepository.findAllBoardList();
+    }
+
+    // 유저 작성 게시글 상세 조회
+    public BoardResponse.Detail getBoardDetail(Integer boardId) {
+        Board board = boardRepository.findByBoardId(boardId)
+                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다"));
+        return new BoardResponse.Detail(board);
     }
 }

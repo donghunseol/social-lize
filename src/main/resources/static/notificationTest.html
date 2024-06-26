@@ -96,7 +96,8 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownNotification">
                 <!-- 알림 아이템 더미 데이터 -->
-                <li class="dropdown-item">
+                {{#notifications}
+                <li class="dropdown-item" id="notification-template">
                     <div class="header-dropdown-item-content">
                         <div class="header-dropdown-text">
                             <p class="header-dropdown-title">알림 제목 1</p>
@@ -105,24 +106,25 @@
                         </div>
                     </div>
                 </li>
-                <li class="dropdown-item">
-                    <div class="header-dropdown-item-content">
-                        <div class="header-dropdown-text">
-                            <p class="header-dropdown-title">알림 제목 2</p>
-                            <p class="header-dropdown-message">알림 메시지 2</p>
-                            <p class="header-dropdown-time">20분 전</p>
-                        </div>
-                    </div>
-                </li>
-                <li class="dropdown-item">
-                    <div class="header-dropdown-item-content">
-                        <div class="header-dropdown-text">
-                            <p class="header-dropdown-title">알림 제목 3</p>
-                            <p class="header-dropdown-message">알림 메시지 3</p>
-                            <p class="header-dropdown-time">30분 전</p>
-                        </div>
-                    </div>
-                </li>
+                {{/notifications}
+<!--                <li class="dropdown-item">-->
+<!--                    <div class="header-dropdown-item-content">-->
+<!--                        <div class="header-dropdown-text">-->
+<!--                            <p class="header-dropdown-title">알림 제목 2</p>-->
+<!--                            <p class="header-dropdown-message">알림 메시지 2</p>-->
+<!--                            <p class="header-dropdown-time">20분 전</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--                <li class="dropdown-item">-->
+<!--                    <div class="header-dropdown-item-content">-->
+<!--                        <div class="header-dropdown-text">-->
+<!--                            <p class="header-dropdown-title">알림 제목 3</p>-->
+<!--                            <p class="header-dropdown-message">알림 메시지 3</p>-->
+<!--                            <p class="header-dropdown-time">30분 전</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </li>-->
             </ul>
         </div>
         <!-- 채팅 드롭다운 -->
@@ -186,11 +188,13 @@
                     // 알림 및 채팅 데이터 처리
                     var notificationTemplate = $('#notification-template').html();
                     var renderedNotifications = Mustache.render(notificationTemplate, { notifications: data.notifications });
-                    $('#dropdownNotification .dropdown-menu').html(renderedNotifications);
 
-                    var chatTemplate = $('#chat-template').html();
-                    var renderedChats = Mustache.render(chatTemplate, { chats: data.chats });
-                    $('#dropdownChat .dropdown-menu').html(renderedChats);
+                    //
+                    // $('#dropdownNotification .dropdown-menu').html(renderedNotifications);
+                    //
+                    // var chatTemplate = $('#chat-template').html();
+                    // var renderedChats = Mustache.render(chatTemplate, { chats: data.chats });
+                    // $('#dropdownChat .dropdown-menu').html(renderedChats);
                 },
                 error: function (error) {
                     console.log('데이터를 불러오는 데 실패했습니다.', error);
@@ -199,6 +203,5 @@
         }
 
         // 3초마다 알림 및 채팅 데이터를 새로고침
-        setInterval(fetchData, 3000);
-    });
+        // setInterval(fetchData, 3000);
 </script>
