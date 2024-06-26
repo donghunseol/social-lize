@@ -141,7 +141,7 @@ public class UserController {
 
     //회원정보수정 처리
     @PostMapping("/user/update")
-    public @ResponseBody String updateUser(UserRequest.UpdateDTO updateDTO, HttpServletRequest request) throws JsonProcessingException {
+    public String updateUser(UserRequest.UpdateDTO updateDTO, HttpServletRequest request) throws JsonProcessingException {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
 
         User updatingUser = new User();
@@ -162,13 +162,12 @@ public class UserController {
 
         if (updateDTO.getImage() != null && !updateDTO.getImage().isEmpty()) {
             // 이미지 파일 처리 로직
-//            String imagePath = saveImage(image); // 예를 들어, 이미지 저장 경로를 설정
             FileUtil.FileUploadResult uploadResult = FileUtil.uploadFile("./upload", updateDTO.getImage());
             updatingUser.setImage(uploadResult.getFilePath());
         }
         UserResponse.LoggedInUserDTO updatedUser = userService.updateUser(updatingUser);
         userUtil.saveSessionUser(updatedUser); //업데이트된 정보로 세션을 업데이트한다
-        return "";
+        return "redirect:/";
     }
 
     // 로그아웃 처리
