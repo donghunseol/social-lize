@@ -11,7 +11,10 @@ import com.example.project.bookmark.BookmarkRepository;
 import com.example.project.hashtag.Hashtag;
 import com.example.project.hashtag.HashtagRepository;
 import com.example.project.like.LikeRepository;
+import com.example.project.reply.Reply;
 import com.example.project.reply.ReplyRepository;
+import com.example.project.rereply.Rereply;
+import com.example.project.rereply.RereplyRepository;
 import com.example.project.social.Social;
 import com.example.project.social.SocialRepository;
 import com.example.project.user.User;
@@ -34,6 +37,7 @@ public class BoardService {
     private final AlbumRepository albumRepository;
     private final LikeRepository likeRepository;
     private final ReplyRepository replyRepository;
+    private final RereplyRepository rereplyRepository;
     private final BookmarkRepository bookRepository;
     private final HashtagRepository hashtagRepository;
 
@@ -183,13 +187,24 @@ public class BoardService {
         User user = userRepository.findById(board.getUserId().getId())
                 .orElseThrow(() -> new Exception403("로그인 하셔야 합니다"));
 
-        List<Hashtag> hashtag = hashtagRepository.findByBoardId(board.getId());
+        List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
 
         Integer likeCount = likeRepository.findByLikeCount(board.getId());
 
         Integer replyCount = replyRepository.replyCount(board.getId());
 
-        return new BoardResponse.BoardDetailDTO(board, user, likeCount, replyCount, hashtag);
+        List<Reply> replies = replyRepository.findByReply(board.getId());
+
+        // 댓글별로 대댓글을 조회하여 DTO로 변환하는 로직
+        List<BoardResponse.BoardDetailDTO.ReplyDTO> replyDTOList = replies.stream().map(reply -> {
+            List<Rereply> rereplies = rereplyRepository.findByReplyId(reply.getId());
+            List<BoardResponse.BoardDetailDTO.RereplyDTO> rereplyDTOList = rereplies.stream()
+                    .map(rereply -> new BoardResponse.BoardDetailDTO.RereplyDTO(rereply))
+                    .toList();
+            return new BoardResponse.BoardDetailDTO.ReplyDTO(reply, rereplyDTOList);
+        }).toList();
+
+        return new BoardResponse.BoardDetailDTO(board, user, likeCount, replyCount, hashtags, replyDTOList);
     }
 
     // 유저 작성 게시글 리스트 조회

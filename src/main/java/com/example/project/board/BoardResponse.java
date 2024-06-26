@@ -4,6 +4,9 @@ import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.hashtag.Hashtag;
+import com.example.project.reply.Reply;
+import com.example.project.rereply.Rereply;
+import com.example.project.rereply.RereplyRepository;
 import com.example.project.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -96,8 +99,9 @@ public class BoardResponse {
         private Integer replyCount;
         private List<HashtagDTO> hashtagList;
         private String userImage;
+        private List<ReplyDTO> replyList;
 
-        public BoardDetailDTO(Board board, User user, Integer likeCount, Integer replyCount, List<Hashtag> hashtagList) {
+        public BoardDetailDTO(Board board, User user, Integer likeCount, Integer replyCount, List<Hashtag> hashtagList, List<ReplyDTO> replyList) {
             this.boardId = board.getId();
             this.nickname = user.getNickname();
             LocalDateTime format = board.getCreatedAt();
@@ -108,6 +112,7 @@ public class BoardResponse {
             this.replyCount = replyCount;
             this.hashtagList = hashtagList.stream().map(HashtagDTO::new).toList();
             this.userImage = user.getImage();
+            this.replyList = replyList;
         }
 
         @Data
@@ -118,7 +123,41 @@ public class BoardResponse {
                 this.name = hashtag.getName();
             }
         }
+
+        @Data
+        public static class ReplyDTO {
+            private Integer id;
+            private String userImage;
+            private String nickname;
+            private String content;
+            private List<RereplyDTO> rereplyList;
+
+            public ReplyDTO(Reply reply, List<RereplyDTO> rereplyList) {
+                this.id = reply.getId();
+                this.userImage = reply.getUserId().getImage();
+                this.nickname = reply.getUserId().getNickname();
+                this.content = reply.getComment();
+                this.rereplyList = rereplyList;
+            }
+        }
+
+        @Data
+        public static class RereplyDTO {
+            private Integer id;
+            private String userImage;
+            private String nickname;
+            private String content;
+
+            public RereplyDTO(Rereply rereply) {
+                this.id = rereply.getId();
+                this.userImage = rereply.getUserId().getImage();
+                this.nickname = rereply.getUserId().getNickname();
+                this.content = rereply.getComment();
+            }
+        }
     }
+
+
 
     // 게시글 리스트 (관리자)
     @AllArgsConstructor
