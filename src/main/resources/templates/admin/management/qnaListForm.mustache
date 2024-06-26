@@ -22,7 +22,7 @@
                         <form action="#" method="#" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
-                                    <span>총 문의<em> 2 </em>개</span>
+                                    <span>총 문의<em> {{qnaListAndCount.count}} </em>개</span>
                                 </li>
                                 <li class="search-right">
                                     <div>
@@ -48,15 +48,16 @@
                             </tr>
                             </thead>
                             <tbody>
+                            {{#qnaListAndCount.qnaList}}
                             <tr class="review">
-                                <td class="title"><span style="color: #f45858">[ 게시판 ]</span>
-                                    게시판 이용 문의</td>
-                                <td class="content">하승진</td>
-                                <td>2024.06.22</td>
+                                <td class="title">{{title}}</td>
+                                <td class="content">{{nickname}}</td>
+                                <td>{{createdAt}}</td>
                                 <td class="link">
-                                    <a href="/admin/qna/1"></a>
+                                    <a href="/admin/qna/{{id}}"></a>
                                 </td>
                             </tr>
+                            {{/qnaListAndCount.qnaList}}
                             </tbody>
                         </table>
                     </div>

@@ -25,4 +25,9 @@ public class QnaRequest {
         private String title;
         private String content;
     }
+
+    @Data
+    public static class replyDTO {
+        private String replyContent;
+    }
 }
