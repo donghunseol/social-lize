@@ -3,10 +3,10 @@
     <div class="socialnotjoin-container">
         <div class="socialnotjoin-sidebar">
             <div class="socialnotjoin-social-info">
-                <img src="{{socialDetail.image}}" alt="소셜 사진">
-                <h2>{{socialDetail.title}}</h2>
-                <div>리더 <span class="socialnotjoin-highlight">{{socialDetail.name}}</span></div>
-                <div>멤버 <span class="socialnotjoin-highlight">{{socialDetail.memberCount}}</span></div>
+                <img src="{{modal.image}}" alt="소셜 사진">
+                <h2>{{modal.title}}</h2>
+                <div>리더 <span class="socialnotjoin-highlight">{{modal.name}}</span></div>
+                <div>멤버 <span class="socialnotjoin-highlight">{{modal.memberCount}}</span></div>
                 <button class="socialnotjoin-join-button">가입하기</button>
             </div>
         </div>
@@ -14,11 +14,11 @@
             <div class="socialnotjoin-social-description">
                 <h3>소셜 소개</h3>
                 <div class="socialnotjoin-divider"></div>
-                <p>{{socialDetail.info}}</p>
+                <p>{{modal.info}}</p>
                 <p class="socialnotjoin-hashtags">
-                    {{#socialDetail.allHasTagList}}
+                    {{#modal.allHasTagList}}
                         <span>{{hasTagName}}</span>
-                    {{/socialDetail.allHasTagList}}
+                    {{/modal.allHasTagList}}
                 </p>
             </div>
             <div class="socialnotjoin-divider"></div>
@@ -26,12 +26,11 @@
                 <h3>이 소셜의 활동 정보</h3>
                 <div class="socialnotjoin-divider"></div>
                 <ul>
-                    <li>개설일 <span class="socialnotjoin-highlight">{{socialDetail.createdAt}}</span></li>
-                    <li>총 게시글 <span class="socialnotjoin-highlight">{{socialDetail.boardCount}} 건</span></li>
+                    <li>개설일 <span class="socialnotjoin-highlight">{{modal.createdAt}}</span></li>
+                    <li>총 게시글 <span class="socialnotjoin-highlight">{{modal.boardCount}} 건</span></li>
                 </ul>
-                <p>우리 소셜의 게시글은 {{socialDetail.week}}에 가장 많이 작성됩니다.</p>
-                <div id="weekCount" data-week="{{socialDetail.weekCount}}"></div>
-                <div id="weekList" data-week="{{socialDetail.weekList}}"></div>
+                <p>우리 소셜의 게시글은 {{modal.week}}요일에 가장 많이 작성됩니다.</p>
+                <div id="weekCount" data-week="{{modal.weekCount}}"></div>
                 <div class="socialnotjoin-social-chart">
                     <canvas id="activityChart"></canvas>
                 </div>
@@ -42,19 +41,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
 <script>
     const socialDetailElement = document.getElementById('weekCount');
-    const weekArrayString = socialDetailElement.getAttribute('data-week');
-
-    const socialElement = document.getElementById('weekList');
-    const weekString = socialElement.getAttribute('data-week');
+    const weekCountString = socialDetailElement.getAttribute('data-week');
+    const weekCount = JSON.parse(weekCountString);
 
     var ctx = document.getElementById('activityChart').getContext('2d');
     var activityChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: weekString,
+            labels: ['일', '월', '화', '수', '목', '금', '토'],
             datasets: [{
                 label: '활동 수',
-                data: weekArrayString,
+                data: weekCount,
                 borderColor: '#5C9CFA',
                 borderWidth: 2,
                 fill: false,
@@ -62,7 +59,7 @@
                 pointBackgroundColor: '#5C9CFA',
                 pointBorderColor: '#5C9CFA',
                 pointRadius: 5,
-                pointHoverRadius: weekString.length
+                pointHoverRadius: 7
             }]
         },
         options: {
@@ -103,7 +100,6 @@
             }
         }
     });
-    /*]]>*/
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 {{> layout/footer}}
