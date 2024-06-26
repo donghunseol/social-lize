@@ -5,9 +5,6 @@ import com.example.project.board.BoardResponse;
 import com.example.project.board.BoardService;
 import com.example.project.file.FileRequest;
 import com.example.project.file.FileService;
-import com.example.project.notification.NotificationResponse;
-import com.example.project.social_member.SocialMemberService;
-import com.example.project.user.User;
 import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -18,8 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-
-import static com.example.project._core.utils.UserUtil.getLoggedInUser;
 
 
 @RequiredArgsConstructor
@@ -40,7 +35,7 @@ public class SocialController {
 
         Boolean notJoinedSocial = socialService.notJoinedSocial(socialId, sessionUser.getId());
 
-        if(!notJoinedSocial) {
+        if (!notJoinedSocial) {
             return "social/notJoinedForm";
         }
 

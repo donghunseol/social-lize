@@ -89,4 +89,54 @@ public class AdminController {
         request.setAttribute("boardDetail", boardDetail);
         return "admin/board/boardDetailForm";
     }
+
+    // 문의 리스트 조회
+    @GetMapping("/qna-list")
+    public String qnaListPage(HttpServletRequest request) {
+//        List<UserResponse.QnaList> qnaList = userService.getQnaList();
+//        request.setAttribute("qnaList", qnaList);
+        return "admin/management/qnaListForm";
+    }
+
+    // 문의 상세 조회
+    @GetMapping("/qna/{qnaId}")
+    public String qnaDetailPage(HttpServletRequest request, @PathVariable Integer qnaId) {
+        return "admin/management/qnaDetailForm";
+    }
+
+    // 신고 리스트 조회
+    @GetMapping("/report-list")
+    public String reportListPage(HttpServletRequest request) {
+        return "admin/management/reportListForm";
+    }
+
+    // 신고 상세 조회
+    @GetMapping("/report/{reportId}")
+    public String reportDetailPage(HttpServletRequest request, @PathVariable Integer reportId) {
+        return "admin/management/reportDetailForm";
+    }
+
+    // 공지 리스트 조회
+    @GetMapping("/notice-list")
+    public String noticeListPage(HttpServletRequest request) {
+        return "admin/management/noticeListForm";
+    }
+
+    // 공지 상세 조회
+    @GetMapping("/notice/{noticeId}")
+    public String noticeDetailPage(HttpServletRequest request, @PathVariable Integer noticeId) {
+        return "admin/management/noticeDetailForm";
+    }
+
+    // 공지 작성 페이지
+    @GetMapping("/notice/write")
+    public String noticeWritePage(HttpServletRequest request) {
+        return "admin/management/noticeWriteForm";
+    }
+
+    // 공지 수정 페이지
+    @GetMapping("/notice/{noticeId}/update")
+    public String noticeUpdatePage(HttpServletRequest request, @PathVariable Integer noticeId) {
+        return "admin/management/noticeUpdateForm";
+    }
 }
