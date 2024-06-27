@@ -108,4 +108,18 @@ public class NoticeService {
         boardRepository.save(board);
         noticeRepository.save(notice);
     }
+
+    // 공지 수정 (관리자)
+    public void updateNotice(Integer noticeId, String content) {
+        Notice notice = noticeRepository.findByNoticeId(noticeId)
+               .orElseThrow(() -> new Exception404("해당 공지가 없습니다."));
+        Board board = boardRepository.findById(notice.getBoard().getId())
+               .orElseThrow(() -> new Exception404("해당 게시글이 없습니다."));
+
+        board.setContent(content);
+        notice.setBoard(board);
+
+        boardRepository.save(board);
+        noticeRepository.save(notice);
+    }
 }
