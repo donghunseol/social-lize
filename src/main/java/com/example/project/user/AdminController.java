@@ -156,9 +156,17 @@ public class AdminController {
     }
 
     // 공지 작성 페이지
-    @GetMapping("/notice/write")
+    @GetMapping("/notice/write-form")
     public String noticeWritePage(HttpServletRequest request) {
         return "admin/management/noticeWriteForm";
+    }
+
+    // 공지 등록
+    @PostMapping("/notice/write")
+    public String noticeWrite(String content) {
+        Integer userId = 1;
+        noticeService.createNotice(userId, content);
+        return "redirect:/admin/notice-list";
     }
 
     // 공지 수정 페이지

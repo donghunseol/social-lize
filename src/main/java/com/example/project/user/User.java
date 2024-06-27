@@ -1,6 +1,5 @@
 package com.example.project.user;
 
-import com.example.project._core.enums.BoardEnum;
 import com.example.project._core.enums.UserEnum;
 import com.example.project._core.enums.UserProviderEnum;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
