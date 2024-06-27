@@ -32,7 +32,6 @@ public class BoardResponse {
         private String createdAt;
         private Integer boardCount;
         private String week;
-        private List<String> weekList;
         private List<Integer> weekCount;
 
 
@@ -49,7 +48,7 @@ public class BoardResponse {
 
         private List<BoardDTO> boards;
 
-        public SocialDetailDTO(List<Hashtag> allHasTagList, Social social, String name, Integer memberCount, List<BoardDTO> boards, Integer boardCount, String week, List<String> weekList, List<Integer> weekCount) {
+        public SocialDetailDTO(List<Hashtag> allHasTagList, Social social, String name, Integer memberCount, List<BoardDTO> boards, Integer boardCount, String week, List<Integer> weekCount) {
             this.allHasTagList = allHasTagList.stream().map(AllHasTagDTO::new).toList();
             this.title = social.getName();
             this.name = name;
@@ -62,7 +61,6 @@ public class BoardResponse {
             this.createdAt = format.format(formatter);
             this.boardCount = boardCount;
             this.week = week;
-            this.weekList = weekList;
             this.weekCount = weekCount;
         }
 
@@ -175,6 +173,7 @@ public class BoardResponse {
             private String userImage;
             private String nickname;
             private String content;
+            private String createdAt;
             private List<RereplyDTO> rereplyList;
 
             public ReplyDTO(Reply reply, List<RereplyDTO> rereplyList) {
@@ -182,6 +181,9 @@ public class BoardResponse {
                 this.userImage = reply.getUserId().getImage();
                 this.nickname = reply.getUserId().getNickname();
                 this.content = reply.getComment();
+                LocalDateTime format = reply.getCreatedAt();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h:mm");
+                this.createdAt = format.format(formatter);
                 this.rereplyList = rereplyList;
             }
         }
@@ -192,12 +194,16 @@ public class BoardResponse {
             private String userImage;
             private String nickname;
             private String content;
+            private String createdAt;
 
             public RereplyDTO(Rereply rereply) {
                 this.id = rereply.getId();
                 this.userImage = rereply.getUserId().getImage();
                 this.nickname = rereply.getUserId().getNickname();
                 this.content = rereply.getComment();
+                LocalDateTime format = rereply.getCreatedAt();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h:mm");
+                this.createdAt = format.format(formatter);
             }
         }
     }

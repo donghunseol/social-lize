@@ -17,12 +17,12 @@
                                     <p class="title">공지사항</p>
                                 </div>
                             </div>
-                            <form action="">
+                            <form action="/admin/notice/write" method="post">
                                 <input type="hidden" name="userId" value="sessionUser.id">
                                 <div class="detail-content">
                                     <span class="review-title">공지 내용</span>
                                     <p class="review-content">
-                                        <textarea name="reply" id="" cols="30" rows="10"></textarea>
+                                        <textarea name="content" id="" cols="30" rows="10"></textarea>
                                     </p>
                                 </div>
                                 <div class="report-button-wrapper">

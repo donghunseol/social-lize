@@ -55,11 +55,11 @@ VALUES
 -- 소셜 마다 공지사항 등록
 INSERT INTO board_tb (social_id, user_id, content, role, created_at)
 VALUES
-    (1, 6, '모든 회원은 서로를 존중해 주시기 바랍니다.<br>불쾌한 언행은 삼가해 주세요.', 'NOTICE', now()),
-    (2, 6, '새로 가입하신 모든 분께 소정의 선물을 드립니다.<br>활동을 시작해 보세요!', 'NOTICE', now()),
-    (3, 6, '이번 주 금요일에 사이트 점검이 있을 예정입니다.<br>서비스 이용에 참고해 주세요.', 'NOTICE', now()),
-    (4, 6, '사용자의 편의성을 위해 새 기능이 추가되었습니다.<br>많은 이용 바랍니다.', 'NOTICE', now()),
-    (5, 6, '모임장소에서의 안전 수칙을 준수해 주세요.<br>모두의 안전을 위해 협력해 주시길 바랍니다.', 'NOTICE', now());
+    (null, 6, '모든 회원은 서로를 존중해 주시기 바랍니다.<br>불쾌한 언행은 삼가해 주세요.', 'NOTICE', now()),
+    (null, 6, '새로 가입하신 모든 분께 소정의 선물을 드립니다.<br>활동을 시작해 보세요!', 'NOTICE', now()),
+    (null, 6, '이번 주 금요일에 사이트 점검이 있을 예정입니다.<br>서비스 이용에 참고해 주세요.', 'NOTICE', now()),
+    (null, 6, '사용자의 편의성을 위해 새 기능이 추가되었습니다.<br>많은 이용 바랍니다.', 'NOTICE', now()),
+    (null, 6, '모임장소에서의 안전 수칙을 준수해 주세요.<br>모두의 안전을 위해 협력해 주시길 바랍니다.', 'NOTICE', now());
 
 -- 댓글 테이블
 INSERT INTO reply_tb (board_id, user_id, comment, created_at)
@@ -251,6 +251,13 @@ INSERT INTO report_tb (user_id, report_user_id, board_id, reply_id, rereply_id, 
 VALUES (1, 2, 21, null, null, '2번 유저가 1번 유저의 21번 게시글을 신고함', 'Checking', now()),
        (2, 1, 22, null, null, '1번 유저가 2번 유저의 22번 게시글을 신고함', 'Finish', now());
 
+-- 공지 테이블
+INSERT INTO notice_tb (board_id)
+VALUES (24),
+       (25),
+       (26),
+       (27),
+       (28);
 
 -- 첨부 파일 테이블
 INSERT INTO file_tb (social_id, user_id, name, path, created_at)

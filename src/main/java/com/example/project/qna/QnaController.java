@@ -24,8 +24,8 @@ public class QnaController {
     @GetMapping("/qna/detail/{qnaId}")
     public String detail(@PathVariable("qnaId") Integer qnaId, HttpServletRequest request) {
         Integer userId = 1;
-        QnaResponse.QnaDetailDTO detail = qnaService.detail(userId, qnaId);
-        request.setAttribute("detail", detail);
+        QnaResponse.QnaDetailDTO modal = qnaService.detail(userId, qnaId);
+        request.setAttribute("modal", modal);
 
         return null;
     }
@@ -34,9 +34,9 @@ public class QnaController {
     @GetMapping("/qna/my/list")
     public String list(HttpServletRequest request) {
         Integer userId = 1;
-        QnaResponse.QnaListDTO qnaList = qnaService.list(userId);
+        QnaResponse.QnaListDTO modal = qnaService.list(userId);
 
-        request.setAttribute("qnaList", qnaList);
+        request.setAttribute("modal", modal);
 
         return "qna/qnaList";
     }

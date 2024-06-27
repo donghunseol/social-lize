@@ -6,9 +6,9 @@
         <div class="detail-hashtag-container">
             <div class="detail-wrap-vertical">
                 <div class="detail-hashtag active">전체</div>
-                {{#socialDetail.allHasTagList}}
+                {{#modal.allHasTagList}}
                     <div class="detail-hashtag">{{hasTagName}}</div>
-                {{/socialDetail.allHasTagList}}
+                {{/modal.allHasTagList}}
             </div>
         </div>
         <div class="detail-board-container">
@@ -17,7 +17,7 @@
     </div>
     <div class="detail-chat-container">
         <div class="detail-chat-header">
-            <div class="detail-chat-title">{{socialDetail.title}}</div>
+            <div class="detail-chat-title">{{modal.title}}</div>
             <div id="connection-status" class="detail-chat-status">연결 중...</div>
             <div class="detail-chat-menu">⋮</div>
         </div>
