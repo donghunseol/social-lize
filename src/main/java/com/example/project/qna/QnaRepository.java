@@ -19,6 +19,12 @@ public interface QnaRepository extends JpaRepository<Qna, Integer> {
     @Query("select q from Qna q where q.userId.id = :userId and q.state != 'DELETE'")
     List<Qna> findByUserId(@Param("userId") Integer userId);
 
+    @Query("select q from Qna q where q.userId.id = :userId and q.state = 'ANSWER'")
+    List<Qna> findByQnaAnswer(@Param("userId") Integer userId);
+
+    @Query("select q from Qna q where q.userId.id = :userId and q.state = 'WAITING'")
+    List<Qna> findByQnaWaiting(@Param("userId") Integer userId);
+
     // 유저가 작성한 문의 리스트 조회 (관리자)
     @Query("select q from Qna q join q.userId u where q.state = 'ANSWER' or q.state = 'WAITING'")
     List<Qna> findAllQnaList();

@@ -7,14 +7,14 @@ import lombok.Data;
 public class QnaRequest {
     @Data
     public static class SaveDTO {
-        private String title;
-        private String content;
+        private String inquiryTitle;
+        private String inquiryContent;
 
         public Qna toEntity(User userId) {
             return Qna.builder()
                     .userId(userId)
-                    .title(title)
-                    .content(content)
+                    .title(inquiryTitle)
+                    .content(inquiryContent)
                     .state(QnaEnum.WAITING)
                     .build();
         }
