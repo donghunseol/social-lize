@@ -69,14 +69,14 @@
         </div>
     {{/modal.boards}}
 
-    {{#modal.boards}}
+    {{#modals.boards}}
         <div class="group-name">{{socialName}}</div>
         <div class="post">
             <div class="author-box">
                 <img src="{{userImage}}" alt="Profile Picture" class="profile-picture openModalBtn" data-board-id="{{boardId}}">
                 <div>
                     <button data-board-id="{{boardId}}" class="book-button {{#book}}book{{/book}}">
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star" style="color: yellow"></i>
                     </button>
                     <div class="author">{{nickname}}</div>
                     <div class="date">{{createdAt}}</div>
@@ -126,7 +126,7 @@
             </div>
             <button class="send-button">보내기</button>
         </div>
-    {{/modal.boards}}
+    {{/modals.boards}}
 </div>
 
 <!-- HLS 비디오 커넥터 -->

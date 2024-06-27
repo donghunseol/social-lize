@@ -138,11 +138,13 @@ public class BoardService {
         // 해시태그 처리
         if (reqDTO.getHashtags() != null) {
             for (String hashtag : reqDTO.getHashtags()) {
-                String cleanHashtag = hashtag.replaceAll("[\"\\[\\]]", "");
-                Hashtag hashtagEntity = new Hashtag();
-                hashtagEntity.setName(cleanHashtag);
-                hashtagEntity.setBoardId(board);
-                hashtagRepository.save(hashtagEntity);
+                if (hashtag.isEmpty()) {
+                    String cleanHashtag = hashtag.replaceAll("[\"\\[\\]]", "");
+                    Hashtag hashtagEntity = new Hashtag();
+                    hashtagEntity.setName(cleanHashtag);
+                    hashtagEntity.setBoardId(board);
+                    hashtagRepository.save(hashtagEntity);
+                }
             }
         }
     }
