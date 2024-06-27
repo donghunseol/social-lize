@@ -1,0 +1,145 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.report-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.report-container {
+    padding: 40px;
+    width: 90%;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 150px;
+    margin-bottom: 50px;
+}
+
+.report-tab-container {
+    width: 100%;
+}
+
+.report-tabs {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    margin-top: 20px;
+}
+
+.report-tab {
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px 0;
+    cursor: pointer;
+    color: grey;
+}
+
+.report-tab.active {
+    color: #5C9CFA;
+    border-bottom: 2px solid #5C9CFA;
+}
+
+.report-tab-content {
+    display: none;
+    padding-top: 20px;
+    width: 100%;
+}
+
+.report-tab-content.active {
+    display: block;
+}
+
+.report-form-group {
+    margin-bottom: 20px;
+}
+
+.report-form-group label {
+    display: block;
+    font-weight: bold;
+    color: grey;
+    margin-bottom: 8px;
+}
+
+.report-form-group input,
+.report-form-group textarea {
+    width: calc(100% - 5px);
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.report-form-group textarea {
+    resize: vertical;
+}
+
+.report-button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.report-button-group button {
+    flex-grow: 1;
+    margin: 0 5px 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #5C9CFA;
+    cursor: pointer;
+}
+
+.report-button-group button.report-cancel {
+    background-color: grey;
+}
+
+.report-info-text {
+    color: grey;
+    margin: 20px 0;
+}
+
+.report-info-text small {
+    display: block;
+}
+
+.report-company-info {
+    text-align: center;
+    color: grey;
+    margin-bottom: 20px;
+}
+
+.report-info-section {
+    margin-bottom: 20px;
+}
+
+.report-info-section div {
+    padding: 10px;
+    background-color: #f0f0f0;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.report-detail-box {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #f9f9f9;
+}
