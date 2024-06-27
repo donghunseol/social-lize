@@ -264,19 +264,18 @@ public class SocialService {
     }
 
     // 소셜 상세 조회 (관리자)
-    public SocialResponse.Detail getSocialDetail(Integer socialId) {
+    public SocialResponse.DetailDTO getSocialDetail(Integer socialId) {
         Social social = socialRepository.findById(socialId)
                 .orElseThrow(() -> new Exception404("해당 소셜은 존재하지 않습니다."));
+        List<SocialMember> socialMemberListDTO = socialMemberRepository.findSocialMembersBySocialId(social.getId());
 
-        return new SocialResponse.Detail(
-                social.getId(),
-                social.getName(),
-                social.getImage(),
-                social.getInfo(),
-                social.getCategory().stream().map(category -> category.getCategoryNameId().getName()).collect(Collectors.toList()),
-                socialMemberRepository.countBySocialId(social.getId()),
-                LocalDateTimeFormatter.convert(social.getCreatedAt())
-        );
+        SocialResponse.DetailDTO.Detail detail = new SocialResponse.DetailDTO.Detail(social);
+        Integer memberCount = socialMemberRepository.findAllBySocialMemberState(social.getId());
+        List<SocialResponse.DetailDTO.SocialMemberList> socialMemberList = socialMemberListDTO.stream()
+                .map(SocialResponse.DetailDTO.SocialMemberList::new)
+                .collect(Collectors.toList());
+
+        return new SocialResponse.DetailDTO(detail, memberCount, socialMemberList);
     }
 
     // 소셜 별 앨범, 파일 리스트 출력

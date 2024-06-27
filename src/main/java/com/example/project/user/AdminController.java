@@ -78,7 +78,7 @@ public class AdminController {
     // 소셜 상세 조회
     @GetMapping("/social/{socialId}")
     public String socialDetailPage(HttpServletRequest request, @PathVariable Integer socialId) {
-        SocialResponse.Detail socialDetail = socialService.getSocialDetail(socialId);
+        SocialResponse.DetailDTO socialDetail = socialService.getSocialDetail(socialId);
         request.setAttribute("socialDetail", socialDetail);
         return "admin/social/socialDetailForm";
     }

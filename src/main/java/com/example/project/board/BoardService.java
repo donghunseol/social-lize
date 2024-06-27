@@ -136,14 +136,20 @@ public class BoardService {
         }
 
         // 해시태그 처리
-        if (reqDTO.getHashtags() != null) {
-            for (String hashtag : reqDTO.getHashtags()) {
-                if (hashtag.isEmpty()) {
-                    String cleanHashtag = hashtag.replaceAll("[\"\\[\\]]", "");
+        if (reqDTO.getHashtags() != null && reqDTO.getHashtags().length > 0) {
+            String firstHashtag = reqDTO.getHashtags()[0];
+
+            // 첫 번째 요소가 빈 문자열이거나 "[]" 인지 확인
+            if (!firstHashtag.isEmpty() && !firstHashtag.equals("[]")) {
+                for (String hashtag : reqDTO.getHashtags()) {
+                    // 각 해시태그에서 불필요한 대괄호를 제거
+                    String cleanHashtag = hashtag.replaceAll("[\"\\[\\]]", "").trim();
                     Hashtag hashtagEntity = new Hashtag();
                     hashtagEntity.setName(cleanHashtag);
                     hashtagEntity.setBoardId(board);
                     hashtagRepository.save(hashtagEntity);
+
+                    System.out.println(cleanHashtag);
                 }
             }
         }
