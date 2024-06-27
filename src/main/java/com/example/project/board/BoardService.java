@@ -120,7 +120,6 @@ public class BoardService {
                     MultipartFile videoFile = reqDTO.getVideoFiles().get(i);
                     ImageVideoUtil.FileUploadResult a = ImageVideoUtil.uploadFile(videoFile);
                     String videoPath = a.getFilePath();
-                    videoPath = videoPath.replace("\\upload\\", "");
                     System.out.println("이건 파일경로 : " + videoPath);
 
                     // HLS 변환을 수행하고 변환된 파일 경로를 얻어옴
@@ -130,7 +129,7 @@ public class BoardService {
                     System.out.println("저장 대성공!");
                     System.out.println("이건 변환된 파일경로 : " + hlsPath);
 
-                    albumRepository.save(reqDTO.albumVideoToEntity(user, board, videoPath, hlsPath, AlbumEnum.VIDEO));
+                    albumRepository.save(reqDTO.albumVideoToEntity(user, board, hlsPath, videoPath, AlbumEnum.VIDEO));
                 }
             }
         }

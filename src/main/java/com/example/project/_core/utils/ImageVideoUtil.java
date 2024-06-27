@@ -54,6 +54,7 @@ public class ImageVideoUtil {
 
         // UUID를 사용하여 고유한 파일 이름 생성
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+
         // 지정된 디렉토리에 파일 경로 생성
         Path filePath = Paths.get("./upload", fileName);
 

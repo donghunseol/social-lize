@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
+
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
@@ -30,8 +31,11 @@ public class HlsUtil {
     }
 
     // HLS로 비디오 파일을 변환하는 메서드
-    public static void convertHls(String fileName) {
+    public static void convertHls(String filePath) {
         try {
+            String fileName = filePath;
+            fileName = fileName.replace("\\upload\\", "");
+
             // 변환할 원본 비디오 파일 경로
             String inputFilePath = getRawVideoPath(fileName);
 
