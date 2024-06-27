@@ -19,7 +19,8 @@ public class UserQueryRepository {
                       s.id,
                       s.name,
                       s.image,
-                      COUNT(sm2.id) AS member_count
+                      COUNT(sm2.id) AS member_count,
+                      s.info
                   FROM
                       social_tb s
                   JOIN
@@ -84,7 +85,7 @@ public class UserQueryRepository {
     public List<Object[]> popularPostList() {
         String q = """
                 SELECT
-                    b.id,
+                    s.id,
                     s.name,
                     b.content,
                     COUNT(l.id) AS like_count,

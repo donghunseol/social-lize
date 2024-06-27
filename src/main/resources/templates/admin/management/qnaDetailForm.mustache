@@ -16,22 +16,27 @@
                                     <p class="title">작성</p>
                                 </div>
                             </div>
-                            <form action="/admin/write" method="post">
-                                <input type="hidden" name="userId" value="{{sessionUser.id}}">
+                            <form action="/admin/qna/{{qnaDetail.id}}/reply" method="post">
+                                <input type="hidden" name="userId" value="sessionUser.id">
                                 <div class="detail-content">
                                     <span class="review-title">문의자</span>
                                     <p class="review-content">
-                                        <input name="content" type="text" class="input" disabled value="장유진">
+                                        <input name="content" type="text" class="input" disabled value="{{qnaDetail.nickname}}">
+                                    </p>
+                                    <span class="review-title">문의 제목</span>
+                                    <p class="review-content">
+                                        <input name="content" type="text" class="input" disabled
+                                               value="{{qnaDetail.title}}">
                                     </p>
                                     <span class="review-title">문의 내용</span>
                                     <p class="review-content">
                                         <input name="content" type="text" class="input" disabled
-                                               value="게시판 이용하는데 어떤 방식으로 이용해야할지 모르겠어요">
+                                               value="{{qnaDetail.content}}">
                                     </p>
                                     <br>
                                     <span class="review-title">답변 내용</span>
                                     <p class="review-content">
-                                        <textarea name="reply" id="" cols="30" rows="10"></textarea>
+                                        <textarea name="replyContent" id="" cols="30" rows="10">{{qnaDetail.replyContent}}</textarea>
                                     </p>
                                 </div>
                                 <div class="report-button-wrapper">

@@ -12,20 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
     <script type="text/javascript" src="/javascript/sidebar.js"></script>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/socialadd.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/notjoined.css">
-    <link rel="stylesheet" href="/css/fileadd.css">
-    <link rel="stylesheet" href="/css/detail.css">
-    <link rel="stylesheet" href="/css/bmodal.css">
-    <link rel="stylesheet" href="/css/profileupdate.css">
-    <link rel="stylesheet" href="/css/myrecord.css">
-    <link rel="stylesheet" href="/css/joinstatus.css">
-    <link rel="stylesheet" href="/css/bookmark.css">
-    <link rel="stylesheet" href="/css/memberinvite.css">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/boardsavemodal.css">
     <!-- Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <!-- Bootstrap CSS -->
@@ -38,12 +24,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Your custom styles -->
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/socialadd.css">
+    <link rel="stylesheet" href="/css/qna.css">
+    <link rel="stylesheet" href="/css/report.css">
+    <link rel="stylesheet" href="/css/notjoined.css">
+    <link rel="stylesheet" href="/css/fileadd.css">
+    <link rel="stylesheet" href="/css/detail.css">
+    <link rel="stylesheet" href="/css/bmodal.css">
+    <link rel="stylesheet" href="/css/profileupdate.css">
+    <link rel="stylesheet" href="/css/myrecord.css">
+    <link rel="stylesheet" href="/css/joinstatus.css">
+    <link rel="stylesheet" href="/css/bookmark.css">
+    <link rel="stylesheet" href="/css/memberinvite.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/boardsavemodal.css">
     <link rel="stylesheet" href="/css/style.css">
 
-    <!-- SockJS와 StompJS 라이브러리 포함 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+    <!-- Your custom styles -->
 
     <title>Document</title>
     <style>
@@ -103,6 +102,7 @@
             font-weight: bold;
             border: #6c757d solid 1px;
             z-index: 1050;
+            display:none;
         }
     </style>
 </head>
@@ -199,7 +199,7 @@
 <body>
 <div class="header">
     <div class="logo">
-        <img src="/images/logonobg.png" alt="로고">
+        <a href="/"><img src="/images/logonobg.png" alt="로고"></a>
     </div>
     <div class="search-bar">
         <input type="text" placeholder="소셜, 페이지, 게시글 검색">
@@ -259,8 +259,19 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownUser">
                 <!-- 드롭다운 아이템들 -->
-                <li><a class="dropdown-item m-0" href="#">프로필</a></li>
-                <li><a class="dropdown-item m-0" href="#">설정</a></li>
+                <li><a class="dropdown-item m-0" href="/user/profile">프로필</a></li>
+                <li><a class="dropdown-item m-0" href="/user/logout">로그아웃</a></li>
+            </ul>
+        </div>
+        <!-- 고객센터 드롭다운 -->
+        <div class="dropdown">
+            <a href="#" class="icon dropdown-toggle" id="dropdownCustomerService" data-bs-toggle="dropdown"
+               aria-expanded="false">
+                <i class="fas fa-headset"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownCustomerService">
+                <li><a class="dropdown-item m-0" href="/report">신고</a></li>
+                <li><a class="dropdown-item m-0" href="/qna">1:1 문의</a></li>
             </ul>
         </div>
     </div>

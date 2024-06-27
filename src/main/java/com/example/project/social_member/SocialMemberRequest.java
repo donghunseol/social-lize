@@ -10,5 +10,4 @@ public class SocialMemberRequest {
     public static class UpdateStateDTO {
         private SocialMemberStateEnum newState;
     }
-
 }

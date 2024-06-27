@@ -21,6 +21,7 @@ public class BookmarkController {
     private final HttpSession session;
     private final UserUtil userUtil;
 
+    // 북마크 하기
     @PostMapping("/bookmark/save")
     public ResponseEntity<?> save(@RequestParam("boardId") Integer boardId) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
@@ -30,6 +31,7 @@ public class BookmarkController {
         return ResponseEntity.ok(response);
     }
 
+    // 북마크 취소
     @DeleteMapping("/bookmark/delete")
     public ResponseEntity<?> delete(@RequestParam("boardId") Integer boardId) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();

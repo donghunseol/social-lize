@@ -4,6 +4,13 @@ import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.hashtag.Hashtag;
+
+import com.example.project.social.Social;
+
+import com.example.project.reply.Reply;
+import com.example.project.rereply.Rereply;
+import com.example.project.rereply.RereplyRepository;
+
 import com.example.project.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,12 +20,70 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class BoardResponse {
-
     @Data
-    public static class BoardListDTO {
+    public static class SocialDetailDTO {
+        private List<AllHasTagDTO> allHasTagList;
+        private String title;
+        private Integer socialId;
+        private String name;
+        private Integer memberCount;
+        private String info;
+        private String image;
+        private String createdAt;
+        private Integer boardCount;
+        private String week;
+        private List<Integer> weekCount;
+        private Boolean isWaiting;
+
+        @Data
+        public static class AllHasTagDTO {
+            private Integer hasTagId;
+            private String hasTagName;
+
+            public AllHasTagDTO(Hashtag hashtag) {
+                this.hasTagId = hashtag.getId();
+                this.hasTagName = hashtag.getName();
+            }
+        }
+
         private List<BoardDTO> boards;
 
-        public BoardListDTO(List<BoardDTO> boards) {
+        public SocialDetailDTO(List<Hashtag> allHasTagList, Social social, String name, Integer memberCount, List<BoardDTO> boards, Integer boardCount, String week, List<Integer> weekCount, Boolean isWaiting) {
+            this.allHasTagList = allHasTagList.stream().map(AllHasTagDTO::new).toList();
+            this.title = social.getName();
+            this.socialId = social.getId();
+            this.name = name;
+            this.memberCount = memberCount;
+            this.info = social.getInfo();
+            this.boards = boards;
+            this.image = social.getImage();
+            LocalDateTime format = social.getCreatedAt();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월");
+            this.createdAt = format.format(formatter);
+            this.boardCount = boardCount;
+            this.week = week;
+            this.weekCount = weekCount;
+            this.isWaiting = isWaiting;
+        }
+
+        public SocialDetailDTO(List<Hashtag> allHasTagList, Social social, String name, Integer memberCount, List<BoardDTO> boards, Integer boardCount, String week, List<Integer> weekCount) {
+            this.allHasTagList = allHasTagList.stream().map(AllHasTagDTO::new).toList();
+            this.title = social.getName();
+            this.socialId = social.getId();
+            this.name = name;
+            this.memberCount = memberCount;
+            this.info = social.getInfo();
+            this.boards = boards;
+            this.image = social.getImage();
+            LocalDateTime format = social.getCreatedAt();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월");
+            this.createdAt = format.format(formatter);
+            this.boardCount = boardCount;
+            this.week = week;
+            this.weekCount = weekCount;
+        }
+
+        public SocialDetailDTO(List<BoardDTO> boards) {
             this.boards = boards;
         }
 
@@ -96,8 +161,9 @@ public class BoardResponse {
         private Integer replyCount;
         private List<HashtagDTO> hashtagList;
         private String userImage;
+        private List<ReplyDTO> replyList;
 
-        public BoardDetailDTO(Board board, User user, Integer likeCount, Integer replyCount, List<Hashtag> hashtagList) {
+        public BoardDetailDTO(Board board, User user, Integer likeCount, Integer replyCount, List<Hashtag> hashtagList, List<ReplyDTO> replyList) {
             this.boardId = board.getId();
             this.nickname = user.getNickname();
             LocalDateTime format = board.getCreatedAt();
@@ -108,6 +174,7 @@ public class BoardResponse {
             this.replyCount = replyCount;
             this.hashtagList = hashtagList.stream().map(HashtagDTO::new).toList();
             this.userImage = user.getImage();
+            this.replyList = replyList;
         }
 
         @Data
@@ -118,7 +185,49 @@ public class BoardResponse {
                 this.name = hashtag.getName();
             }
         }
+
+        @Data
+        public static class ReplyDTO {
+            private Integer id;
+            private String userImage;
+            private String nickname;
+            private String content;
+            private String createdAt;
+            private List<RereplyDTO> rereplyList;
+
+            public ReplyDTO(Reply reply, List<RereplyDTO> rereplyList) {
+                this.id = reply.getId();
+                this.userImage = reply.getUserId().getImage();
+                this.nickname = reply.getUserId().getNickname();
+                this.content = reply.getComment();
+                LocalDateTime format = reply.getCreatedAt();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h:mm");
+                this.createdAt = format.format(formatter);
+                this.rereplyList = rereplyList;
+            }
+        }
+
+        @Data
+        public static class RereplyDTO {
+            private Integer id;
+            private String userImage;
+            private String nickname;
+            private String content;
+            private String createdAt;
+
+            public RereplyDTO(Rereply rereply) {
+                this.id = rereply.getId();
+                this.userImage = rereply.getUserId().getImage();
+                this.nickname = rereply.getUserId().getNickname();
+                this.content = rereply.getComment();
+                LocalDateTime format = rereply.getCreatedAt();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h:mm");
+                this.createdAt = format.format(formatter);
+            }
+        }
     }
+
+
 
     // 게시글 리스트 (관리자)
     @AllArgsConstructor

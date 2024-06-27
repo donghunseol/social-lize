@@ -49,6 +49,18 @@ body {
     width: 100%;
     margin-top: 10px;
 }
+
+.socialnotjoin-social-info .socialnotjoin-join {
+    background-color: #333333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
 .socialnotjoin-highlight {
     color: #000000;
     font-weight: bold;

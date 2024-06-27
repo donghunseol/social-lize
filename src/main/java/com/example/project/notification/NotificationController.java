@@ -26,6 +26,7 @@ public class NotificationController {
     private final UserUtil userUtil;
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
+    private final SimpMessagingTemplate template;
 
 
     //회원가입 페이지 - 자체가입
@@ -34,7 +35,7 @@ public class NotificationController {
         return "notificationTest/test";
     }
 
-    private final SimpMessagingTemplate template;
+
 
 //    @Autowired
 //    public NotificationController(SimpMessagingTemplate template) {
@@ -53,7 +54,7 @@ public class NotificationController {
     @GetMapping("/send")
     public @ResponseBody String sendNoticeNotification(@RequestParam(value = "count", defaultValue = "5") String count) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
-        // 공지글을 작성하면 모든 사용자의 알림을 생성한다.
+        // 공지글을 작성하면 모든 사용자의 알림을 생성한다. (관리자 공지사항 등록시 아래 로직을 추가한다)
         //1. 모든 사용자의 목록 불러오기
         List<User> userList = userRepository.findAll();
         for(User user : userList){

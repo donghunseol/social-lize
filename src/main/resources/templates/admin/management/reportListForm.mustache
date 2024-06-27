@@ -10,13 +10,13 @@
         <div class="content-page">
             <div class="content-tab-bar">
                 <ul class="tab-nav">
-                    <li class="tab-link"><a href="/admin/user/userListForm.html">회원</a></li>
-                    <li class="tab-link"><a href="/admin/social/socialListForm.html">소셜</a></li>
-                    <li class="tab-link"><a href="/admin/board/boardListForm.html">게시글</a></li>
-                    <li class="tab-link"><a href="/admin/social/socialCategoryListForm.html">카테고리</a></li>
-                    <li class="tab-link"><a href="/admin/management/qnaListForm.html">문의</a></li>
-                    <li class="tab-link current"><a href="/admin/management/reportListForm.html">신고</a></li>
-                    <li class="tab-link"><a href="/admin/management/noticeListForm.html">공지사항</a></li>
+                    <li class="tab-link"><a href="/admin/user-list">회원</a></li>
+                    <li class="tab-link"><a href="/admin/social-list">소셜</a></li>
+                    <li class="tab-link"><a href="/admin/board-list">게시글</a></li>
+                    <li class="tab-link"><a href="/admin/category-name-list">카테고리</a></li>
+                    <li class="tab-link"><a href="/admin/qna-list">문의</a></li>
+                    <li class="tab-link current"><a href="/admin/report-list">신고</a></li>
+                    <li class="tab-link"><a href="/admin/notice-list">공지사항</a></li>
                 </ul>
                 <div class="tab-content current">
                     <div class="tab-head">
@@ -26,7 +26,7 @@
                         <form action="/admin/reports" method="get" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
-                                    <span>총 신고 <em>2</em>개</span>
+                                    <span>총 신고 <em>{{reportDTO.count}}</em>개</span>
                                 </li>
                                 <li class="search-right">
                                     <div>
@@ -59,39 +59,19 @@
                             </thead>
                             <tbody>
 
+                            {{#reportDTO.reportList}}
                             <tr class="review">
-                                <td class="content"><span>1</span></td>
-                                <td class="content"><span>1</span></td>
-                                <td class="content">너무 난폭한 말을 사용해요</td>
-                                <td class="content">설동훈</td>
-                                <td class="content">2024.06.21</td>
-                                <td class="content">처리중</td>
+                                <td class="content"><span>{{reportId}}</span></td>
+                                <td class="content"><span>{{boardId}}</span></td>
+                                <td class="content">{{content}}</td>
+                                <td class="content">{{reportNickname}}</td>
+                                <td class="content">{{createdAt}}</td>
+                                <td class="content">{{result}}</td>
                                 <td class="link">
-                                    <a href="/admin/reports/{{reportId}}"></a>
+                                    <a href="/admin/report/{{reportId}}"></a>
                                 </td>
                             </tr>
-                            <tr class="review">
-                                <td class="content"><span>2</span></td>
-                                <td class="content"><span>2</span></td>
-                                <td class="content">스팸성 게시물입니다</td>
-                                <td class="content">김세운</td>
-                                <td class="content">2024.06.22</td>
-                                <td class="content">처리완료</td>
-                                <td class="link">
-                                    <a href="/admin/reports/{{reportId}}"></a>
-                                </td>
-                            </tr>
-                            <tr class="review">
-                                <td class="content"><span>3</span></td>
-                                <td class="content"><span>3</span></td>
-                                <td class="content">부적절한 콘텐츠</td>
-                                <td class="content">하승진</td>
-                                <td class="content">2024.06.23</td>
-                                <td class="content">처리중</td>
-                                <td class="link">
-                                    <a href="/admin/reports/{{reportId}}"></a>
-                                </td>
-                            </tr>
+                            {{/reportDTO.reportList}}
 
 
                             <!-- {{#reportKeywordList}}

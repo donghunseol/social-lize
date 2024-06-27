@@ -1,5 +1,9 @@
 package com.example.project.user;
 
+import com.example.project._core.enums.UserStatusEnum;
+import com.example.project._core.errors.exception.Exception403;
+import com.example.project._core.errors.exception.Exception600;
+import com.example.project._core.utils.FileUtil;
 import com.example.project._core.utils.UserUtil;
 import com.example.project.notification.NotificationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -8,8 +12,12 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Controller
@@ -26,6 +34,7 @@ public class UserController {
     }
 
 
+    // 메인페이지
     @GetMapping("/")
     public String mainPage(HttpServletRequest request) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
@@ -88,13 +97,13 @@ public class UserController {
         }
         if (theUser instanceof KakaoResponse.KakaoUserDTO) {
             //조회 결과 : 아직 가입하지 않은 회원
-            session.setAttribute("joinDTO", new JoinDTO((KakaoResponse.KakaoUserDTO) theUser));
+            session.setAttribute("joinDTO", new UserRequest.JoinDTO((KakaoResponse.KakaoUserDTO) theUser));
             return "redirect:/user/joinForm/kakao";
         }
         throw new RuntimeException("알 수 없는 오류가 발생했습니다.");
     }
 
-    //네이버 로그인 콜백 & 카카오 로그인
+    //네이버 로그인 콜백 & 네이버 로그인
     @GetMapping("/oauth/naver/callback")
     public String oauthNaverCallback(String code,String state, HttpServletRequest request) {
         Object theUser = userService.getNaverId(code, state);
@@ -104,7 +113,7 @@ public class UserController {
             return "redirect:/";
         }
         if (theUser instanceof NaverResponse.NaverUserDTO) {   //조회 결과 : 아직 가입하지 않은 회원
-            session.setAttribute("joinDTO", new JoinDTO((NaverResponse.NaverUserDTO) theUser));
+            session.setAttribute("joinDTO", new UserRequest.JoinDTO((NaverResponse.NaverUserDTO) theUser));
             return "redirect:/user/joinForm/naver";
         }
         throw new RuntimeException("알 수 없는 오류가 발생했습니다.");
@@ -123,7 +132,48 @@ public class UserController {
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO loginDTO, HttpServletRequest request) throws JsonProcessingException {
         UserResponse.LoggedInUserDTO loggedInUserDTO = userService.login(loginDTO);
+        if (loggedInUserDTO != null && loggedInUserDTO.getStatus()== UserStatusEnum.BANNED) {
+            throw new Exception600("차단된 사용자입니다. 관리자에게 문의하세요.");
+        }
         userUtil.saveSessionUser(loggedInUserDTO);
+        return "redirect:/";
+    }
+
+    // 회원정보수정 페이지
+    @GetMapping("/user/profile")
+    public String profileForm() throws JsonProcessingException {
+        UserResponse.LoggedInUserDTO user = userUtil.getSessionUser();
+        return "mypage/profileUpdateForm";
+    }
+
+    //회원정보수정 처리
+    @PostMapping("/user/update")
+    public String updateUser(UserRequest.UpdateDTO updateDTO, HttpServletRequest request) throws JsonProcessingException {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+
+        User updatingUser = new User();
+        updatingUser.setId(sessionUser.getId());
+
+        if (StringUtils.hasText(updateDTO.getNickname())) {
+            updatingUser.setNickname(updateDTO.getNickname());
+        }
+        if (StringUtils.hasText(updateDTO.getPassword())) {
+            updatingUser.setPassword(updateDTO.getPassword());
+        }
+        if (StringUtils.hasText(updateDTO.getBirth())) {
+            updatingUser.setBirth(LocalDate.parse(updateDTO.getBirth()));
+        }
+        if (StringUtils.hasText(updateDTO.getPhone())) {
+            updatingUser.setPhone(updateDTO.getPhone());
+        }
+
+        if (updateDTO.getImage() != null && !updateDTO.getImage().isEmpty()) {
+            // 이미지 파일 처리 로직
+            FileUtil.FileUploadResult uploadResult = FileUtil.uploadFile("./upload", updateDTO.getImage());
+            updatingUser.setImage(uploadResult.getFilePath());
+        }
+        UserResponse.LoggedInUserDTO updatedUser = userService.updateUser(updatingUser);
+        userUtil.saveSessionUser(updatedUser); //업데이트된 정보로 세션을 업데이트한다
         return "redirect:/";
     }
 

@@ -62,27 +62,54 @@ public class SocialMemberService {
 
     // 소셜 가입 승인, 거절
     @Transactional
-    public void updateSocialMemberState(Integer userId, Integer socialMemberId, SocialMemberRequest.UpdateStateDTO newState) {
-        SocialMember socialMember = socialMemberRepository.findById(socialMemberId)
+    public void updateSocialMemberState(Integer userId, Integer sessionUserId, Integer socialId, String isApproved) {
+        SocialMember socialMember = socialMemberRepository.findByUserIdAndSocialId(userId, socialId)
                 .orElseThrow(() -> new Exception404("해당 소셜 멤버를 찾을 수 없습니다."));
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(sessionUserId)
                 .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다."));
 
         // 현재 요청하는 유저가 소셜의 마스터인지 확인
-        SocialMember masterMember = socialMemberRepository.findByUserIdAndSocialId(user.getId(), socialMember.getSocialId().getId())
+        SocialMember masterMember = socialMemberRepository.findByUserIdAndSocialId(user.getId(), socialId)
                 .orElseThrow(() -> new Exception401("해당 소셜의 멤버가 아닙니다."));
 
         if (masterMember.getRole() != SocialMemberRoleEnum.MANAGER) {
             throw new Exception403("멤버 가입 승인 및 거절은 소셜 마스터만 가능합니다.");
         }
 
-        socialMember.setState(newState.getNewState());
+        if (isApproved.equals("false")) {
+            socialMember.setState(SocialMemberStateEnum.REFUSE);
+        } else if (isApproved.equals("true")) {
+            socialMember.setState(SocialMemberStateEnum.APPROVED);
+        }
+
         socialMemberRepository.save(socialMember);
     }
 
     // 소셜 멤버 리스트 조회
     public List<SocialMemberResponse.SocialMemberList> getSocialMembersBySocialId(Integer socialId) {
         return socialMemberRepository.findSocialMembersBySocialId(socialId);
+    }
+
+    public SocialMemberResponse.MemberDTO member(Integer userId, Integer socialId) {
+        Boolean isManager = true;
+
+
+        Social social = socialRepository.findById(socialId)
+                .orElseThrow(() -> new Exception404("소셜을 찾을 수 없습니다."));
+
+        SocialMember socialMember = socialMemberRepository.findBySocialId(socialId);
+
+        Integer socialMemberCount = socialMemberRepository.countBySocialId(socialId);
+
+        SocialMember manager = socialMemberRepository.findByManager(socialId, userId);
+
+        List<SocialMember> waiting = socialMemberRepository.findByWaiting(socialId);
+
+        if (manager == null) {
+            isManager = false;
+        }
+
+        return new SocialMemberResponse.MemberDTO(social, socialMember.getUserId().getNickname(), socialMemberCount, isManager, waiting);
     }
 }

@@ -10,23 +10,33 @@ import com.example.project._core.errors.exception.Exception404;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.album.AlbumRepository;
+import com.example.project.board.Board;
+import com.example.project.board.BoardRepository;
+import com.example.project.board.BoardResponse;
+import com.example.project.board.BoardService;
+import com.example.project.bookmark.BookmarkRepository;
 import com.example.project.category.Category;
 import com.example.project.category.CategoryRepository;
 import com.example.project.category_name.CategoryName;
 import com.example.project.category_name.CategoryNameRepository;
 import com.example.project.file.File;
 import com.example.project.file.FileRepository;
+import com.example.project.hashtag.Hashtag;
+import com.example.project.hashtag.HashtagRepository;
+import com.example.project.like.LikeRepository;
+import com.example.project.reply.ReplyRepository;
 import com.example.project.social_member.SocialMember;
 import com.example.project.social_member.SocialMemberRepository;
+import com.example.project.social_member.SocialMemberResponse;
 import com.example.project.user.User;
+import com.example.project.user.UserQueryRepository;
 import com.example.project.user.UserRepository;
+import com.example.project.user.UserResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -39,6 +49,106 @@ public class SocialService {
     private final SocialMemberRepository socialMemberRepository;
     private final AlbumRepository albumRepository;
     private final FileRepository fileRepository;
+    private final BoardRepository boardRepository;
+    private final LikeRepository likeRepository;
+    private final ReplyRepository replyRepository;
+    private final BookmarkRepository bookRepository;
+    private final HashtagRepository hashtagRepository;
+    private final UserQueryRepository userQueryRepository;
+
+    public BoardResponse.SocialDetailDTO socialDetail(int socialId, Integer userId) {
+        Map<String, String> dayNameMap = new HashMap<>();
+        dayNameMap.put("Sunday", "일");
+        dayNameMap.put("Monday", "월");
+        dayNameMap.put("Tuesday", "화");
+        dayNameMap.put("Wednesday", "수");
+        dayNameMap.put("Thursday", "목");
+        dayNameMap.put("Friday", "금");
+        dayNameMap.put("Saturday", "토");
+
+        Map<String, Integer> countsByDay = new LinkedHashMap<>();
+        countsByDay.put("일", 0);
+        countsByDay.put("월", 0);
+        countsByDay.put("화", 0);
+        countsByDay.put("수", 0);
+        countsByDay.put("목", 0);
+        countsByDay.put("금", 0);
+        countsByDay.put("토", 0);
+
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
+        List<Board> boards = boardRepository.findByBoardSocialId(socialId);
+
+        Social social = socialRepository.findById(socialId)
+                .orElseThrow(() -> new Exception404("소셜을 찾을 수 없습니다."));
+
+        List<Hashtag> hashtag = hashtagRepository.findBySocialId(socialId);
+
+        SocialMember socialMember = socialMemberRepository.findBySocialId(socialId);
+
+        Integer socialMemberCount = socialMemberRepository.countBySocialId(socialId);
+
+        List<Object[]> week = boardRepository.findPostCountsByDayOfWeek(socialId);
+
+        Boolean isWaiting = socialMemberRepository.findByUserWaiting(socialId, userId);
+
+        // 쿼리 결과 반영 및 요일 이름 변환
+        for (Object[] result : week) {
+            String dayOfWeek = (String) result[0];
+            Integer count = ((Number) result[1]).intValue();
+            String koreanDay = dayNameMap.get(dayOfWeek);
+            countsByDay.put(koreanDay, count);
+        }
+
+        // 결과를 List<Integer>로 변환
+        List<Integer> finalResults = new ArrayList<>(countsByDay.values());
+
+        List<BoardResponse.SocialDetailDTO.BoardDTO> boardDTOs = new ArrayList<>();
+
+        for (Board board : boards) {
+            Integer likeCount = likeRepository.findByLikeCount(board.getId());
+            Integer replyCount = replyRepository.replyCount(board.getId());
+            List<Album> albums = albumRepository.findByBoardId(board.getId());
+            List<BoardResponse.SocialDetailDTO.AlbumDTO> albumDTOs = albums.stream()
+                    .map(BoardResponse.SocialDetailDTO.AlbumDTO::new)
+                    .toList();
+
+            // 좋아요 여부 확인
+            Boolean liked = likeRepository.findByLikeUserId(board.getId(), userId) > 0;
+
+            // 북마크 여부 확인
+            Boolean bookmarked = bookRepository.findByBookUserId(board.getId(), userId) > 0;
+
+
+            List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
+
+
+            Boolean hashEmpty = false;
+
+            // BoardDTO 객체 생성
+            BoardResponse.SocialDetailDTO.BoardDTO boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+
+            if (boardDTO != null && boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                if (boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                    if (boardDTO.getHashtagList().get(0).getName().equals("")) {
+                        hashEmpty = true;
+                        boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+                        boardDTOs.add(boardDTO);
+                    }
+                }
+            }
+
+            boardDTOs.add(boardDTO);
+        }
+
+        if(isWaiting) {
+            return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), dayNameMap.get(week.get(0)[0]), finalResults, isWaiting);
+        } else {
+            return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), dayNameMap.get(week.get(0)[0]), finalResults);
+        }
+    }
 
     public Boolean notJoinedSocial(Integer socialId, Integer userId) {
 
@@ -187,5 +297,12 @@ public class SocialService {
 
         // 앨범, 파일 리스트 DTO 담기
         return new SocialResponse.AlbumAndFileListDTO(socialId, albumList, fileList);
+    }
+
+    public List<UserResponse.MainDTO.MySocialDTO> getMySocialList(Integer userId) {
+        List<Object[]> mySocialList = userQueryRepository.mySocialList(userId);
+        List<UserResponse.MainDTO.MySocialDTO> mySocialList2 = mySocialList.stream().map(UserResponse.MainDTO.MySocialDTO::new).toList();
+        System.out.println("mySocialList2 = " + mySocialList2);
+        return mySocialList2;
     }
 }

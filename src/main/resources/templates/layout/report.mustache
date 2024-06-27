@@ -1,0 +1,106 @@
+{{> layout/header}}
+<div class="report-wrapper">
+    <div class="report-container">
+        <h2>신고하기</h2>
+        <div class="report-tab-container">
+            <div class="report-tabs">
+                <div class="report-tab active" onclick="openTab(event, 'reportTab')">신고하기</div>
+                <div class="report-tab" onclick="openTab(event, 'statusTab')">신고 상태</div>
+            </div>
+            <div id="reportTab" class="report-tab-content active">
+                <div class="report-form-group">
+                    <label for="reportTitle">신고 제목</label>
+                    <input type="text" id="reportTitle" placeholder="신고 제목을 입력해 주세요">
+                </div>
+                <div class="report-form-group">
+                    <label for="reportContent">신고 내용</label>
+                    <textarea id="reportContent" rows="10" placeholder="신고 내용을 입력해 주세요"></textarea>
+                </div>
+                <div class="report-button-group">
+                    <button class="report-cancel">취소하기</button>
+                    <button onclick="submitReport()">등록하기</button>
+                </div>
+            </div>
+            <div id="statusTab" class="report-tab-content">
+                <div class="report-info-text">
+                    신고 처리 시간: 월~금 09:00 ~18:00<br>
+                    (점심시간 12:00~13:00, 토/일/공휴일 휴무)<br><br>
+                    처리 완료된 신고 내용은 수정이 불가능하오니 서비스 이용에 참고 부탁드립니다.
+                </div>
+                <div class="report-info-section" id="completedReports">
+                    <h3>처리 완료 (<span id="completedCount"></span>)</h3>
+                    <div onclick="showDetail('completed', 1)">완료된 신고 1</div>
+                </div>
+                <div class="report-info-section" id="pendingReports">
+                    <h3>처리 대기 (<span id="pendingCount"></span>)</h3>
+                    <div onclick="showDetail('pending', 1)">대기 중인 신고 1</div>
+                </div>
+                <div id="detailBox" class="report-detail-box" style="display: none;">
+                    <h4 id="detailTitle"></h4>
+                    <p id="detailQuestion"></p>
+                    <p id="detailAnswer"></p>
+                </div>
+            </div>
+        </div>
+        <div class="report-company-info">
+            <p>Socialize<br>고객센터 1234-5678 (유료)<br>평일 09:00 ~ 18:00 (토/일/공휴일 휴무)<br><small>(break time 12:00 ~ 13:00)</small></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const completedReports = {
+        1: { question: "완료된 신고내용", answer: "처리 결과" },
+    };
+
+    const pendingReports = {
+        1: { question: "대기 중인 신고내용" },
+    };
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("completedCount").innerText = Object.keys(completedReports).length;
+        document.getElementById("pendingCount").innerText = Object.keys(pendingReports).length;
+    });
+
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("report-tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].className = tabcontent[i].className.replace(" active", "");
+        }
+        tablinks = document.getElementsByClassName("report-tab");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).className += " active";
+        evt.currentTarget.className += " active";
+    }
+
+    function submitReport() {
+        alert('신고가 등록되었습니다.');
+    }
+
+    function showDetail(type, id) {
+        const detailBox = document.getElementById("detailBox");
+        const detailTitle = document.getElementById("detailTitle");
+        const detailQuestion = document.getElementById("detailQuestion");
+        const detailAnswer = document.getElementById("detailAnswer");
+
+        let data;
+        if (type === "completed") {
+            data = completedReports[id];
+            detailTitle.innerText = "완료된 신고 " + id;
+            detailAnswer.style.display = "block";
+            detailAnswer.innerText = "처리 결과: " + data.answer;
+        } else {
+            data = pendingReports[id];
+            detailTitle.innerText = "대기 중인 신고 " + id;
+            detailAnswer.style.display = "none";
+        }
+
+        detailQuestion.innerText = "신고 내용: " + data.question;
+
+        detailBox.style.display = "block";
+    }
+</script>
+{{> layout/footer}}

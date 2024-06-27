@@ -1,11 +1,11 @@
 -- 유저 테이블 (비밀번호는 암호호되서 저장됨. 1234임)
-INSERT INTO user_tb (email, password, nickname, image, phone, birth, role, created_at, provider)
-VALUES ('ssar@nate.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '하승진', '/images/userprofile3.png', '010-1234-5678', '1994-12-26', 'USER', now(), null),
-       ('1@1.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김세운', '/images/userprofile3.png', '010-2345-6789', '1992-10-24', 'USER', now(), null),
-       ('jane@kakao.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '박제인', '/images/userprofile.jpeg', '010-3456-7890', '1995-07-19', 'USER', now(), 'KAKAO'),
-       ('john@naver.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '설조온', '/images/userprofile.jpeg', '010-4567-8901', '1993-03-15', 'USER', now(), 'NAVER'),
-       ('lucy@gmail.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김루씨', '/images/userprofile.jpeg', '010-5678-1234', '1996-08-30', 'USER', now(), null),
-       ('manager@gmail.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '소셜 매니저', '/images/userprofile.jpeg', null, null, 'MANAGER', now(), null);
+INSERT INTO user_tb (email, password, nickname, image, phone, birth, role, created_at, provider, status)
+VALUES ('ssar@nate.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '하승진', '/images/userprofile3.png', '010-1234-5678', '1994-12-26', 'USER', now(), null, 'NORMAL'),
+       ('1@1.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김세운', '/images/userprofile3.png', '010-2345-6789', '1992-10-24', 'USER', now(), null, 'NORMAL'),
+       ('jane@kakao.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '박제인', '/images/userprofile.jpeg', '010-3456-7890', '1995-07-19', 'USER', now(), 'KAKAO', 'NORMAL'),
+       ('john@naver.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '설조온', '/images/userprofile.jpeg', '010-4567-8901', '1993-03-15', 'USER', now(), 'NAVER', 'NORMAL'),
+       ('lucy@gmail.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '김루씨', '/images/userprofile.jpeg', '010-5678-1234', '1996-08-30', 'USER', now(), null, 'NORMAL'),
+       ('manager@gmail.com', '$2a$10$MXM315UryOr9MSS8FoEQLuCvxpxtXjg198i5N39QbaKodES42qUbi', '소셜 매니저', '/images/userprofile.jpeg', null, null, 'MANAGER', now(), null, 'NORMAL');
 
 -- 소셜 테이블
 INSERT INTO social_tb (name, image, info, status, created_at)
@@ -26,37 +26,40 @@ VALUES ('그린컴퓨터학원 수강생 모임', '/images/maincom1.png',
         'ACTIVE', now());
 
 -- 소셜 게시판 테이블
-INSERT INTO board_tb (social_id, user_id, content, role, created_at)
+INSERT INTO board_tb (social_id, user_id, content, role, state, created_at)
 VALUES
-    (1, 1, '이 커뮤니티에 오신 것을 환영합니다.<br>감사합니다.', 'POST', now()),
-    (1, 2, '저는 아이스 아메리카노가 좋더라고요. <br>여러분은요?', 'POST', now()),
-    (1, 3, '초보자들을 위한 Java 팁을 공유합니다.<br>감사합니다.', 'POST', now()),
-    (1, 5, '이번 주말에 뭘 해야 할지... 좋은 게임 있나요?<br>감사합니다.', 'POST', now()),
-    (2, 1, '지구 온난화에 대해 심각하게 생각해 볼 때입니다.<br>감사합니다.', 'POST', now()),
-    (2, 2, '최근에 읽은 흥미로운 책이 있어요.<br>감사합니다.', 'POST', now()),
-    (2, 4, '집에서 간단히 만들 수 있는 건강 레시피!<br>감사합니다.', 'POST', now()),
-    (2, 5, '최근에 좋아하는 팝송 리스트입니다.<br>감사합니다.', 'POST', now()),
-    (3, 1, '긍정적인 생각이 긍정적인 삶을 만듭니다.<br>감사합니다.', 'POST', now()),
-    (3, 3, '새로운 기술 트렌드를 소개합니다.<br>감사합니다.', 'POST', now()),
-    (3, 4, '어제 다녀온 요리 클래스 후기입니다.<br>감사합니다.', 'POST', now()),
-    (3, 5, '직장인 스트레스 관리법을 공유합니다.<br>감사합니다.', 'POST', now()),
-    (4, 2, '이번 주에 본 영화에 대한 개인적인 생각입니다.<br>스포일러 없이 감상 포인트를 공유합니다.', 'POST', now()),
-    (4, 3, '더 나은 자신을 위한 자기개발 팁을 공유합니다.<br>모든 사람이 시도해 볼 수 있는 간단한 방법들입니다.', 'POST', now()),
-    (4, 4, '최근 설치한 스마트 홈 기기에 대한 리뷰입니다.<br>생활이 얼마나 편리해졌는지 이야기해봅시다.', 'POST', now()),
-    (4, 5, '집에서 쉽게 할 수 있는 가드닝 팁을 공유합니다.<br>집안을 더 아름답게 꾸밀 수 있는 방법을 알려드려요.', 'POST', now()),
-    (5, 1, '커뮤니티의 최신 소식과 업데이트를 공유합니다.<br>회원님들의 활동을 기다립니다.', 'POST', now()),
-    (5, 2, '심리학에 관심 있는 분들을 위한 강좌 정보입니다.<br>마음을 이해하는 시간을 가져보세요.', 'POST', now()),
-    (5, 3, '저렴하게 여행할 수 있는 팁을 공유합니다.<br>비용을 절약하면서 여행의 즐거움을 누려보세요.', 'POST', now()),
-    (5, 4, '건강을 유지하는 데 필요한 헬스케어 정보를 공유합니다.<br>건강한 생활을 위한 팁을 알려드립니다.', 'POST', now());
+    (1, 1, '이 커뮤니티에 오신 것을 환영합니다.<br>감사합니다.', 'POST', 'ACTIVE', now()),
+    (1, 2, '저는 아이스 아메리카노가 좋더라고요. <br>여러분은요?', 'POST', 'ACTIVE', now()),
+    (1, 3, '초보자들을 위한 Java 팁을 공유합니다.<br>감사합니다.', 'POST', 'ACTIVE', now()),
+    (1, 5, '이번 주말에 뭘 해야 할지... 좋은 게임 있나요?<br>감사합니다.', 'POST', 'ACTIVE', now()),
+    (2, 1, '지구 온난화에 대해 심각하게 생각해 볼 때입니다.<br>감사합니다.', 'POST', 'ACTIVE', now()),
+    (2, 2, '최근에 읽은 흥미로운 책이 있어요.<br>감사합니다.', 'POST', 'ACTIVE', now()),
+    (2, 4, '집에서 간단히 만들 수 있는 건강 레시피!<br>감사합니다.', 'POST', 'ACTIVE', now()),
+    (2, 5, '최근에 좋아하는 팝송 리스트입니다.<br>감사합니다.', 'POST', 'ACTIVE', now()),
+    (3, 1, '긍정적인 생각이 긍정적인 삶을 만듭니다.<br>감사합니다.', 'POST', 'ACTIVE', now()),
+    (3, 3, '새로운 기술 트렌드를 소개합니다.<br>감사합니다.', 'POST', 'ACTIVE', now()),
+    (3, 4, '어제 다녀온 요리 클래스 후기입니다.<br>감사합니다.', 'POST', 'ACTIVE', now()),
+    (3, 5, '직장인 스트레스 관리법을 공유합니다.<br>감사합니다.', 'POST', 'ACTIVE', now()),
+    (4, 2, '이번 주에 본 영화에 대한 개인적인 생각입니다.<br>스포일러 없이 감상 포인트를 공유합니다.', 'POST', 'ACTIVE', '2024-06-24'),
+    (4, 2, '이번 주에 본 영화에 대한 개인적인 생각입니다.<br>스포일러 없이 감상 포인트를 공유합니다.', 'POST', 'ACTIVE', '2024-06-24'),
+    (4, 3, '더 나은 자신을 위한 자기개발 팁을 공유합니다.<br>모든 사람이 시도해 볼 수 있는 간단한 방법들입니다.', 'POST', 'ACTIVE', '2024-06-24'),
+    (4, 5, '집에서 쉽게 할 수 있는 가드닝 팁을 공유합니다.<br>집안을 더 아름답게 꾸밀 수 있는 방법을 알려드려요.', 'POST', 'ACTIVE', '2024-06-25'),
+    (4, 5, '집에서 쉽게 할 수 있는 가드닝 팁을 공유합니다.<br>집안을 더 아름답게 꾸밀 수 있는 방법을 알려드려요.', 'POST', 'ACTIVE', now()),
+    (4, 4, '최근 설치한 스마트 홈 기기에 대한 리뷰입니다.<br>생활이 얼마나 편리해졌는지 이야기해봅시다.', 'POST', 'ACTIVE', now()),
+    (4, 5, '집에서 쉽게 할 수 있는 가드닝 팁을 공유합니다.<br>집안을 더 아름답게 꾸밀 수 있는 방법을 알려드려요.', 'POST', 'ACTIVE', '2024-06-27'),
+    (5, 1, '커뮤니티의 최신 소식과 업데이트를 공유합니다.<br>회원님들의 활동을 기다립니다.', 'POST', 'ACTIVE', now()),
+    (5, 2, '심리학에 관심 있는 분들을 위한 강좌 정보입니다.<br>마음을 이해하는 시간을 가져보세요.', 'POST', 'ACTIVE', now()),
+    (5, 3, '저렴하게 여행할 수 있는 팁을 공유합니다.<br>비용을 절약하면서 여행의 즐거움을 누려보세요.', 'POST', 'ACTIVE', now()),
+    (5, 4, '건강을 유지하는 데 필요한 헬스케어 정보를 공유합니다.<br>건강한 생활을 위한 팁을 알려드립니다.', 'POST', 'ACTIVE', now());
 
 -- 소셜 마다 공지사항 등록
-INSERT INTO board_tb (social_id, user_id, content, role, created_at)
+INSERT INTO board_tb (social_id, user_id, content, role, state, created_at)
 VALUES
-    (1, 6, '모든 회원은 서로를 존중해 주시기 바랍니다.<br>불쾌한 언행은 삼가해 주세요.', 'NOTICE', now()),
-    (2, 6, '새로 가입하신 모든 분께 소정의 선물을 드립니다.<br>활동을 시작해 보세요!', 'NOTICE', now()),
-    (3, 6, '이번 주 금요일에 사이트 점검이 있을 예정입니다.<br>서비스 이용에 참고해 주세요.', 'NOTICE', now()),
-    (4, 6, '사용자의 편의성을 위해 새 기능이 추가되었습니다.<br>많은 이용 바랍니다.', 'NOTICE', now()),
-    (5, 6, '모임장소에서의 안전 수칙을 준수해 주세요.<br>모두의 안전을 위해 협력해 주시길 바랍니다.', 'NOTICE', now());
+    (null, 6, '모든 회원은 서로를 존중해 주시기 바랍니다.<br>불쾌한 언행은 삼가해 주세요.', 'NOTICE', 'ACTIVE', now()),
+    (null, 6, '새로 가입하신 모든 분께 소정의 선물을 드립니다.<br>활동을 시작해 보세요!', 'NOTICE', 'ACTIVE', now()),
+    (null, 6, '이번 주 금요일에 사이트 점검이 있을 예정입니다.<br>서비스 이용에 참고해 주세요.', 'NOTICE', 'ACTIVE', now()),
+    (null, 6, '사용자의 편의성을 위해 새 기능이 추가되었습니다.<br>많은 이용 바랍니다.', 'NOTICE', 'ACTIVE', now()),
+    (null, 6, '모임장소에서의 안전 수칙을 준수해 주세요.<br>모두의 안전을 위해 협력해 주시길 바랍니다.', 'NOTICE', 'ACTIVE', now());
 
 -- 댓글 테이블
 INSERT INTO reply_tb (board_id, user_id, comment, created_at)
@@ -172,7 +175,6 @@ VALUES (1, 1, 'MANAGER', 'APPROVED', now()),
        (1, 4, 'MEMBER', 'WAITING', now()),
        (2, 3, 'MEMBER', 'WAITING', now()),
        (3, 2, 'MEMBER', 'WAITING', now()),
-       (4, 1, 'MEMBER', 'WAITING', now()),
        (5, 5, 'MEMBER', 'RESIGN', now());
 
 -- 소셜 카테고리 이름 테이블
@@ -238,15 +240,23 @@ VALUES (1, 2, now()),
 INSERT INTO hashtagk_tb (board_id, name, created_at)
 VALUES (1, '게임추천', now()),
        (8, '노래', now()),
+       (1, '게시글', now()),
        (12, '스트레스', now()),
        (16, '인테리어', now()),
        (20, '절약', now());
 
 -- 신고 테이블
 INSERT INTO report_tb (user_id, report_user_id, board_id, reply_id, rereply_id, content, result, created_at)
-VALUES (1, 2, 21, null, null, '2번 유저가 1번 유저의 21번 게시글을 신고함', '게시글 삭제 처리', now()),
-       (2, 1, 22, null, null, '1번 유저가 2번 유저의 22번 게시글을 신고함', '게시글 수정 처리', now());
+VALUES (1, 2, 21, null, null, '2번 유저가 1번 유저의 21번 게시글을 신고함', 'Checking', now()),
+       (2, 1, 22, null, null, '1번 유저가 2번 유저의 22번 게시글을 신고함', 'Finish', now());
 
+-- 공지 테이블
+INSERT INTO notice_tb (board_id, state)
+VALUES (24, 'ACTIVE'),
+       (25, 'ACTIVE'),
+       (26, 'ACTIVE'),
+       (27, 'ACTIVE'),
+       (28, 'ACTIVE');
 
 -- 첨부 파일 테이블
 INSERT INTO file_tb (social_id, user_id, name, path, created_at)

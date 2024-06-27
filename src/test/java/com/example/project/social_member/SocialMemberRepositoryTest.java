@@ -50,6 +50,36 @@ public class SocialMemberRepositoryTest {
         // then
     }
 
+    @Test
+    public void findBySocialId_test(){
+        // given
+        Integer socialId = 1;
+
+        // when
+        SocialMember sm = socialMemberRepository.findBySocialId(socialId);
+        System.out.println(sm.getUserId().getNickname());
+
+        // eye
+
+        // then
+    }
+
+    @Test
+    public void findByWaiting_test() {
+        // given
+        int socialId = 1;
+
+        // when
+        List<SocialMember> socialMemberList = socialMemberRepository.findByWaiting(socialId);
+
+        // eye
+        for (SocialMember sm : socialMemberList) {
+            System.out.println(sm.getUserId().getNickname());
+        }
+
+        // then
+
+    }
 
     public void findSocialMembersBySocialId_test() {
         // given
@@ -60,6 +90,22 @@ public class SocialMemberRepositoryTest {
 
         // eye
         socialMemberList.forEach(System.out::println);
+
+        // then
+
+    }
+
+    @Test
+    public void findByManager_test() {
+        // given
+        int socialId = 2;
+        int userId = 1;
+
+        // when
+        SocialMember socialMember = socialMemberRepository.findByManager(socialId, userId);
+
+        // eye
+        System.out.println(socialMember);
 
         // then
 

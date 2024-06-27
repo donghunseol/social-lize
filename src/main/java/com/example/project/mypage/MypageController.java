@@ -24,8 +24,8 @@ public class MypageController {
     @GetMapping("/bookmark/my/list")
     public String bookmark(HttpServletRequest request) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
-        BoardResponse.BoardListDTO boardBookList = boardService.boardList(sessionUser.getId());
-        request.setAttribute("boardBookList", boardBookList);
+        BoardResponse.SocialDetailDTO modal = boardService.boardList(sessionUser.getId());
+        request.setAttribute("modal", modal);
 
         return "/mypage/bookmarkForm";
     }

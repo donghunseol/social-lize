@@ -16,16 +16,18 @@
                                     <p class="title">공지사항</p>
                                 </div>
                             </div>
-                            <form action="">
-                                <input type="hidden" name="userId" value="{{sessionUser.id}}">
+                            <form action="/admin/notice/{{noticeId}}/update" method="post">
+                                <input type="hidden" name="userId" value="sessionUser.id">
                                 <div class="detail-content">
                                     <span class="review-title">공지 내용</span>
                                     <p class="review-content">
-                                        <textarea name="reply" id="" cols="30" rows="10"></textarea>
+                                        <textarea name="content" id="" cols="30" rows="10">{{noticeDetail.content}}</textarea>
                                     </p>
                                 </div>
                                 <div class="report-button-wrapper">
-                                    <button class="btn black">수정하기</button>
+                                    <input id="notice-id" hidden="hidden" value="{{noticeDetail.id}}">
+                                        <button class="btn black" onclick="modifyNotice()">수정하기</button>
+                                    </input>
                                 </div>
                             </form>
                         </div>

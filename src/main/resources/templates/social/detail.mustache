@@ -6,13 +6,9 @@
         <div class="detail-hashtag-container">
             <div class="detail-wrap-vertical">
                 <div class="detail-hashtag active">전체</div>
-                <div class="detail-hashtag">해시태그</div>
-                <div class="detail-hashtag">해시태그2</div>
-                <div class="detail-hashtag">해시태그3</div>
-                <div class="detail-hashtag">해시태그4</div>
-                <div class="detail-hashtag">해시태그5</div>
-                <div class="detail-hashtag">해시태그6</div>
-                <div class="detail-hashtag">해시태그7</div>
+                {{#modal.allHasTagList}}
+                    <div class="detail-hashtag">{{hasTagName}}</div>
+                {{/modal.allHasTagList}}
             </div>
         </div>
         <div class="detail-board-container">
@@ -21,7 +17,7 @@
     </div>
     <div class="detail-chat-container">
         <div class="detail-chat-header">
-            <div class="detail-chat-title">SNS프로젝트 1조</div>
+            <div class="detail-chat-title">{{modal.title}}</div>
             <div id="connection-status" class="detail-chat-status">연결 중...</div>
             <div class="detail-chat-menu">⋮</div>
         </div>
@@ -29,8 +25,8 @@
             <!-- 채팅 메시지가 이곳에 추가됩니다 -->
         </div>
         <div class="detail-chat-input">
-            <input type="hidden" id="socialId" value="1" /> <!-- 소셜 ID -->
-            <input type="hidden" id="userId" value="{{sessionUser.id}}" /> <!-- 유저 ID -->
+            <input type="hidden" id="socialId" value="1"/> <!-- 소셜 ID -->
+            <input type="hidden" id="userId" value="{{sessionUser.id}}"/> <!-- 유저 ID -->
             <input type="text" id="comment" placeholder="메시지를 입력하세요">
             <button id="send-button" onclick="sendMessage()">보내기</button>
         </div>
@@ -45,11 +41,11 @@
 </div>
 
 <script>
-    document.getElementById("copyLinkButton").addEventListener("click", function() {
+    document.getElementById("copyLinkButton").addEventListener("click", function () {
         const link = "#"; // 여기에 실제 초대 링크를 입력
-        navigator.clipboard.writeText(link).then(function() {
+        navigator.clipboard.writeText(link).then(function () {
             alert("초대 링크가 클립보드에 복사되었습니다.");
-        }, function(err) {
+        }, function (err) {
             console.error("초대 링크 복사 실패: ", err);
         });
     });

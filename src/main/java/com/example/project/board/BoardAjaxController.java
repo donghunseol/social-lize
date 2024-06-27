@@ -15,10 +15,11 @@ import java.io.IOException;
 public class BoardAjaxController {
     private final BoardService boardService;
 
+    // 게시글 상세보기
     @GetMapping("/board/detail/")
     public ResponseEntity<?> detail(@RequestParam Integer boardId) {
         BoardResponse.BoardDetailDTO detail = boardService.detail(boardId);
-        System.out.println("1111111111111 : " + boardId);
+
         return ResponseEntity.ok(detail);
     }
 }

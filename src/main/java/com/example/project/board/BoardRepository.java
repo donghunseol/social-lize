@@ -26,4 +26,12 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     // 작성된 게시글 상세 조회 (관리자)
     @Query("SELECT b FROM Board b JOIN b.socialId s JOIN b.userId u WHERE b.id = :boardId")
     Optional<Board> findByBoardId(@Param("boardId") Integer boardId);
+
+    @Query("SELECT FUNCTION('DAYNAME', b.createdAt) as dayOfWeek, COUNT(b) as count " +
+            "FROM Board b " +
+            "WHERE b.socialId.id = :socialId AND b.role = 'POST' " +
+            "GROUP BY FUNCTION('DAYNAME', b.createdAt) " +
+            "ORDER BY count DESC")
+    List<Object[]> findPostCountsByDayOfWeek(@Param("socialId") Integer socialId);
+
 }

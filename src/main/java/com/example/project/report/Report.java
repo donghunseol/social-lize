@@ -1,5 +1,6 @@
 package com.example.project.report;
 
+import com.example.project._core.enums.ReportResultEnum;
 import com.example.project.board.Board;
 import com.example.project.reply.Reply;
 import com.example.project.rereply.Rereply;
@@ -43,14 +44,15 @@ public class Report {
     @Column(nullable = false)
     private String content; // 신고 사유
 
-    private String result; // 처리 결과
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private ReportResultEnum result; // 처리 결과
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자
 
     @Builder
-
-    public Report(Integer id, User userId, Integer reportUserId, Board boardId, Reply replyId, Rereply rereplyId, String content, String result, LocalDateTime createdAt) {
+    public Report(Integer id, User userId, Integer reportUserId, Board boardId, Reply replyId, Rereply rereplyId, String content, ReportResultEnum result, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.reportUserId = reportUserId;

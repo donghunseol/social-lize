@@ -5,8 +5,8 @@ import com.example.project.board.BoardResponse;
 import com.example.project.board.BoardService;
 import com.example.project.file.FileRequest;
 import com.example.project.file.FileService;
-import com.example.project.social_member.SocialMemberService;
-import com.example.project.user.User;
+import com.example.project.social_member.SocialMember;
+import com.example.project.social_member.SocialMemberResponse;
 import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,6 +14,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
@@ -25,16 +29,17 @@ public class SocialController {
     private final HttpSession session;
     private final UserUtil userUtil;
 
+    // 소셜 상세보기
     @GetMapping("/social/detail/{socialId}")
     public String socialDetail(@PathVariable int socialId, HttpServletRequest request) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
-        BoardResponse.BoardListDTO boardList = boardService.boardList(socialId, sessionUser.getId());
+        BoardResponse.SocialDetailDTO modal = socialService.socialDetail(socialId, sessionUser.getId());
 
-        request.setAttribute("boardList", boardList);
+        request.setAttribute("modal", modal);
 
         Boolean notJoinedSocial = socialService.notJoinedSocial(socialId, sessionUser.getId());
 
-        if(!notJoinedSocial) {
+        if (!notJoinedSocial) {
             return "social/notJoinedForm";
         }
 
@@ -62,6 +67,15 @@ public class SocialController {
 
         return "social/fileaddForm";
     }
+
+    //내 소셜 목록을 가져오기. ajax로 가져오기 위해 json으로 리턴한다.
+    @GetMapping("/social/get/my")
+    public @ResponseBody List<UserResponse.MainDTO.MySocialDTO> getMySocialList() {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        List<UserResponse.MainDTO.MySocialDTO> socialList = socialService.getMySocialList(sessionUser.getId());
+        return socialList;
+    }
+
 
     // 파일 저장
     @PostMapping("/social/file/upload/{socialId}")
