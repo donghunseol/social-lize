@@ -1,6 +1,6 @@
 package com.example.project.category_name;
 
-import com.example.project._core.enums.CategoryNameStateEnum;
+import com.example.project._core.enums.DeleteStateEnum;
 import com.example.project._core.errors.exception.Exception400;
 import com.example.project._core.errors.exception.Exception404;
 import jakarta.transaction.Transactional;
@@ -26,7 +26,7 @@ public class CategoryNameService {
         CategoryName categoryName = CategoryName.builder()
                 .name(createDTO.getName())
                 .imagePath(createDTO.getImagePath())
-                .status(CategoryNameStateEnum.ACTIVE)
+                .status(DeleteStateEnum.ACTIVE)
                 .build();
         categoryNameRepository.save(categoryName);
     }
@@ -56,7 +56,7 @@ public class CategoryNameService {
         CategoryName categoryName = categoryNameRepository.findById(categoryNameId)
                 .orElseThrow(() -> new Exception404("해당 카테고리는 존재하지 않습니다."));
 
-        categoryName.setStatus(CategoryNameStateEnum.DELETED);
+        categoryName.setStatus(DeleteStateEnum.DELETED);
 
         categoryNameRepository.save(categoryName);
     }
@@ -65,7 +65,7 @@ public class CategoryNameService {
     public CategoryNameResponse.Detail getCategoryDetail(Integer categoryNameId) {
         CategoryName categoryName = categoryNameRepository.findById(categoryNameId)
                 .orElseThrow(() -> new Exception404("해당 카테고리는 존재하지 않습니다."));
-        if (categoryName.getStatus() == CategoryNameStateEnum.DELETED) {
+        if (categoryName.getStatus() == DeleteStateEnum.DELETED) {
             throw new Exception404("해당 카테고리는 삭제되었거나 존재하지 않습니다.");
         }
 
@@ -74,7 +74,7 @@ public class CategoryNameService {
 
     // 카테고리 리스트 조회
     public List<CategoryNameResponse.CategoryDTO> getCategoryList() {
-        List<CategoryName> categoryNameList = categoryNameRepository.findAllByStatus(CategoryNameStateEnum.ACTIVE);
+        List<CategoryName> categoryNameList = categoryNameRepository.findAllByStatus(DeleteStateEnum.ACTIVE);
 
         return categoryNameList.stream().map(CategoryNameResponse.CategoryDTO::new).toList();
     }
