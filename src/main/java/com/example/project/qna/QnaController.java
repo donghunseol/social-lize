@@ -21,25 +21,32 @@ public class QnaController {
     private final HttpSession session;
     private final UserUtil userUtil;
 
-    @GetMapping("/qna/detail/{qnaId}")
-    public String detail(@PathVariable("qnaId") Integer qnaId, HttpServletRequest request) {
-        Integer userId = 1;
-        QnaResponse.QnaDetailDTO modal = qnaService.detail(userId, qnaId);
-        request.setAttribute("modal", modal);
-
-        return null;
+    @GetMapping("/qna")
+    public String detail() {
+        return "layout/qna";
     }
 
 
-    @GetMapping("/qna/my/list")
-    public String list(HttpServletRequest request) {
-        Integer userId = 1;
-        QnaResponse.QnaListDTO modal = qnaService.list(userId);
 
-        request.setAttribute("modal", modal);
-
-        return "qna/qnaList";
-    }
+//    @GetMapping("/qna/detail/{qnaId}")
+//    public String detail(@PathVariable("qnaId") Integer qnaId, HttpServletRequest request) {
+//        Integer userId = 1;
+//        QnaResponse.QnaDetailDTO modal = qnaService.detail(userId, qnaId);
+//        request.setAttribute("modal", modal);
+//
+//        return null;
+//    }
+//
+//
+//    @GetMapping("/qna/my/list")
+//    public String list(HttpServletRequest request) {
+//        Integer userId = 1;
+//        QnaResponse.QnaListDTO modal = qnaService.list(userId);
+//
+//        request.setAttribute("modal", modal);
+//
+//        return "qna/qnaList";
+//    }
 
     @PostMapping("/qna")
     public String save(QnaRequest.SaveDTO reqDTO) {
