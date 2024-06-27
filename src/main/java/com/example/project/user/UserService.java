@@ -4,9 +4,13 @@ import com.example.project._core.enums.UserEnum;
 import com.example.project._core.enums.UserProviderEnum;
 import com.example.project._core.utils.EncryptUtil;
 import com.example.project._core.utils.RuntimeConfiguration;
+import com.example.project._core.utils.UserUtil;
 import com.example.project.category_name.CategoryName;
 import com.example.project.category_name.CategoryNameRepository;
+import com.example.project.notification.NotificationService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,6 +21,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,6 +34,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final CategoryNameRepository categoryNameRepository;
     private final UserQueryRepository userQueryRepository;
+    private final HttpSession session;
+    private final RedisTemplate<String, Object> rt;
 
     public UserResponse.MainDTO mainPage(Integer userId) {
         List<Object[]> mySocialList = userQueryRepository.mySocialList(userId);
@@ -228,35 +235,6 @@ public class UserService {
         User existingUser = userRepository.findById(updatedUser.getId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-//        if (StringUtils.hasText(updatedUser.getNickname()) && !existingUser.getNickname().equals(updatedUser.getNickname())) {
-//            existingUser.setNickname(updatedUser.getNickname());
-//        }
-//
-//        if (StringUtils.hasText(updatedUser.getEmail()) && !existingUser.getEmail().equals(updatedUser.getEmail())) {
-//            existingUser.setEmail(updatedUser.getEmail());
-//        }
-//
-//        if (StringUtils.hasText(updatedUser.getPassword()) && !existingUser.getPassword().equals(updatedUser.getPassword())) {
-//            existingUser.setPassword(
-//                    EncryptUtil.hashPw(updatedUser.getPassword())
-//            );
-//        }
-//
-//        if (StringUtils.hasText(updatedUser.getBirth().toString()) && !existingUser.getBirth().equals(updatedUser.getBirth())) {
-//            existingUser.setBirth(updatedUser.getBirth());
-//        }
-//
-//        if( updatedUser.getPhone() == null )
-//            updatedUser.setPhone("");
-//        if (StringUtils.hasText(updatedUser.getPhone()) && !existingUser.getPhone().equals(updatedUser.getPhone())) {
-//            existingUser.setPhone(updatedUser.getPhone());
-//        }
-//
-//        if (updatedUser.getImage() != null && !updatedUser.getImage().isEmpty() && !updatedUser.getImage().equals(existingUser.getImage())) {
-//            existingUser.setImage(updatedUser.getImage());
-//        }
-
-
         boolean isUpdated = false;
 
         if (updatedUser.getNickname() != null && !Objects.equals(updatedUser.getNickname(), existingUser.getNickname())) {
@@ -296,5 +274,10 @@ public class UserService {
             userRepository.save(existingUser);
         }
         return new UserResponse.LoggedInUserDTO(existingUser);
+    }
+
+    public void logout() {
+        session.invalidate();
+        rt.delete("sessionUser");
     }
 }

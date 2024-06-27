@@ -45,6 +45,16 @@ public class SocialController {
         return "social/detail";
     }
 
+    //소셜 디테일 -> 멤버 탭
+    @GetMapping("/social/detail/{socialId}/member")
+    public String socialMember(@PathVariable int socialId, HttpServletRequest request) {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        BoardResponse.SocialDetailDTO modal = socialService.socialDetail(socialId, sessionUser.getId());
+
+        request.setAttribute("modal", modal);
+        return "member/memberInvite";
+    }
+
 //    // 가입하지 않은 소셜 둘러보기 페이지
 //    @GetMapping("/social/notJoined")
 //    public String socialNotJoin() {
