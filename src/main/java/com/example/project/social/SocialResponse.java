@@ -2,12 +2,10 @@ package com.example.project.social;
 
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project.album.Album;
-import com.example.project.category_name.CategoryName;
 import com.example.project.file.File;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,15 +55,27 @@ public class SocialResponse {
     }
 
     // 소셜 리스트 DTO
-    @AllArgsConstructor
     @Data
-    public static class SocialDTO {
-        private Integer id;
-        private String name;
-        private List<String> categories;
-        private Integer memberCount;
-        private String createdAt;
+    public static class SocialListDTO {
+        private Integer count;
+        private List<SocialList> socialList;
+
+        public SocialListDTO(Integer count, List<SocialList> socialList) {
+            this.count = count;
+            this.socialList = socialList;
+        }
+
+        @AllArgsConstructor
+        @Data
+        public static class SocialList {
+            private Integer id;
+            private String name;
+            private List<String> categories;
+            private Integer memberCount;
+            private String createdAt;
+        }
     }
+
 
     // 소셜 상세 DTO
     @AllArgsConstructor

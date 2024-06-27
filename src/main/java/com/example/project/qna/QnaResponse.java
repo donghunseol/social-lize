@@ -8,11 +8,36 @@ import java.util.List;
 public class QnaResponse {
 
     @Data
-    public static class QnaListDTO {
+    public static class QnaAnswerListDTO {
         private Integer count;
         private List<ListDTO> list;
 
-        public QnaListDTO(List<Qna> list, Integer count) {
+        public QnaAnswerListDTO(List<Qna> list, Integer count) {
+            this.count = count;
+            this.list = list.stream().map(ListDTO::new).toList();
+
+        }
+
+        @Data
+        public static class ListDTO {
+            private Integer id;
+            private String title;
+            private String content;
+
+            public ListDTO(Qna qna) {
+                this.id = qna.getId();
+                this.title = qna.getTitle();
+                this.content = qna.getContent();
+            }
+        }
+    }
+
+    @Data
+    public static class QnaWaitingListDTO {
+        private Integer count;
+        private List<ListDTO> list;
+
+        public QnaWaitingListDTO(List<Qna> list, Integer count) {
             this.count = count;
             this.list = list.stream().map(ListDTO::new).toList();
 

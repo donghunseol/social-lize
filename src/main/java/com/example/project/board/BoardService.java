@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -174,8 +175,14 @@ public class BoardService {
     }
 
     // 유저 작성 게시글 리스트 조회
-    public List<BoardResponse.BoardList> getBoardList() {
-        return boardRepository.findAllBoardList();
+    public BoardResponse.BoardListDTO getBoardList() {
+        Integer count = boardRepository.findByBoardRole();
+        List<Board> boardListDTO = boardRepository.findAllBoardList();
+        List<BoardResponse.BoardListDTO.BoardList> boardList = boardListDTO.stream()
+                .map(BoardResponse.BoardListDTO.BoardList::new)
+                .collect(Collectors.toList());
+
+        return new BoardResponse.BoardListDTO(count, boardList);
     }
 
     // 유저 작성 게시글 상세 조회

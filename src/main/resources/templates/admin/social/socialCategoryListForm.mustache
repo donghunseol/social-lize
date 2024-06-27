@@ -19,14 +19,14 @@
                 </ul>
                 <div class="tab-content current">
                     <div class="tab-head">
-                        <p>소셜 목록</p>
+                        <p>카테고리 목록</p>
                     </div>
                     <div class="tab-item">
                         <form action="/admin/social/socialCategoryProduceForm.html" method="get"
                               style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
-                                    <span>총 카테고리<em> 2</em> 개</span>
+                                    <span>총 카테고리 <em>{{categoryListDTO.count}}</em> 개</span>
                                 </li>
                                 <li class="search-right">
                                     <div>
@@ -56,7 +56,7 @@
                             </thead>
                             <tbody>
 
-                            {{#categoryList}}
+                            {{#categoryListDTO.categoryList}}
                             <tr>
                                 <td style="vertical-align: middle;">{{name}}</td>
                                 <td class="social-category" style="vertical-align: middle;">
@@ -73,7 +73,7 @@
                                                                           onclick="location.href='/admin/social/socialDetailForm.html'">삭제</span>
                                 </td>
                             </tr>
-                            {{/categoryList}}
+                            {{/categoryListDTO.categoryList}}
 
                             <!-- 검색 부분 -->
                             <!-- {{#keywordList}}

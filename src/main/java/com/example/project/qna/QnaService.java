@@ -19,13 +19,22 @@ public class QnaService {
     private final QnaRepository qnaRepository;
     private final UserRepository userRepository;
 
-    public QnaResponse.QnaListDTO list(Integer userId) {
+    public QnaResponse.QnaAnswerListDTO answerList(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception403("로그인이 필요합니다."));
 
-        List<Qna> qnaList = qnaRepository.findByUserId(user.getId());
+        List<Qna> qnaList = qnaRepository.findByQnaAnswer(user.getId());
 
-        return new QnaResponse.QnaListDTO(qnaList, qnaList.size());
+        return new QnaResponse.QnaAnswerListDTO(qnaList, qnaList.size());
+    }
+
+    public QnaResponse.QnaWaitingListDTO waitingList(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요합니다."));
+
+        List<Qna> qnaList = qnaRepository.findByQnaWaiting(user.getId());
+
+        return new QnaResponse.QnaWaitingListDTO(qnaList, qnaList.size());
     }
 
     @Transactional

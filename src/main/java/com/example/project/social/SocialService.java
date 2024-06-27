@@ -13,7 +13,6 @@ import com.example.project.album.AlbumRepository;
 import com.example.project.board.Board;
 import com.example.project.board.BoardRepository;
 import com.example.project.board.BoardResponse;
-import com.example.project.board.BoardService;
 import com.example.project.bookmark.BookmarkRepository;
 import com.example.project.category.Category;
 import com.example.project.category.CategoryRepository;
@@ -249,10 +248,12 @@ public class SocialService {
     }
 
     // 소셜 리스트 조회 (관리자)
-    public List<SocialResponse.SocialDTO> getSocialList() {
-        List<Social> socials = socialRepository.findAll();
-        return socials.stream()
-                .map(social -> new SocialResponse.SocialDTO(
+    public SocialResponse.SocialListDTO getSocialList() {
+        Integer count = socialRepository.findAllActiveSocial();
+        List<Social> socialListDTO = socialRepository.findAll();
+
+        List<SocialResponse.SocialListDTO.SocialList> socialList = socialListDTO.stream()
+                .map(social -> new SocialResponse.SocialListDTO.SocialList(
                         social.getId(),
                         social.getName(),
                         social.getCategory().stream().map(category -> category.getCategoryNameId().getName()).collect(Collectors.toList()),
@@ -260,6 +261,8 @@ public class SocialService {
                         LocalDateTimeFormatter.convert(social.getCreatedAt())
                 ))
                 .collect(Collectors.toList());
+
+        return new SocialResponse.SocialListDTO(count, socialList);
     }
 
     // 소셜 상세 조회 (관리자)
