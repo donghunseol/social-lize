@@ -16,7 +16,8 @@
         <div class="group-name">{{socialName}}</div>
         <div class="post">
             <div class="author-box">
-                <img src="{{userImage}}" alt="Profile Picture" class="profile-picture openModalBtn" data-board-id="{{boardId}}">
+                <img src="{{userImage}}" alt="Profile Picture" class="profile-picture openModalBtn"
+                     data-board-id="{{boardId}}">
                 <div>
                     <button data-board-id="{{boardId}}" class="book-button {{#book}}book{{/book}}">
                         <i class="fas fa-star"></i>
@@ -29,7 +30,8 @@
                 {{#albums}}
                     <div class="media-item">
                         {{#isImage}}
-                            <img src="{{path}}" alt="Image" style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
+                            <img src="{{path}}" alt="Image"
+                                 style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
                         {{/isImage}}
                         {{#isVideo}}
                             <video controls style="max-width: 100%; max-height: 300px;">
@@ -61,13 +63,22 @@
             <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
                 <i class="fas fa-heart"></i>
             </button>
-            <div class="comment-section">
-                <form action="/reply/save" method="post">
-                    <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
-                    <input type="text" name="comment" placeholder="댓글을 남겨주세요.">
-                    <button type="submit" class="send-button">보내기</button>
-                </form>
-            </div>
+
+            <form action="/reply/save" method="post">
+                <div class="d-flex">
+
+                    <div class="comment-section">
+                        <input type="hidden" name="socialId" value="{{socialId}}">
+                        <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
+                        <input type="text" name="comment" placeholder="댓글을 남겨주세요.">
+                    </div>
+                    <div>
+                        <button type="submit" class="send-button">보내기</button>
+                    </div>
+
+                </div>
+            </form>
+
         </div>
     {{/modal.boards}}
 
@@ -75,7 +86,8 @@
         <div class="group-name">{{socialName}}</div>
         <div class="post">
             <div class="author-box">
-                <img src="{{userImage}}" alt="Profile Picture" class="profile-picture openModalBtn" data-board-id="{{boardId}}">
+                <img src="{{userImage}}" alt="Profile Picture" class="profile-picture openModalBtn"
+                     data-board-id="{{boardId}}">
                 <div>
                     <button data-board-id="{{boardId}}" class="book-button {{#book}}book{{/book}}">
                         <i class="fas fa-star" style="color: yellow"></i>
@@ -88,7 +100,8 @@
                 {{#albums}}
                     <div class="media-item">
                         {{#isImage}}
-                            <img src="{{path}}" alt="Image" style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
+                            <img src="{{path}}" alt="Image"
+                                 style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
                         {{/isImage}}
                         {{#isVideo}}
                             <video controls style="max-width: 100%; max-height: 300px;">
@@ -124,9 +137,9 @@
                 <form action="/reply/save" method="post">
                     <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
                     <input type="text" name="comment" placeholder="댓글을 남겨주세요.">
-                    <button type="submit" class="send-button">보내기</button>
                 </form>
             </div>
+            <button type="submit" class="send-button">보내기</button>
         </div>
     {{/modals.boards}}
 </div>
@@ -247,7 +260,7 @@
             $.ajax({
                 url: '/board/detail/',
                 method: 'GET',
-                data: { boardId: boardId }, // RequestParam으로 boardId 전송
+                data: {boardId: boardId}, // RequestParam으로 boardId 전송
                 dataType: 'json',
                 success: function (data) {
                     var detail = data;

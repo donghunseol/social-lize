@@ -674,14 +674,13 @@ body {
     display: flex;
     width: 100vw;
     background-color: #fff;
-    padding: 20px;
     border-top: none;
     margin-bottom: 20px;
     margin-top: 150px;
 }
 
 .tab-content.active {
-    /*display: block;*/
+    margin-top: 120px;
 }
 
 /* 메인페이지 */

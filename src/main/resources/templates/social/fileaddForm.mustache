@@ -301,7 +301,7 @@
         }
 
         document.getElementById("copyLinkButton").addEventListener("click", function() {
-            const link = "https://example.com/invite"; // 여기에 실제 초대 링크를 입력하세요.
+            const link = "http://localhost:8080/social/detail/1"; // 여기에 실제 초대 링크를 입력하세요.
             navigator.clipboard.writeText(link).then(function() {
                 alert("초대 링크가 클립보드에 복사되었습니다.");
             }, function(err) {
