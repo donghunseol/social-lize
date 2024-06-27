@@ -1,14 +1,28 @@
 package com.example.project.social_member;
 
+import com.example.project._core.enums.SocialMemberRoleEnum;
 import com.example.project._core.enums.UserProviderEnum;
+import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.social.Social;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SocialMemberResponse {
+
+    @Data
+    public static class ArticleCount{
+        private Integer articleCount;
+        private Integer replyCount;
+
+        public ArticleCount(Integer articleCount, Integer replyCount) {
+            this.articleCount = articleCount;
+            this.replyCount = replyCount;
+        }
+    }
 
     @Data
     public static class MemberDTO {
@@ -62,13 +76,24 @@ public class SocialMemberResponse {
         private String email;
         private LocalDate birth;
         private UserProviderEnum provider;
+        private String imagePath;
+        private LocalDateTime createdAt;
+        private String createdAtString;
+        private SocialMemberRoleEnum role;
+        private Boolean isManager;
 
-        public SocialMemberList(Integer id, String nickname, String email, LocalDate birth, UserProviderEnum provider) {
+        public SocialMemberList(Integer id, String nickname, String email, LocalDate birth, UserProviderEnum provider, String imagePath, LocalDateTime createdAt, SocialMemberRoleEnum role) {
             this.id = id;
             this.nickname = nickname;
             this.email = email;
             this.birth = birth;
             this.provider = provider;
+            this.imagePath = imagePath;
+            this.createdAt = createdAt;
+            this.createdAtString = LocalDateTimeFormatter.convert(createdAt, "yyyy년 MM월 dd일");
+            this.role = role;
+            if(role.equals(SocialMemberRoleEnum.MANAGER)) this.isManager = true;
+            else this.isManager = false;
         }
     }
 }

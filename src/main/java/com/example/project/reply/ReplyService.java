@@ -2,6 +2,7 @@ package com.example.project.reply;
 
 import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
+import com.example.project.social.SocialRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,9 @@ public class ReplyService {
         }
 
         replyRepository.deleteById(replyId);
+    }
+
+    public Integer getCount(Integer userId, Integer socialId) {
+        return replyRepository.getCountByUserIdAndSocialId(userId, socialId);
     }
 }

@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="invite-content">
-        <h2>멤버 {{modal.memberCount}}</h2>
+        <h8>이 소셜은 {{modal.memberCount}}명이 함께하고있습니다.</h8>
         <div class="invite-divider"></div>
 
         {{#modal.isManager}}
@@ -55,12 +55,7 @@
             {{/modal.isWaiting}}
         {{/modal.isManager}}
 
-        <h2>멤버검색</h2>
-        <div class="invite-divider"></div>
-        <div class="invite-member-search">
-            <input type="text" placeholder="멤버 이름 검색">
-            <button>검색</button>
-        </div>
+
 
         <h2>초대링크</h2>
         <div class="invite-divider"></div>
@@ -83,34 +78,35 @@
             </select>
         </div>
         <div class="invite-member-list">
-            <div class="invite-member-item leader">
-                <img src="/images/puppy.png" alt="프로필 사진" class="invite-member-pic" id="openModalBtn"
-                     data-bs-toggle="modal" data-bs-target="#profileModal">
+            {{#socialMemberList}}
+                {{#isManager}}
+                <div class="invite-member-item leader">
+                {{/isManager}}
+                {{^isManager}}
+                <div class="invite-member-item">
+                {{/isManager}}
+                <img src="{{imagePath}}" alt="프로필 사진" class="invite-member-pic">
                 <div class="invite-member-info">
-                    <span class="invite-member-name">설동훈</span>
-                    <span class="invite-member-role">
-                        <i class="fas fa-crown"></i> 리더
-                    </span>
+                    <span class="invite-member-name">{{nickname}}</span>
+                    {{#isManager}}
+                        <span class="invite-member-role">
+                            <i class="fas fa-crown"></i> 리더
+                        </span>
+                    {{/isManager}}
+                    {{^isManager}}
+                        <span class="invite-member-details">{{createdAtString}} 가입 | 게시물 {{counts.articleCount}} | 댓글 {{counts.replyCount}}</span>
+                    {{/isManager}}
                 </div>
+                {{^isManager}}
+                    <button class="invite-remove-button" onclick="removeMember(this)">삭제</button>
+                {{/isManager}}
             </div>
-            <div class="invite-divider"></div>
-            <div class="invite-member-item">
-                <img src="/images/userprofile.jpeg" alt="프로필 사진" class="invite-member-pic">
-                <div class="invite-member-info">
-                    <span class="invite-member-name">김세운</span>
-                    <span class="invite-member-details">24.01.01 가입 | 게시물 16 | 댓글 57</span>
-                </div>
-                <button class="invite-remove-button" onclick="removeMember(this)">삭제</button>
-            </div>
-            <div class="invite-divider"></div>
-            <div class="invite-member-item">
-                <img src="/images/userprofile3.png" alt="프로필 사진" class="invite-member-pic">
-                <div class="invite-member-info">
-                    <span class="invite-member-name">하승진</span>
-                    <span class="invite-member-details">24.04.01 가입 | 게시물 18 | 댓글 30</span>
-                </div>
-                <button class="invite-remove-button" onclick="removeMember(this)">삭제</button>
-            </div>
+                <div class="invite-divider"></div>
+            {{/socialMemberList}}
+        </div>
+        <div class="invite-member-search">
+            <input type="text" placeholder="멤버 이름 검색">
+            <button>검색</button>
         </div>
     </div>
     <div class="invite-chat-container">

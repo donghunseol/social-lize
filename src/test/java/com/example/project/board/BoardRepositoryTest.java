@@ -29,6 +29,13 @@ public class BoardRepositoryTest {
     }
 
     @Test
+    public void getArticleCountBySocialIdAndUserId_test(){
+        Integer count = boardRepository.getArticleCountByBoardSocialIdAndUserId(1,1);
+        System.out.println("count = " + count);
+
+    }
+
+    @Test
     public void findBySocialId_test(){
         List<Board> board = boardRepository.findByBoardSocialId(1);
 

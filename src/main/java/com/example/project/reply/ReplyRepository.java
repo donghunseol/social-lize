@@ -16,4 +16,9 @@ public interface ReplyRepository extends JpaRepository<Reply, Integer> {
 
     @Query("SELECT r FROM Reply r WHERE r.boardId.id = :boardId")
     List<Reply> findByReply(@Param("boardId") Integer boardId);
+
+    @Query(value = "SELECT COUNT(*) FROM REPLY_TB r " +
+            "JOIN board_tb b on r.board_id = b.id " +
+            "WHERE r.user_id = :userId AND b.social_id = :socialId", nativeQuery = true)
+    Integer getCountByUserIdAndSocialId(Integer userId, Integer socialId);
 }

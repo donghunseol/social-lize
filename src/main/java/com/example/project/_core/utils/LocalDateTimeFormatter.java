@@ -10,6 +10,10 @@ public class LocalDateTimeFormatter {
         DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return localDateTime.format(customFormatter);
     }
+    public static String convert(LocalDateTime localDateTime, String pattern) {
+        DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern(pattern);
+        return localDateTime.format(customFormatter);
+    }
 
     // 인수로 주어진 시간이 얼마전인지 표시해주는 매소드 ( 예: 1일전, 20분전, 3시간전 )
     public static String getDuration(LocalDateTime pastTime) {

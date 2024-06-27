@@ -25,11 +25,12 @@ public interface SocialMemberRepository extends JpaRepository<SocialMember, Inte
     Boolean isApproved(@Param("socialId") Integer socialId, @Param("userId") Integer userId);
 
     // 소셜 멤버 중 APPROVED 인 멤버 리스트
-    @Query("SELECT new com.example.project.social_member.SocialMemberResponse$SocialMemberList(s.id, u.nickname, u.email, u.birth, u.provider) " +
+    @Query("SELECT new com.example.project.social_member.SocialMemberResponse$SocialMemberList(s.id, u.nickname, u.email, u.birth, u.provider, u.image, u.createdAt, sm.role) " +
             "FROM SocialMember sm " +
             "JOIN sm.socialId s " +
             "JOIN sm.userId u " +
-            "WHERE sm.state = 'APPROVED' AND s.id = :socialId")
+            "WHERE sm.state = 'APPROVED' AND s.id = :socialId " +
+            "ORDER BY u.nickname ASC")
     List<SocialMemberResponse.SocialMemberList> findSocialMembersBySocialId(@Param("socialId") Integer socialId);
 
     @Query("select sm from SocialMember sm where sm.socialId.id = :socialId and sm.role = 'MANAGER'")

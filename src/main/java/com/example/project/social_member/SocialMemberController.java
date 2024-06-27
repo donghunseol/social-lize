@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class SocialMemberController {
@@ -22,14 +24,14 @@ public class SocialMemberController {
     private final UserUtil userUtil;
 
     // 소셜 멤버 리스트
-    @GetMapping("/member/invite/{socialId}")
-    public String member(@PathVariable("socialId") Integer socialId, HttpServletRequest request) {
-        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
-        SocialMemberResponse.MemberDTO modal = socialMemberService.member(sessionUser.getId(), socialId);
-        request.setAttribute("modal", modal);
-
-        return "member/memberInvite";
-    }
+//    @GetMapping("/member/invite/{socialId}")
+//    public String member(@PathVariable("socialId") Integer socialId, HttpServletRequest request) {
+//        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+//        SocialMemberResponse.MemberDTO modal = socialMemberService.member(sessionUser.getId(), socialId);
+//        request.setAttribute("modal", modal);
+//
+//        return "member/memberInvite";
+//    }
 
     // 소셜 가입 신청
     @PostMapping("/{socialId}/social-members/apply")
@@ -37,5 +39,12 @@ public class SocialMemberController {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         socialMemberService.applySocialMember(socialId, sessionUser.getId());
         return "redirect:/social/detail/" + socialId;
+    }
+
+    // 소셜 멤버 리스트 조회
+    @GetMapping("/social/{socialId}/member-list")
+    public ResponseEntity<?> socialMemberList(@PathVariable Integer socialId) {
+        List<SocialMemberResponse.SocialMemberList> socialMemberList = socialMemberService.getSocialMembersBySocialId(socialId);
+        return ResponseEntity.ok(new ApiUtil<>(socialMemberList));
     }
 }
