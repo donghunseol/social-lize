@@ -72,7 +72,7 @@ public class SocialController {
         SocialResponse.AlbumAndFileListDTO respDTO = socialService.getSocialAlbumList(socialId);
         request.setAttribute("models", respDTO);
 
-        return "social/fileaddForm";
+        return "/social/fileaddForm";
     }
 
     //내 소셜 목록을 가져오기. ajax로 가져오기 위해 json으로 리턴한다.

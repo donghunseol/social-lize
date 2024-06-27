@@ -137,7 +137,6 @@ public class SocialService {
                     }
                 }
             }
-
             boardDTOs.add(boardDTO);
         }
 
