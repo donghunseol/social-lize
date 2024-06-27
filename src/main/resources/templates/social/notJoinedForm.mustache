@@ -7,7 +7,15 @@
                 <h2>{{modal.title}}</h2>
                 <div>리더 <span class="socialnotjoin-highlight">{{modal.name}}</span></div>
                 <div>멤버 <span class="socialnotjoin-highlight">{{modal.memberCount}}</span></div>
-                <button class="socialnotjoin-join-button">가입하기</button>
+                {{^modal.isWaiting}}
+                    <form action="/{{modal.socialId}}/social-members/apply" method="post"
+                          enctype="application/x-www-form-urlencoded">
+                        <button type="submit" class="socialnotjoin-join-button">가입 신청하기</button>
+                    </form>
+                {{/modal.isWaiting}}
+                {{#modal.isWaiting}}
+                    <div class="socialnotjoin-join" style="text-align: center">가입 신청완료</div>
+                {{/modal.isWaiting}}
             </div>
         </div>
         <div class="socialnotjoin-content">

@@ -1,27 +1,59 @@
 {{> layout/header}}
-{{> layout/socialtab}}
-<div class="invite-container">
-    {{> layout/socialsidebar}}
-    <div class="invite-content">
-        <h2>멤버 20</h2>
-        <div class="invite-divider"></div>
+<div class="socialtab-navbar">
+    <a href="#">게시글</a>
+    <a href="/social/fileadd/{{modal.socialId}}">서랍</a>
+    <a href="/member/invite/{{modal.socialId}}">멤버</a>
+</div>
 
-        <h2>신청목록</h2>
-        <div class="invite-divider"></div>
-        <div id="invite-requests">
-            <div class="invite-request-item">
-                <img src="/images/userprofile3.png" alt="프로필 사진" class="invite-request-pic">
-                <span class="invite-request-name">하승진</span>
-                <button class="invite-approve-button" onclick="handleRequest(this, true)">승인</button>
-                <button class="invite-reject-button" onclick="handleRequest(this, false)">거절</button>
-            </div>
-            <div class="invite-request-item">
-                <img src="/images/userprofile2.png" alt="프로필 사진" class="invite-request-pic">
-                <span class="invite-request-name">김완준</span>
-                <button class="invite-approve-button" onclick="handleRequest(this, true)">승인</button>
-                <button class="invite-reject-button" onclick="handleRequest(this, false)">거절</button>
+<div class="invite-container">
+    <div class="common-sidebar">
+        <div class="common-social-info">
+            <img src="{{modal.image}}" alt="소셜 사진">
+            <h2>{{modal.title}}</h2>
+            <div>리더 <span class="common-highlight">{{modal.name}}</span></div>
+            <div>멤버 <span class="common-highlight">{{modal.memberCount}}</span></div>
+            <button class="common-postwrite" id="openModalBtn" data-bs-toggle="modal"
+                    data-bs-target="#boardSaveModal">글 작성하기
+            </button>
+            <button class="common-invite-button" id="copyLinkButton">초대링크 복사</button>
+            <div class="common-description">{{modal.info}}</div>
+            <div class="common-settings-wrapper">
+                <div class="common-settings"><a href="#"><i class="fas fa-cog"></i></a></div>
+                <div>소셜 설정하기</div>
             </div>
         </div>
+    </div>
+    <div class="invite-content">
+        <h2>멤버 {{modal.memberCount}}</h2>
+        <div class="invite-divider"></div>
+
+        {{#modal.isManager}}
+            {{#modal.isWaiting}}
+                <h2>신청목록</h2>
+                <div class="invite-divider"></div>
+                <div id="invite-requests">
+                    {{#modal.waitingList}}
+                        <div class="invite-request-item">
+                            <img src="{{userImage}}" alt="프로필 사진" class="invite-request-pic">
+                            <span class="invite-request-name">{{userName}}</span>
+                            <button class="invite-approve-button" data-social-id="{{modal.socialId}}"
+                                    data-user-id="{{userId}}" onclick="handleRequest(this, true)">승인
+                            </button>
+                            <button class="invite-reject-button" data-social-id="{{modal.socialId}}"
+                                    data-user-id="{{userId}}" onclick="handleRequest(this, false)">거절
+                            </button>
+                        </div>
+                    {{/modal.waitingList}}
+                </div>
+            {{/modal.isWaiting}}
+        {{/modal.isManager}}
+
+
+        {{^modal.isManager}}
+            {{^modal.isWaiting}}
+                <h2>소셜에 신청한 멤버가 없어요.</h2>
+            {{/modal.isWaiting}}
+        {{/modal.isManager}}
 
         <h2>멤버검색</h2>
         <div class="invite-divider"></div>
@@ -52,7 +84,8 @@
         </div>
         <div class="invite-member-list">
             <div class="invite-member-item leader">
-                <img src="/images/puppy.png" alt="프로필 사진" class="invite-member-pic" id="openModalBtn" data-bs-toggle="modal" data-bs-target="#profileModal">
+                <img src="/images/puppy.png" alt="프로필 사진" class="invite-member-pic" id="openModalBtn"
+                     data-bs-toggle="modal" data-bs-target="#profileModal">
                 <div class="invite-member-info">
                     <span class="invite-member-name">설동훈</span>
                     <span class="invite-member-role">
@@ -90,8 +123,8 @@
             <!-- 채팅 메시지가 이곳에 추가됩니다 -->
         </div>
         <div class="invite-chat-input">
-            <input type="hidden" id="socialId" value="1" /> <!-- 소셜 ID -->
-            <input type="hidden" id="userId" value="{{sessionUser.id}}" /> <!-- 유저 ID -->
+            <input type="hidden" id="socialId" value="1"/> <!-- 소셜 ID -->
+            <input type="hidden" id="userId" value="{{sessionUser.id}}"/> <!-- 유저 ID -->
             <input type="text" id="comment" placeholder="메시지를 입력하세요">
             <button id="send-button" onclick="sendMessage()">보내기</button>
         </div>
@@ -142,13 +175,17 @@
                 modalImg.style.display = 'none';
                 modal.style.display = 'block';
                 modalVideo.play();
-                downloadBtn.onclick = function () { downloadFile(src, 'video'); };
+                downloadBtn.onclick = function () {
+                    downloadFile(src, 'video');
+                };
             } else {
                 modalImg.src = src;
                 modalImg.style.display = 'block';
                 modalVideo.style.display = 'none';
                 modal.style.display = 'block';
-                downloadBtn.onclick = function () { downloadFile(src, 'image'); };
+                downloadBtn.onclick = function () {
+                    downloadFile(src, 'image');
+                };
             }
             modal.addEventListener('click', closeModal);
         }
@@ -170,14 +207,30 @@
             modal.removeEventListener('click', closeModal);
         }
 
+
         function handleRequest(button, isApproved) {
+            var $this = $(button);
+            var socialId = $this.data('social-id');
+            var userId = $this.data('user-id');
             var requestItem = button.parentElement;
-            if (isApproved) {
-                alert(requestItem.querySelector('.invite-request-name').innerText + ' 승인됨');
-            } else {
-                alert(requestItem.querySelector('.invite-request-name').innerText + ' 거절됨');
-            }
-            requestItem.remove();
+            var isApprovedString = isApproved ? 'true' : 'false';
+            $.ajax({
+                method: 'PUT',
+                url: `/social-members/state?socialId=${socialId}&userId=${userId}&isApproved=${isApprovedString}`, // URL 매개변수로 값 전송
+                success: function (response) {
+                    if (isApproved) {
+                        alert(requestItem.querySelector('.invite-request-name').innerText + ' 승인됨');
+                        location.reload();
+                    } else {
+                        alert(requestItem.querySelector('.invite-request-name').innerText + ' 거절됨');
+                        location.reload();
+                    }
+                    requestItem.remove();
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
         }
 
         function copyInviteLink() {
@@ -188,11 +241,11 @@
             alert("초대 링크가 클립보드에 복사되었습니다.");
         }
 
-        document.getElementById("copyLinkButton").addEventListener("click", function() {
+        document.getElementById("copyLinkButton").addEventListener("click", function () {
             const link = "localhost:8080/";
-            navigator.clipboard.writeText(link).then(function() {
+            navigator.clipboard.writeText(link).then(function () {
                 alert("초대 링크가 클립보드에 복사되었습니다.");
-            }, function(err) {
+            }, function (err) {
                 console.error("초대 링크 복사 실패: ", err);
             });
         });
@@ -200,16 +253,16 @@
         function sortMembers() {
             var memberSort = document.getElementById('memberSort').value;
             var memberList = document.querySelector('.invite-member-list');
-            var members = Array.from(memberList.getElementsByClassName('invite-member-item')).filter(function(member) {
+            var members = Array.from(memberList.getElementsByClassName('invite-member-item')).filter(function (member) {
                 return !member.classList.contains('leader');
             });
 
             if (memberSort === 'name') {
-                members.sort(function(a, b) {
+                members.sort(function (a, b) {
                     return a.querySelector('.invite-member-name').innerText.localeCompare(b.querySelector('.invite-member-name').innerText, 'ko');
                 });
             } else if (memberSort === 'recent') {
-                members.sort(function(a, b) {
+                members.sort(function (a, b) {
                     var dateA = a.querySelector('.invite-member-details').innerText.match(/\d{2}\.\d{2}\.\d{2}/)[0].split('.');
                     var dateB = b.querySelector('.invite-member-details').innerText.match(/\d{2}\.\d{2}\.\d{2}/)[0].split('.');
                     var parsedDateA = new Date('20' + dateA[0], dateA[1] - 1, dateA[2]);
@@ -218,7 +271,7 @@
                 });
             }
 
-            members.forEach(function(member) {
+            members.forEach(function (member) {
                 memberList.appendChild(member);
             });
         }
@@ -359,7 +412,7 @@
         };
 
         // 엔터 키 이벤트 리스너 추가
-        document.getElementById('comment').addEventListener('keypress', function(event) {
+        document.getElementById('comment').addEventListener('keypress', function (event) {
             if (event.key === 'Enter') {
                 sendMessage();
                 event.preventDefault();

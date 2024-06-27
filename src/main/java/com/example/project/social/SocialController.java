@@ -5,6 +5,8 @@ import com.example.project.board.BoardResponse;
 import com.example.project.board.BoardService;
 import com.example.project.file.FileRequest;
 import com.example.project.file.FileService;
+import com.example.project.social_member.SocialMember;
+import com.example.project.social_member.SocialMemberResponse;
 import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +28,7 @@ public class SocialController {
     private final HttpSession session;
     private final UserUtil userUtil;
 
+    // 소셜 상세보기
     @GetMapping("/social/detail/{socialId}")
     public String socialDetail(@PathVariable int socialId, HttpServletRequest request) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();

@@ -21,34 +21,37 @@ public class QnaController {
     private final HttpSession session;
     private final UserUtil userUtil;
 
+    // 문의 상세보기
     @GetMapping("/qna/detail/{qnaId}")
     public String detail(@PathVariable("qnaId") Integer qnaId, HttpServletRequest request) {
-        Integer userId = 1;
-        QnaResponse.QnaDetailDTO modal = qnaService.detail(userId, qnaId);
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        QnaResponse.QnaDetailDTO modal = qnaService.detail(sessionUser.getId(), qnaId);
         request.setAttribute("modal", modal);
 
         return null;
     }
 
-
+    // 내 문의 리스트
     @GetMapping("/qna/my/list")
     public String list(HttpServletRequest request) {
-        Integer userId = 1;
-        QnaResponse.QnaListDTO modal = qnaService.list(userId);
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        QnaResponse.QnaListDTO modal = qnaService.list(sessionUser.getId());
 
         request.setAttribute("modal", modal);
 
         return "qna/qnaList";
     }
 
+    // 문의 작성
     @PostMapping("/qna")
     public String save(QnaRequest.SaveDTO reqDTO) {
-        Integer userId = 1;
-        qnaService.save(userId, reqDTO);
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        qnaService.save(sessionUser.getId(), reqDTO);
 
         return "redirect:/qna/my/list";
     }
 
+    // 문의 수정
     @PutMapping("/qna/update/{qnaId}")
     public String update(@PathVariable("qnaId") Integer qnaId, QnaRequest.UpdateDTO reqDTO) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
@@ -57,6 +60,7 @@ public class QnaController {
         return "redirect:/qna/my/list";
     }
 
+    // 문의 삭제
     @PutMapping("/qna/delete/{qnaId}")
     public String delete(@PathVariable("qnaId") Integer qnaId) {
         Integer userId = 1;

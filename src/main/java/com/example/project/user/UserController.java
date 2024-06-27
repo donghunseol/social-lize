@@ -31,6 +31,7 @@ public class UserController {
     }
 
 
+    // 메인페이지
     @GetMapping("/")
     public String mainPage(HttpServletRequest request) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();

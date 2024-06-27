@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserAjaxController {
     private final UserService userService;
 
-
-
+    // 소셜 카테고리 리스트
     @GetMapping("/main/category")
     public ResponseEntity<?> getSocialByCategory(@RequestParam Integer categoryId) {
         UserResponse.MainAjaxDTO model = userService.mainAjax(categoryId);

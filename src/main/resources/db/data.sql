@@ -175,7 +175,6 @@ VALUES (1, 1, 'MANAGER', 'APPROVED', now()),
        (1, 4, 'MEMBER', 'WAITING', now()),
        (2, 3, 'MEMBER', 'WAITING', now()),
        (3, 2, 'MEMBER', 'WAITING', now()),
-       (4, 1, 'MEMBER', 'WAITING', now()),
        (5, 5, 'MEMBER', 'RESIGN', now());
 
 -- 소셜 카테고리 이름 테이블

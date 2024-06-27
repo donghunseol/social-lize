@@ -8,7 +8,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="boardForm" action="/board/1" method="post" enctype="multipart/form-data">
+                <form id="boardForm" action="/board/" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="socialId" th:value="${modal.socialId}">
                     <div class="mb-3">
                         <label for="content" class="form-label">내용</label>
                         <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
@@ -17,7 +18,7 @@
                         <label for="hashtags" class="form-label">해시태그 추가</label>
                         <div class="d-flex">
                             <input type="text" id="hashtagInput" class="form-control me-2" placeholder="해시태그 입력">
-                            <button type="button" id="addHashtagBtn" class="btn btn-primary" style="width: 60px">추가</button>
+                            <button type="button" id="addHashtagBtn" class="btn btn-primary" style="width: 65px">추가</button>
                         </div>
                         <div id="selectedHashtags" class="mt-2"></div>
                     </div>

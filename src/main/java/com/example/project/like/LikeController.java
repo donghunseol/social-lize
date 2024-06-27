@@ -20,6 +20,7 @@ public class LikeController {
     private final HttpSession session;
     private final UserUtil userUtil;
 
+    // 좋아요 하기
     @PostMapping("/like/save")
     public ResponseEntity<?> save(@RequestParam("boardId") Integer boardId) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
@@ -29,6 +30,7 @@ public class LikeController {
         return ResponseEntity.ok(response);
     }
 
+    // 좋아요 취소
     @DeleteMapping("/like/delete")
     public ResponseEntity<?> delete(@RequestParam("boardId") Integer boardId) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
