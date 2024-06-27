@@ -25,6 +25,8 @@ public class BoardController {
     // 게시글 작성하기
     @PostMapping("/board/{socialId}")
     public String save(@PathVariable Integer socialId, BoardRequest.SaveDTO reqDTO) {
+        System.out.println("DTO TEST : " + reqDTO);
+        System.out.println("동영상 이름 : " +reqDTO.getVideoFiles().getFirst().getOriginalFilename());
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         boardService.save(socialId, reqDTO, sessionUser.getId());
         // 나머지 데이터 처리 로직

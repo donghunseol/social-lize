@@ -2,6 +2,7 @@ package com.example.project.board;
 
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.enums.BoardEnum;
+import com.example.project._core.enums.DeleteStateEnum;
 import com.example.project.album.Album;
 import com.example.project.hashtag.Hashtag;
 import com.example.project.social.Social;
@@ -30,6 +31,7 @@ public class BoardRequest {
                     .socialId(socialId)
                     .content(content)
                     .role(BoardEnum.POST)
+                    .state(DeleteStateEnum.ACTIVE)
                     .build();
         }
 
@@ -40,6 +42,17 @@ public class BoardRequest {
                     .path(path)
                     .type(type)
                     .build();
+        }
+
+        public Album albumVideoToEntity(User userId, Board boardId, String hlsPath, String path, AlbumEnum type) {
+            Album album = Album.builder()
+                    .userId(userId)
+                    .boardId(boardId)
+                    .path(path)
+                    .type(type)
+                    .build();
+            album.setHlsPath(hlsPath);
+            return album;
         }
     }
 }

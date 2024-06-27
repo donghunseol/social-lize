@@ -1,6 +1,7 @@
 package com.example.project.file;
 
 import com.example.project._core.enums.SocialMemberStateEnum;
+import com.example.project._core.errors.exception.Exception400;
 import com.example.project._core.errors.exception.Exception401;
 import com.example.project._core.errors.exception.Exception404;
 import com.example.project._core.utils.FileUtil;
@@ -48,7 +49,14 @@ public class FileService {
             FileUtil.FileUploadResult uploadResult = FileUtil.uploadFile("./upload", reqDTO.getFile());
             filePath = uploadResult.getFilePath();
             fileName = uploadResult.getFileName();
+            // 업로드 결과 검증
+            if (filePath == null || fileName == null) {
+                throw new Exception400("파일 업로드 실패");
+            }
+        } else {
+            throw new Exception400("업로드할 파일이 없습니다");
         }
+
 
         // 파일 등록
         File file = File.builder()
