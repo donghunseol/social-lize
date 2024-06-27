@@ -27,7 +27,6 @@ public class Reply {
     @ManyToOne(fetch = FetchType.LAZY)
     private User userId; // 유저 번호
 
-
     @Column(nullable = false)
     private String comment; // 댓글 내용
 
@@ -35,12 +34,11 @@ public class Reply {
     private LocalDateTime createdAt; // 생성 일자
 
     @Builder
-    public Reply(Integer id, User userId, Board boardId, String comment, LocalDateTime createdAt) {
+    public Reply(Integer id, User userId, Board boardId, String comment) {
         this.id = id;
         this.userId = userId;
         this.boardId = boardId;
         this.comment = comment;
-        this.createdAt = createdAt;
     }
 }
 
