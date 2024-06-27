@@ -24,9 +24,9 @@ public class ReplyController {
 
     // 댓글 쓰기
     @PostMapping("/reply/save")
-    public String save(@RequestParam("boardId") Integer id, ReplyRequest.SaveDTO reqDTO){
+    public String save(@RequestParam("socialId") Integer id, ReplyRequest.SaveDTO reqDTO){
         User sessionUser = (User) session.getAttribute("sessionUser");
-        replyService.save(reqDTO, sessionUser);
+        replyService.save(reqDTO, sessionUser, id);
         return "redirect:/social/detail/" + id;
     }
 }
