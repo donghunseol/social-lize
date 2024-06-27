@@ -16,18 +16,18 @@
                             <div class="content top">
                                 <div class="img-wrapper">
                                     <img style="border: 1px solid #F8F8F8; border-radius: 15px;"
-                                         src="{{socialDetail.image}}" alt="소셜 이미지">
+                                         src="{{modal.image}}" alt="소셜 이미지">
 
                                 </div>
                                 <div class="text-wrapper">
                                     <p class="text-item">
                                         <span class="head"><i class="fa-solid fa-house"></i><em>소셜명</em></span>
-                                        <span class="body">{{socialDetail.name}}</span>
+                                        <span class="body">{{modal.name}}</span>
                                     </p>
                                     <p class="text-item">
                                             <span class="head"><i class="fa-solid fa-calendar-alt"></i><em>소셜
                                                     생성일</em></span>
-                                        <span class="body">{{socialDetail.createdAt}}</span>
+                                        <span class="body">{{modal.createdAt}}</span>
                                     </p>
                                     <p class="text-item">
                                         <span class="head"><i class="fa-solid fa-tags"></i><em>카테고리</em></span>
@@ -39,7 +39,7 @@
                                     </p>
                                     <p class="text-item">
                                             <span class="head"><i class="fa-solid fa-comment"></i><em>소개글</em></span>
-                                        <span class="body">{{socialDetail.info}}</span>
+                                        <span class="body">{{modal.info}}</span>
                                     </p>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                     <form action="/admin/users" method="get" style="width: 100%;">
                                         <ul class="search-box">
                                             <li class="search-left">
-                                                <span>총 회원<em> {{socialDetail.memberCount}}</em> 명</span>
+                                                <span>총 회원<em> {{modal.memberCount}}</em> 명</span>
                                             </li>
                                             <li class="search-right">
                                                 <div>

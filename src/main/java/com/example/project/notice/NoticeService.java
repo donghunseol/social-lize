@@ -1,15 +1,25 @@
 package com.example.project.notice;
 
 import com.example.project._core.enums.BoardEnum;
+
 import com.example.project._core.enums.DeleteStateEnum;
+
+import com.example.project._core.enums.NotificationEnum;
+
 import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
 import com.example.project.board.Board;
 import com.example.project.board.BoardRepository;
+import com.example.project.notification.Notification;
+import com.example.project.notification.NotificationRepository;
 import com.example.project.user.User;
 import com.example.project.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Sort;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,9 +28,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class NoticeService {
+    private final NotificationRepository notificationRepository;
     private final NoticeRepository noticeRepository;
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
+    private final SimpMessagingTemplate template;
 
     // 공지 리스트 조회 (관리자)
     public NoticeResponse.NoticeDTO getNoticeListAndCount() {
@@ -64,6 +76,22 @@ public class NoticeService {
                 .build();
 
         noticeRepository.save(notice);
+
+
+        // 공지사항 등록 알림 발송 로직
+        //1. 모든 사용자의 목록 불러오기
+        List<User> userList = userRepository.findAll();
+        for(User userToSend : userList){
+            Notification notification =
+                    new Notification().builder().
+                            userId(userToSend).
+                            role(NotificationEnum.BOARD).
+                            checked(false).build();
+            //2. 알림 내용 db에 저장
+            notificationRepository.save(notification);
+        }
+        //3. 공지 등록 채널에 알림 발송
+        template.convertAndSend("/topic/notice", "");
     }
 
     // 공지 삭제 (관리자)

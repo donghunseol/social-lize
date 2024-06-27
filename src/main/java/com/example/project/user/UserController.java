@@ -1,5 +1,8 @@
 package com.example.project.user;
 
+import com.example.project._core.enums.UserStatusEnum;
+import com.example.project._core.errors.exception.Exception403;
+import com.example.project._core.errors.exception.Exception600;
 import com.example.project._core.utils.FileUtil;
 import com.example.project._core.utils.UserUtil;
 import com.example.project.notification.NotificationService;
@@ -93,7 +96,7 @@ public class UserController {
         }
         if (theUser instanceof KakaoResponse.KakaoUserDTO) {
             //조회 결과 : 아직 가입하지 않은 회원
-            session.setAttribute("joinDTO", new JoinDTO((KakaoResponse.KakaoUserDTO) theUser));
+            session.setAttribute("joinDTO", new UserRequest.JoinDTO((KakaoResponse.KakaoUserDTO) theUser));
             return "redirect:/user/joinForm/kakao";
         }
         throw new RuntimeException("알 수 없는 오류가 발생했습니다.");
@@ -109,7 +112,7 @@ public class UserController {
             return "redirect:/";
         }
         if (theUser instanceof NaverResponse.NaverUserDTO) {   //조회 결과 : 아직 가입하지 않은 회원
-            session.setAttribute("joinDTO", new JoinDTO((NaverResponse.NaverUserDTO) theUser));
+            session.setAttribute("joinDTO", new UserRequest.JoinDTO((NaverResponse.NaverUserDTO) theUser));
             return "redirect:/user/joinForm/naver";
         }
         throw new RuntimeException("알 수 없는 오류가 발생했습니다.");
@@ -128,6 +131,9 @@ public class UserController {
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO loginDTO, HttpServletRequest request) throws JsonProcessingException {
         UserResponse.LoggedInUserDTO loggedInUserDTO = userService.login(loginDTO);
+        if (loggedInUserDTO != null && loggedInUserDTO.getStatus()== UserStatusEnum.BANNED) {
+            throw new Exception600("차단된 사용자입니다. 관리자에게 문의하세요.");
+        }
         userUtil.saveSessionUser(loggedInUserDTO);
         return "redirect:/";
     }

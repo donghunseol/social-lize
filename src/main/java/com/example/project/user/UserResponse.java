@@ -2,6 +2,7 @@ package com.example.project.user;
 
 import com.example.project._core.enums.UserEnum;
 import com.example.project._core.enums.UserProviderEnum;
+import com.example.project._core.enums.UserStatusEnum;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.category_name.CategoryName;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class UserResponse {
         private UserProviderEnum provider;
         private String providerId; //프로바이더 고유번호 ( 소셜로그인에서 제공하는 고유 식별번호, 카카오는 Long 타입 )
         private LocalDateTime createdAt; // 유저 가입 일자
+        private UserStatusEnum status;// 가입상태(정상, 차단)
 
         public LoggedInUserDTO() {
         }
@@ -39,6 +41,7 @@ public class UserResponse {
             this.provider = user.getProvider();
             this.providerId = user.getProviderId();
             this.createdAt = user.getCreatedAt();
+            this.status = user.getStatus();
         }
     }
 

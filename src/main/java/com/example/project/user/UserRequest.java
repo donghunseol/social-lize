@@ -7,6 +7,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 //요청 바디 데이터 관리
 public class UserRequest {
+
+//    @Data
+//    public static class JoinDTO {
+//        private String name;
+//        private UserProviderEnum provider;
+//        private String providerId;
+//
+//
+//    }
+
     @Data
     public static class UpdateDTO{
         private String password;
@@ -28,6 +38,21 @@ public class UserRequest {
         private UserEnum role;
         private UserProviderEnum provider;
         private String providerId;
+
+        public JoinDTO(KakaoResponse.KakaoUserDTO kakaoUserDTO) {
+            this.providerId = kakaoUserDTO.getId();
+            this.name = kakaoUserDTO.getProperties().getNickname();
+            this.provider = UserProviderEnum.KAKAO;
+        }
+
+        public JoinDTO(NaverResponse.NaverUserDTO naverUserDTO) {
+            this.providerId = naverUserDTO.getResponse().getId();
+            this.name = naverUserDTO.getResponse().getName();
+            this.provider = UserProviderEnum.NAVER;
+        }
+
+        public JoinDTO(){
+        }
     }
     @Data
     public static class LoginDTO{
