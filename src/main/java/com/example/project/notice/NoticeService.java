@@ -1,16 +1,26 @@
 package com.example.project.notice;
 
+import com.example.project._core.enums.BoardEnum;
+import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
+import com.example.project.board.Board;
+import com.example.project.board.BoardRepository;
+import com.example.project.user.User;
+import com.example.project.user.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class NoticeService {
     private final NoticeRepository noticeRepository;
+    private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
 
     // 공지 리스트 조회 (관리자)
     public NoticeResponse.NoticeDTO getNoticeListAndCount() {
@@ -28,5 +38,29 @@ public class NoticeService {
         Notice notice = noticeRepository.findByNoticeId(noticeId)
                 .orElseThrow(() -> new Exception404("해당 공지가 없습니다."));
         return new NoticeResponse.DetailDTO(notice);
+    }
+
+    // 공지 작성 (관리자)
+    @Transactional
+    public void createNotice(Integer userId, String content) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("해당 작업에 대한 권한이 없습니다."));
+
+        // Create Board
+        Board board = Board.builder()
+                .userId(user)
+                .content(content)
+                .role(BoardEnum.NOTICE)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        boardRepository.save(board);
+
+        // Create Notice linked to the Board
+        Notice notice = Notice.builder()
+                .board(board)
+                .build();
+
+        noticeRepository.save(notice);
     }
 }
