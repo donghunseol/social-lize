@@ -17,5 +17,4 @@ public interface ReplyRepository extends JpaRepository<Reply, Integer> {
     @Query("SELECT r FROM Reply r WHERE r.boardId.id = :boardId")
     List<Reply> findByReply(@Param("boardId") Integer boardId);
 
-//    <T> ScopedValue<T> findByUserAndBoard(int replyId);
 }
