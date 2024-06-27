@@ -5,8 +5,6 @@ import com.example.project.board.BoardResponse;
 import com.example.project.board.BoardService;
 import com.example.project.file.FileRequest;
 import com.example.project.file.FileService;
-import com.example.project.social_member.SocialMember;
-import com.example.project.social_member.SocialMemberResponse;
 import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,11 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-
-import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
 @Controller
