@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
-@Import(UserQueryRepository.class)
 @DataJpaTest
 public class UserTest {
     @Autowired

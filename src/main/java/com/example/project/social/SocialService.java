@@ -55,9 +55,8 @@ public class SocialService {
     private final HashtagRepository hashtagRepository;
     private final UserQueryRepository userQueryRepository;
 
-    private static final Map<String, String> dayNameMap = new HashMap<>();
-
-    static {
+    public BoardResponse.SocialDetailDTO socialDetail(int socialId, Integer userId) {
+        Map<String, String> dayNameMap = new HashMap<>();
         dayNameMap.put("Sunday", "일");
         dayNameMap.put("Monday", "월");
         dayNameMap.put("Tuesday", "화");
@@ -65,9 +64,17 @@ public class SocialService {
         dayNameMap.put("Thursday", "목");
         dayNameMap.put("Friday", "금");
         dayNameMap.put("Saturday", "토");
-    }
 
-    public BoardResponse.SocialDetailDTO socialDetail(int socialId, Integer userId) {
+        Map<String, Integer> countsByDay = new LinkedHashMap<>();
+        countsByDay.put("일", 0);
+        countsByDay.put("월", 0);
+        countsByDay.put("화", 0);
+        countsByDay.put("수", 0);
+        countsByDay.put("목", 0);
+        countsByDay.put("금", 0);
+        countsByDay.put("토", 0);
+
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
 
@@ -85,24 +92,16 @@ public class SocialService {
 
         List<Object[]> week = boardRepository.findPostCountsByDayOfWeek(socialId);
 
-        String date = dayNameMap.get(week.get(0)[0]);
-
-        List<String > weekList = new ArrayList<>();
-
+        // 쿼리 결과 반영 및 요일 이름 변환
         for (Object[] result : week) {
-            // 첫 번째 값이 요일별 게시물 수(count)이므로 Integer로 형변환하여 리스트에 추가
-            String count = ((String) result[0]);
-            String date2 = dayNameMap.get(count);
-            weekList.add(date2);
-        }
-
-        List<Integer> postCounts = new ArrayList<>();
-
-        for (Object[] result : week) {
-            // 첫 번째 값이 요일별 게시물 수(count)이므로 Integer로 형변환하여 리스트에 추가
+            String dayOfWeek = (String) result[0];
             Integer count = ((Number) result[1]).intValue();
-            postCounts.add(count);
+            String koreanDay = dayNameMap.get(dayOfWeek);
+            countsByDay.put(koreanDay, count);
         }
+
+        // 결과를 List<Integer>로 변환
+        List<Integer> finalResults = new ArrayList<>(countsByDay.values());
 
         List<BoardResponse.SocialDetailDTO.BoardDTO> boardDTOs = new ArrayList<>();
 
@@ -142,7 +141,7 @@ public class SocialService {
             boardDTOs.add(boardDTO);
         }
 
-        return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), date, weekList, postCounts);
+        return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), dayNameMap.get(week.get(0)[0]), finalResults);
     }
 
     public Boolean notJoinedSocial(Integer socialId, Integer userId) {
