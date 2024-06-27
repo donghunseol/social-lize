@@ -283,13 +283,15 @@ public class SocialService {
 
     // 소셜 별 앨범, 파일 리스트 출력
     public SocialResponse.AlbumAndFileListDTO getSocialAlbumList(Integer socialId) {
-
+        System.out.println("들어옴1");
         // 소셜 별 앨범 리스트 가져오기
         List<Album> albumList = albumRepository.findBySocialId(socialId);
         List<File> fileList = fileRepository.findBySocialId(socialId);
+        System.out.println("들어옴2");
 
         // 소셜에 앨범이 비었을 때 null 을 반환
         if (albumList == null) {
+            System.out.println("들어옴3");
             albumList = Collections.emptyList();
         }
 
