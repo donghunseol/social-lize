@@ -211,7 +211,7 @@ public class UserResponse {
                 this.createdAt = LocalDateTimeFormatter.convert(user.getCreatedAt());
 
                 if (user.getProvider() == null) {
-                    setProvider(UserProviderEnum.Basic);
+                    setProvider(UserProviderEnum.일반회원);
                 }
             }
         }
@@ -240,7 +240,7 @@ public class UserResponse {
             this.createdAt = LocalDateTimeFormatter.convert(user.getCreatedAt());
 
             if (user.getProvider() == null) {
-                setProvider(UserProviderEnum.Basic);
+                setProvider(UserProviderEnum.일반회원);
             }
         }
     }

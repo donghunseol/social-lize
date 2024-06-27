@@ -1,11 +1,17 @@
 package com.example.project.social;
 
 import com.example.project._core.enums.AlbumEnum;
+import com.example.project._core.enums.SocialMemberRoleEnum;
+import com.example.project._core.enums.UserProviderEnum;
+import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
+import com.example.project.category.Category;
 import com.example.project.file.File;
+import com.example.project.social_member.SocialMember;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,17 +80,67 @@ public class SocialResponse {
         }
     }
 
-
     // 소셜 상세 DTO
-    @AllArgsConstructor
     @Data
-    public static class Detail {
-        private Integer id;
-        private String name;
-        private String image;
-        private String info;
-        private List<String> categories;
+    public static class DetailDTO {
+        private Detail detail;
         private Integer memberCount;
-        private String createdAt;
+        private List<SocialMemberList> socialMemberList;
+
+        public DetailDTO(Detail detail, Integer memberCount, List<SocialMemberList> socialMemberList) {
+            this.detail = detail;
+            this.memberCount = memberCount;
+            this.socialMemberList = socialMemberList;
+        }
+
+        @Data
+        public static class Detail {
+            private Integer id;
+            private String name;
+            private String image;
+            private String info;
+            private List<CategoryDTO> categories;
+            private String createdAt;
+
+            public Detail(Social social) {
+                this.id = social.getId();
+                this.name = social.getName();
+                this.image = social.getImage();
+                this.info = social.getInfo();
+                this.categories = social.getCategory().stream().map(CategoryDTO::new).collect(Collectors.toList());
+                this.createdAt = LocalDateTimeFormatter.convert(social.getCreatedAt());
+            }
+
+            @Data
+            public static class CategoryDTO {
+                private Integer id;
+                private String name;
+
+                public CategoryDTO(Category category) {
+                    this.id = category.getId();
+                    this.name = category.getCategoryNameId().getName();
+                }
+            }
+        }
+
+        // 소셜 멤버 리스트 DTO
+        @Data
+        public static class SocialMemberList {
+            private Integer id;
+            private Integer userId;
+            private String nickname;
+            private String email;
+            private LocalDate birth;
+            private SocialMemberRoleEnum role;
+
+            public SocialMemberList(SocialMember socialMember) {
+                this.id = socialMember.getId();
+                this.userId = socialMember.getUserId().getId();
+                this.nickname = socialMember.getUserId().getNickname();
+                this.email = socialMember.getUserId().getEmail();
+                this.birth = socialMember.getUserId().getBirth();
+                this.role = socialMember.getRole();
+            }
+        }
     }
 }

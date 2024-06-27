@@ -84,7 +84,7 @@ public class AdminRestController {
     // 소셜 상세 조회
     @GetMapping("/social/{socialId}")
     public ResponseEntity<?> socialDetail(@PathVariable Integer socialId) {
-        SocialResponse.Detail socialDetail = socialService.getSocialDetail(socialId);
+        SocialResponse.DetailDTO socialDetail = socialService.getSocialDetail(socialId);
         return ResponseEntity.ok(new ApiUtil<>(socialDetail));
     }
 
@@ -93,12 +93,5 @@ public class AdminRestController {
     public ResponseEntity<?> socialDelete(@PathVariable Integer socialId) {
         socialService.deleteSocial(socialId);
         return ResponseEntity.ok(new ApiUtil<>(null));
-    }
-
-    // 소셜 멤버 리스트 조회
-    @GetMapping("/social/{socialId}/member-list")
-    public ResponseEntity<?> socialMemberList(@PathVariable Integer socialId) {
-        List<SocialMemberResponse.SocialMemberList> socialMemberList = socialMemberService.getSocialMembersBySocialId(socialId);
-        return ResponseEntity.ok(new ApiUtil<>(socialMemberList));
     }
 }
