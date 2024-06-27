@@ -1,6 +1,6 @@
 package com.example.project.category_name;
 
-import com.example.project._core.enums.CategoryNameStateEnum;
+import com.example.project._core.enums.DeleteStateEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,5 +13,5 @@ public interface CategoryNameRepository extends JpaRepository<CategoryName, Inte
     Optional<CategoryName> findByName(@Param("name") String name);
 
     @Query("select c from CategoryName c where c.status = :status")
-    List<CategoryName> findAllByStatus(@Param("status") CategoryNameStateEnum status);
+    List<CategoryName> findAllByStatus(@Param("status") DeleteStateEnum status);
 }

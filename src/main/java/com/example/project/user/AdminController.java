@@ -143,7 +143,6 @@ public class AdminController {
     public String noticeListPage(HttpServletRequest request) {
         NoticeResponse.NoticeDTO noticeDTO = noticeService.getNoticeListAndCount();
         request.setAttribute("noticeDTO", noticeDTO);
-        System.out.println(noticeDTO);
         return "admin/management/noticeListForm";
     }
 
@@ -166,6 +165,13 @@ public class AdminController {
     public String noticeWrite(String content) {
         Integer userId = 1;
         noticeService.createNotice(userId, content);
+        return "redirect:/admin/notice-list";
+    }
+
+    // 공지 삭제
+    @PostMapping("/notice/{noticeId}/delete")
+    public String noticeDelete(@PathVariable Integer noticeId) {
+        noticeService.deleteNotice(noticeId);
         return "redirect:/admin/notice-list";
     }
 
