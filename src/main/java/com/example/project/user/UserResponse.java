@@ -181,26 +181,38 @@ public class UserResponse {
         }
     }
 
+
     // 회원 리스트 조회 (관리자)
     @Data
-    public static class UserList {
-        private Integer userId;
-        private String email;
-        private String nickname;
-        private LocalDate birth;
-        private UserProviderEnum provider;
-        private String createdAt;
+    public static class UserListDTO {
+        private Integer count;
+        private List<UserList> userList;
 
-        public UserList(User user) {
-            this.userId = user.getId();
-            this.email = user.getEmail();
-            this.nickname = user.getNickname();
-            this.birth = user.getBirth();
-            this.provider = user.getProvider();
-            this.createdAt = LocalDateTimeFormatter.convert(user.getCreatedAt());
+        public UserListDTO(Integer count, List<UserList> userList) {
+            this.count = count;
+            this.userList = userList;
+        }
 
-            if (user.getProvider() == null) {
-                setProvider(UserProviderEnum.Basic);
+        @Data
+        public static class UserList {
+            private Integer userId;
+            private String email;
+            private String nickname;
+            private LocalDate birth;
+            private UserProviderEnum provider;
+            private String createdAt;
+
+            public UserList(User user) {
+                this.userId = user.getId();
+                this.email = user.getEmail();
+                this.nickname = user.getNickname();
+                this.birth = user.getBirth();
+                this.provider = user.getProvider();
+                this.createdAt = LocalDateTimeFormatter.convert(user.getCreatedAt());
+
+                if (user.getProvider() == null) {
+                    setProvider(UserProviderEnum.Basic);
+                }
             }
         }
     }

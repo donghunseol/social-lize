@@ -22,7 +22,7 @@
                         <form action="/admin/users" method="get" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
-                                    <span>총 게시글<em> 2</em> 개</span>
+                                    <span>총 게시글 <em>{{boardListDTO.count}}</em> 개</span>
                                 </li>
                                 <li class="search-right">
                                     <div>
@@ -52,17 +52,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {{#boardList}}
+                            {{#boardListDTO.boardList}}
                                 <tr>
                                     <td>{{socialName}}</td>
                                     <td>{{nickname}}</td>
                                     <td class="board-content-text">{{content}}</td>
-                                    <td>{{formattedCreatedAt}}</td>
+                                    <td>{{createdAt}}</td>
                                     <td><span class="detail"
                                               onclick="location.href='/admin/board/{{boardId}}'">상세보기</span>
                                     </td>
                                 </tr>
-                            {{/boardList}}
+                            {{/boardListDTO.boardList}}
 
                             <!-- 검색 부분 -->
                             <!-- {{#keywordList}}

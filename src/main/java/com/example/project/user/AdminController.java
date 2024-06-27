@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 @Controller
@@ -40,8 +38,8 @@ public class AdminController {
     // 회원 리스트 조회
     @GetMapping({"/", "/user-list"})
     public String userListPage(HttpServletRequest request) {
-        List<UserResponse.UserList> userList = userService.getUserList();
-        request.setAttribute("userList", userList);
+        UserResponse.UserListDTO userListDTO = userService.getUserList();
+        request.setAttribute("userListDTO", userListDTO);
         return "admin/user/userListForm";
     }
 
@@ -56,8 +54,8 @@ public class AdminController {
     // 카테고리 리스트 조회
     @GetMapping("/category-name-list")
     public String categoryNameListPage(HttpServletRequest request) {
-        List<CategoryNameResponse.CategoryDTO> categoryList = categoryNameService.getCategoryList();
-        request.setAttribute("categoryList", categoryList);
+        CategoryNameResponse.CategoryListDTO categoryListDTO = categoryNameService.getCategoryList();
+        request.setAttribute("categoryListDTO", categoryListDTO);
         return "admin/social/socialCategoryListForm";
     }
 
@@ -72,8 +70,8 @@ public class AdminController {
     // 소셜 리스트 조회
     @GetMapping("/social-list")
     public String socialListPage(HttpServletRequest request) {
-        List<SocialResponse.SocialDTO> socialList = socialService.getSocialList();
-        request.setAttribute("socialList", socialList);
+        SocialResponse.SocialListDTO socialListDTO = socialService.getSocialList();
+        request.setAttribute("socialListDTO", socialListDTO);
         return "admin/social/socialListForm";
     }
 
@@ -88,8 +86,8 @@ public class AdminController {
     // 게시글 리스트 조회
     @GetMapping("/board-list")
     public String boardListPage(HttpServletRequest request) {
-        List<BoardResponse.BoardList> boardList = boardService.getBoardList();
-        request.setAttribute("boardList", boardList);
+        BoardResponse.BoardListDTO boardListDTO = boardService.getBoardList();
+        request.setAttribute("boardListDTO", boardListDTO);
         return "admin/board/boardListForm";
     }
 

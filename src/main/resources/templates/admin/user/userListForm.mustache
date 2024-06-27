@@ -23,7 +23,7 @@
                         <form action="/admin/users" method="get" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
-                                    <span>총 회원<em> 10</em> 명</span>
+                                    <span>총 회원 <em>{{userListDTO.count}}</em> 명</span>
                                 </li>
                                 <li class="search-right">
                                     <div>
@@ -55,7 +55,7 @@
                             </thead>
                             <tbody>
 
-                            {{#userList}}
+                            {{#userListDTO.userList}}
                             <tr>
                                 <td class="title">{{nickname}}</td>
                                 <td>{{email}}</td>
@@ -66,7 +66,7 @@
                                           onclick="location.href='/admin/user/{{userId}}/detail'">상세보기</span>
                                 </td>
                             </tr>
-                            {{/userList}}
+                            {{/userListDTO.userList}}
 
                             </tbody>
                         </table>

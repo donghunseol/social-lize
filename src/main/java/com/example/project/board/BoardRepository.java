@@ -16,12 +16,8 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     List<Board> findByBoards(@Param("userId") Integer userId);
 
     // 유저가 작성한 전체 게시글 조회 (관리자)
-    @Query("SELECT new com.example.project.board.BoardResponse$BoardList(b.id, s.name, u.nickname, b.content, b.createdAt)" +
-            "FROM Board b " +
-            "JOIN b.socialId s " +
-            "JOIN b.userId u " +
-            "WHERE u.role = 'USER'")
-    List<BoardResponse.BoardList> findAllBoardList();
+    @Query("SELECT b FROM Board b JOIN b.socialId s JOIN b.userId u WHERE u.role = 'USER'")
+    List<Board> findAllBoardList();
 
     // 작성된 게시글 상세 조회 (관리자)
     @Query("SELECT b FROM Board b JOIN b.socialId s JOIN b.userId u WHERE b.id = :boardId")
@@ -34,4 +30,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             "ORDER BY count DESC")
     List<Object[]> findPostCountsByDayOfWeek(@Param("socialId") Integer socialId);
 
+    // 유저가 작성한 게시글 갯수 (관리자)
+    @Query("select count(*) from Board b where b.role = 'POST'")
+    Integer findByBoardRole();
 }
