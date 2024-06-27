@@ -14,9 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import static com.example.project._core.utils.UserUtil.getLoggedInUser;
-
+import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
 @Controller
@@ -57,15 +55,20 @@ public class SocialController {
 
     // 서랍 페이지
     @GetMapping("/social/fileadd/{socialId}")
-    public String fileAdd(@PathVariable Integer socialId, HttpServletRequest request, FileRequest.FileUploadDTO reqDTO) {
-        // 파일 업로드 시 저장
-        UserResponse.LoggedInUserDTO sessionUser = (UserResponse.LoggedInUserDTO) session.getAttribute("sessionUser");
-        fileService.fileUpload(reqDTO, sessionUser.getId(), socialId);
-
+    public String fileAdd(@PathVariable Integer socialId, HttpServletRequest request) {
         // 페이지에 뿌릴 데이터
         SocialResponse.AlbumAndFileListDTO respDTO = socialService.getSocialAlbumList(socialId);
         request.setAttribute("models", respDTO);
 
         return "social/fileaddForm";
+    }
+
+    // 파일 저장
+    @PostMapping("/social/file/upload/{socialId}")
+    public String fileUpdate(@PathVariable Integer socialId, FileRequest.FileUploadDTO reqDTO) {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+
+        fileService.fileUpload(reqDTO, sessionUser.getId(), socialId);
+        return "redirect:/social/fileadd/" + reqDTO.getSocialId();
     }
 }

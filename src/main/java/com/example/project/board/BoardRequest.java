@@ -41,5 +41,16 @@ public class BoardRequest {
                     .type(type)
                     .build();
         }
+
+        public Album albumVideoToEntity(User userId, Board boardId, String hlsPath, String path, AlbumEnum type) {
+            Album album = Album.builder()
+                    .userId(userId)
+                    .boardId(boardId)
+                    .path(path)
+                    .type(type)
+                    .build();
+            album.setHlsPath(hlsPath);
+            return album;
+        }
     }
 }

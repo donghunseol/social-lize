@@ -35,6 +35,8 @@ public class Album {
     @Enumerated(EnumType.STRING)
     private AlbumEnum type; // 이미지 또는 영상 타입
 
+    private String hlsPath; // HLS 변환된 파일의 경로
+
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자
 

@@ -30,12 +30,14 @@ public class SocialResponse {
         @Data
         static class AlbumDTO {
             private String path;
+            private String hlsPath;
             private AlbumEnum type;
             private boolean isVideo;
             private boolean isImage;
 
             public AlbumDTO(Album album) {
                 this.path = album.getPath();
+                this.hlsPath = album.getHlsPath();
                 this.type = album.getType();
                 this.isVideo = (this.type == AlbumEnum.VIDEO);
                 this.isImage = (this.type == AlbumEnum.IMAGE);

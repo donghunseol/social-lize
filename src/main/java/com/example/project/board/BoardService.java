@@ -4,6 +4,7 @@ import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.errors.exception.Exception401;
 import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
+import com.example.project._core.utils.HlsUtil;
 import com.example.project._core.utils.ImageVideoUtil;
 import com.example.project.album.Album;
 import com.example.project.album.AlbumRepository;
@@ -158,7 +159,11 @@ public class BoardService {
                     ImageVideoUtil.FileUploadResult a = ImageVideoUtil.uploadFile(videoFile);
                     String videoPath = a.getFilePath();
 
-                    albumRepository.save(reqDTO.albumToEntity(user, board, videoPath, AlbumEnum.VIDEO));
+                    // HLS 변환을 수행하고 변환된 파일 경로를 얻어옴
+                    String hlsPath = HlsUtil.getConvertVideoPath(videoPath);
+                    HlsUtil.convertHls(videoPath);
+
+                    albumRepository.save(reqDTO.albumVideoToEntity(user, board, videoPath, hlsPath, AlbumEnum.VIDEO));
                 }
             }
         }
