@@ -20,11 +20,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class BoardResponse {
-
     @Data
     public static class SocialDetailDTO {
         private List<AllHasTagDTO> allHasTagList;
         private String title;
+        private Integer socialId;
         private String name;
         private Integer memberCount;
         private String info;
@@ -33,7 +33,7 @@ public class BoardResponse {
         private Integer boardCount;
         private String week;
         private List<Integer> weekCount;
-
+        private Boolean isWaiting;
 
         @Data
         public static class AllHasTagDTO {
@@ -48,9 +48,28 @@ public class BoardResponse {
 
         private List<BoardDTO> boards;
 
+        public SocialDetailDTO(List<Hashtag> allHasTagList, Social social, String name, Integer memberCount, List<BoardDTO> boards, Integer boardCount, String week, List<Integer> weekCount, Boolean isWaiting) {
+            this.allHasTagList = allHasTagList.stream().map(AllHasTagDTO::new).toList();
+            this.title = social.getName();
+            this.socialId = social.getId();
+            this.name = name;
+            this.memberCount = memberCount;
+            this.info = social.getInfo();
+            this.boards = boards;
+            this.image = social.getImage();
+            LocalDateTime format = social.getCreatedAt();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월");
+            this.createdAt = format.format(formatter);
+            this.boardCount = boardCount;
+            this.week = week;
+            this.weekCount = weekCount;
+            this.isWaiting = isWaiting;
+        }
+
         public SocialDetailDTO(List<Hashtag> allHasTagList, Social social, String name, Integer memberCount, List<BoardDTO> boards, Integer boardCount, String week, List<Integer> weekCount) {
             this.allHasTagList = allHasTagList.stream().map(AllHasTagDTO::new).toList();
             this.title = social.getName();
+            this.socialId = social.getId();
             this.name = name;
             this.memberCount = memberCount;
             this.info = social.getInfo();

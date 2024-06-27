@@ -5,7 +5,7 @@
         <div>리더 <span class="common-highlight">{{modal.name}}</span></div>
         <div>멤버 <span class="common-highlight">{{modal.memberCount}}</span></div>
         <button class="common-postwrite" id="openModalBtn" data-bs-toggle="modal"
-                data-bs-target="#boardSaveModal">글 작성하기</button>
+                data-bs-target="#boardSaveModal" data-social-id="{{modal.socialId}}">글 작성하기</button>
         <button class="common-invite-button" id="copyLinkButton">초대링크 복사</button>
         <div class="common-description">{{modal.info}}</div>
         <div class="common-settings-wrapper">

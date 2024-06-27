@@ -85,7 +85,7 @@ public class UserQueryRepository {
     public List<Object[]> popularPostList() {
         String q = """
                 SELECT
-                    b.id,
+                    s.id,
                     s.name,
                     b.content,
                     COUNT(l.id) AS like_count,

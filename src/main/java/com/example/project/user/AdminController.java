@@ -143,7 +143,6 @@ public class AdminController {
     public String noticeListPage(HttpServletRequest request) {
         NoticeResponse.NoticeDTO noticeDTO = noticeService.getNoticeListAndCount();
         request.setAttribute("noticeDTO", noticeDTO);
-        System.out.println(noticeDTO);
         return "admin/management/noticeListForm";
     }
 
@@ -169,9 +168,25 @@ public class AdminController {
         return "redirect:/admin/notice-list";
     }
 
+    // 공지 삭제
+    @PostMapping("/notice/{noticeId}/delete")
+    public String noticeDelete(@PathVariable Integer noticeId) {
+        noticeService.deleteNotice(noticeId);
+        return "redirect:/admin/notice-list";
+    }
+
     // 공지 수정 페이지
-    @GetMapping("/notice/{noticeId}/update")
+    @GetMapping("/notice/{noticeId}/update-form")
     public String noticeUpdatePage(HttpServletRequest request, @PathVariable Integer noticeId) {
+        NoticeResponse.DetailDTO noticeDetail = noticeService.getNoticeDetail(noticeId);
+        request.setAttribute("noticeDetail", noticeDetail);
         return "admin/management/noticeUpdateForm";
+    }
+
+    // 공지 수정
+    @PostMapping("/notice/{noticeId}/update")
+    public String noticeUpdate(@PathVariable Integer noticeId, String content) {
+        noticeService.updateNotice(noticeId, content);
+        return "redirect:/admin/notice-list";
     }
 }

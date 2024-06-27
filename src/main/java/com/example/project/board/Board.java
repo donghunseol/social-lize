@@ -1,6 +1,7 @@
 package com.example.project.board;
 
 import com.example.project._core.enums.BoardEnum;
+import com.example.project._core.enums.DeleteStateEnum;
 import com.example.project.reply.Reply;
 import com.example.project.social.Social;
 import com.example.project.user.User;
@@ -38,6 +39,10 @@ public class Board {
     @Enumerated(EnumType.STRING)
     private BoardEnum role; // 공지와 구별
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private DeleteStateEnum state; // 삭제 구분
+
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자
 
@@ -46,13 +51,15 @@ public class Board {
     private List<Reply> replies = new ArrayList<>();
 
     @Builder
-    public Board(Integer id, Social socialId, User userId, String title, String content, BoardEnum role, LocalDateTime createdAt) {
+    public Board(Integer id, Social socialId, User userId, String content, BoardEnum role, DeleteStateEnum state, LocalDateTime createdAt, List<Reply> replies) {
         this.id = id;
         this.socialId = socialId;
         this.userId = userId;
         this.content = content;
         this.role = role;
+        this.state = state;
         this.createdAt = createdAt;
+        this.replies = replies;
     }
 }
 

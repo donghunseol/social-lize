@@ -22,11 +22,11 @@ public class BoardController {
     private final HttpSession session;
     private final UserUtil userUtil;
 
+    // 게시글 작성하기
     @PostMapping("/board/{socialId}")
     public String save(@PathVariable Integer socialId, BoardRequest.SaveDTO reqDTO) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         boardService.save(socialId, reqDTO, sessionUser.getId());
-
         // 나머지 데이터 처리 로직
         return "redirect:/social/detail/" + socialId;
     }
