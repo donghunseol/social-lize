@@ -1,0 +1,149 @@
+{{> layout/header}}
+
+<div class="tab-nav-container">
+    <div class="tab-nav">
+        <button class="tab-button active" data-tab="tab-1">내 소셜</button>
+        <button class="tab-button" data-tab="tab-2">소셜 찾기</button>
+    </div>
+</div>
+<div id="tab-1" class="tab-content active">
+    <div class="my-full-width-section my-section1">
+        <div class="my-section">
+            <h3>소셜 검색결과</h3>
+            <div class="my-recommendation-container">
+                <div class="my-recommendation-item">
+                    <img src="/" alt="우주,천체관측,천체사진 소셜">
+                    <div class="my-details">
+                        <div class="my-title">title</div>
+                        <div class="my-subtitle">info</div>
+                    </div>
+                </div>
+
+                <div class="findResult">
+                    <div class="findResult-title">소셜이름</div>
+                    <div class="findResult-content">내용ㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ</div>
+                </div>
+                <div class="findResult">
+                    <div class="findResult-title">소셜이름</div>
+                    <div class="findResult-content">내용ㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ</div>
+                </div>
+                <div class="findResult">
+                    <div class="findResult-title">소셜이름</div>
+                    <div class="findResult-content">내용ㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ</div>
+                </div>
+                <div class="findResult">
+                    <div class="findResult-title">소셜이름</div>
+                    <div class="findResult-content">내용ㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 탭 전환
+        const tabs = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // 페이지 로드 시 첫 번째 탭 기본으로 보이게 함
+        document.querySelector('.tab-button').click();
+
+        // 탭 버튼 클릭 시 처리하는 함수
+        function handleTabButtonClick(button) {
+            // 모든 버튼에서 'active' 클래스 제거
+            tabs.forEach(btn => btn.classList.remove('active'));
+            // 클릭된 버튼에 'active' 클래스 추가
+            button.classList.add('active');
+
+            // 클릭된 버튼에 해당하는 탭 ID 가져오기
+            const tabId = button.getAttribute('data-tab');
+            if (tabId) {
+                // 모든 탭 콘텐츠 숨기기
+                tabContents.forEach(content => {
+                    content.style.display = 'none';
+                });
+
+                // 클릭된 버튼에 해당하는 콘텐츠 보이기
+                const tabContent = document.getElementById(tabId);
+                if (tabContent) {
+                    tabContent.style.display = 'block';
+                } else {
+                    console.error(`Tab content with ID '${tabId}' not found.`);
+                }
+            } else {
+                console.error('Button does not have data-tab attribute.');
+            }
+        }
+
+        // 카테고리 가로스크롤
+        const scrollWrapper = document.getElementById('scroll-wrapper');
+        const scrollLeft = document.getElementById('scroll-left');
+        const scrollRight = document.getElementById('scroll-right');
+
+        scrollLeft.addEventListener('click', () => {
+            scrollWrapper.scrollBy({
+                left: -200,
+                behavior: 'smooth'
+            });
+        });
+
+        scrollRight.addEventListener('click', () => {
+            scrollWrapper.scrollBy({
+                left: 200,
+                behavior: 'smooth'
+            });
+        });
+
+        // 모든 탭 버튼에 클릭 이벤트 리스너 등록
+        tabs.forEach(button => {
+            button.addEventListener('click', () => {
+                handleTabButtonClick(button);
+            });
+        });
+
+
+        // 카테고리 버튼 클릭 시 AJAX 요청 처리
+        document.querySelectorAll('.my-scroll-item2').forEach(item => {
+            item.addEventListener('click', function () {
+                const categoryId = this.getAttribute('data-category-id');
+
+                $.ajax({
+                    url: "/main/category",
+                    type: "GET",
+                    data: {categoryId: categoryId},
+                    success: function (response) {
+                        const socialList = response; // 서버에서 반환된 소셜 리스트
+                        console.log(response);
+                        const categorySocialList = document.querySelector('.category-social-list');
+
+                        // 기존 소셜 리스트 초기화
+                        categorySocialList.innerHTML = '';
+
+                        // 새로운 소셜 리스트 추가
+                        socialList.forEach(social => {
+                            const socialCard = `
+                        <a class="my-card-link" href="/social/detail/${social.id}">
+                            <div class="my-grid-item">
+                                <img src="${social.image}" alt="${social.name}">
+                                <div class="my-details">
+                                    <div class="my-title">${social.name}</div>
+                                    <div class="my-subtitle">리더 : ${social.nickName}</div>
+                                    <div class="my-participants">${social.memberCount} 명이 함께하고 있어요.</div>
+                                    <div class="my-join-button">지금 참여하기</div>
+                                </div>
+                            </div>
+                        </a>`;
+                            categorySocialList.innerHTML += socialCard;
+                        });
+                    },
+                    error: function (error) {
+                        alert('소셜 목록을 불러오는 데 실패했습니다.');
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+{{> layout/footer }}

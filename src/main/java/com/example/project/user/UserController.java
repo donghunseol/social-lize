@@ -46,6 +46,14 @@ public class UserController {
         return "main";
     }
 
+    @GetMapping("/find")
+    public String findPage() {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        //UserResponse.MainDTO model = userService.mainPage(sessionUser.getId());
+        //request.setAttribute("model", model);
+        return "find";
+    }
+
     // 웹 시작화면 페이지
     @GetMapping("/user/notloggedinmain")
     public String socialAdd() {
@@ -180,8 +188,7 @@ public class UserController {
     // 로그아웃 처리
     @GetMapping("/user/logout")
     public String logout() {
-        session.invalidate();
-        rt.delete("sessionUser");
+        userService.logout();
         return "redirect:/user/notloggedinmain";
     }
 }
