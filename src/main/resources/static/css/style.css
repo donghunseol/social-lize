@@ -117,6 +117,10 @@ body {
     font-size: 25px;
 }
 
+.fa-headset {
+    color: #888;
+    font-size: 25px;
+}
 .header .menu {
     display: flex;
     align-items: center;

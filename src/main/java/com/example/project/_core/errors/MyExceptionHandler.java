@@ -55,6 +55,14 @@ public class MyExceptionHandler {
         return "/err/500";
     }
 
+    @ExceptionHandler(Exception600.class)
+    @GetMapping("/600")
+    public String ex600(Exception600 e, HttpServletRequest request) {
+        request.setAttribute("msg", e.getMessage());
+        log.error("600 : " + e.getMessage());
+        return "/err/600";
+    }
+
     @ExceptionHandler(Exception.class)
     @GetMapping("/unknown")
     public String unknownServerError(Exception500 e, HttpServletRequest request) {

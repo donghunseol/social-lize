@@ -1,8 +1,8 @@
 package com.example.project.user;
 
-import com.example.project._core.enums.BoardEnum;
 import com.example.project._core.enums.UserEnum;
 import com.example.project._core.enums.UserProviderEnum;
+import com.example.project._core.enums.UserStatusEnum;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -60,8 +60,12 @@ public class User {
     @CreationTimestamp
     private LocalDateTime createdAt; // 유저 가입 일자
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserStatusEnum status;   // 유저 가입 상태 ( 정상:Normal, 차단:Banned )
+
     @Builder
-    public User(Integer id, String email, String password, String nickname, String image, String phone, LocalDate birth, UserEnum role, UserProviderEnum provider, String providerId, LocalDateTime createdAt) {
+    public User(Integer id, String email, String password, String nickname, String image, String phone, LocalDate birth, UserEnum role, UserProviderEnum provider, String providerId, LocalDateTime createdAt, UserStatusEnum status) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -73,6 +77,7 @@ public class User {
         this.provider = provider;
         this.providerId = providerId;
         this.createdAt = createdAt;
+        this.status = status;
     }
 }
 

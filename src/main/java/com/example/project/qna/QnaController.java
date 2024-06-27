@@ -21,26 +21,30 @@ public class QnaController {
     private final HttpSession session;
     private final UserUtil userUtil;
 
-    // 문의 상세보기
-    @GetMapping("/qna/detail/{qnaId}")
-    public String detail(@PathVariable("qnaId") Integer qnaId, HttpServletRequest request) {
-        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
-        QnaResponse.QnaDetailDTO modal = qnaService.detail(sessionUser.getId(), qnaId);
-        request.setAttribute("modal", modal);
-
-        return null;
+    @GetMapping("/qna")
+    public String detail() {
+        return "layout/qna";
     }
 
-    // 내 문의 리스트
-    @GetMapping("/qna/my/list")
-    public String list(HttpServletRequest request) {
-        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
-        QnaResponse.QnaListDTO modal = qnaService.list(sessionUser.getId());
-
-        request.setAttribute("modal", modal);
-
-        return "qna/qnaList";
-    }
+//    @GetMapping("/qna/detail/{qnaId}")
+//    public String detail(@PathVariable("qnaId") Integer qnaId, HttpServletRequest request) {
+//        Integer userId = 1;
+//        QnaResponse.QnaDetailDTO modal = qnaService.detail(userId, qnaId);
+//        request.setAttribute("modal", modal);
+//
+//        return null;
+//    }
+//
+//
+//    @GetMapping("/qna/my/list")
+//    public String list(HttpServletRequest request) {
+//        Integer userId = 1;
+//        QnaResponse.QnaListDTO modal = qnaService.list(userId);
+//
+//        request.setAttribute("modal", modal);
+//
+//        return "qna/qnaList";
+//    }
 
     // 문의 작성
     @PostMapping("/qna")
