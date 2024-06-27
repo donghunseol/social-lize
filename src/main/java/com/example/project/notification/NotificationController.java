@@ -26,6 +26,7 @@ public class NotificationController {
     private final UserUtil userUtil;
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
+    private final SimpMessagingTemplate template;
 
 
     //회원가입 페이지 - 자체가입
@@ -34,7 +35,7 @@ public class NotificationController {
         return "notificationTest/test";
     }
 
-    private final SimpMessagingTemplate template;
+
 
 //    @Autowired
 //    public NotificationController(SimpMessagingTemplate template) {
