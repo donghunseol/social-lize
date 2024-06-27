@@ -73,9 +73,13 @@ public class CategoryNameService {
     }
 
     // 카테고리 리스트 조회
-    public List<CategoryNameResponse.CategoryDTO> getCategoryList() {
-        List<CategoryName> categoryNameList = categoryNameRepository.findAllByStatus(DeleteStateEnum.ACTIVE);
+    public CategoryNameResponse.CategoryListDTO getCategoryList() {
+        Integer count = categoryNameRepository.findAllByCategoryNameStatus();
+        List<CategoryName> categoryNameListDTO = categoryNameRepository.findAllByStatus(DeleteStateEnum.ACTIVE);
 
-        return categoryNameList.stream().map(CategoryNameResponse.CategoryDTO::new).toList();
+        List<CategoryNameResponse.CategoryListDTO.CategoryList> categoryList = categoryNameListDTO.stream()
+                .map(CategoryNameResponse.CategoryListDTO.CategoryList::new).toList();
+
+        return new CategoryNameResponse.CategoryListDTO(count, categoryList);
     }
 }

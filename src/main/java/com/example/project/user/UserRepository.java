@@ -10,7 +10,9 @@ import java.util.List;
 
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-    @Query("select u from User u where u.role = :role")
+
+    // 활동 회원 리스트 조회 (관리자)
+    @Query("select u from User u where u.status = 'NORMAL' AND u.role = :role")
     List<User> findByRole(@Param("role") UserEnum role);
 
     @Query("select u from User u where u.email = :email and u.provider is null")
@@ -21,6 +23,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u from User u where u.image = :userId")
     String findByUserImage(@Param("userId") Integer userId);
+
+    // 활동 회원 전체 갯수 조회 (관리자)
+    @Query("select count(*) from User u where u.status = 'NORMAL'")
+    Integer findAllNormalUser();
 }
 /*
 로그인시 입력받은 이메일과 비밀번호로 쿼리로 날려 로그인 검증하는 방식을 사용하지 말아야 하는 이유 (출처:ChatGPT 4, 2024.06.19)

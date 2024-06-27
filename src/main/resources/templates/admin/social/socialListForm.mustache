@@ -23,7 +23,7 @@
                         <form action="/admin/users" method="get" style="width: 100%;">
                             <ul class="search-box">
                                 <li class="search-left">
-                                    <span>총 회원<em> 10</em> 명</span>
+                                    <span>총 소셜 <em>{{socialListDTO.count}}</em> 개</span>
                                 </li>
                                 <li class="search-right">
                                     <div>
@@ -53,7 +53,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {{#socialList}}
+                            {{#socialListDTO.socialList}}
                             <tr>
                                 <td class="title">{{name}}</td>
                                 <td class="social-category">
@@ -70,7 +70,7 @@
                                           onclick="location.href='/admin/social/{{id}}'">상세보기</span>
                                 </td>
                             </tr>
-                            {{/socialList}}
+                            {{/socialListDTO.socialList}}
 
 
                             <!-- 검색 부분 -->

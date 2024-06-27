@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
@@ -211,9 +210,14 @@ public class UserService {
     }
 
     // 회원 리스트 조회 (관리자)
-    public List<UserResponse.UserList> getUserList() {
-        List<User> userList = userRepository.findByRole(UserEnum.USER);
-        return userList.stream().map(UserResponse.UserList::new).collect(Collectors.toList());
+    public UserResponse.UserListDTO getUserList() {
+        Integer count = userRepository.findAllNormalUser();
+        List<User> userListDTO = userRepository.findByRole(UserEnum.USER);
+
+        List<UserResponse.UserListDTO.UserList> userList = userListDTO.stream()
+                .map(UserResponse.UserListDTO.UserList::new)
+                .collect(Collectors.toList());
+        return new UserResponse.UserListDTO(count, userList);
     }
 
     // 회원 상세 조회 (관리자)

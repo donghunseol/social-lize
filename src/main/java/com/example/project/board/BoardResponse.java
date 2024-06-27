@@ -4,15 +4,10 @@ import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.hashtag.Hashtag;
-
-import com.example.project.social.Social;
-
 import com.example.project.reply.Reply;
 import com.example.project.rereply.Rereply;
-import com.example.project.rereply.RereplyRepository;
-
+import com.example.project.social.Social;
 import com.example.project.user.User;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -209,24 +204,32 @@ public class BoardResponse {
     }
 
 
-
     // 게시글 리스트 (관리자)
-    @AllArgsConstructor
     @Data
-    public static class BoardList {
-        private Integer boardId;
-        private String socialName;
-        private String nickname;
-        private String content;
-        private LocalDateTime createdAt;
-        private String formattedCreatedAt;
+    public static class BoardListDTO {
+        private Integer count;
+        private List<BoardList> boardList;
 
-        public BoardList(Integer boardId, String socialName, String nickname, String content, LocalDateTime createdAt) {
-            this.boardId = boardId;
-            this.socialName = socialName;
-            this.nickname = nickname;
-            this.content = content;
-            this.formattedCreatedAt = LocalDateTimeFormatter.convert(createdAt);
+        public BoardListDTO(Integer count, List<BoardList> boardList) {
+            this.count = count;
+            this.boardList = boardList;
+        }
+
+        @Data
+        public static class BoardList {
+            private Integer boardId;
+            private String socialName;
+            private String nickname;
+            private String content;
+            private String createdAt;
+
+            public BoardList(Board board) {
+                this.boardId = board.getId();
+                this.socialName = board.getSocialId().getName();
+                this.nickname = board.getUserId().getNickname();
+                this.content = board.getContent();
+                this.createdAt = LocalDateTimeFormatter.convert(board.getCreatedAt());
+            }
         }
     }
 
