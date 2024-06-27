@@ -20,7 +20,7 @@ public interface SocialMemberRepository extends JpaRepository<SocialMember, Inte
     @Query("SELECT COUNT(sm) FROM SocialMember sm WHERE sm.socialId.id = :socialId AND sm.state = 'APPROVED'")
     int countBySocialId(@Param("socialId") Integer socialId);
 
-    // 소셜 멤버 중 APPROVED 인 멤버 수
+    // 소셜 멤버 중 APPROVED 인 멤버
     @Query("SELECT CASE WHEN COUNT(sm) > 0 THEN TRUE ELSE FALSE END FROM SocialMember sm WHERE sm.socialId.id = :socialId AND sm.userId.id = :userId AND sm.state = 'APPROVED'")
     Boolean isApproved(@Param("socialId") Integer socialId, @Param("userId") Integer userId);
 
@@ -34,4 +34,13 @@ public interface SocialMemberRepository extends JpaRepository<SocialMember, Inte
 
     @Query("select sm from SocialMember sm where sm.socialId.id = :socialId and sm.role = 'MANAGER'")
     SocialMember findBySocialId(@Param("socialId") Integer socialId);
+
+    @Query("select sm from SocialMember sm where sm.socialId.id = :socialId and sm.userId.id = :userId and sm.role = 'MANAGER'")
+    SocialMember findByManager(@Param("socialId") Integer socialId, @Param("userId") Integer userId);
+
+    @Query("select sm from SocialMember sm where sm.socialId.id = :socialId and sm.state = 'WAITING'")
+    List<SocialMember> findByWaiting(@Param("socialId") Integer socialId);
+
+    @Query("select count(sm) > 0 from SocialMember sm where sm.socialId.id = :socialId and sm.userId.id = :userId and sm.state = 'WAITING'")
+    Boolean findByUserWaiting(@Param("socialId") Integer socialId, @Param("userId") Integer userId);
 }

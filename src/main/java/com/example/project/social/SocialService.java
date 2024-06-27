@@ -27,6 +27,7 @@ import com.example.project.like.LikeRepository;
 import com.example.project.reply.ReplyRepository;
 import com.example.project.social_member.SocialMember;
 import com.example.project.social_member.SocialMemberRepository;
+import com.example.project.social_member.SocialMemberResponse;
 import com.example.project.user.User;
 import com.example.project.user.UserQueryRepository;
 import com.example.project.user.UserRepository;
@@ -78,7 +79,6 @@ public class SocialService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
 
-
         List<Board> boards = boardRepository.findByBoardSocialId(socialId);
 
         Social social = socialRepository.findById(socialId)
@@ -91,6 +91,8 @@ public class SocialService {
         Integer socialMemberCount = socialMemberRepository.countBySocialId(socialId);
 
         List<Object[]> week = boardRepository.findPostCountsByDayOfWeek(socialId);
+
+        Boolean isWaiting = socialMemberRepository.findByUserWaiting(socialId, userId);
 
         // 쿼리 결과 반영 및 요일 이름 변환
         for (Object[] result : week) {
@@ -141,7 +143,11 @@ public class SocialService {
             boardDTOs.add(boardDTO);
         }
 
-        return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), dayNameMap.get(week.get(0)[0]), finalResults);
+        if(isWaiting) {
+            return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), dayNameMap.get(week.get(0)[0]), finalResults, isWaiting);
+        } else {
+            return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), dayNameMap.get(week.get(0)[0]), finalResults);
+        }
     }
 
     public Boolean notJoinedSocial(Integer socialId, Integer userId) {
