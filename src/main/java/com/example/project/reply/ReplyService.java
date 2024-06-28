@@ -8,6 +8,7 @@ import com.example.project.board.BoardRepository;
 import com.example.project.social.Social;
 import com.example.project.social.SocialRepository;
 import com.example.project.user.User;
+import com.example.project.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
     private final BoardRepository boardRepository;
     private final SocialRepository socialRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public void delete(Integer replyId, Integer sessionUserId) {
@@ -35,14 +37,17 @@ public class ReplyService {
     }
 
     @Transactional
-    public void save(ReplyRequest.SaveDTO reqDTO, User sessionUser, Integer socialId) {
+    public void save(ReplyRequest.SaveDTO reqDTO, Integer userId, Integer socialId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요합니다."));
+
         Social social = socialRepository.findById(socialId)
                 .orElseThrow(() -> new Exception404("없는 게시글에 댓글을 작성할 수 없어요"));
 
         Board board = boardRepository.findById(social.getId())
                 .orElseThrow(() -> new Exception404("관련된 게시글이 없어요"));
 
-        Reply reply = reqDTO.toEntity(sessionUser, board);
+        Reply reply = reqDTO.toEntity(user, board);
 
         replyRepository.save(reply);
     }

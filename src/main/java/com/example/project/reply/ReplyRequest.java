@@ -1,5 +1,6 @@
 package com.example.project.reply;
 
+import com.example.project._core.enums.ReplyEnum;
 import com.example.project.board.Board;
 import com.example.project.user.User;
 import lombok.Data;
@@ -10,7 +11,6 @@ public class ReplyRequest {
 
     @Data
     public static class SaveDTO {
-        private Integer boardId;
         private String comment;
 
         public Reply toEntity(User sessionUser, Board board){
@@ -18,6 +18,7 @@ public class ReplyRequest {
                     .userId(sessionUser)
                     .boardId(board)
                     .comment(comment)
+                    .state(ReplyEnum.ACTIVE)
                     .build();
         }
     }

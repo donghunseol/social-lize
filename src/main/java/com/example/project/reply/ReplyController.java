@@ -1,6 +1,8 @@
 package com.example.project.reply;
 
+import com.example.project._core.utils.UserUtil;
 import com.example.project.user.User;
+import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,20 +16,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ReplyController {
     private final ReplyService replyService;
     private final HttpSession session;
+    private final UserUtil userUtil;
 
     // 댓글 삭제
     @PutMapping("/board/{id}/reply/delete")
     public String delete(@PathVariable Integer id){
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         replyService.delete(id, sessionUser.getId());
         return "redirect:/social/detail/" + id;
     }
 
     // 댓글 쓰기
     @PostMapping("/reply/save")
-    public String save(@RequestParam("socialId") Integer id, ReplyRequest.SaveDTO reqDTO){
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        replyService.save(reqDTO, sessionUser, id);
-        return "redirect:/social/detail/" + id;
+    public String save(@RequestParam("socialId") Integer socialId,
+                       @RequestParam("boardId") Integer boardId,
+                       ReplyRequest.SaveDTO reqDTO){
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        replyService.save(reqDTO, sessionUser.getId(), boardId);
+        return "redirect:/social/detail/" + socialId;
     }
 }
