@@ -3,6 +3,7 @@ package com.example.project.category_name;
 import com.example.project._core.enums.DeleteStateEnum;
 import com.example.project._core.errors.exception.Exception400;
 import com.example.project._core.errors.exception.Exception404;
+import com.example.project._core.utils.ImageVideoUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,9 +24,13 @@ public class CategoryNameService {
         if (categoryNameCheck.isPresent()) {
             throw new Exception400("이미 존재하는 카테고리명입니다.");
         }
+
+        ImageVideoUtil.FileUploadResult result = ImageVideoUtil.uploadFile(createDTO.getImagePath());
+        String imgPath = result.getFilePath();
+
         CategoryName categoryName = CategoryName.builder()
                 .name(createDTO.getName())
-                .imagePath(createDTO.getImagePath())
+                .imagePath(imgPath)
                 .status(DeleteStateEnum.ACTIVE)
                 .build();
         categoryNameRepository.save(categoryName);
