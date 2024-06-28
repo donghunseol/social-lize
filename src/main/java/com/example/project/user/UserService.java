@@ -2,9 +2,12 @@ package com.example.project.user;
 
 import com.example.project._core.enums.UserEnum;
 import com.example.project._core.enums.UserProviderEnum;
+import com.example.project._core.enums.UserStatusEnum;
+import com.example.project._core.errors.exception.Exception404;
 import com.example.project._core.utils.EncryptUtil;
 import com.example.project._core.utils.RuntimeConfiguration;
 import com.example.project._core.utils.UserUtil;
+import com.example.project.board.Board;
 import com.example.project.category_name.CategoryName;
 import com.example.project.category_name.CategoryNameRepository;
 import com.example.project.notification.NotificationService;
@@ -74,6 +77,7 @@ public class UserService {
 
         LocalDate bod = LocalDate.parse(joinDTO.getBirthdate());
         user.setBirth(bod);
+        user.setStatus(UserStatusEnum.NORMAL);
         userRepository.save(user);
     }
 
@@ -218,7 +222,7 @@ public class UserService {
 
     // 회원 리스트 조회 (관리자)
     public UserResponse.UserListDTO getUserList() {
-        Integer count = userRepository.findAllNormalUser();
+        Integer count = userRepository.findAllNormalUser(UserEnum.USER);
         List<User> userListDTO = userRepository.findByRole(UserEnum.USER);
 
         List<UserResponse.UserListDTO.UserList> userList = userListDTO.stream()
@@ -232,6 +236,14 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다."));
         return new UserResponse.UserDetail(user);
+    }
+
+    // 회원 강제 삭제 (관리자)
+    public void deleteUser (Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다."));
+        user.setStatus(UserStatusEnum.BANNED);
+        userRepository.save(user);
     }
 
     @Transactional

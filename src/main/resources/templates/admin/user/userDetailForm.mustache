@@ -61,10 +61,13 @@
                                         <input type="text" id="created-at" value="{{userDetail.createdAt}}" disabled>
                                     </div>
                                 </div>
-                                <div class="modal-button-wrapper">
-                                    <button type="submit" class="btn black join"
-                                            onclick="history.back()">뒤로가기</button>
-                                </div>
+                                <form action="/admin/user/{{userDetail.userId}}/delete" method="post">
+                                    <div class="modal-button-wrapper">
+                                        <button type="submit" class="btn red join">삭제하기</button>
+                                        <button type="button" class="btn black join"
+                                                onclick="history.back()">뒤로가기</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

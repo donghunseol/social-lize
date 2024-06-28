@@ -34,13 +34,10 @@ public class Rereply {
     private LocalDateTime createdAt;
 
     @Builder
-    public Rereply(Integer id, Reply replyId, User userId, String comment, LocalDateTime createdAt) {
+    public Rereply(Integer id, Reply replyId, User userId, String comment) {
         this.id = id;
         this.replyId = replyId;
         this.userId = userId;
         this.comment = comment;
-        this.createdAt = createdAt;
     }
 }
-
-

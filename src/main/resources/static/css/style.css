@@ -310,13 +310,15 @@ body {
 }
 
 .content-box .group-name {
-    font-size: 16px; /* Reduced font size */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-top: 20px;
-    border-top: 1px solid #ddd;
     padding-top: 10px;
 }
 
@@ -372,7 +374,8 @@ body {
 /* myrecordForm.mustache */
 .comment-section-container {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     margin-bottom: 8px;
 }
 
@@ -674,14 +677,13 @@ body {
     display: flex;
     width: 100vw;
     background-color: #fff;
-    padding: 20px;
     border-top: none;
     margin-bottom: 20px;
     margin-top: 150px;
 }
 
 .tab-content.active {
-    /*display: block;*/
+    margin-top: 120px;
 }
 
 /* 메인페이지 */
@@ -1563,7 +1565,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #ddd;
     padding-top: 10px;
     margin-top: 10px;
 }
@@ -1652,20 +1653,88 @@ body {
     border-radius: 50%;
     margin: 2px 0;
 }
-
 .recent-comment {
-    margin-top: 15px;
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-}
-.recent-comment-content {
     display: flex;
     align-items: center;
-    margin-top: 10px;
+    padding: 10px 0;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    margin-bottom: 10px;
 }
-.recent-comment-profile-image {
-    width: 40px;
-    height: 40px;
+
+.recent-comment img {
     border-radius: 50%;
     margin-right: 10px;
+    margin-bottom: 30px;
+    width: 30px;
+    height: 30px;
+}
+
+.recent-comment-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.recent-comment-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.recent-comment-text {
+    color: #555;
+}
+.recent-comment-time {
+    color: #888;
+    font-size: 12px;
+}
+.delete-post-button {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: auto;
+    margin-top: 7px;
+}
+
+.delete-post-button:hover {
+    color: #000;
+}
+
+.reply-input-container {
+    display: none;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.reply-input {
+    flex-grow: 1;
+    padding-left: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.send-reply-button {
+    background-color: #ddd;
+    border: none;
+    padding: 5px 10px; /* 여기서 padding 값을 조정하여 버튼의 두께를 조절 */
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px; /* 필요시 폰트 크기를 조정 */
+}
+
+.delete-comment-button {
+    margin-bottom: 60px;
+}
+.comment-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.comment-content {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
 }

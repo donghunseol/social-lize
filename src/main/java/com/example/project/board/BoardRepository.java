@@ -1,5 +1,6 @@
 package com.example.project.board;
 
+import com.example.project.reply.Reply;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +12,10 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Query("select b from Board b where b.socialId.id = :socialId order by b.id desc")
     List<Board> findByBoardSocialId(@Param("socialId") Integer socialId);
+
+    //특정 소셜에 내가 작성 한 글 갯수
+    @Query("select count(*) from Board b where b.socialId.id = :socialId and b.userId.id = :userId")
+    Integer getArticleCountByBoardSocialIdAndUserId(Integer userId, Integer socialId);
 
     @Query(value = "select b.* from board_tb b JOIN bookmark_tb bm ON b.id = bm.board_id WHERE bm.user_id = :userId", nativeQuery = true)
     List<Board> findByBoards(@Param("userId") Integer userId);
@@ -33,4 +38,18 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     // 유저가 작성한 게시글 갯수 (관리자)
     @Query("select count(*) from Board b where b.role = 'POST'")
     Integer findByBoardRole();
+
+    @Query("select b from Board b where b.userId.id = :userId")
+    List<Board> findAllUserId(@Param("userId") Integer userId);
+
+    @Query("SELECT DISTINCT b FROM Board b " +
+            "LEFT JOIN FETCH b.replies r " +
+            "WHERE r.userId.id = :userId")
+    List<Board> findBoardsByUserReplies(@Param("userId") Integer userId);
+
+    @Query("SELECT DISTINCT b FROM Board b " +
+            "JOIN b.replies r " +
+            "JOIN r.rereplies rr " +
+            "WHERE rr.userId.id = :userId")
+    List<Board> findRepliesByUserRereplies(@Param("userId") Integer userId);
 }

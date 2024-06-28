@@ -18,6 +18,12 @@ public class ReplyRepositoryTest {
     private RereplyRepository rereplyRepository;
 
     @Test
+    public void getReplyCount(){
+        Integer count = replyRepository.getCountByUserIdAndSocialId(1,1);
+        System.out.println("count = " + count);
+    }
+
+    @Test
     public void findBySocialId_test(){
         Integer re = replyRepository.replyCount(1);
 

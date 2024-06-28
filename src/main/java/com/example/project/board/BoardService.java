@@ -20,6 +20,7 @@ import com.example.project.social.Social;
 import com.example.project.social.SocialRepository;
 import com.example.project.user.User;
 import com.example.project.user.UserRepository;
+import com.example.project.user.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,19 +44,22 @@ public class BoardService {
     private final BookmarkRepository bookRepository;
     private final HashtagRepository hashtagRepository;
 
-    public BoardResponse.SocialDetailDTO boardList(Integer userId) {
+    public BoardResponse.MyBoardAndReplyListDTO myBoardAndReply(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
 
-        List<Board> boards = boardRepository.findByBoards(userId);
-        List<BoardResponse.SocialDetailDTO.BoardDTO> boardDTOs = new ArrayList<>();
+        List<Board> myBoardList = boardRepository.findAllUserId(userId);
+        List<Board> myBoardReplyList = boardRepository.findBoardsByUserReplies(userId);
 
-        for (Board board : boards) {
+        List<BoardResponse.MyBoardAndReplyListDTO.MyBoardListDTO> boardDTOs = new ArrayList<>();
+        List<BoardResponse.MyBoardAndReplyListDTO.MyReplyListDTO> replyBoardDTOs = new ArrayList<>();
+
+        for (Board board : myBoardList) {
             Integer likeCount = likeRepository.findByLikeCount(board.getId());
             Integer replyCount = replyRepository.replyCount(board.getId());
             List<Album> albums = albumRepository.findByBoardId(board.getId());
-            List<BoardResponse.SocialDetailDTO.AlbumDTO> albumDTOs = albums.stream()
-                    .map(BoardResponse.SocialDetailDTO.AlbumDTO::new)
+            List<BoardResponse.MyBoardAndReplyListDTO.MyBoardListDTO.AlbumDTO> albumDTOs = albums.stream()
+                    .map(BoardResponse.MyBoardAndReplyListDTO.MyBoardListDTO.AlbumDTO::new)
                     .toList();
 
             // 좋아요 여부 확인
@@ -69,20 +73,108 @@ public class BoardService {
             Boolean hashEmpty = false;
 
             // BoardDTO 객체 생성
-            BoardResponse.SocialDetailDTO.BoardDTO boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+            BoardResponse.MyBoardAndReplyListDTO.MyBoardListDTO boardDTO =
+                    new BoardResponse.MyBoardAndReplyListDTO
+                            .MyBoardListDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(),
+                            liked, bookmarked, hashtags, user.getImage(), hashEmpty);
 
             if (boardDTO != null && boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
                 if (boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
                     if (boardDTO.getHashtagList().get(0).getName().equals("")) {
                         hashEmpty = true;
-                        boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+                        boardDTO = new BoardResponse.MyBoardAndReplyListDTO.MyBoardListDTO
+                                (board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(),
+                                        liked, bookmarked, hashtags, user.getImage(), hashEmpty);
                         boardDTOs.add(boardDTO);
                     }
                 }
             }
         }
 
-        return new BoardResponse.SocialDetailDTO(boardDTOs);
+        for (Board board : myBoardReplyList) {
+            Integer likeCount = likeRepository.findByLikeCount(board.getId());
+            Integer replyCount = replyRepository.replyCount(board.getId());
+            List<Album> albums = albumRepository.findByBoardId(board.getId());
+            List<BoardResponse.MyBoardAndReplyListDTO.MyReplyListDTO.AlbumDTO> albumDTOs = albums.stream()
+                    .map(BoardResponse.MyBoardAndReplyListDTO.MyReplyListDTO.AlbumDTO::new)
+                    .toList();
+
+            // 좋아요 여부 확인
+            Boolean liked = likeRepository.findByLikeUserId(board.getId(), userId) > 0;
+
+            // 북마크 여부 확인
+            Boolean bookmarked = bookRepository.findByBookUserId(board.getId(), userId) > 0;
+
+            List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
+
+            Boolean hashEmpty = false;
+
+            // BoardDTO 객체 생성
+            BoardResponse.MyBoardAndReplyListDTO.MyReplyListDTO boardDTO =
+                    new BoardResponse.MyBoardAndReplyListDTO
+                            .MyReplyListDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(),
+                            liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+
+            if (boardDTO != null && boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                if (boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                    if (boardDTO.getHashtagList().get(0).getName().equals("")) {
+                        hashEmpty = true;
+                        boardDTO = new BoardResponse.MyBoardAndReplyListDTO.MyReplyListDTO
+                                (board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(),
+                                        liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+                        replyBoardDTOs.add(boardDTO);
+                    }
+                }
+            }
+
+            replyBoardDTOs.add(boardDTO);
+        }
+        System.out.println("서비스 끝");
+        return new BoardResponse.MyBoardAndReplyListDTO(boardDTOs, replyBoardDTOs);
+    }
+
+    public BoardResponse.BookMarkBoardListDTO boardList(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
+        List<Board> boards = boardRepository.findByBoards(userId);
+        List<BoardResponse.BookMarkBoardListDTO.BoardDTO> boardDTOs = new ArrayList<>();
+
+        for (Board board : boards) {
+            Integer likeCount = likeRepository.findByLikeCount(board.getId());
+            Integer replyCount = replyRepository.replyCount(board.getId());
+            List<Album> albums = albumRepository.findByBoardId(board.getId());
+            List<BoardResponse.BookMarkBoardListDTO.AlbumDTO> albumDTOs = albums.stream()
+                    .map(BoardResponse.BookMarkBoardListDTO.AlbumDTO::new)
+                    .toList();
+
+            // 좋아요 여부 확인
+            Boolean liked = likeRepository.findByLikeUserId(board.getId(), userId) > 0;
+
+            // 북마크 여부 확인
+            Boolean bookmarked = bookRepository.findByBookUserId(board.getId(), userId) > 0;
+
+            List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
+
+            Boolean hashEmpty = false;
+
+            // BoardDTO 객체 생성
+            BoardResponse.BookMarkBoardListDTO.BoardDTO boardDTO = new BoardResponse.BookMarkBoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+
+            if (boardDTO != null && boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                if (boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
+                    if (boardDTO.getHashtagList().get(0).getName().equals("")) {
+                        hashEmpty = true;
+                        boardDTO = new BoardResponse.BookMarkBoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+                        boardDTOs.add(boardDTO);
+                    }
+                }
+            }
+
+            boardDTOs.add(boardDTO);
+        }
+
+        return new BoardResponse.BookMarkBoardListDTO(boards.size(), boardDTOs);
     }
 
     @Transactional

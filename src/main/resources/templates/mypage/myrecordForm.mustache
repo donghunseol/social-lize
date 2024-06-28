@@ -16,11 +16,71 @@
             </div>
             <div id="게시글" class="myrecord-tab-content active">
                 {{> layout/post}}
-                {{> layout/post}}
             </div>
-            <div id="댓글" class="myrecord-tab-content">
-                {{> layout/post}}
-                {{> layout/post}}
+            <div class="content-box">
+                <div id="댓글" class="myrecord-tab-content">
+                    {{#myBoardModel.myReplyList}}
+                        <div class="group-name">{{socialName}}</div>
+                        <div class="post">
+                            <div class="author-box">
+                                <img src="{{userImage}}" alt="Profile Picture" class="profile-picture openModalBtn"
+                                     data-board-id="{{boardId}}">
+                                <div>
+                                    <button data-board-id="{{boardId}}" class="book-button {{#book}}book{{/book}}">
+                                        <i class="fas fa-star" style="color: yellow"></i>
+                                    </button>
+                                    <div class="author">{{nickname}}</div>
+                                    <div class="date">{{createdAt}}</div>
+                                </div>
+                            </div>
+                            <div class="message-box">
+                                {{#albums}}
+                                    <div class="media-item">
+                                        {{#isImage}}
+                                            <img src="{{path}}" alt="Image"
+                                                 style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
+                                        {{/isImage}}
+                                        {{#isVideo}}
+                                            <video controls style="max-width: 100%; max-height: 300px;">
+                                                <source src="{{path}}" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        {{/isVideo}}
+                                    </div>
+                                {{/albums}}
+                                <div class="message openModalBtn" data-board-id="{{boardId}}">
+                                    {{{content}}}
+                                </div>
+                                {{^hashEmpty}}
+                                    <div class="media-box">
+                                        <div class="hashtag-box">
+                                            {{#hashtagList}}
+                                                <button class="hashtag-btn">{{name}}</button>
+                                            {{/hashtagList}}
+                                        </div>
+                                    </div>
+                                {{/hashEmpty}}
+                                <div class="comments">
+                                    <div class="like-count">😊😍좋아요 <span class="like-count-value">{{likeCount}}</span>
+                                    </div>
+                                    <div class="comment-count">💬댓글 {{replyCount}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-section-container">
+                            <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <div class="comment-section">
+                                <form action="/reply/save" method="post">
+                                    <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
+                                    <input type="text" name="comment" placeholder="댓글을 남겨주세요.">
+                                </form>
+                            </div>
+                            <button type="submit" class="send-button">보내기</button>
+                        </div>
+                    {{/myBoardModel.myReplyList}}
+                </div>
             </div>
         </div>
     </div>

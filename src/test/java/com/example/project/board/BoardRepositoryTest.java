@@ -29,6 +29,13 @@ public class BoardRepositoryTest {
     }
 
     @Test
+    public void getArticleCountBySocialIdAndUserId_test(){
+        Integer count = boardRepository.getArticleCountByBoardSocialIdAndUserId(1,1);
+        System.out.println("count = " + count);
+
+    }
+
+    @Test
     public void findBySocialId_test(){
         List<Board> board = boardRepository.findByBoardSocialId(1);
 
@@ -48,6 +55,39 @@ public class BoardRepositoryTest {
             Long count = (Long) result[1];
             String date = dayNameMap.get(dayOfWeek);
             System.out.println(date + " " + count);
+        }
+    }
+
+    @Test
+    public void findAllUserId_test() {
+        Integer userId = 1;
+        List<Board> board = boardRepository.findAllUserId(userId);
+
+        // 결과 출력
+        for (int i = 0; i < board.size(); i++) {
+            System.out.println(board.get(i).getContent());
+        }
+    }
+
+    @Test
+    public void findBoardsByUserReplies_test() {
+        Integer userId = 1;
+        List<Board> board = boardRepository.findBoardsByUserReplies(userId);
+
+        // 결과 출력
+        for (int i = 0; i < board.size(); i++) {
+            System.out.println(board.get(i).getContent());
+        }
+    }
+
+    @Test
+    public void findRepliesByUserRereplies_test() {
+        Integer userId = 1;
+        List<Board> board = boardRepository.findRepliesByUserRereplies(userId);
+
+        // 결과 출력
+        for (int i = 0; i < board.size(); i++) {
+            System.out.println(board.get(i).getContent());
         }
     }
 }

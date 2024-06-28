@@ -40,12 +40,12 @@
                             </div>
                             <div class="category-button-container">
                                 <div class="button-wrapper">
-                                    <form action="/admin/social/socialListForm.html" method="get">
+                                    <form action="/admin/category-name/{{categoryDetail.id}}/update-form" method="get">
                                         <button class="category-update-button">카테고리 수정</button>
                                     </form>
                                 </div>
                                 <div class="button-wrapper">
-                                    <form action="/admin/social/socialListForm.html" method="get">
+                                    <form action="/admin/category-name/{{categoryDetail.id}}/delete" method="post">
                                         <button class="category-delete-button">카테고리 삭제</button>
                                     </form>
                                 </div>

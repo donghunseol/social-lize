@@ -2,6 +2,7 @@ package com.example.project.user;
 
 import com.example.project.board.BoardResponse;
 import com.example.project.board.BoardService;
+import com.example.project.category_name.CategoryNameRequest;
 import com.example.project.category_name.CategoryNameResponse;
 import com.example.project.category_name.CategoryNameService;
 import com.example.project.notice.NoticeResponse;
@@ -51,6 +52,13 @@ public class AdminController {
         return "admin/user/userDetailForm";
     }
 
+    // 회원 강제 삭제
+    @PostMapping("/user/{userId}/delete")
+    public String deleteUser(@PathVariable Integer userId) {
+        userService.deleteUser(userId);
+        return "redirect:/admin/user-list";
+    }
+
     // 카테고리 리스트 조회
     @GetMapping("/category-name-list")
     public String categoryNameListPage(HttpServletRequest request) {
@@ -67,6 +75,42 @@ public class AdminController {
         return "admin/social/socialCategoryDetailForm";
     }
 
+    // 카테고리 등록 페이지
+    @GetMapping("/category-name/register-form")
+    public String categoryNameRegisterPage() {
+        return "admin/social/socialCategoryRegisterForm";
+    }
+
+    // 카테고리 등록
+    @PostMapping("/category-name/register")
+    public String categoryNameRegister(CategoryNameRequest.Create create) {
+        categoryNameService.createCategory(create);
+        return "redirect:/admin/category-name-list";
+    }
+
+    // 카테고리 수정 페이지
+    @GetMapping("/category-name/{categoryNameId}/update-form")
+    public String categoryNameUpdatePage(HttpServletRequest request, @PathVariable Integer categoryNameId) {
+        CategoryNameResponse.Detail categoryDetail = categoryNameService.getCategoryDetail(categoryNameId);
+        request.setAttribute("categoryDetail", categoryDetail);
+        return "admin/social/socialCategoryUpdateForm";
+    }
+
+    // 카테고리 수정
+    @PostMapping("/category-name/{categoryNameId}/update")
+    public String categoryNameUpdate(@PathVariable Integer categoryNameId, CategoryNameRequest.Update update) {
+        categoryNameService.updateCategory(categoryNameId, update);
+        return "redirect:/admin/category-name-list";
+    }
+
+    // 카테고리 삭제
+    @PostMapping("/category-name/{categoryNameId}/delete")
+    public String deleteCategoryName(@PathVariable Integer categoryNameId) {
+        categoryNameService.deleteCategory(categoryNameId);
+        return "redirect:/admin/category-name-list";
+    }
+
+
     // 소셜 리스트 조회
     @GetMapping("/social-list")
     public String socialListPage(HttpServletRequest request) {
@@ -81,6 +125,13 @@ public class AdminController {
         SocialResponse.DetailDTO socialDetail = socialService.getSocialDetail(socialId);
         request.setAttribute("socialDetail", socialDetail);
         return "admin/social/socialDetailForm";
+    }
+
+    // 소셜 강제 삭제
+    @PostMapping("/social/{socialId}/delete")
+    public String deleteSocial(@PathVariable Integer socialId) {
+        socialService.deleteSocial(socialId);
+        return "redirect:/admin/social-list";
     }
 
     // 게시글 리스트 조회
