@@ -14,10 +14,12 @@ import com.example.project.user.User;
 import com.example.project.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -121,8 +123,17 @@ public class SocialMemberService {
         );
     }
 
-    public List<SocialMemberResponse.SocialMemberDTO> getSocialMembersBySocialId(Integer socialId) {
-        List<SocialMember> socialMemberList = socialMemberRepository.findSocialMembersBySocialId(socialId);
+    public List<SocialMemberResponse.SocialMemberDTO> getSocialMembersBySocialId(Integer socialId, String sortKeyword) {
+        //정렬 기준을 파라미터로 전달한다.userName=userId.nickname, joinDate=userId.createdAt
+        String sortString;
+        if (Objects.equals(sortKeyword, "userName"))
+            sortString="userId.nickname";
+        else if (Objects.equals(sortKeyword, "joinDate"))
+            sortString="userId.createdAt";
+        else
+            sortString="userId.nickname";
+        Sort sort = Sort.by(Sort.Direction.ASC, sortString);
+        List<SocialMember> socialMemberList = socialMemberRepository.findSocialMembersBySocialId(socialId, sort);
         return socialMemberList.stream().map(SocialMemberResponse.SocialMemberDTO::new).toList();
 //        List<SocialMemberResponse.SocialMemberDTO> socialMemberDTOList = new ArrayList<>();
 //        for (SocialMember socialMember : socialMemberList) {

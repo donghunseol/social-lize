@@ -1,5 +1,6 @@
 package com.example.project.social_member;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -31,6 +32,12 @@ public interface SocialMemberRepository extends JpaRepository<SocialMember, Inte
             "WHERE sm.state = 'APPROVED' AND s.id = :socialId " +
             "ORDER BY u.nickname ASC")
     List<SocialMember> findSocialMembersBySocialId(@Param("socialId") Integer socialId);
+
+    @Query("SELECT sm FROM SocialMember sm " +
+            "JOIN sm.socialId s " +
+            "JOIN sm.userId u " +
+            "WHERE sm.state = 'APPROVED' AND s.id = :socialId ")
+    List<SocialMember> findSocialMembersBySocialId(@Param("socialId") Integer socialId, Sort sort);
 
     @Query("select sm from SocialMember sm where sm.socialId.id = :socialId and sm.role = 'MANAGER'")
     SocialMember findBySocialId(@Param("socialId") Integer socialId);

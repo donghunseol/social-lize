@@ -13,10 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -49,13 +46,13 @@ public class SocialController {
 
     //소셜 디테일 -> 멤버 탭
     @GetMapping("/social/detail/{socialId}/member")
-    public String socialMember(@PathVariable int socialId, HttpServletRequest request) {
+    public String socialMember(@PathVariable int socialId, HttpServletRequest request, @RequestParam(defaultValue = "userName") String sortBy) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         BoardResponse.SocialDetailDTO modal = socialService.socialDetail(socialId, sessionUser.getId());
         request.setAttribute("modal", modal);
 
         //소셜에 가입한 멤버 정보 가져오기
-        List<SocialMemberResponse.SocialMemberDTO> socialMemberList = socialMemberService.getSocialMembersBySocialId(socialId);
+        List<SocialMemberResponse.SocialMemberDTO> socialMemberList = socialMemberService.getSocialMembersBySocialId(socialId, sortBy);
 //        System.out.println("socialMemberList = " + socialMemberList);
         request.setAttribute("socialMemberList", socialMemberList);
 
