@@ -103,6 +103,13 @@ public class AdminController {
         return "redirect:/admin/category-name-list";
     }
 
+    // 카테고리 삭제
+    @PostMapping("/category-name/{categoryNameId}/delete")
+    public String deleteCategoryName(@PathVariable Integer categoryNameId) {
+        categoryNameService.deleteCategory(categoryNameId);
+        return "redirect:/admin/category-name-list";
+    }
+
 
     // 소셜 리스트 조회
     @GetMapping("/social-list")
