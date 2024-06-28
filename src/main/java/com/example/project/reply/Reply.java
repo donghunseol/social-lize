@@ -3,6 +3,7 @@ package com.example.project.reply;
 import com.example.project._core.enums.QnaEnum;
 import com.example.project._core.enums.ReplyEnum;
 import com.example.project.board.Board;
+import com.example.project.rereply.Rereply;
 import com.example.project.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -11,6 +12,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -35,6 +38,10 @@ public class Reply {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ReplyEnum state; // 활성화, 댓글 삭제
+
+    @OneToMany(mappedBy = "replyId", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OrderBy("id desc")
+    private List<Rereply> rereplies; // 대댓글 목록
 
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자

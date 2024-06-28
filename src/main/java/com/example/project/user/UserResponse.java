@@ -1,17 +1,24 @@
 package com.example.project.user;
 
+import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.enums.UserEnum;
 import com.example.project._core.enums.UserProviderEnum;
 import com.example.project._core.enums.UserStatusEnum;
 import com.example.project._core.utils.LocalDateTimeFormatter;
+import com.example.project.album.Album;
+import com.example.project.board.Board;
+import com.example.project.board.BoardResponse;
 import com.example.project.category_name.CategoryName;
+import com.example.project.hashtag.Hashtag;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class UserResponse {
+
     //로그인된 사용자의 DTO
     @Data
     public static class LoggedInUserDTO {

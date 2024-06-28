@@ -1,5 +1,6 @@
 package com.example.project.social_member;
 
+import com.example.project.social.Social;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -46,4 +47,7 @@ public interface SocialMemberRepository extends JpaRepository<SocialMember, Inte
     // 소셜 활동 멤버 총 인원 (관리자)
     @Query("select count(*) from SocialMember sm join sm.socialId s where s.id = :socialId and sm.state = 'APPROVED'")
     Integer findAllBySocialMemberState(@Param("socialId") Integer socialId);
+
+    @Query("select sm from SocialMember sm where sm.userId.id = :userId and sm.state != 'APPROVED'")
+    List<SocialMember> findByMyApply(@Param("userId") Integer userId);
 }

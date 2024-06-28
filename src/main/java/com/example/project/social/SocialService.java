@@ -302,8 +302,22 @@ public class SocialService {
 
     public List<UserResponse.MainDTO.MySocialDTO> getMySocialList(Integer userId) {
         List<Object[]> mySocialList = userQueryRepository.mySocialList(userId);
-        List<UserResponse.MainDTO.MySocialDTO> mySocialList2 = mySocialList.stream().map(UserResponse.MainDTO.MySocialDTO::new).toList();
-        System.out.println("mySocialList2 = " + mySocialList2);
-        return mySocialList2;
+        return mySocialList.stream().map(UserResponse.MainDTO.MySocialDTO::new).toList();
+    }
+
+    public SocialResponse.MyApplySocialListDTO myApplySocial(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
+        List<SocialMember> socialList = socialMemberRepository.findByMyApply(user.getId());
+
+        List<Integer> members = new ArrayList<>();
+
+        for (int i = 0; i < socialList.size(); i++) {
+            Integer socialMemberCount = socialMemberRepository.findAllBySocialMemberState(socialList.get(i).getSocialId().getId());
+            members.add(socialMemberCount);
+        }
+
+        return new SocialResponse.MyApplySocialListDTO(socialList, members);
     }
 }

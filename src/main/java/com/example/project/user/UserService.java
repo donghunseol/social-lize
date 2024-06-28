@@ -5,6 +5,7 @@ import com.example.project._core.enums.UserProviderEnum;
 import com.example.project._core.utils.EncryptUtil;
 import com.example.project._core.utils.RuntimeConfiguration;
 import com.example.project._core.utils.UserUtil;
+import com.example.project.board.Board;
 import com.example.project.category_name.CategoryName;
 import com.example.project.category_name.CategoryNameRepository;
 import com.example.project.notification.NotificationService;

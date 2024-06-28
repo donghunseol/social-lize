@@ -1,5 +1,6 @@
 package com.example.project.board;
 
+import com.example.project.reply.Reply;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -33,4 +34,18 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     // 유저가 작성한 게시글 갯수 (관리자)
     @Query("select count(*) from Board b where b.role = 'POST'")
     Integer findByBoardRole();
+
+    @Query("select b from Board b where b.userId.id = :userId")
+    List<Board> findAllUserId(@Param("userId") Integer userId);
+
+    @Query("SELECT DISTINCT b FROM Board b " +
+            "LEFT JOIN FETCH b.replies r " +
+            "WHERE r.userId.id = :userId")
+    List<Board> findBoardsByUserReplies(@Param("userId") Integer userId);
+
+    @Query("SELECT DISTINCT b FROM Board b " +
+            "JOIN b.replies r " +
+            "JOIN r.rereplies rr " +
+            "WHERE rr.userId.id = :userId")
+    List<Board> findRepliesByUserRereplies(@Param("userId") Integer userId);
 }
