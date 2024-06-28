@@ -151,7 +151,6 @@
             </button>
             <form action="/reply/save" method="post">
                 <div class="d-flex">
-
                     <div class="comment-section">
                         <input type="hidden" name="socialId" value="{{socialId}}">
                         <input type="hidden" name="boardId" value="{{boardId}}">
@@ -161,7 +160,6 @@
                     <div>
                         <button type="submit" class="send-button">보내기</button>
                     </div>
-
                 </div>
             </form>
         </div>
@@ -394,10 +392,14 @@
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
-                <div class="reply-input-container">
-                    <input type="text" class="reply-input" placeholder="답글을 입력하세요.">
-                    <button class="send-reply-button">보내기</button>
-                </div>
+                 <form action="/reply/save" method="post">
+                    <div class="reply-input-container">
+                        <input type="hidden" name="socialId" value="{{socialId}}">
+                        <input type="hidden" name="parentCommentId" value="${reply.id}">
+                        <input type="text" name="replyContent" class="reply-input" placeholder="답글을 입력하세요.">
+                        <button type="submit" class="send-reply-button">보내기</button>
+                    </div>
+                </form>
             </div>
             <div class="bmodal-reply-section">
                 ${reply.rereplyList.map(rereply => `
@@ -417,11 +419,14 @@
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </div>
-                            <div class="reply-input-container">
-                                <input type="text" class="reply-input" placeholder="답글을 입력하세요.">
-                                <button class="send-reply-button">보내기</button>
+                          <div class="reply-input-container">
+                                    <input type="hidden" name="parentCommentId" value="${reply.id}">
+                                    <input type="hidden" name="replyId" value="${rereply.id}">
+                                    <input type="text" name="rereplyContent" class="reply-input" placeholder="답글을 입력하세요.">
+                                    <button type="submit" class="send-reply-button">보내기</button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 `).join('')}
             </div>
