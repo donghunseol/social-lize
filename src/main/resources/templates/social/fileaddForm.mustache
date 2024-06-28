@@ -73,6 +73,16 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
     <script>
+
+        document.getElementById("copyLinkButton").addEventListener("click", function () {
+            const link = "http://localhost:8080/social/detail/1";
+            navigator.clipboard.writeText(link).then(function () {
+                alert("초대 링크가 클립보드에 복사되었습니다.");
+            }, function (err) {
+                console.error("초대 링크 복사 실패: ", err);
+            });
+        });
+
         function switchTab(event, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("fileadd-tab-content");
