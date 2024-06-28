@@ -1,5 +1,7 @@
 package com.example.project.reply;
 
+import com.example.project._core.enums.QnaEnum;
+import com.example.project._core.enums.ReplyEnum;
 import com.example.project.board.Board;
 import com.example.project.user.User;
 import jakarta.persistence.*;
@@ -30,8 +32,13 @@ public class Reply {
     @Column(nullable = false)
     private String comment; // 댓글 내용
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ReplyEnum state; // 활성화, 댓글 삭제
+
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자
+
 
     @Builder
     public Reply(Integer id, User userId, Board boardId, String comment) {

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
@@ -15,10 +16,10 @@ public class ReplyController {
     private final HttpSession session;
 
     // 댓글 삭제
-    @PostMapping("/board/{id}/reply/delete")
+    @PutMapping("/board/{id}/reply/delete")
     public String delete(@PathVariable Integer id){
-//        User sessionUser = (User) session.getAttribute("sessionUser");
-//        replyService.delete(id, sessionUser.getId());
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        replyService.delete(id, sessionUser.getId());
         return "redirect:/social/detail/" + id;
     }
 

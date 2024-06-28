@@ -1,5 +1,6 @@
 package com.example.project.reply;
 
+import com.example.project._core.enums.ReplyEnum;
 import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
 import com.example.project.board.Board;
@@ -20,14 +21,17 @@ public class ReplyService {
 
     @Transactional
     public void delete(Integer replyId, Integer sessionUserId) {
-        Reply reply = replyRepository.findById(replyId)
-                .orElseThrow(() -> new Exception404("없는 댓글을 삭제할 수 없어요"));
+        String delete = "삭제된 댓글입니다.";
+        Reply reply = replyRepository.findByActive(replyId);
 
-        if(reply.getUserId().getId() != sessionUserId){
-            throw new Exception403("댓글을 삭제할 권한이 없어요");
+        if(reply != null) {
+            if(reply.getUserId().getId() != sessionUserId){
+                throw new Exception403("댓글을 삭제할 권한이 없어요");
+            }
+
+            reply.setState(ReplyEnum.DELETE);
+            reply.setComment(delete);
         }
-
-        replyRepository.delete(reply);
     }
 
     @Transactional
