@@ -41,11 +41,13 @@ public class Reply {
 
 
     @Builder
-    public Reply(Integer id, User userId, Board boardId, String comment) {
+    public Reply(Integer id, Board boardId, User userId, String comment, ReplyEnum state, LocalDateTime createdAt) {
         this.id = id;
-        this.userId = userId;
         this.boardId = boardId;
+        this.userId = userId;
         this.comment = comment;
+        this.state = state;
+        this.createdAt = createdAt;
     }
 }
 
