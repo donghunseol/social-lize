@@ -178,6 +178,8 @@ VALUES (1, 1, 'MANAGER', 'APPROVED', now()),
        (5, 3, 'MEMBER', 'APPROVED', now()),
        (5, 4, 'MANAGER', 'APPROVED', now()),
        (1, 4, 'MEMBER', 'WAITING', now()),
+       (4, 1, 'MEMBER', 'WAITING', now()),
+       (4, 1, 'MEMBER', 'REFUSE', now()),
        (2, 3, 'MEMBER', 'WAITING', now()),
        (3, 2, 'MEMBER', 'WAITING', now()),
        (5, 5, 'MEMBER', 'RESIGN', now());

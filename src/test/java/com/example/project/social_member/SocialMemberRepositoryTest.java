@@ -15,6 +15,20 @@ public class SocialMemberRepositoryTest {
     private SocialMemberRepository socialMemberRepository;
 
     @Test
+    public void findByMyApply_test() {
+        // given
+        int userId = 1;
+
+        // when
+        List<SocialMember> socialMemberList = socialMemberRepository.findByMyApply(userId);
+
+        // eye
+        for (SocialMember sm : socialMemberList) {
+            System.out.println(sm.getState());
+        }
+    }
+
+
     public void getSocialMemberBySocialId() {
         List<SocialMember> socialMemberList = socialMemberRepository.findSocialMembersBySocialId(1);
         List<SocialMemberResponse.SocialMemberDTO> socialMemberDTOList = new ArrayList<>();

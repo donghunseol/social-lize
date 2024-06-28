@@ -2,7 +2,7 @@ package com.example.project.social;
 
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.enums.SocialMemberRoleEnum;
-import com.example.project._core.enums.UserProviderEnum;
+import com.example.project._core.enums.SocialMemberStateEnum;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.category.Category;
@@ -15,8 +15,43 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class SocialResponse {
+
+    @Data
+    public static class MyApplySocialListDTO {
+        private List<SocialListDTO> socialList;
+
+        public MyApplySocialListDTO(List<SocialMember> socialList, List<Integer> memberCount) {
+            this.socialList = IntStream.range(0, socialList.size())
+                    .mapToObj(i -> new SocialListDTO(socialList.get(i), memberCount.get(i)))
+                    .toList();
+        }
+
+        @Data
+        public static class SocialListDTO {
+            private Integer id;
+            private String image;
+            private String name;
+            private String state;
+            private Integer memberCount;
+
+            public SocialListDTO(SocialMember social, Integer memberCount) {
+                this.id = social.getSocialId().getId();
+                this.image = social.getSocialId().getImage();
+                this.name = social.getSocialId().getName();
+
+                this.state = switch (social.getState()) {
+                    case WAITING -> "승인 대기중";
+                    case REFUSE -> "가입 거절됨";
+                    default -> "없음";
+                };
+
+                this.memberCount = memberCount;
+            }
+        }
+    }
 
     @Data
     public static class AlbumAndFileListDTO {
