@@ -51,6 +51,7 @@ public class AdminController {
         return "admin/user/userDetailForm";
     }
 
+    // 회원 강제 삭제
     @PostMapping("/user/{userId}/delete")
     public String deleteUser(@PathVariable Integer userId) {
         userService.deleteUser(userId);
@@ -87,6 +88,13 @@ public class AdminController {
         SocialResponse.DetailDTO socialDetail = socialService.getSocialDetail(socialId);
         request.setAttribute("socialDetail", socialDetail);
         return "admin/social/socialDetailForm";
+    }
+
+    // 소셜 강제 삭제
+    @PostMapping("/social/{socialId}/delete")
+    public String deleteSocial(@PathVariable Integer socialId) {
+        socialService.deleteSocial(socialId);
+        return "redirect:/admin/social-list";
     }
 
     // 게시글 리스트 조회
