@@ -17,7 +17,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     @Query("select count(*) from Board b where b.socialId.id = :socialId and b.userId.id = :userId")
     Integer getArticleCountByBoardSocialIdAndUserId(Integer userId, Integer socialId);
 
-    @Query(value = "select b.* from board_tb b JOIN bookmark_tb bm ON b.id = bm.board_id WHERE bm.user_id = :userId", nativeQuery = true)
+    @Query(value = "select b.* from board_tb b JOIN bookmark_tb bm ON b.id = bm.board_id WHERE bm.user_id = :userId order by b.id desc", nativeQuery = true)
     List<Board> findByBoards(@Param("userId") Integer userId);
 
     // 유저가 작성한 전체 게시글 조회 (관리자)
@@ -39,7 +39,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     @Query("select count(*) from Board b where b.role = 'POST'")
     Integer findByBoardRole();
 
-    @Query("select b from Board b where b.userId.id = :userId")
+    @Query("select b from Board b where b.userId.id = :userId order by b.id desc")
     List<Board> findAllUserId(@Param("userId") Integer userId);
 
     @Query("SELECT DISTINCT b FROM Board b " +
@@ -50,6 +50,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     @Query("SELECT DISTINCT b FROM Board b " +
             "JOIN b.replies r " +
             "JOIN r.rereplies rr " +
-            "WHERE rr.userId.id = :userId")
+            "WHERE rr.userId.id = :userId order by b.id desc")
     List<Board> findRepliesByUserRereplies(@Param("userId") Integer userId);
 }

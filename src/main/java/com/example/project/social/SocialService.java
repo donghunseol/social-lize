@@ -23,6 +23,7 @@ import com.example.project.file.FileRepository;
 import com.example.project.hashtag.Hashtag;
 import com.example.project.hashtag.HashtagRepository;
 import com.example.project.like.LikeRepository;
+import com.example.project.reply.Reply;
 import com.example.project.reply.ReplyRepository;
 import com.example.project.social_member.SocialMember;
 import com.example.project.social_member.SocialMemberRepository;
@@ -120,6 +121,7 @@ public class SocialService {
             // 북마크 여부 확인
             Boolean bookmarked = bookRepository.findByBookUserId(board.getId(), userId) > 0;
 
+            Reply reply = replyRepository.findByBoardId(board.getId());
 
             List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
 
@@ -127,13 +129,13 @@ public class SocialService {
             Boolean hashEmpty = false;
 
             // BoardDTO 객체 생성
-            BoardResponse.SocialDetailDTO.BoardDTO boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+            BoardResponse.SocialDetailDTO.BoardDTO boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty, reply);
 
             if (boardDTO != null && boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
                 if (boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
                     if (boardDTO.getHashtagList().get(0).getName().equals("")) {
                         hashEmpty = true;
-                        boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+                        boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty, reply);
                     }
                 }
             }
