@@ -5,6 +5,9 @@ import com.example.project.board.BoardResponse;
 import com.example.project.board.BoardService;
 import com.example.project.file.FileRequest;
 import com.example.project.file.FileService;
+import com.example.project.social_member.SocialMember;
+import com.example.project.social_member.SocialMemberResponse;
+import com.example.project.social_member.SocialMemberService;
 import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -21,10 +24,11 @@ import java.util.List;
 @Controller
 public class SocialController {
     private final SocialService socialService;
-    private final BoardService boardService;
     private final FileService fileService;
     private final HttpSession session;
     private final UserUtil userUtil;
+    private final SocialMemberService socialMemberService;
+
 
     // 소셜 상세보기
     @GetMapping("/social/detail/{socialId}")
@@ -48,8 +52,17 @@ public class SocialController {
     public String socialMember(@PathVariable int socialId, HttpServletRequest request) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         BoardResponse.SocialDetailDTO modal = socialService.socialDetail(socialId, sessionUser.getId());
-
         request.setAttribute("modal", modal);
+
+        //소셜에 가입한 멤버 정보 가져오기
+        List<SocialMemberResponse.SocialMemberDTO> socialMemberList = socialMemberService.getSocialMembersBySocialId(socialId);
+//        System.out.println("socialMemberList = " + socialMemberList);
+        request.setAttribute("socialMemberList", socialMemberList);
+
+        //소셜에 등록한 글&댓글 수 가져오기
+        SocialMemberResponse.ArticleCount counts = socialMemberService.getArticleCount(sessionUser.getId(), socialId);
+        request.setAttribute("counts", counts);
+
         return "member/memberInvite";
     }
 

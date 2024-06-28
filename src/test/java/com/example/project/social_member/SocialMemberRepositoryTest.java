@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @DataJpaTest
@@ -12,6 +13,17 @@ public class SocialMemberRepositoryTest {
 
     @Autowired
     private SocialMemberRepository socialMemberRepository;
+
+    @Test
+    public void getSocialMemberBySocialId() {
+        List<SocialMember> socialMemberList = socialMemberRepository.findSocialMembersBySocialId(1);
+        List<SocialMemberResponse.SocialMemberDTO> socialMemberDTOList = new ArrayList<>();
+        for (SocialMember socialMember : socialMemberList) {
+            socialMemberDTOList.add( new SocialMemberResponse.SocialMemberDTO(socialMember) );
+        }
+//        socialMemberList.stream().map(SocialMember::getSocialId).forEach(System.out::println);
+//        System.out.println("socialMemberList = " + socialMemberList);
+    }
 
     @Test
     public void findByUserIdAndSocialId_test() {

@@ -28,7 +28,8 @@ public interface SocialMemberRepository extends JpaRepository<SocialMember, Inte
     @Query("SELECT sm FROM SocialMember sm " +
             "JOIN sm.socialId s " +
             "JOIN sm.userId u " +
-            "WHERE sm.state = 'APPROVED' AND s.id = :socialId")
+            "WHERE sm.state = 'APPROVED' AND s.id = :socialId " +
+            "ORDER BY u.nickname ASC")
     List<SocialMember> findSocialMembersBySocialId(@Param("socialId") Integer socialId);
 
     @Query("select sm from SocialMember sm where sm.socialId.id = :socialId and sm.role = 'MANAGER'")

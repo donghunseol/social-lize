@@ -6,6 +6,8 @@ import com.example.project._core.errors.exception.Exception400;
 import com.example.project._core.errors.exception.Exception401;
 import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
+import com.example.project.board.BoardRepository;
+import com.example.project.reply.ReplyRepository;
 import com.example.project.social.Social;
 import com.example.project.social.SocialRepository;
 import com.example.project.user.User;
@@ -14,6 +16,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +26,8 @@ public class SocialMemberService {
     private final SocialMemberRepository socialMemberRepository;
     private final SocialRepository socialRepository;
     private final UserRepository userRepository;
+    private final BoardRepository boardRepository;
+    private final ReplyRepository replyRepository;
 
     // 소셜 가입 신청
     @Transactional
@@ -106,5 +111,23 @@ public class SocialMemberService {
         }
 
         return new SocialMemberResponse.MemberDTO(social, socialMember.getUserId().getNickname(), socialMemberCount, isManager, waiting);
+    }
+
+    //사용자가 소셜에 작성한 글과 댓글 갯수 가져오기
+    public SocialMemberResponse.ArticleCount getArticleCount(Integer userId, Integer socialId) {
+        return new SocialMemberResponse.ArticleCount(
+                boardRepository.getArticleCountByBoardSocialIdAndUserId(userId, socialId),
+                replyRepository.getCountByUserIdAndSocialId(userId, socialId)
+        );
+    }
+
+    public List<SocialMemberResponse.SocialMemberDTO> getSocialMembersBySocialId(Integer socialId) {
+        List<SocialMember> socialMemberList = socialMemberRepository.findSocialMembersBySocialId(socialId);
+        return socialMemberList.stream().map(SocialMemberResponse.SocialMemberDTO::new).toList();
+//        List<SocialMemberResponse.SocialMemberDTO> socialMemberDTOList = new ArrayList<>();
+//        for (SocialMember socialMember : socialMemberList) {
+//            socialMemberDTOList.add( new SocialMemberResponse.SocialMemberDTO(socialMember) );
+//        }
+//        return socialMemberDTOList;
     }
 }
