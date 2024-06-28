@@ -41,6 +41,7 @@ public interface SocialMemberRepository extends JpaRepository<SocialMember, Inte
             "WHERE sm.state = 'APPROVED' AND s.id = :socialId ")
     List<SocialMember> findSocialMembersBySocialId(@Param("socialId") Integer socialId, Sort sort);
 
+    // 소셜 리더 찾기
     @Query("select sm from SocialMember sm where sm.socialId.id = :socialId and sm.role = 'MANAGER'")
     SocialMember findBySocialId(@Param("socialId") Integer socialId);
 

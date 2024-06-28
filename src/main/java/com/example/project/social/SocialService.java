@@ -137,7 +137,6 @@ public class SocialService {
                     }
                 }
             }
-
             boardDTOs.add(boardDTO);
         }
 
@@ -239,7 +238,7 @@ public class SocialService {
     @Transactional
     public void deleteSocial(Integer id) {
         Social social = socialRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 소셜은 존재하지 않습니다."));
+                .orElseThrow(() -> new Exception404("해당 소셜은 존재하지 않습니다."));
 
         // 상태를 DELETED로 변경
         social.setStatus(SocialStateEnum.DELETED);
@@ -280,10 +279,18 @@ public class SocialService {
     }
     // 소셜 별 앨범, 파일 리스트 출력
     public SocialResponse.AlbumAndFileListDTO getSocialAlbumList(Integer socialId) {
-
         // 소셜 별 앨범 리스트 가져오기
         List<Album> albumList = albumRepository.findBySocialId(socialId);
         List<File> fileList = fileRepository.findBySocialId(socialId);
+
+
+        // 소셜 조회
+        Social social = socialRepository.findById(socialId)
+                .orElseThrow(() -> new Exception404("해당 소셜은 존재하지 않습니다."));
+        // 소셜 멤버 수
+        Integer socialMemberCount = socialMemberRepository.countBySocialId(socialId);
+        // 소셜 리더
+        SocialMember socialMemberLeader = socialMemberRepository.findBySocialId(socialId);
 
         // 소셜에 앨범이 비었을 때 null 을 반환
         if (albumList == null) {
@@ -296,7 +303,7 @@ public class SocialService {
         }
 
         // 앨범, 파일 리스트 DTO 담기
-        return new SocialResponse.AlbumAndFileListDTO(socialId, albumList, fileList);
+        return new SocialResponse.AlbumAndFileListDTO(social, albumList, fileList, socialMemberCount, socialMemberLeader.getUserId().getNickname());
     }
 
     public List<UserResponse.MainDTO.MySocialDTO> getMySocialList(Integer userId) {

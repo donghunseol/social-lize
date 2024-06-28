@@ -45,7 +45,8 @@ public class FileService {
         String filePath = null;
         String fileName = null;
 
-        if(reqDTO.getFile() != null){
+        // 파일 업로드
+        if(reqDTO.getFile() != null && !reqDTO.getFile().isEmpty()){
             FileUtil.FileUploadResult uploadResult = FileUtil.uploadFile("./upload", reqDTO.getFile());
             filePath = uploadResult.getFilePath();
             fileName = uploadResult.getFileName();
