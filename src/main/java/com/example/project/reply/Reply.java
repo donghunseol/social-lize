@@ -29,6 +29,10 @@ public class Reply {
     @ManyToOne(fetch = FetchType.LAZY)
     private User userId; // 유저 번호
 
+    @ManyToOne
+    @JoinColumn(name = "parent_reply_id")
+    private Reply parentReply; // 부모 댓글 ID
+
     @Column(nullable = false)
     private String comment; // 댓글 내용
 
@@ -41,10 +45,11 @@ public class Reply {
 
 
     @Builder
-    public Reply(Integer id, Board boardId, User userId, String comment, ReplyEnum state, LocalDateTime createdAt) {
+    public Reply(Integer id, Board boardId, User userId, Reply parentReply, String comment, ReplyEnum state, LocalDateTime createdAt) {
         this.id = id;
         this.boardId = boardId;
         this.userId = userId;
+        this.parentReply = parentReply;
         this.comment = comment;
         this.state = state;
         this.createdAt = createdAt;
