@@ -20,7 +20,7 @@ public class ReplyController {
 
     // 댓글 삭제
     @PutMapping("/board/{id}/reply/delete")
-    public String delete(@PathVariable Integer id){
+    public String delete(@PathVariable Integer id) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         replyService.delete(id, sessionUser.getId());
         return "redirect:/social/detail/" + id;
@@ -30,9 +30,20 @@ public class ReplyController {
     @PostMapping("/reply/save")
     public String save(@RequestParam("socialId") Integer socialId,
                        @RequestParam("boardId") Integer boardId,
-                       ReplyRequest.SaveDTO reqDTO){
+                       @RequestParam("role") Integer role,
+                       ReplyRequest.SaveDTO reqDTO) {
+
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         replyService.save(reqDTO, sessionUser.getId(), boardId);
-        return "redirect:/social/detail/" + socialId;
+
+        if (role == 1) {
+            return "redirect:/social/detail/" + socialId;
+        } else if (role == 2) {
+            return "redirect:/bookmark/my/list";
+        } else if (role == 3) {
+            return "redirect:/mypage/myrecord";
+        } else {
+            return "redirect:/mypage/myrecord";
+        }
     }
 }

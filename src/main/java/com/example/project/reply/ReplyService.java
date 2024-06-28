@@ -38,14 +38,11 @@ public class ReplyService {
     }
 
     @Transactional
-    public void save(ReplyRequest.SaveDTO reqDTO, Integer userId, Integer socialId) {
+    public void save(ReplyRequest.SaveDTO reqDTO, Integer userId, Integer boardId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception403("로그인이 필요합니다."));
 
-        Social social = socialRepository.findById(socialId)
-                .orElseThrow(() -> new Exception404("없는 게시글에 댓글을 작성할 수 없어요"));
-
-        Board board = boardRepository.findById(social.getId())
+        Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new Exception404("관련된 게시글이 없어요"));
 
         Reply reply = reqDTO.toEntity(user, board);

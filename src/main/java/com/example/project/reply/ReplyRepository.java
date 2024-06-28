@@ -25,4 +25,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Integer> {
 
     @Query("select r from Reply r where r.id = :replyId and r.state = 'ACTIVE'")
     Reply findByActive(@Param("replyId") Integer replyId);
+
+    @Query(value = "SELECT * FROM reply_tb r WHERE r.board_id = :boardId AND r.state = 'ACTIVE' ORDER BY r.created_at DESC LIMIT 1", nativeQuery = true)
+    Reply findByBoardId(@Param("boardId") Integer boardId);
 }
