@@ -7,7 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- 알림(socketjs, stompjs 포함-->
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
@@ -19,11 +19,14 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Bootstrap JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js"
-            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"></script>
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"></script>
+    <!-- Bootstrap JavaScript CDN 추가 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/socialadd.css">
@@ -88,6 +91,7 @@
             margin-right: 20px;
             border: #adb5bd solid 1px;
         }
+
         .notificationno {
             position: absolute;
             top: 15px;
@@ -103,7 +107,7 @@
             font-weight: bold;
             border: #6c757d solid 1px;
             z-index: 1050;
-            display:none;
+            display: none;
         }
     </style>
 </head>
@@ -118,52 +122,53 @@
             renderUnCheckedCount();
         });
     });
-    $(document).ready(function() {
+    $(document).ready(function () {
         //화면 로딩시 읽지않은 알림 개수를 불러온다.
         renderUnCheckedCount();
 
         //이벤트 핸들러 설정
-        $("#dropdownNotification").click(function() {
+        $("#dropdownNotification").click(function () {
             renderNotification();
         });
     });
 
-    function renderUnCheckedCount(){
+    function renderUnCheckedCount() {
         $.ajax({
             url: '/notification/get/unChecked',
             method: 'GET',
-            success: function(response) {
+            success: function (response) {
                 renderNotificationCount(response);
             },
-            error: function() {
+            error: function () {
                 alert('error unchekced');
             }
         });
     }
+
     //알림 목록을 가져와서 dropdown 메뉴에 그린다.
-    function renderNotification(){
+    function renderNotification() {
         $.ajax({
             url: '/notification/get',
             method: 'GET',
-            success: function(response) {
+            success: function (response) {
                 updateAllChecked();
                 Mustache.tags = ['[[', ']]']; //서버 사이드의 구분자와 클라이언트의 구분자를 구분하기위함. 클라이언트에서는 이것을 사용함
                 var template = $('#data-template').html();
                 var rendered = Mustache.render(template, response);
                 $('#data-container').html(rendered);
             },
-            error: function() {
+            error: function () {
                 $('#data-container').html('<p>Error loading data.</p>');
             }
         });
     }
 
     //인자로 받은 값대로 알림 개수를 그린다.
-    function renderNotificationCount(count){
+    function renderNotificationCount(count) {
         //읽지 않은 알림 개수가 0이면 알림숫자(0)을 표시하지않고 1이상일때만 표시한다.
-        if(count=="0"){
+        if (count == "0") {
             $("#test_notification_div").hide();
-        }else{
+        } else {
             $("#test_notification_div").html(count);
             $("#test_notification_div").show();
         }
@@ -171,14 +176,14 @@
     }
 
     //모든 알림을 읽음처리 한다
-    function updateAllChecked(){
+    function updateAllChecked() {
         $.ajax({
             url: '/notification/set/allChecked',
             method: 'GET',
-            success: function(response) {
+            success: function (response) {
                 renderNotificationCount(0);
             },
-            error: function() {
+            error: function () {
                 alert('update error');
             }
         });

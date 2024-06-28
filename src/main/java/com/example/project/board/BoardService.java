@@ -91,9 +91,7 @@ public class BoardService {
 
         return new BoardResponse.MyBoardAndReplyListDTO(boardDTOs, replyBoardDTOs);
     }
-
-
-
+  
     public BoardResponse.BookMarkBoardListDTO boardList(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
@@ -143,7 +141,6 @@ public class BoardService {
 
     @Transactional
     public void save(Integer socialId, BoardRequest.SaveDTO reqDTO, Integer userId) {
-        System.out.println("들어옴1");
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception401("유저 정보가 없습니다."));
 
@@ -152,10 +149,8 @@ public class BoardService {
 
         Board board = boardRepository.save(reqDTO.boardToEntity(social, user));
 
-        System.out.println("들어옴2");
         // 이미지 파일 처리
         if (reqDTO.getImgFiles() != null) {
-            System.out.println("들어옴3");
             for (int i = 0; i < reqDTO.getImgFiles().size() - 1; i++) {
                 if (i >= 0) {
                     MultipartFile imgFile = reqDTO.getImgFiles().get(i);
@@ -169,7 +164,6 @@ public class BoardService {
 
         // 동영상 파일 처리
         if (reqDTO.getVideoFiles() != null) {
-            System.out.println("들어옴4");
             for (int i = 0; i < reqDTO.getVideoFiles().size() - 1; i++) {
                 if (i >= 0) {
                     MultipartFile videoFile = reqDTO.getVideoFiles().get(i);
@@ -183,6 +177,9 @@ public class BoardService {
 
                     System.out.println("저장 대성공!");
                     System.out.println("이건 변환된 파일경로 : " + hlsPath);
+
+                    videoPath.replace("\\", "/");
+                    hlsPath.replace("\\", "/");
 
                     albumRepository.save(reqDTO.albumVideoToEntity(user, board, hlsPath, videoPath, AlbumEnum.VIDEO));
                 }

@@ -15,9 +15,17 @@ public class HlsUtil {
         return Paths.get("upload", videoFileName).toAbsolutePath().toString();
     }
 
-    // 변환된 HLS 비디오 파일 경로를 생성하는 메서드
+    // 변환된 HLS 비디오 파일 경로를 생성하는 메서드 (확장자 제거 후 경로 생성)
     public static String getConvertVideoPath(String outputFileName) {
-        return Paths.get("src", "main", "resources", "convert", outputFileName).toAbsolutePath().toString();
+        // 확장자 제거
+        String baseFileName = outputFileName;
+        int pos = outputFileName.lastIndexOf(".");
+        if (pos != -1) {
+            baseFileName = outputFileName.substring(0, pos);
+        }
+
+        // 경로 생성
+        return Paths.get("src", "main", "resources", "convert", baseFileName + ".m3u8").toAbsolutePath().toString();
     }
 
     // HLS 변환된 비디오 리소스를 반환하는 메서드

@@ -29,6 +29,8 @@ public class BoardController {
         System.out.println("동영상 이름 : " +reqDTO.getVideoFiles().getFirst().getOriginalFilename());
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         boardService.save(socialId, reqDTO, sessionUser.getId());
+
+        System.out.println("-------------------------------------------------------------"+reqDTO.getVideoFiles().getFirst().getOriginalFilename());
         // 나머지 데이터 처리 로직
         return "redirect:/social/detail/" + socialId;
     }

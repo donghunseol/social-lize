@@ -16,13 +16,13 @@
 
                             <div class="cont_area">
                                 <div id="tab1" class="cont" style="display:block;">
-                                    <form action="/room/update/{{stayId}}" method="post"
+                                    <form action="/admin/category-name/{{categoryDetail.id}}/update" method="post"
                                           enctype="multipart/form-data">
                                         <div class="file-box">
                                             <span>이미지등록</span>
                                             <ul class="image-preview only"></ul>
                                             <input type="file" id="file01" class="real-upload" accept="/image/*"
-                                                   name="imageFile" required>
+                                                   name="imagePath" required>
                                             <input class="upload-name" type="text" value="첨부파일" placeholder="첨부파일">
                                             <label for="file01">파일찾기</label>
                                             <em class="guide">이미지는 1개만 등록가능합니다<b>*</b></em>
@@ -30,8 +30,8 @@
                                         <div class="join-form-item">
                                             <label for="room-number">카테고리 명</label>
                                             <div class="input-wrapper">
-                                                <input type="text" id="category-number" placeholder="카테고리 명"
-                                                       name="categoryNumber">
+                                                <input type="text" id="category-name" placeholder="카테고리 명"
+                                                       name="name" value="{{categoryDetail.name}}">
                                             </div>
                                         </div>
 
