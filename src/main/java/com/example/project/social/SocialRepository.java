@@ -17,6 +17,6 @@ public interface SocialRepository extends JpaRepository<Social, Integer> {
     Integer findAllActiveSocial();
 
     // 활동 소셜 리스트 조회 (관리자)
-    @Query("select s from Social s where s.status = 'ACTIVE'")
+    @Query("select s from Social s where s.status = 'ACTIVE' ORDER BY s.id DESC")
     List<Social> findAllActiveSocialList();
 }

@@ -28,7 +28,7 @@ public class ReportResponse {
             private String content;
             private String reportNickname;
             private String createdAt;
-            private ReportResultEnum result;
+            private String result;
 
             public ReportList(Report report) {
                 this.reportId = report.getId();
@@ -36,7 +36,7 @@ public class ReportResponse {
                 this.content = report.getContent();
                 this.reportNickname = report.getReportUserId().getNickname();
                 this.createdAt = LocalDateTimeFormatter.convert(report.getCreatedAt());
-                this.result = report.getResult();
+                this.result = report.getResult().getValue();
             }
         }
     }

@@ -21,7 +21,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     List<Board> findByBoards(@Param("userId") Integer userId);
 
     // 유저가 작성한 전체 게시글 조회 (관리자)
-    @Query("SELECT b FROM Board b JOIN b.socialId s JOIN b.userId u WHERE u.role = 'USER'")
+    @Query("SELECT b FROM Board b JOIN b.socialId s JOIN b.userId u WHERE u.role = 'USER' ORDER BY b.id DESC")
     List<Board> findAllBoardList();
 
     // 작성된 게시글 상세 조회 (관리자)
