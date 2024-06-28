@@ -16,8 +16,8 @@
                                     <h3>신고 상세</h3>
                                     <div class="review-content">
                                         <div class="review-user-info">
-                                            <span>작성자 : 설동훈</span>
-                                            <span>작성일자 : 2024.06.21</span>
+                                            <span>작성자 : {{reportDetail.userNickname}}</span>
+                                            <span>작성일자 : {{reportDetail.createdAt}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -25,31 +25,34 @@
                                     <h3>신고 사유</h3>
                                 </div>
                                 <p class="reply-icon black">게시글</p>
+                                <div class="review-content-reply">{{reportDetail.reportBoard.content}}</div>
                                 <div class="review-user-info">
-                                    <span>작성자 : 설동훈</span>
-                                    <span>작성일자 : 2024.06.20</span>
+                                    <span>작성자 : {{reportDetail.reportBoard.userNickname}}</span>
+                                    <span>작성일자 : {{reportDetail.reportBoard.createdAt}}</span>
                                 </div>
                                 <div class="review-content">
                                     <div class="reply-content">
                                         <p class="reply-icon">신고 사유</p>
                                         <div class="reply-user-info">
-                                            <span>작성자 : 장유진</span>
-                                            <div class="review-content-reply">부적절한 게시글의 내용이예요</div>
+                                            <span>작성자 : {{reportDetail.userNickname}}</span>
+                                            <div class="review-content-reply">{{reportDetail.content}}</div>
                                         </div>
                                         <div></div>
                                     </div>
                                 </div>
                                 <div class="buttons">
+                                    <div class="button-wrapper" style="margin-right: 3px">
+                                        <form action="/admin/report/{{reportDetail.id}}/approval" method="post">
+                                            <button type="submit" class="btn approval">적합</button>
+                                        </form>
+                                    </div>
                                     <div class="button-wrapper">
-                                        <a class="btn refuse"
-                                           onclick="refuseReport({{reportId}}, {{review.id}})">부적합</a>
+                                        <form action="/admin/report/{{reportDetail.id}}/refuse" method="post">
+                                            <button type="submit" class="btn refuse">부적합</button>
+                                        </form>
                                     </div>
                                     <div class="button-wrapper">
                                         <a class="btn black" href="/admin/report-list">목록보기</a>
-                                    </div>
-                                    <div class="button-wrapper">
-                                        <a class="btn approval"
-                                           onclick="approvalReport({{reportId}}, {{review.id}})">적합</a>
                                     </div>
                                 </div>
                             </li>
@@ -62,52 +65,7 @@
     </section>
 </main>
 <script>
-    function resize(obj) {
-        obj.style.height = '1px';
-        obj.style.height = (12 + obj.scrollHeight) + 'px';
-    }
 
-    function approvalReport(reportId, reviewId) {
-        fetch(`/admin/reports/${reportId}/approval-review-${reviewId}`, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json', // JSON 요청을 위해 필요
-            },
-        }).then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to approval the report.');
-            }
-            return response.json(); // JSON 응답을 파싱
-        })
-                .then(data => {
-                    window.location.href = data.redirectUrl; // 서버로부터 받은 URL로 리다이렉션
-                })
-                .catch(error => {
-                    console.error('An error occurred:', error);
-                });
-    }
-
-    function refuseReport(reportId, reviewId) {
-        fetch(`/admin/reports/${reportId}/refuse-review-${reviewId}`, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json', // JSON 요청을 위해 필요
-            },
-        }).then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to approval the report.');
-            }
-            return response.json(); // JSON 응답을 파싱
-        })
-                .then(data => {
-                    window.location.href = data.redirectUrl; // 서버로부터 받은 URL로 리다이렉션
-                })
-                .catch(error => {
-                    console.error('An error occurred:', error);
-                });
-    }
 </script>
 </body>
 
