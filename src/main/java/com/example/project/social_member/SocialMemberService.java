@@ -90,11 +90,6 @@ public class SocialMemberService {
         socialMemberRepository.save(socialMember);
     }
 
-    // 소셜 멤버 리스트 조회
-    public List<SocialMemberResponse.SocialMemberList> getSocialMembersBySocialId(Integer socialId) {
-        return socialMemberRepository.findSocialMembersBySocialId(socialId);
-    }
-
     public SocialMemberResponse.MemberDTO member(Integer userId, Integer socialId) {
         Boolean isManager = true;
 

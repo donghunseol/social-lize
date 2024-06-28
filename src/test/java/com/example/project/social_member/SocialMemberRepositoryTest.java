@@ -81,20 +81,6 @@ public class SocialMemberRepositoryTest {
 
     }
 
-    public void findSocialMembersBySocialId_test() {
-        // given
-        int socialId = 2;
-
-        // when
-        List<SocialMemberResponse.SocialMemberList> socialMemberList = socialMemberRepository.findSocialMembersBySocialId(socialId);
-
-        // eye
-        socialMemberList.forEach(System.out::println);
-
-        // then
-
-    }
-
     @Test
     public void findByManager_test() {
         // given

@@ -4,6 +4,7 @@ import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.errors.exception.Exception401;
 import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
+import com.example.project._core.utils.HlsUtil;
 import com.example.project._core.utils.ImageVideoUtil;
 import com.example.project.album.Album;
 import com.example.project.album.AlbumRepository;
@@ -26,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -87,6 +89,7 @@ public class BoardService {
 
     @Transactional
     public void save(Integer socialId, BoardRequest.SaveDTO reqDTO, Integer userId) {
+        System.out.println("들어옴1");
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception401("유저 정보가 없습니다."));
 
@@ -95,8 +98,10 @@ public class BoardService {
 
         Board board = boardRepository.save(reqDTO.boardToEntity(social, user));
 
+        System.out.println("들어옴2");
         // 이미지 파일 처리
         if (reqDTO.getImgFiles() != null) {
+            System.out.println("들어옴3");
             for (int i = 0; i < reqDTO.getImgFiles().size() - 1; i++) {
                 if (i >= 0) {
                     MultipartFile imgFile = reqDTO.getImgFiles().get(i);
@@ -110,31 +115,47 @@ public class BoardService {
 
         // 동영상 파일 처리
         if (reqDTO.getVideoFiles() != null) {
+            System.out.println("들어옴4");
             for (int i = 0; i < reqDTO.getVideoFiles().size() - 1; i++) {
                 if (i >= 0) {
                     MultipartFile videoFile = reqDTO.getVideoFiles().get(i);
                     ImageVideoUtil.FileUploadResult a = ImageVideoUtil.uploadFile(videoFile);
                     String videoPath = a.getFilePath();
+                    System.out.println("이건 파일경로 : " + videoPath);
 
-                    albumRepository.save(reqDTO.albumToEntity(user, board, videoPath, AlbumEnum.VIDEO));
+                    // HLS 변환을 수행하고 변환된 파일 경로를 얻어옴
+                    String hlsPath = HlsUtil.getConvertVideoPath(videoPath);
+                    HlsUtil.convertHls(videoPath);
+
+                    System.out.println("저장 대성공!");
+                    System.out.println("이건 변환된 파일경로 : " + hlsPath);
+
+                    albumRepository.save(reqDTO.albumVideoToEntity(user, board, hlsPath, videoPath, AlbumEnum.VIDEO));
                 }
             }
         }
 
         // 해시태그 처리
-        if (reqDTO.getHashtags() != null) {
-            for (String hashtag : reqDTO.getHashtags()) {
-                String cleanHashtag = hashtag.replaceAll("[\"\\[\\]]", "");
-                Hashtag hashtagEntity = new Hashtag();
-                hashtagEntity.setName(cleanHashtag);
-                hashtagEntity.setBoardId(board);
-                hashtagRepository.save(hashtagEntity);
+        if (reqDTO.getHashtags() != null && reqDTO.getHashtags().length > 0) {
+            String firstHashtag = reqDTO.getHashtags()[0];
+
+            // 첫 번째 요소가 빈 문자열이거나 "[]" 인지 확인
+            if (!firstHashtag.isEmpty() && !firstHashtag.equals("[]")) {
+                for (String hashtag : reqDTO.getHashtags()) {
+                    // 각 해시태그에서 불필요한 대괄호를 제거
+                    String cleanHashtag = hashtag.replaceAll("[\"\\[\\]]", "").trim();
+                    Hashtag hashtagEntity = new Hashtag();
+                    hashtagEntity.setName(cleanHashtag);
+                    hashtagEntity.setBoardId(board);
+                    hashtagRepository.save(hashtagEntity);
+
+                    System.out.println(cleanHashtag);
+                }
             }
         }
     }
 
     public BoardResponse.BoardDetailDTO detail(Integer boardId) {
-
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new Exception404("게시물을 찾을 수 없습니다"));
 
@@ -162,8 +183,14 @@ public class BoardService {
     }
 
     // 유저 작성 게시글 리스트 조회
-    public List<BoardResponse.BoardList> getBoardList() {
-        return boardRepository.findAllBoardList();
+    public BoardResponse.BoardListDTO getBoardList() {
+        Integer count = boardRepository.findByBoardRole();
+        List<Board> boardListDTO = boardRepository.findAllBoardList();
+        List<BoardResponse.BoardListDTO.BoardList> boardList = boardListDTO.stream()
+                .map(BoardResponse.BoardListDTO.BoardList::new)
+                .collect(Collectors.toList());
+
+        return new BoardResponse.BoardListDTO(count, boardList);
     }
 
     // 유저 작성 게시글 상세 조회

@@ -27,8 +27,8 @@ public class AdminRestController {
     @GetMapping("/user-list")
     public ResponseEntity<?> userList() {
 //        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        List<UserResponse.UserList> userList = userService.getUserList();
-        return ResponseEntity.ok(new ApiUtil<>(userList));
+        UserResponse.UserListDTO userListDTO = userService.getUserList();
+        return ResponseEntity.ok(new ApiUtil<>(userListDTO));
     }
 
     // 회원 상세 조회
@@ -70,21 +70,21 @@ public class AdminRestController {
     // 카테고리 리스트 조회
     @GetMapping("/category-list")
     public ResponseEntity<?> categoryList() {
-        List<CategoryNameResponse.CategoryDTO> categoryList = categoryNameService.getCategoryList();
-        return ResponseEntity.ok(new ApiUtil<>(categoryList));
+        CategoryNameResponse.CategoryListDTO categoryListDTO = categoryNameService.getCategoryList();
+        return ResponseEntity.ok(new ApiUtil<>(categoryListDTO));
     }
 
     // 소셜 리스트 조회
     @GetMapping("/social-list")
     public ResponseEntity<?> socialList() {
-        List<SocialResponse.SocialDTO> socialList = socialService.getSocialList();
-        return ResponseEntity.ok(new ApiUtil<>(socialList));
+        SocialResponse.SocialListDTO socialListDTO = socialService.getSocialList();
+        return ResponseEntity.ok(new ApiUtil<>(socialListDTO));
     }
 
     // 소셜 상세 조회
     @GetMapping("/social/{socialId}")
     public ResponseEntity<?> socialDetail(@PathVariable Integer socialId) {
-        SocialResponse.Detail socialDetail = socialService.getSocialDetail(socialId);
+        SocialResponse.DetailDTO socialDetail = socialService.getSocialDetail(socialId);
         return ResponseEntity.ok(new ApiUtil<>(socialDetail));
     }
 
@@ -93,12 +93,5 @@ public class AdminRestController {
     public ResponseEntity<?> socialDelete(@PathVariable Integer socialId) {
         socialService.deleteSocial(socialId);
         return ResponseEntity.ok(new ApiUtil<>(null));
-    }
-
-    // 소셜 멤버 리스트 조회
-    @GetMapping("/social/{socialId}/member-list")
-    public ResponseEntity<?> socialMemberList(@PathVariable Integer socialId) {
-        List<SocialMemberResponse.SocialMemberList> socialMemberList = socialMemberService.getSocialMembersBySocialId(socialId);
-        return ResponseEntity.ok(new ApiUtil<>(socialMemberList));
     }
 }

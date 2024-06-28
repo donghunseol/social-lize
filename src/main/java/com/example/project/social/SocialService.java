@@ -13,7 +13,6 @@ import com.example.project.album.AlbumRepository;
 import com.example.project.board.Board;
 import com.example.project.board.BoardRepository;
 import com.example.project.board.BoardResponse;
-import com.example.project.board.BoardService;
 import com.example.project.bookmark.BookmarkRepository;
 import com.example.project.category.Category;
 import com.example.project.category.CategoryRepository;
@@ -135,7 +134,6 @@ public class SocialService {
                     if (boardDTO.getHashtagList().get(0).getName().equals("")) {
                         hashEmpty = true;
                         boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
-                        boardDTOs.add(boardDTO);
                     }
                 }
             }
@@ -249,10 +247,12 @@ public class SocialService {
     }
 
     // 소셜 리스트 조회 (관리자)
-    public List<SocialResponse.SocialDTO> getSocialList() {
-        List<Social> socials = socialRepository.findAll();
-        return socials.stream()
-                .map(social -> new SocialResponse.SocialDTO(
+    public SocialResponse.SocialListDTO getSocialList() {
+        Integer count = socialRepository.findAllActiveSocial();
+        List<Social> socialListDTO = socialRepository.findAll();
+
+        List<SocialResponse.SocialListDTO.SocialList> socialList = socialListDTO.stream()
+                .map(social -> new SocialResponse.SocialListDTO.SocialList(
                         social.getId(),
                         social.getName(),
                         social.getCategory().stream().map(category -> category.getCategoryNameId().getName()).collect(Collectors.toList()),
@@ -260,22 +260,23 @@ public class SocialService {
                         LocalDateTimeFormatter.convert(social.getCreatedAt())
                 ))
                 .collect(Collectors.toList());
+
+        return new SocialResponse.SocialListDTO(count, socialList);
     }
 
     // 소셜 상세 조회 (관리자)
-    public SocialResponse.Detail getSocialDetail(Integer socialId) {
+    public SocialResponse.DetailDTO getSocialDetail(Integer socialId) {
         Social social = socialRepository.findById(socialId)
                 .orElseThrow(() -> new Exception404("해당 소셜은 존재하지 않습니다."));
+        List<SocialMember> socialMemberListDTO = socialMemberRepository.findSocialMembersBySocialId(social.getId());
 
-        return new SocialResponse.Detail(
-                social.getId(),
-                social.getName(),
-                social.getImage(),
-                social.getInfo(),
-                social.getCategory().stream().map(category -> category.getCategoryNameId().getName()).collect(Collectors.toList()),
-                socialMemberRepository.countBySocialId(social.getId()),
-                LocalDateTimeFormatter.convert(social.getCreatedAt())
-        );
+        SocialResponse.DetailDTO.Detail detail = new SocialResponse.DetailDTO.Detail(social);
+        Integer memberCount = socialMemberRepository.findAllBySocialMemberState(social.getId());
+        List<SocialResponse.DetailDTO.SocialMemberList> socialMemberList = socialMemberListDTO.stream()
+                .map(SocialResponse.DetailDTO.SocialMemberList::new)
+                .collect(Collectors.toList());
+
+        return new SocialResponse.DetailDTO(detail, memberCount, socialMemberList);
     }
 
     // 소셜 별 앨범, 파일 리스트 출력

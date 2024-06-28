@@ -25,7 +25,7 @@ public class MypageController {
     public String bookmark(HttpServletRequest request) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         BoardResponse.SocialDetailDTO modal = boardService.boardList(sessionUser.getId());
-        request.setAttribute("modal", modal);
+        request.setAttribute("modals", modal);
 
         return "/mypage/bookmarkForm";
     }

@@ -15,6 +15,5 @@ public class FileRequest {
         private Integer userId; // 유저 번호
 
         private MultipartFile file; // 파일
-
     }
 }

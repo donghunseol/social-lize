@@ -11,6 +11,8 @@ import java.util.UUID;
 
 public class ImageVideoUtil {
 
+    private static final String UPLOAD_DIR = "./upload/";
+
     // 파일 업로드 결과를 저장하는 클래스, 파일 이름과 파일 경로를 포함합니다.
     public static class FileUploadResult {
         private String fileName; // 업로드된 파일의 이름
@@ -42,6 +44,9 @@ public class ImageVideoUtil {
 
     // 하나의 파일을 업로드하는 메서드
     public static FileUploadResult uploadFile(MultipartFile file) {
+        String contentType = file.getContentType();
+        System.out.println("ContentType: " + contentType); // ContentType 출력 (디버깅 용)
+
         // 파일이 이미지 또는 영상이 아닌 경우 예외를 던짐
         if (!isImageOrVideoFile(file)) {
             throw new IllegalArgumentException("이미지 또는 영상 파일만 업로드할 수 있습니다.");
@@ -49,6 +54,7 @@ public class ImageVideoUtil {
 
         // UUID를 사용하여 고유한 파일 이름 생성
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+
         // 지정된 디렉토리에 파일 경로 생성
         Path filePath = Paths.get("./upload", fileName);
 
@@ -57,6 +63,12 @@ public class ImageVideoUtil {
             Files.createDirectories(filePath.getParent());
             // 지정된 경로에 파일 작성
             Files.write(filePath, file.getBytes());
+
+            // 동영상인 경우 HLS로 변환
+            if (file.getContentType().startsWith("video/")) {
+                HlsUtil.convertHls(fileName);
+            }
+
         } catch (Exception e) {
             // 오류가 발생하면 스택 트레이스를 출력하고 런타임 예외를 던짐
             e.printStackTrace();

@@ -181,6 +181,11 @@
             // 선택된 해시태그들을 FormData에 추가 (배열 형태로)
             formData.append('hashtags', JSON.stringify(selectedHashtags));
 
+            // 전송할 데이터 확인 (추가 : 설동훈)
+            for (var pair of formData.entries()) {
+                console.log(pair[0]+ ', ' + pair[1]);
+            }
+
             // Ajax를 통해 서버로 데이터 전송
             $.ajax({
                 url: $(this).attr('action'),

@@ -35,6 +35,9 @@ dependencies {
     // - Redis에 세션 데이터 저장하여 다중 인스턴스 환경에서 세션 공유
     // - 자동 구성 기능을 통해 간편한 설정
 
+    // 동영상 스트리밍을 위해 추가 FFmepeg
+    implementation 'net.bramp.ffmpeg:ffmpeg:0.8.0'
+
     // 다중 채팅을 위한 의존성 추가
     implementation 'org.springframework.boot:spring-boot-starter-websocket' // WebSocket 및 STOMP 지원을 위한 의존성
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // Thymeleaf 템플릿 엔진을 위한 의존성
@@ -53,7 +56,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'com.google.code.gson:gson:2.8.9' // login token 요청
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3'
-
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-mustache'

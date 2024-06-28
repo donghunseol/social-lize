@@ -16,30 +16,30 @@
                             <div class="content top">
                                 <div class="img-wrapper">
                                     <img style="border: 1px solid #F8F8F8; border-radius: 15px;"
-                                         src="{{modal.image}}" alt="소셜 이미지">
+                                         src="{{socialDetail.detail.image}}" alt="소셜 이미지">
 
                                 </div>
                                 <div class="text-wrapper">
                                     <p class="text-item">
                                         <span class="head"><i class="fa-solid fa-house"></i><em>소셜명</em></span>
-                                        <span class="body">{{modal.name}}</span>
+                                        <span class="body">{{socialDetail.detail.name}}</span>
                                     </p>
                                     <p class="text-item">
                                             <span class="head"><i class="fa-solid fa-calendar-alt"></i><em>소셜
                                                     생성일</em></span>
-                                        <span class="body">{{modal.createdAt}}</span>
+                                        <span class="body">{{socialDetail.detail.createdAt}}</span>
                                     </p>
                                     <p class="text-item">
                                         <span class="head"><i class="fa-solid fa-tags"></i><em>카테고리</em></span>
                                         <span class="body" style="display: flex; gap: 1px;">
-                                            {{#categories}}
-                                                <span class="social-category-box-text">{{.}}</span>
-                                            {{/categories}}
+                                            {{#socialDetail.detail.categories}}
+                                                <span class="social-category-box-text">{{name}}</span>
+                                            {{/socialDetail.detail.categories}}
                                             </span>
                                     </p>
                                     <p class="text-item">
                                             <span class="head"><i class="fa-solid fa-comment"></i><em>소개글</em></span>
-                                        <span class="body">{{modal.info}}</span>
+                                        <span class="body">{{socialDetail.detail.info}}</span>
                                     </p>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                     <form action="/admin/users" method="get" style="width: 100%;">
                                         <ul class="search-box">
                                             <li class="search-left">
-                                                <span>총 회원<em> {{modal.memberCount}}</em> 명</span>
+                                                <span>총 회원<em> {{socialDetail.memberCount}}</em> 명</span>
                                             </li>
                                             <li class="search-right">
                                                 <div>
@@ -85,25 +85,17 @@
                                         </thead>
                                         <tbody>
 
+                                        {{#socialDetail.socialMemberList}}
                                         <tr>
-                                            <td>설동훈</td>
-                                            <td>seoldh@nate.com</td>
-                                            <td>1996.04.29</td>
-                                            <td>소셜관리자</td>
+                                            <td>{{nickname}}</td>
+                                            <td>{{email}}</td>
+                                            <td>{{birth}}</td>
+                                            <td>{{role}}</td>
                                             <td><span class="detail"
-                                                      onclick="location.href='/admin/user/userDetailForm.html'">상세보기</span>
+                                                      onclick="location.href='/admin/user/{{userId}}/detail'">상세보기</span>
                                             </td>
                                         </tr>
-
-                                        <tr>
-                                            <td>김완준</td>
-                                            <td>kimwj@nate.com</td>
-                                            <td>1995.06.22</td>
-                                            <td>일반회원</td>
-                                            <td><span class="detail"
-                                                      onclick="location.href='/admin/user/userDetailForm.html'">상세보기</span>
-                                            </td>
-                                        </tr>
+                                        {{/socialDetail.socialMemberList}}
 
                                         </tbody>
                                     </table>
