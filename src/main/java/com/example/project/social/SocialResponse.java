@@ -23,8 +23,23 @@ public class SocialResponse {
         private List<AlbumDTO> albums;
         private List<FileDTO> files;
 
-        public AlbumAndFileListDTO(Integer socialId, List<Album> albumList, List<File> fileList) {
-            this.socialId = socialId;
+        // 사이드바 데이터를 담기위해 추가
+        private String title;
+        private String name;
+        private Integer memberCount;
+        private String info;
+        private String image;
+
+        public AlbumAndFileListDTO(Social social, List<Album> albumList, List<File> fileList, Integer memberCount, String memberLeader) {
+            this.socialId = social.getId();
+
+            // 사이드바 데이터
+            this.title = social.getName();
+            this.name = memberLeader;
+            this.memberCount = memberCount;
+            this.info = social.getInfo();
+            this.image = social.getImage();
+
             this.albums = albumList.stream()
                     .map(AlbumDTO::new).collect(Collectors.toList());
             this.files = fileList.stream()
@@ -45,6 +60,8 @@ public class SocialResponse {
                 this.type = album.getType();
                 this.isVideo = (this.type == AlbumEnum.VIDEO);
                 this.isImage = (this.type == AlbumEnum.IMAGE);
+
+                System.out.println("AlbumDTO - path: " + this.path + ", type: " + this.type + ", isVideo: " + this.isVideo + ", isImage: " + this.isImage);
             }
         }
 

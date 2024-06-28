@@ -270,7 +270,6 @@ VALUES (1, 5, '첨부파일1', 'file1', now()),
 -- 이미지 및 영상 앨범 테이블
 INSERT INTO album_tb (user_id, board_id, path, type, created_at)
 VALUES (5, 4, '/upload/image1.jpg', 'IMAGE', now()),
-       (5, 4, '/upload/video1.mp4', 'VIDEO', now()),
        (1, 8, './upload/image2.png', 'IMAGE', now()),
        (5, 12, './upload/image3.png', 'IMAGE', now()),
        (2, 16, './upload/image4.png', 'IMAGE', now()),

@@ -9,6 +9,8 @@ import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -65,14 +68,12 @@ public class SocialController {
         return "social/socialaddForm";
     }
 
-    // 서랍 페이지
+    // 앨범 및 파일 페이지
     @GetMapping("/social/fileadd/{socialId}")
     public String fileAdd(@PathVariable Integer socialId, HttpServletRequest request) {
-        // 페이지에 뿌릴 데이터
         SocialResponse.AlbumAndFileListDTO respDTO = socialService.getSocialAlbumList(socialId);
-        request.setAttribute("models", respDTO);
-
-        return "/social/fileaddForm";
+        request.setAttribute("modal", respDTO);
+        return "social/fileaddForm";
     }
 
     //내 소셜 목록을 가져오기. ajax로 가져오기 위해 json으로 리턴한다.
@@ -84,12 +85,12 @@ public class SocialController {
     }
 
 
-    // 파일 저장
-    @PostMapping("/social/file/upload/{socialId}")
-    public String fileUpdate(@PathVariable Integer socialId, FileRequest.FileUploadDTO reqDTO) {
-        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
-
-        fileService.fileUpload(reqDTO, sessionUser.getId(), socialId);
-        return "redirect:/social/fileadd/" + reqDTO.getSocialId();
-    }
+//    // 파일 저장 ajax 로 인해 json 리턴
+//    @PostMapping("/social/file/upload/{socialId}")
+//    @ResponseBody
+//    public ResponseEntity<?> fileUpdate(@PathVariable Integer socialId, FileRequest.FileUploadDTO reqDTO) {
+//        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+//        fileService.fileUpload(reqDTO, sessionUser.getId(), socialId);
+//        return ResponseEntity.ok().body(Map.of("message", "File uploaded successfully"));
+//    }
 }

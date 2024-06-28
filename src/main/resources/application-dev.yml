@@ -41,3 +41,9 @@ spring:
         format_sql: true
         default_batch_fetch_size: 10
     defer-datasource-initialization: true
+
+# m3u8 을 비디오 타입으로 하기위해 추가
+  http:
+    media-types:
+      hls:
+        - application/vnd.apple.mpegurl
