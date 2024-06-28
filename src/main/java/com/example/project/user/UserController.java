@@ -1,5 +1,6 @@
 package com.example.project.user;
 
+import com.example.project._core.enums.UserEnum;
 import com.example.project._core.enums.UserStatusEnum;
 import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception600;
@@ -144,6 +145,9 @@ public class UserController {
             throw new Exception600("차단된 사용자입니다. 관리자에게 문의하세요.");
         }
         userUtil.saveSessionUser(loggedInUserDTO);
+        if (loggedInUserDTO.getRole() == UserEnum.MANAGER) {
+            return "redirect:/admin/";
+        }
         return "redirect:/";
     }
 

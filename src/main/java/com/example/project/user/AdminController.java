@@ -51,6 +51,12 @@ public class AdminController {
         return "admin/user/userDetailForm";
     }
 
+    @PostMapping("/user/{userId}/delete")
+    public String deleteUser(@PathVariable Integer userId) {
+        userService.deleteUser(userId);
+        return "redirect:/admin/user-list";
+    }
+
     // 카테고리 리스트 조회
     @GetMapping("/category-name-list")
     public String categoryNameListPage(HttpServletRequest request) {
