@@ -9,6 +9,7 @@ import com.example.project.social.Social;
 import com.example.project.social.SocialRepository;
 import com.example.project.user.User;
 import com.example.project.user.UserRepository;
+import com.example.project.social.SocialRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -50,5 +51,9 @@ public class ReplyService {
         Reply reply = reqDTO.toEntity(user, board);
 
         replyRepository.save(reply);
+    }
+
+    public Integer getCount(Integer userId, Integer socialId) {
+        return replyRepository.getCountByUserIdAndSocialId(userId, socialId);
     }
 }

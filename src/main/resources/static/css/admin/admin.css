@@ -317,6 +317,10 @@ ul.tab-nav li.current {
     background-color: #f8f8f8;
 }
 
+.red {
+    background-color: #f45858;
+}
+
 .approval {
     background: #03cf5d;
 }
@@ -455,8 +459,7 @@ ul.tab-nav li.current {
     border-radius: 5px;
     width: calc(50% - 50px);
     height: 40px;
-    margin-left: 2px;
-    margin-right: 2px;
+    margin: 0 5px;
     transition: background-color 0.3s ease;
 }
 

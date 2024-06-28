@@ -1,6 +1,7 @@
 package com.example.project.social_member;
 
 import com.example.project.social.Social;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,8 +30,16 @@ public interface SocialMemberRepository extends JpaRepository<SocialMember, Inte
     @Query("SELECT sm FROM SocialMember sm " +
             "JOIN sm.socialId s " +
             "JOIN sm.userId u " +
-            "WHERE sm.state = 'APPROVED' AND s.id = :socialId")
+            "WHERE sm.state = 'APPROVED' AND s.id = :socialId " +
+            "ORDER BY u.nickname ASC")
     List<SocialMember> findSocialMembersBySocialId(@Param("socialId") Integer socialId);
+
+    // 소셜 멤버 중 APPROVED 인 멤버 리스트, 파라미터로 sort를 전달하면 소팅해서 반환한다.
+    @Query("SELECT sm FROM SocialMember sm " +
+            "JOIN sm.socialId s " +
+            "JOIN sm.userId u " +
+            "WHERE sm.state = 'APPROVED' AND s.id = :socialId ")
+    List<SocialMember> findSocialMembersBySocialId(@Param("socialId") Integer socialId, Sort sort);
 
     @Query("select sm from SocialMember sm where sm.socialId.id = :socialId and sm.role = 'MANAGER'")
     SocialMember findBySocialId(@Param("socialId") Integer socialId);
