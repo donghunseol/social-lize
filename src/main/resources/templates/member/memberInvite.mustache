@@ -73,10 +73,11 @@
         <div class="invite-divider"></div>
         <div class="invite-member-sort">
             <select id="memberSort" onchange="sortMembers()">
-                <option value="name">이름순</option>
-                <option value="recent">최근 가입순</option>
+                <option value="userName">이름순</option>
+                <option value="joinDate">최근 가입순</option>
             </select>
         </div>
+        <div id="noResultsMessage" style="display: none;">검색된 멤버가 없습니다.</div>
         <div class="invite-member-list">
             {{#socialMemberList}}
                 {{#isManager}}
@@ -100,13 +101,13 @@
                 {{^isManager}}
                     <button class="invite-remove-button" onclick="removeMember(this)">삭제</button>
                 {{/isManager}}
+<!--                <div class="invite-divider"></div>-->
             </div>
-                <div class="invite-divider"></div>
             {{/socialMemberList}}
         </div>
         <div class="invite-member-search">
-            <input type="text" placeholder="멤버 이름 검색">
-            <button>검색</button>
+            <input id="memberSearchInput" oninput="searchMembers()" type="text" placeholder="멤버 이름 검색">
+            <button onclick="searchMembers();">검색</button>
         </div>
     </div>
     <div class="invite-chat-container">
@@ -134,6 +135,32 @@
     </div>
 
     <script>
+        function searchMembers() {
+            var input = document.getElementById('memberSearchInput').value.toLowerCase();
+            var memberList = document.querySelector('.invite-member-list');
+            var members = memberList.getElementsByClassName('invite-member-item');
+            var noResultsMessage = document.getElementById('noResultsMessage');
+            var hasResults = false;
+
+            // 멤버 리스트를 순회하며 필터링
+            for (var i = 0; i < members.length; i++) {
+                var memberName = members[i].querySelector('.invite-member-name').innerText.toLowerCase();
+                if (memberName.includes(input)) {
+                    members[i].style.display = ''; // 검색어와 일치하는 멤버를 표시
+                    hasResults = true;
+                } else {
+                    members[i].style.display = 'none'; // 검색어와 일치하지 않는 멤버를 숨김
+                }
+            }
+
+            // 검색 결과가 없는 경우 메시지 표시
+            if (hasResults) {
+                noResultsMessage.style.display = 'none';
+            } else {
+                noResultsMessage.style.display = 'block';
+            }
+        }
+
         function switchTab(event, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("invite-tab-content");
@@ -248,28 +275,33 @@
 
         function sortMembers() {
             var memberSort = document.getElementById('memberSort').value;
-            var memberList = document.querySelector('.invite-member-list');
-            var members = Array.from(memberList.getElementsByClassName('invite-member-item')).filter(function (member) {
-                return !member.classList.contains('leader');
-            });
+            var currentUrl = window.location.origin + window.location.pathname;
+            var newUrl = `${currentUrl}?sortBy=${memberSort}`;
+            window.location.href = newUrl; // 페이지를 새로운 URL로 다시 로드합니다.
+            //
+            // var memberSort = document.getElementById('memberSort').value;
+            // var memberList = document.querySelector('.invite-member-list');
+            // var members = Array.from(memberList.getElementsByClassName('invite-member-item')).filter(function (member) {
+            //     return !member.classList.contains('leader');
+            // });
+            //
+            // if (memberSort === 'name') {
+            //     members.sort(function (a, b) {
+            //         return a.querySelector('.invite-member-name').innerText.localeCompare(b.querySelector('.invite-member-name').innerText, 'ko');
+            //     });
+            // } else if (memberSort === 'recent') {
+            //     members.sort(function (a, b) {
+            //         var dateA = a.querySelector('.invite-member-details').innerText.match(/\d{2}\.\d{2}\.\d{2}/)[0].split('.');
+            //         var dateB = b.querySelector('.invite-member-details').innerText.match(/\d{2}\.\d{2}\.\d{2}/)[0].split('.');
+            //         var parsedDateA = new Date('20' + dateA[0], dateA[1] - 1, dateA[2]);
+            //         var parsedDateB = new Date('20' + dateB[0], dateB[1] - 1, dateB[2]);
+            //         return parsedDateB - parsedDateA;
+            //     });
+            // }
 
-            if (memberSort === 'name') {
-                members.sort(function (a, b) {
-                    return a.querySelector('.invite-member-name').innerText.localeCompare(b.querySelector('.invite-member-name').innerText, 'ko');
-                });
-            } else if (memberSort === 'recent') {
-                members.sort(function (a, b) {
-                    var dateA = a.querySelector('.invite-member-details').innerText.match(/\d{2}\.\d{2}\.\d{2}/)[0].split('.');
-                    var dateB = b.querySelector('.invite-member-details').innerText.match(/\d{2}\.\d{2}\.\d{2}/)[0].split('.');
-                    var parsedDateA = new Date('20' + dateA[0], dateA[1] - 1, dateA[2]);
-                    var parsedDateB = new Date('20' + dateB[0], dateB[1] - 1, dateB[2]);
-                    return parsedDateB - parsedDateA;
-                });
-            }
-
-            members.forEach(function (member) {
-                memberList.appendChild(member);
-            });
+            // members.forEach(function (member) {
+            //     memberList.appendChild(member);
+            // });
         }
 
         function removeMember(button) {
@@ -279,7 +311,19 @@
                 alert("멤버가 삭제되었습니다.");
             }
         }
+        // URL의 쿼리 파라미터에서 sortBy 값을 읽어오는 함수
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
 
+        // 페이지 로드 시 sortBy 값을 셀렉트 박스에 설정
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const sortBy = getQueryParam('sortBy');
+            if (sortBy) {
+                document.getElementById('memberSort').value = sortBy;
+            }
+        });
 
         // 채팅 기능 스크립트
 
