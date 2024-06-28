@@ -44,7 +44,8 @@ public class SocialMemberController {
     // 소셜 멤버 리스트 조회
     @GetMapping("/social/{socialId}/member-list")
     public ResponseEntity<?> socialMemberList(@PathVariable Integer socialId) {
-        List<SocialMemberResponse.SocialMemberList> socialMemberList = socialMemberService.getSocialMembersBySocialId(socialId);
-        return ResponseEntity.ok(new ApiUtil<>(socialMemberList));
+//        List<SocialMemberResponse.SocialMemberList> socialMemberList = socialMemberService.getSocialMembersBySocialId(socialId);
+//        return ResponseEntity.ok(new ApiUtil<>(socialMemberList));
+        return null;
     }
 }

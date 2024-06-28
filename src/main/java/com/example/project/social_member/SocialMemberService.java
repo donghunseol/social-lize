@@ -16,6 +16,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -118,5 +119,15 @@ public class SocialMemberService {
                 boardRepository.getArticleCountByBoardSocialIdAndUserId(userId, socialId),
                 replyRepository.getCountByUserIdAndSocialId(userId, socialId)
         );
+    }
+
+    public List<SocialMemberResponse.SocialMemberDTO> getSocialMembersBySocialId(Integer socialId) {
+        List<SocialMember> socialMemberList = socialMemberRepository.findSocialMembersBySocialId(socialId);
+        return socialMemberList.stream().map(SocialMemberResponse.SocialMemberDTO::new).toList();
+//        List<SocialMemberResponse.SocialMemberDTO> socialMemberDTOList = new ArrayList<>();
+//        for (SocialMember socialMember : socialMemberList) {
+//            socialMemberDTOList.add( new SocialMemberResponse.SocialMemberDTO(socialMember) );
+//        }
+//        return socialMemberDTOList;
     }
 }

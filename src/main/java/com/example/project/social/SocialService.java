@@ -278,7 +278,6 @@ public class SocialService {
 
         return new SocialResponse.DetailDTO(detail, memberCount, socialMemberList);
     }
-
     // 소셜 별 앨범, 파일 리스트 출력
     public SocialResponse.AlbumAndFileListDTO getSocialAlbumList(Integer socialId) {
 

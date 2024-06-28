@@ -55,8 +55,8 @@ public class SocialController {
         request.setAttribute("modal", modal);
 
         //소셜에 가입한 멤버 정보 가져오기
-        List<SocialMemberResponse.SocialMemberList> socialMemberList = socialMemberService.getSocialMembersBySocialId(socialId);
-        System.out.println("socialMemberList = " + socialMemberList);
+        List<SocialMemberResponse.SocialMemberDTO> socialMemberList = socialMemberService.getSocialMembersBySocialId(socialId);
+//        System.out.println("socialMemberList = " + socialMemberList);
         request.setAttribute("socialMemberList", socialMemberList);
 
         //소셜에 등록한 글&댓글 수 가져오기

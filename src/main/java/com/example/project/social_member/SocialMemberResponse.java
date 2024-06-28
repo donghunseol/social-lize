@@ -68,9 +68,8 @@ public class SocialMemberResponse {
         }
     }
 
-    // 소셜 멤버 리스트 DTO
     @Data
-    public static class SocialMemberList {
+    public static class SocialMemberDTO {
         private Integer id;
         private String nickname;
         private String email;
@@ -82,18 +81,16 @@ public class SocialMemberResponse {
         private SocialMemberRoleEnum role;
         private Boolean isManager;
 
-        public SocialMemberList(Integer id, String nickname, String email, LocalDate birth, UserProviderEnum provider, String imagePath, LocalDateTime createdAt, SocialMemberRoleEnum role) {
-            this.id = id;
-            this.nickname = nickname;
-            this.email = email;
-            this.birth = birth;
-            this.provider = provider;
-            this.imagePath = imagePath;
-            this.createdAt = createdAt;
-            this.createdAtString = LocalDateTimeFormatter.convert(createdAt, "yyyy년 MM월 dd일");
-            this.role = role;
-            if(role.equals(SocialMemberRoleEnum.MANAGER)) this.isManager = true;
-            else this.isManager = false;
+        public SocialMemberDTO(SocialMember socialMember) {
+            this.id = socialMember.getId();
+            this.nickname = socialMember.getUserId().getNickname();
+            this.email = socialMember.getUserId().getEmail();
+            this.birth = socialMember.getUserId().getBirth();
+            this.role = socialMember.getRole();
+            this.imagePath = socialMember.getUserId().getImage();
+            this.createdAt = socialMember.getUserId().getCreatedAt();
+            this.createdAtString = LocalDateTimeFormatter.convert(socialMember.getUserId().getCreatedAt(), "yyyy년 MM월 dd일");
+            this.isManager = socialMember.getRole() == SocialMemberRoleEnum.MANAGER;
         }
     }
 }
