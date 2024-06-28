@@ -33,6 +33,7 @@ public interface SocialMemberRepository extends JpaRepository<SocialMember, Inte
             "ORDER BY u.nickname ASC")
     List<SocialMember> findSocialMembersBySocialId(@Param("socialId") Integer socialId);
 
+    // 소셜 멤버 중 APPROVED 인 멤버 리스트, 파라미터로 sort를 전달하면 소팅해서 반환한다.
     @Query("SELECT sm FROM SocialMember sm " +
             "JOIN sm.socialId s " +
             "JOIN sm.userId u " +
