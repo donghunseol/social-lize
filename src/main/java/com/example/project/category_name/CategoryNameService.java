@@ -48,9 +48,12 @@ public class CategoryNameService {
             throw new Exception400("이미 존재하는 카테고리명입니다.");
         }
 
+        ImageVideoUtil.FileUploadResult result = ImageVideoUtil.uploadFile(updateDTO.getImagePath());
+        String imgPath = result.getFilePath();
+
         // 카테고리 업데이트
         categoryName.setName(updateDTO.getName());
-        categoryName.setImagePath(updateDTO.getImagePath());
+        categoryName.setImagePath(imgPath);
 
         categoryNameRepository.save(categoryName);
     }

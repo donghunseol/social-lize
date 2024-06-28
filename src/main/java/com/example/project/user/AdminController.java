@@ -88,6 +88,21 @@ public class AdminController {
         return "redirect:/admin/category-name-list";
     }
 
+    // 카테고리 수정 페이지
+    @GetMapping("/category-name/{categoryNameId}/update-form")
+    public String categoryNameUpdatePage(HttpServletRequest request, @PathVariable Integer categoryNameId) {
+        CategoryNameResponse.Detail categoryDetail = categoryNameService.getCategoryDetail(categoryNameId);
+        request.setAttribute("categoryDetail", categoryDetail);
+        return "admin/social/socialCategoryUpdateForm";
+    }
+
+    // 카테고리 수정
+    @PostMapping("/category-name/{categoryNameId}/update")
+    public String categoryNameUpdate(@PathVariable Integer categoryNameId, CategoryNameRequest.Update update) {
+        categoryNameService.updateCategory(categoryNameId, update);
+        return "redirect:/admin/category-name-list";
+    }
+
 
     // 소셜 리스트 조회
     @GetMapping("/social-list")

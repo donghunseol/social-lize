@@ -14,6 +14,6 @@ public class CategoryNameRequest {
     @Data
     public static class Update {
         private String name;
-        private String imagePath;
+        private MultipartFile imagePath;
     }
 }
