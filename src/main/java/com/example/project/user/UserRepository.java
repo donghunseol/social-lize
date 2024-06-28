@@ -25,8 +25,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     String findByUserImage(@Param("userId") Integer userId);
 
     // 활동 회원 전체 갯수 조회 (관리자)
-    @Query("select count(*) from User u where u.status = 'NORMAL'")
-    Integer findAllNormalUser();
+    @Query("select count(*) from User u where u.status = 'NORMAL' AND u.role = :role")
+    Integer findAllNormalUser(@Param("role") UserEnum role);
 }
 /*
 로그인시 입력받은 이메일과 비밀번호로 쿼리로 날려 로그인 검증하는 방식을 사용하지 말아야 하는 이유 (출처:ChatGPT 4, 2024.06.19)
