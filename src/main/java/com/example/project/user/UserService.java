@@ -76,6 +76,7 @@ public class UserService {
 
         LocalDate bod = LocalDate.parse(joinDTO.getBirthdate());
         user.setBirth(bod);
+        user.setStatus(UserStatusEnum.NORMAL);
         userRepository.save(user);
     }
 

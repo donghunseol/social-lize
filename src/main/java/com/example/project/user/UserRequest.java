@@ -2,6 +2,7 @@ package com.example.project.user;
 
 import com.example.project._core.enums.UserEnum;
 import com.example.project._core.enums.UserProviderEnum;
+import com.example.project._core.enums.UserStatusEnum;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
