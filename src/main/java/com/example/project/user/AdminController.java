@@ -184,7 +184,23 @@ public class AdminController {
     // 신고 상세 조회
     @GetMapping("/report/{reportId}")
     public String reportDetailPage(HttpServletRequest request, @PathVariable Integer reportId) {
+        ReportResponse.DetailDTO reportDetail = reportService.getReportDetail(reportId);
+        request.setAttribute("reportDetail", reportDetail);
         return "admin/management/reportDetailForm";
+    }
+
+    // 신고 적합
+    @PostMapping("/report/{reportId}/approval")
+    public String reportApproval(@PathVariable Integer reportId) {
+        reportService.updateReportStatusApproval(reportId);
+        return "redirect:/admin/report-list";
+    }
+
+    // 신고 부적합
+    @PostMapping("/report/{reportId}/refuse")
+    public String reportRefuse(@PathVariable Integer reportId) {
+        reportService.updateReportStatusRefuse(reportId);
+        return "redirect:/admin/report-list";
     }
 
     // 공지 리스트 조회
