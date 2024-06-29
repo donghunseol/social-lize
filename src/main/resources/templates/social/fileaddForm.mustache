@@ -123,18 +123,24 @@
 
         // 모달을 열고 미디어 파일을 표시하는 함수
         function openModal(src, isVideo = false) {
-            var modal = document.getElementById('mediaModal'); // 모달 요소를 가져옴
-            var modalImg = document.getElementById('modal-img'); // 모달 내 이미지 요소를 가져옴
-            var modalVideo = document.getElementById('modal-video'); // 모달 내 비디오 요소를 가져옴
-            var downloadBtn = document.getElementById('download-btn'); // 다운로드 버튼 요소를 가져옴
+            var modal = document.getElementById('mediaModal');
+            var modalImg = document.getElementById('modal-img');
+            var modalVideo = document.getElementById('modal-video');
+            var downloadBtn = document.getElementById('download-btn');
 
             if (isVideo) {
                 modalVideo.style.display = 'block';
                 modalImg.style.display = 'none';
                 modal.style.display = 'block';
 
-                var hlsUrl = `/hls/${getVideoId(src)}.m3u8`;
-                console.log('HLS URL:', hlsUrl); // HLS URL 로깅
+
+                // src에서 /convert/ 경로를 제거
+                var cleanedSrc = src.replace('/convert/', '');
+
+                // HLS URL 생성
+                // TODO: 여기에 /hls 앞에 배포한 서버의 경로를 입력
+                var hlsUrl = `http://localhost:8080/hls/${cleanedSrc}`;
+                console.log('HLS URL:', hlsUrl); // HLS URL 확인
 
                 if (Hls.isSupported()) {
                     console.log('HLS 지원됨');
@@ -158,16 +164,19 @@
                 } else {
                     console.error('HLS를 지원하지 않는 브라우저');
                 }
-                downloadBtn.onclick = function () { downloadFile(hlsUrl, 'video'); }; // 다운로드 버튼 클릭 시 비디오 파일 다운로드
+
+                downloadBtn.onclick = function () { downloadFile(hlsUrl, 'video'); }; // 다운로드 버튼 클릭 시 HLS 비디오 다운로드
             } else { // 이미지인 경우
-                modalImg.src = src; // 이미지 소스를 설정
-                modalImg.style.display = 'block'; // 이미지 요소를 표시
-                modalVideo.style.display = 'none'; // 비디오 요소를 숨김
-                modal.style.display = 'block'; // 모달을 표시
-                downloadBtn.onclick = function () { downloadFile(src, 'image'); }; // 다운로드 버튼 클릭 시 이미지 파일 다운로드
+                modalImg.src = src;
+                modalImg.style.display = 'block';
+                modalVideo.style.display = 'none';
+                modal.style.display = 'block';
+                downloadBtn.onclick = function () { downloadFile(src, 'image'); }; // 이미지 다운로드
             }
+
             modal.addEventListener('click', closeModal); // 모달을 클릭하면 닫기 함수 호출
         }
+
 
         // 모달창 파일 다운로드
         function downloadFile(src, type) {
@@ -196,12 +205,13 @@
         function updateAlbumGrid(albums) {
             const gridContainer = document.querySelector('.fileadd-grid-container'); // 그리드 컨테이너 요소를 가져옴
             gridContainer.innerHTML = ''; // 기존 그리드 내용을 초기화
+
             albums.forEach(album => {
                 const itemDiv = document.createElement('div'); // 새 그리드 아이템 요소 생성
-                itemDiv.className = `fileadd-grid-item ${album.isVideo ? 'video' : 'photo'}`; // 아이템 클래스 설정
+                itemDiv.className = `fileadd-grid-item ${album.video ? 'video' : 'photo'}`; // 아이템 클래스 설정
                 itemDiv.setAttribute('data-type', album.type); // 데이터 타입 속성 설정
 
-                if (album.isVideo) { // 비디오인 경우
+                if (album.video === true) { // 비디오인 경우
                     const video = document.createElement('video'); // 비디오 요소 생성
                     video.src = album.path; // 비디오 소스 설정
                     video.onclick = () => openModal(album.hlsPath || album.path, true); // 클릭 시 모달 열기
@@ -218,6 +228,7 @@
             });
             updateAlbumItemCount("Album", "albumCount"); // 앨범 아이템 수 업데이트
         }
+
 
         // 파일 목록을 업데이트하는 함수
         function updateFileList(files) {
@@ -246,6 +257,7 @@
                 method: 'GET', // HTTP 메서드 (기본값은 GET)
                 dataType: 'json', // 응답 데이터 타입 (JSON)
                 success: function(data) { // 성공 시 호출될 콜백 함수
+                    console.log(data.albums);
                     updateAlbumGrid(data.albums); // 앨범 그리드 업데이트
                     updateFileList(data.files); // 파일 목록 업데이트
                 },

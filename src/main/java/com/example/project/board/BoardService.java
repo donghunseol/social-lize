@@ -178,8 +178,14 @@ public class BoardService {
                     System.out.println("저장 대성공!");
                     System.out.println("이건 변환된 파일경로 : " + hlsPath);
 
-                    videoPath.replace("\\", "/");
-                    hlsPath.replace("\\", "/");
+                    // 경로 구분자를 바꿔서 저장
+                    videoPath = videoPath.replace("\\upload\\", "/upload/");
+                    hlsPath = hlsPath.replace("\\upload\\", "/upload/");
+                    hlsPath = hlsPath.replace("/upload", "");
+                    hlsPath = hlsPath.replace("./convert/", "/convert/");
+
+                    System.out.println("경로 변환 비디오 : " + videoPath);
+                    System.out.println("경로 변환 HLS : " + hlsPath);
 
                     albumRepository.save(reqDTO.albumVideoToEntity(user, board, hlsPath, videoPath, AlbumEnum.VIDEO));
                 }
