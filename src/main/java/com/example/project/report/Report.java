@@ -22,12 +22,12 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // 신고 번호
 
-    @JoinColumn(name = "userId")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User userId; // 신고 당한 유저 번호
-
     @Column(nullable = false)
-    private Integer reportUserId; // 신고한 유저 번호
+    private Integer userId; // 신고 당한 유저 번호
+
+    @JoinColumn(name = "reportUserId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User reportUserId; // 신고한 유저 번호
 
     @JoinColumn(name = "boardId")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -52,7 +52,7 @@ public class Report {
     private LocalDateTime createdAt; // 생성 일자
 
     @Builder
-    public Report(Integer id, User userId, Integer reportUserId, Board boardId, Reply replyId, Rereply rereplyId, String content, ReportResultEnum result, LocalDateTime createdAt) {
+    public Report(Integer id, Integer userId, User reportUserId, Board boardId, Reply replyId, Rereply rereplyId, String content, ReportResultEnum result, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.reportUserId = reportUserId;

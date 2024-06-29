@@ -15,7 +15,7 @@ public interface CategoryNameRepository extends JpaRepository<CategoryName, Inte
     Optional<CategoryName> findByName(@Param("name") String name);
 
     // 카테고리 전체 리스트 조회 (관리자)
-    @Query("select c from CategoryName c where c.status = :status")
+    @Query("select c from CategoryName c where c.status = :status ORDER BY c.id DESC")
     List<CategoryName> findAllByStatus(@Param("status") DeleteStateEnum status);
 
     // 카테고리 전체 갯수 조회 (관리자)

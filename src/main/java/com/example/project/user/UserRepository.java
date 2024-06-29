@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     // 활동 회원 리스트 조회 (관리자)
-    @Query("select u from User u where u.status = 'NORMAL' AND u.role = :role")
+    @Query("select u from User u where u.status = 'NORMAL' AND u.role = :role ORDER BY u.nickname ASC")
     List<User> findByRole(@Param("role") UserEnum role);
 
     @Query("select u from User u where u.email = :email and u.provider is null")

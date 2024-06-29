@@ -6,13 +6,10 @@ import com.example.project.category_name.CategoryNameResponse;
 import com.example.project.category_name.CategoryNameService;
 import com.example.project.social.SocialResponse;
 import com.example.project.social.SocialService;
-import com.example.project.social_member.SocialMemberResponse;
 import com.example.project.social_member.SocialMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/admin")

@@ -23,7 +23,7 @@
                 <img src="{{userImage}}" alt="Profile Picture" class="profile-picture openModalBtn"
                      data-board-id="{{boardId}}">
                 <div>
-                    <button data-board-id="{{boardId}}" class="book-button {{#book}}book{{/book}}">
+                    <button data-board-id="{{boardId}}" class="book-button {{#book}}bookd{{/book}}">
                         <i class="fas fa-star"></i>
                     </button>
                     <div class="author">{{nickname}}</div>
@@ -64,23 +64,23 @@
             </div>
         </div>
         <div class="comment-section-container">
-
-
             <div class="recent-comment">
-                <img src="/images/userprofile2.png" alt="댓글 작성자 사진" class="comment-picture">
-                <div class="recent-comment-content">
-                    <div class="recent-comment-author">김완준</div>
-                    <div class="recent-comment-text">댓글내용</div>
-                    <div class="recent-comment-time">6월 14일 오후 11:30</div>
-                </div>
+                {{#isReply}}
+                    <img src="{{replyImage}}" alt="댓글 작성자 사진" class="comment-picture">
+                    <div class="recent-comment-content">
+                        <div class="recent-comment-author">{{replyUser}}</div>
+                        <div class="recent-comment-text">{{replyComment}}</div>
+                        <div class="recent-comment-time">{{replyCreatedAt}}</div>
+                    </div>
+                {{/isReply}}
             </div>
-
             <form action="/reply/save" method="post">
                 <div class="d-flex">
-                    <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
+                    <button type="button" class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
                         <i class="fas fa-heart"></i>
                     </button>
                     <div class="comment-section">
+                        <input type="hidden" name="role" value="1">
                         <input type="hidden" name="socialId" value="{{socialId}}">
                         <input type="hidden" name="boardId" value="{{boardId}}">
                         <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
@@ -89,13 +89,9 @@
                     <div>
                         <button type="submit" class="send-button">보내기</button>
                     </div>
-
                 </div>
             </form>
-
-
         </div>
-
     {{/modal.boards}}
 
     {{#modals.boards}}
@@ -105,8 +101,8 @@
                 <img src="{{userImage}}" alt="Profile Picture" class="profile-picture openModalBtn"
                      data-board-id="{{boardId}}">
                 <div>
-                    <button data-board-id="{{boardId}}" class="book-button {{#book}}book{{/book}}">
-                        <i class="fas fa-star" style="color: yellow"></i>
+                    <button data-board-id="{{boardId}}" class="book-button {{#book}}bookd{{/book}}">
+                        <i class="fas fa-star"></i>
                     </button>
                     <div class="author">{{nickname}}</div>
                     <div class="date">{{createdAt}}</div>
@@ -146,12 +142,25 @@
             </div>
         </div>
         <div class="comment-section-container">
-            <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
-                <i class="fas fa-heart"></i>
-            </button>
+            <div class="recent-comment">
+                {{#isReply}}
+                    <img src="{{replyImage}}" alt="댓글 작성자 사진" class="comment-picture">
+                    <div class="recent-comment-content">
+                        <div class="recent-comment-author">{{replyUser}}</div>
+                        <div class="recent-comment-text">{{replyComment}}</div>
+                        <div class="recent-comment-time">{{replyCreatedAt}}</div>
+                    </div>
+                {{/isReply}}
+            </div>
             <form action="/reply/save" method="post">
                 <div class="d-flex">
+
+                    <button type="button" class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+
                     <div class="comment-section">
+                        <input type="hidden" name="role" value="2">
                         <input type="hidden" name="socialId" value="{{socialId}}">
                         <input type="hidden" name="boardId" value="{{boardId}}">
                         <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
@@ -172,8 +181,8 @@
                 <img src="{{userImage}}" alt="Profile Picture" class="profile-picture openModalBtn"
                      data-board-id="{{boardId}}">
                 <div>
-                    <button data-board-id="{{boardId}}" class="book-button {{#book}}book{{/book}}">
-                        <i class="fas fa-star" style="color: yellow"></i>
+                    <button data-board-id="{{boardId}}" class="book-button {{#book}}bookd{{/book}}">
+                        <i class="fas fa-star"></i>
                     </button>
                     <div class="author">{{nickname}}</div>
                     <div class="date">{{createdAt}}</div>
@@ -215,16 +224,34 @@
             </div>
         </div>
         <div class="comment-section-container">
-            <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
-                <i class="fas fa-heart"></i>
-            </button>
-            <div class="comment-section">
-                <form action="/reply/save" method="post">
-                    <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
-                    <input type="text" name="comment" placeholder="댓글을 남겨주세요.">
-                </form>
+            <div class="recent-comment">
+                {{#isReply}}
+                    <img src="{{replyImage}}" alt="댓글 작성자 사진" class="comment-picture">
+                    <div class="recent-comment-content">
+                        <div class="recent-comment-author">{{replyUser}}</div>
+                        <div class="recent-comment-text">{{replyComment}}</div>
+                        <div class="recent-comment-time">{{replyCreatedAt}}</div>
+                    </div>
+                {{/isReply}}
             </div>
-            <button type="submit" class="send-button">보내기</button>
+            <form action="/reply/save" method="post">
+                <div class="d-flex">
+                    <button type="button" class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="comment-section">
+                        <input type="hidden" name="role" value="3">
+                        <input type="hidden" name="socialId" value="{{socialId}}">
+                        <input type="hidden" name="boardId" value="{{boardId}}">
+                        <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
+                        <input type="text" name="comment" placeholder="댓글을 남겨주세요.">
+                    </div>
+                    <div>
+                        <button type="submit" class="send-button">보내기</button>
+                    </div>
+
+                </div>
+            </form>
         </div>
     {{/myBoardModel.myBoardList}}
 </div>
@@ -234,6 +261,8 @@
 <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 
 <script>
+
+
     $(document).ready(function () {
         let modal = $("#boardModal");
 
@@ -327,10 +356,10 @@
                         $this.toggleClass('book');
                         $this.find('.fa-star').css('color', isBooked ? 'yellow' : '#aaaaaa');
                     } else {
-                        // 성공적으로 북마크 상태가 업데이트된 경우, 페이지 리로드
-                        if (isBooked) {
-                            location.reload(); // 북마크 삭제 시에만 페이지 리로드
-                        }
+                        // // 성공적으로 북마크 상태가 업데이트된 경우, 페이지 리로드
+                        // if (isBooked) {
+                        //     location.reload(); // 북마크 삭제 시에만 페이지 리로드
+                        // }
                     }
                 },
                 error: function (xhr, status, error) {
@@ -397,11 +426,12 @@
         // 모달 켜는 기능
         $(document).on('click', '.openModalBtn', function () {
             console.log("버튼 눌림");
-            var boardId = $(this).data('board-id');
+            let boardId = $(this).data('board-id');
+            console.log("보드:", boardId, "소셜:", socialId);
             $.ajax({
                 url: '/board/detail/',
                 method: 'GET',
-                data: {boardId: boardId}, // RequestParam으로 boardId 전송
+                data: {boardId: boardId, socialId: socialId},// RequestParam으로 boardId 전송
                 dataType: 'json',
                 success: function (data) {
                     var detail = data;
@@ -450,9 +480,12 @@
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
-                 <form action="/reply/save" method="post">
+                 <form action="/rereply/save" method="post">
                     <div class="reply-input-container">
-                        <input type="hidden" name="socialId" value="{{socialId}}">
+
+                        <input type="hidden" name="boardId" value="${boardId}">
+                        <input type="hidden" name="socialId" value="${reply.socialId}">
+
                         <input type="hidden" name="parentCommentId" value="${reply.id}">
                         <input type="text" name="replyContent" class="reply-input" placeholder="답글을 입력하세요.">
                         <button type="submit" class="send-reply-button">보내기</button>
@@ -473,13 +506,15 @@
                                         <button class="reply-button">답글쓰기</button>
                                     </div>
                                 </div>
-                                <button class="delete-comment-button" data-comment-id="${rereply.id}">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                          <div class="reply-input-container">
+                                            <button class="delete-comment-button" data-comment-id="${rereply.id}">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                    <form action="/rereply/save" method="post">
+                                      <div class="reply-input-container">
+                               <input type="hidden" name="replyId" value="${rereply.replyId}">
+                                <input type="hidden" name="boardId" value="${rereply.boardId}">
                                     <input type="hidden" name="parentCommentId" value="${reply.id}">
-                                    <input type="hidden" name="replyId" value="${rereply.id}">
                                     <input type="text" name="rereplyContent" class="reply-input" placeholder="답글을 입력하세요.">
                                     <button type="submit" class="send-reply-button">보내기</button>
                                 </div>

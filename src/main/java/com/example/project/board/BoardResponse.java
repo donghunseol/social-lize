@@ -30,6 +30,7 @@ public class BoardResponse {
         @Data
         public static class MyBoardListDTO {
             private Integer boardId;
+            private Integer socialId;
             private String socialName;
             private String nickname;
             private String createdAt;
@@ -43,9 +44,16 @@ public class BoardResponse {
             private List<HashtagDTO> hashtagList;
             private String myProfileImage;
             private Boolean hashEmpty;
+            private Integer replyId;
+            private String replyImage;
+            private String replyUser;
+            private String replyComment;
+            private String replyCreatedAt;
+            private Boolean isReply;
 
-            public MyBoardListDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book, List<Hashtag> hashtags, String myProfileImage, Boolean hashEmpty) {
+            public MyBoardListDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book, List<Hashtag> hashtags, String myProfileImage, Boolean hashEmpty, Reply reply) {
                 this.boardId = board.getId();
+                this.socialId = board.getSocialId().getId();
                 this.socialName = board.getSocialId().getName();
                 this.nickname = board.getUserId().getNickname();
                 LocalDateTime format = board.getCreatedAt();
@@ -61,6 +69,18 @@ public class BoardResponse {
                 this.hashtagList = hashtags.stream().map(HashtagDTO::new).toList();
                 this.myProfileImage = myProfileImage;
                 this.hashEmpty = hashEmpty;
+
+                isReply = false;
+                if (reply != null) {
+                    this.replyId = reply.getId();
+                    this.replyImage = reply.getUserId().getImage();
+                    this.replyUser = reply.getUserId().getNickname();
+                    this.replyComment = reply.getComment();
+                    LocalDateTime format2 = reply.getCreatedAt();
+                    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h:mm");
+                    this.replyCreatedAt = format2.format(formatter2);
+                    isReply = true;
+                }
             }
 
             @Data
@@ -93,6 +113,7 @@ public class BoardResponse {
         @Data
         public static class MyReplyListDTO {
             private Integer boardId;
+            private Integer socialId;
             private String socialName;
             private String nickname;
             private String createdAt;
@@ -106,9 +127,16 @@ public class BoardResponse {
             private List<HashtagDTO> hashtagList;
             private String myProfileImage;
             private Boolean hashEmpty;
+            private Integer replyId;
+            private String replyImage;
+            private String replyUser;
+            private String replyComment;
+            private String replyCreatedAt;
+            private Boolean isReply;
 
-            public MyReplyListDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book, List<Hashtag> hashtags, String myProfileImage, Boolean hashEmpty) {
+            public MyReplyListDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book, List<Hashtag> hashtags, String myProfileImage, Boolean hashEmpty, Reply reply) {
                 this.boardId = board.getId();
+                this.socialId = board.getSocialId().getId();
                 this.socialName = board.getSocialId().getName();
                 this.nickname = board.getUserId().getNickname();
                 LocalDateTime format = board.getCreatedAt();
@@ -124,6 +152,17 @@ public class BoardResponse {
                 this.hashtagList = hashtags.stream().map(HashtagDTO::new).toList();
                 this.myProfileImage = myProfileImage;
                 this.hashEmpty = hashEmpty;
+                isReply = false;
+                if (reply != null) {
+                    this.replyId = reply.getId();
+                    this.replyImage = reply.getUserId().getImage();
+                    this.replyUser = reply.getUserId().getNickname();
+                    this.replyComment = reply.getComment();
+                    LocalDateTime format2 = reply.getCreatedAt();
+                    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h:mm");
+                    this.replyCreatedAt = format2.format(formatter2);
+                    isReply = true;
+                }
             }
 
             @Data
@@ -167,6 +206,7 @@ public class BoardResponse {
         @Data
         public static class BoardDTO {
             private Integer boardId;
+            private Integer socialId;
             private String socialName;
             private String nickname;
             private String createdAt;
@@ -180,9 +220,16 @@ public class BoardResponse {
             private List<HashtagDTO> hashtagList;
             private String myProfileImage;
             private Boolean hashEmpty;
+            private Integer replyId;
+            private String replyImage;
+            private String replyUser;
+            private String replyComment;
+            private String replyCreatedAt;
+            private Boolean isReply;
 
-            public BoardDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book, List<Hashtag> hashtags, String myProfileImage, Boolean hashEmpty) {
+            public BoardDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book, List<Hashtag> hashtags, String myProfileImage, Boolean hashEmpty, Reply reply) {
                 this.boardId = board.getId();
+                this.socialId = board.getSocialId().getId();
                 this.socialName = board.getSocialId().getName();
                 this.nickname = board.getUserId().getNickname();
                 LocalDateTime format = board.getCreatedAt();
@@ -198,6 +245,17 @@ public class BoardResponse {
                 this.hashtagList = hashtags.stream().map(HashtagDTO::new).toList();
                 this.myProfileImage = myProfileImage;
                 this.hashEmpty = hashEmpty;
+                isReply = false;
+                if (reply != null) {
+                    this.replyId = reply.getId();
+                    this.replyImage = reply.getUserId().getImage();
+                    this.replyUser = reply.getUserId().getNickname();
+                    this.replyComment = reply.getComment();
+                    LocalDateTime format2 = reply.getCreatedAt();
+                    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h:mm");
+                    this.replyCreatedAt = format2.format(formatter2);
+                    isReply = true;
+                }
             }
         }
 
@@ -291,10 +349,6 @@ public class BoardResponse {
             this.weekCount = weekCount;
         }
 
-        public SocialDetailDTO(List<BoardDTO> boards) {
-            this.boards = boards;
-        }
-
         @Data
         public static class BoardDTO {
             private Integer boardId;
@@ -311,8 +365,14 @@ public class BoardResponse {
             private List<HashtagDTO> hashtagList;
             private String myProfileImage;
             private Boolean hashEmpty;
+            private Integer replyId;
+            private String replyImage;
+            private String replyUser;
+            private String replyComment;
+            private String replyCreatedAt;
+            private Boolean isReply;
 
-            public BoardDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book, List<Hashtag> hashtags, String myProfileImage, Boolean hashEmpty) {
+            public BoardDTO(Board board, Integer likeCount, Integer replyCount, List<AlbumDTO> albums, String userImage, Boolean liked, Boolean book, List<Hashtag> hashtags, String myProfileImage, Boolean hashEmpty, Reply reply) {
                 this.boardId = board.getId();
                 this.socialName = board.getSocialId().getName();
                 this.nickname = board.getUserId().getNickname();
@@ -329,6 +389,17 @@ public class BoardResponse {
                 this.hashtagList = hashtags.stream().map(HashtagDTO::new).toList();
                 this.myProfileImage = myProfileImage;
                 this.hashEmpty = hashEmpty;
+                isReply = false;
+                if (reply != null) {
+                    this.replyId = reply.getId();
+                    this.replyImage = reply.getUserId().getImage();
+                    this.replyUser = reply.getUserId().getNickname();
+                    this.replyComment = reply.getComment();
+                    LocalDateTime format2 = reply.getCreatedAt();
+                    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h:mm");
+                    this.replyCreatedAt = format2.format(formatter2);
+                    isReply = true;
+                }
             }
         }
 
