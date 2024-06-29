@@ -12,7 +12,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Integer> {
     @Query(value = "SELECT COUNT(r.id) + COUNT(rr.id) AS replycount " +
             "FROM reply_tb r " +
             "LEFT JOIN rereply_tb rr ON r.id = rr.reply_id " +
-            "WHERE r.board_id = :boardId", nativeQuery = true)
+            "WHERE r.board_id = :boardId and r.state = 'ACTIVE'", nativeQuery = true)
     Integer replyCount(@Param("boardId") int boardId);
 
     @Query("SELECT r FROM Reply r WHERE r.boardId.id = :boardId and r.state = 'ACTIVE'")

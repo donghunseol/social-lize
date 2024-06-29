@@ -10,14 +10,14 @@ import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
-    @Query("select b from Board b where b.socialId.id = :socialId order by b.id desc")
+    @Query("select b from Board b where b.socialId.id = :socialId and b.state = 'ACTIVE' order by b.id desc")
     List<Board> findByBoardSocialId(@Param("socialId") Integer socialId);
 
     //특정 소셜에 내가 작성 한 글 갯수
-    @Query("select count(*) from Board b where b.socialId.id = :socialId and b.userId.id = :userId")
+    @Query("select count(*) from Board b where b.socialId.id = :socialId and b.userId.id = :userId and b.state = 'ACTIVE'")
     Integer getArticleCountByBoardSocialIdAndUserId(Integer userId, Integer socialId);
 
-    @Query(value = "select b.* from board_tb b JOIN bookmark_tb bm ON b.id = bm.board_id WHERE bm.user_id = :userId order by b.id desc", nativeQuery = true)
+    @Query(value = "select b.* from board_tb b JOIN bookmark_tb bm ON b.id = bm.board_id WHERE bm.user_id = :userId and b.state = 'ACTIVE' order by b.id desc", nativeQuery = true)
     List<Board> findByBoards(@Param("userId") Integer userId);
 
     // 유저가 작성한 전체 게시글 조회 (관리자)
@@ -30,7 +30,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Query("SELECT FUNCTION('DAYNAME', b.createdAt) as dayOfWeek, COUNT(b) as count " +
             "FROM Board b " +
-            "WHERE b.socialId.id = :socialId AND b.role = 'POST' " +
+            "WHERE b.socialId.id = :socialId AND b.role = 'POST' and b.state = 'ACTIVE'" +
             "GROUP BY FUNCTION('DAYNAME', b.createdAt) " +
             "ORDER BY count DESC")
     List<Object[]> findPostCountsByDayOfWeek(@Param("socialId") Integer socialId);
@@ -39,17 +39,20 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     @Query("select count(*) from Board b where b.role = 'POST'")
     Integer findByBoardRole();
 
-    @Query("select b from Board b where b.userId.id = :userId order by b.id desc")
+    @Query("select b from Board b where b.userId.id = :userId and b.state = 'ACTIVE' order by b.id desc")
     List<Board> findAllUserId(@Param("userId") Integer userId);
 
     @Query("SELECT DISTINCT b FROM Board b " +
             "LEFT JOIN FETCH b.replies r " +
-            "WHERE r.userId.id = :userId")
+            "WHERE r.userId.id = :userId and b.state = 'ACTIVE'")
     List<Board> findBoardsByUserReplies(@Param("userId") Integer userId);
 
     @Query("SELECT DISTINCT b FROM Board b " +
             "JOIN b.replies r " +
             "JOIN r.rereplies rr " +
-            "WHERE rr.userId.id = :userId order by b.id desc")
+            "WHERE rr.userId.id = :userId and b.state = 'ACTIVE' order by b.id desc")
     List<Board> findRepliesByUserRereplies(@Param("userId") Integer userId);
+
+    @Query("select b from Board b where b.id = :boardId and b.userId.id = :userId")
+    Optional<Board> findByBoardIdAndUserId(@Param("boardId") Integer boardId, @Param("userId") Integer userId);
 }

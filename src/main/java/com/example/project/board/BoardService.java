@@ -1,6 +1,7 @@
 package com.example.project.board;
 
 import com.example.project._core.enums.AlbumEnum;
+import com.example.project._core.enums.DeleteStateEnum;
 import com.example.project._core.errors.exception.Exception401;
 import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
@@ -28,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -255,5 +257,13 @@ public class BoardService {
         Board board = boardRepository.findByBoardId(boardId)
                 .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다"));
         return new BoardResponse.Detail(board);
+    }
+
+    @Transactional
+    public void delete(Integer userId, Integer boardId) {
+        Board board = boardRepository.findByBoardIdAndUserId(boardId, userId)
+                .orElseThrow(() -> new Exception403("게시글을 삭제할 권한이 없습니다."));
+
+        board.setState(DeleteStateEnum.DELETED);
     }
 }

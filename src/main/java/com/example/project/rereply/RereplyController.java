@@ -30,9 +30,10 @@ public class RereplyController {
     @PostMapping("/rereply/save")
     public String save(@RequestParam("replyId") Integer replyId,
                        @RequestParam("boardId") Integer boardId,
+                       @RequestParam("socialId") Integer socialId,
                        RereplyRequest.SaveDTO reqDTO) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         rereplyService.save(reqDTO, sessionUser.getId(), boardId, replyId);
-        return "redirect:/social/detail/" + boardId;
+        return "redirect:/social/detail/" + socialId;
     }
 }

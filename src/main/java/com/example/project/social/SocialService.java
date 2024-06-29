@@ -126,6 +126,7 @@ public class SocialService {
             List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
 
 
+
             Boolean hashEmpty = false;
 
             // BoardDTO 객체 생성
