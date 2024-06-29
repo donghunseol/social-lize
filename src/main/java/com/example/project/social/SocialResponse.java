@@ -88,16 +88,21 @@ public class SocialResponse {
             private String hlsPath;
             private AlbumEnum type;
             private boolean isVideo;
-            private boolean isImage;
 
             public AlbumDTO(Album album) {
                 this.path = album.getPath();
                 this.hlsPath = album.getHlsPath();
                 this.type = album.getType();
-                this.isVideo = (this.type == AlbumEnum.VIDEO);
-                this.isImage = (this.type == AlbumEnum.IMAGE);
-
-                System.out.println("AlbumDTO - path: " + this.path + ", type: " + this.type + ", isVideo: " + this.isVideo + ", isImage: " + this.isImage);
+                // AlbumEnum의 getType() 메서드가 어떤 값을 반환하는지 확인 후 설정
+                if (this.type != null) {
+                    if (album.getType() == AlbumEnum.VIDEO){
+                        this.isVideo = true;
+                    } else {
+                        this.isVideo = false;
+                    }
+                } else {
+                    this.isVideo = false;
+                }
             }
         }
 

@@ -45,20 +45,23 @@ public class AlbumRestController {
         return ResponseEntity.ok(response);
     }
 
-    // HLS 플레이리스트 요청 처리
+    // HLS 플레이리스트 요청 처리 (완전 완료)
     @GetMapping("/hls/{hlsName}.m3u8")
     public ResponseEntity<Resource> getHls(@PathVariable String hlsName) {
         // HLS 플레이리스트 리소스를 서비스로부터 가져옴
+        System.out.println("hls 확인 1차 : " + hlsName);
         Resource resource = null;
         try {
-            resource = HlsUtil.getHlsResource(hlsName + ".m3u8");
+            resource = HlsUtil.getHlsResource(hlsName);
+            System.out.println("hls 확인 2차 : " + resource);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         HttpHeaders headers = new HttpHeaders();
         // 다운로드 시 파일명을 명시적으로 지정
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + hlsName + ".m3u8");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + hlsName);
+        System.out.println("hls 확인 3차 : " + headers.toString());
         // HLS 플레이리스트의 Content-Type 설정
         headers.setContentType(MediaType.parseMediaType("application/vnd.apple.mpegurl"));
         return new ResponseEntity<>(resource, headers, HttpStatus.OK);
@@ -68,10 +71,13 @@ public class AlbumRestController {
     @GetMapping("/hls/{tsName}.ts")
     public ResponseEntity<Resource> getHlsTs(@PathVariable String tsName) {
         // HLS 세그먼트 파일명을 지정하여 리소스를 서비스로부터 가져옴
+        System.out.println("ts 확인 1차 : " + tsName);
+        tsName.replace(".m3u8", "");
         tsName = tsName + ".ts";
         Resource resource = null;
         try {
-            resource = HlsUtil.getHlsResource(tsName);
+            resource = HlsUtil.getTsResource(tsName);
+            System.out.println("ts 확인 2차 : " + resource);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -79,6 +85,7 @@ public class AlbumRestController {
         HttpHeaders headers = new HttpHeaders();
         // 다운로드 시 파일명을 동적으로 설정
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + tsName);
+        System.out.println("ts 확인 3차 : " + headers.toString() );
         // HLS 세그먼트의 Content-Type 설정
         headers.setContentType(MediaType.parseMediaType(MediaType.APPLICATION_OCTET_STREAM_VALUE));
         return new ResponseEntity<>(resource, headers, HttpStatus.OK);
