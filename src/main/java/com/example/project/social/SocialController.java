@@ -51,7 +51,7 @@ public class SocialController {
     @GetMapping("/social/detail/{socialId}/member")
     public String socialMember(@PathVariable int socialId, HttpServletRequest request, @RequestParam(defaultValue = "userName") String sortBy) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
-        BoardResponse.SocialDetailDTO modal = socialService.socialDetail(socialId, sessionUser.getId());
+        SocialMemberResponse.MemberDTO modal = socialMemberService.member(sessionUser.getId(), socialId);
         request.setAttribute("modal", modal);
 
         //소셜에 가입한 멤버 정보 가져오기
