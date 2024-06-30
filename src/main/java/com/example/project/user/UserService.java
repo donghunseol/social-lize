@@ -78,6 +78,11 @@ public class UserService {
         LocalDate bod = LocalDate.parse(joinDTO.getBirthdate());
         user.setBirth(bod);
         user.setStatus(UserStatusEnum.NORMAL);
+
+        // 디폴트 이미지
+        user.setImage("/images/logonobg.png");
+
+        user.setPhone(" ");
         userRepository.save(user);
     }
 
