@@ -29,6 +29,14 @@ public class SocialController {
     private final UserUtil userUtil;
     private final SocialMemberService socialMemberService;
 
+    @GetMapping("/social/updateForm/{socialId}")
+    public String socialUpdateForm(@PathVariable("socialId") Integer socialId, HttpServletRequest request) {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        SocialResponse.UpdateFormDTO model = socialService.updateForm(socialId, sessionUser.getId());
+        request.setAttribute("model", model);
+
+        return "social/socialUpdateForm";
+    }
 
     // 소셜 상세보기
     @GetMapping("/social/detail/{socialId}")

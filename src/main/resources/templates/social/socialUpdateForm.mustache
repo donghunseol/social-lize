@@ -17,7 +17,7 @@
 <div class="socialadd-container socialadd-flex-container socialadd-center-content socialadd-column-direction">
     <div class="socialadd-form-section">
         <div class="socialadd-form-title">소셜 이름</div>
-        <input type="text" id="socialNameInput" class="socialadd-form-input">
+        <input type="text" id="socialNameInput" value="{{model.name}}" class="socialadd-form-input">
     </div>
     <div class="socialadd-form-title">카테고리</div>
     <div class="socialadd-form-section">
@@ -28,14 +28,19 @@
                 <button id="addCustomHashtagButton" class="socialadd-button socialadd-button-border">추가</button>
             </div>
             <div class="socialadd-hashtag-group" id="hashtagContainer">
-
+                {{#model.categoryList}}
+                    <div class="socialadd-border-style socialadd-rounded-pill-style socialadd-padding-x socialadd-padding-y socialadd-border-dark-style socialadd-hashtag">
+                        <span class="socialadd-hashtag-text"># {{categoryName}}</span>
+                        <input type="hidden" name="hashtags[]" value="{{categoryName}}">
+                    </div>
+                {{/model.categoryList}}
             </div>
         </div>
     </div>
     <div class="socialadd-form-title">소셜 메인 커버</div>
     <div class="socialadd-flex-container socialadd-align-center">
         <div class="socialadd-selected-cover-container">
-            <img class="socialadd-selected-cover" id="socialCoverPreview" src="" alt="#">
+            <img class="socialadd-selected-cover" id="socialCoverPreview" src="{{model.image}}" alt="#">
             <input type="file" id="socialCoverInput" accept="image/*" style="display: none;">
             <label for="socialCoverInput" class="socialadd-cover-upload-label">
                 <i class="fas fa-camera socialadd-text-gray"></i>
@@ -46,7 +51,7 @@
     <div class="socialadd-form-section socialadd-margin-top-section">
         <div class="socialadd-form-title">소개글</div>
         <textarea id="description" rows="4" class="socialadd-form-input socialadd-border-style"
-                  vocab="소개글 입력"></textarea>
+                  vocab="소개글 입력">{{model.info}}</textarea>
     </div>
     <div class="socialadd-form-section socialadd-button-group socialadd-margin-top-large">
         <button class="socialadd-submit-button">소셜 수정하기</button>
