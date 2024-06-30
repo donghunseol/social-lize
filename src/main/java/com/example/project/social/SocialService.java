@@ -329,4 +329,23 @@ public class SocialService {
 
         return new SocialResponse.MyApplySocialListDTO(socialList, members);
     }
+
+    public SocialResponse.UpdateFormDTO updateForm(Integer socialId, Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
+        // 소셜 리더
+        SocialMember socialMember = socialMemberRepository.findByManager(socialId, user.getId());
+
+        if (socialMember == null) {
+            throw new Exception403("소셜 매니저만 소셜을 수정할 수 있습니다.");
+        }
+
+        Social social = socialRepository.findById(socialId)
+                .orElseThrow(() -> new Exception404("소셜을 찾을 수 없습니다."));
+
+        List<Category> category = categoryRepository.findBySocialId(socialId);
+
+        return new SocialResponse.UpdateFormDTO(social, category);
+    }
 }

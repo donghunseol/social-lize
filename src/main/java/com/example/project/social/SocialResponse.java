@@ -6,6 +6,7 @@ import com.example.project._core.enums.SocialMemberStateEnum;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.category.Category;
+import com.example.project.category_name.CategoryName;
 import com.example.project.file.File;
 import com.example.project.social_member.SocialMember;
 import lombok.AllArgsConstructor;
@@ -200,6 +201,34 @@ public class SocialResponse {
                 this.email = socialMember.getUserId().getEmail();
                 this.birth = socialMember.getUserId().getBirth();
                 this.role = socialMember.getRole();
+            }
+        }
+    }
+
+    @Data
+    public static class UpdateFormDTO {
+        private Integer socialId;
+        private String name;
+        private List<CategoryDTO> categoryList;
+        private String image;
+        private String info;
+
+        public UpdateFormDTO(Social social, List<Category> categoryList) {
+            this.socialId = social.getId();
+            this.name = social.getName();
+            this.categoryList = categoryList.stream().map(CategoryDTO::new).toList();
+            this.image = social.getImage();
+            this.info = social.getInfo();
+        }
+
+        @Data
+        public static class CategoryDTO {
+            private Integer id;
+            private String categoryName;
+
+            public CategoryDTO(Category category) {
+                this.id = category.getCategoryNameId().getId();
+                this.categoryName = category.getCategoryNameId().getName();
             }
         }
     }

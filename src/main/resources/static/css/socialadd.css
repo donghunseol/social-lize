@@ -7,9 +7,9 @@ body {
 .socialadd-container {
     width: 100%;
     max-width: 800px;
-    margin: 20px auto;
-    padding-top: 80px;
+    margin: 100px auto;
     background-color: #fff;
+    padding: 50px;
 }
 
 .socialadd-flex-container {
