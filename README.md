@@ -19,7 +19,7 @@
 
 # 📚 발표자료
 
-[소셜 라이즈_PPT.pdf](https://drive.google.com/uc?export=download&id=1MbFXF5yFTtzqYftx6La-jFZwx9N559hm&confirm=t)
+[소셜 라이즈.pdf](https://drive.google.com/uc?export=download&id=1MbFXF5yFTtzqYftx6La-jFZwx9N559hm&confirm=t)
 
 <br>
 
