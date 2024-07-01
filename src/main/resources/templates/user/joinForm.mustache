@@ -19,11 +19,11 @@
             <form action="/join" method="post">
                 <div class="signup-textbox">
                     <input type="email" placeholder="이메일" name="email" id="email" class="short-input" required>
-                    <button type="button" class="verify-btn" id="send-verification">인증</button>
+                    <button type="button" class="verify-btn" id="send-verification" style="display:none">인증</button>
                 </div>
                 <div class="signup-textbox verification-box" id="verification-box">
                     <input type="text" placeholder="인증번호 입력" name="verification_code" id="verification_code" class="short-input">
-                    <button type="button" class="verify-btn">확인</button>
+                    <button type="button" class="verify-btn" style="display:none">확인</button>
                 </div>
                 <div class="signup-textbox">
                     <input type="password" placeholder="비밀번호" name="password" id="password" required>
