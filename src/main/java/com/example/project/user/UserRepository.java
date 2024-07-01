@@ -21,9 +21,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select u from User u where u.providerId = :providerId and u.provider =:provider")
     User findByIdAndProvider(UserProviderEnum provider, String providerId);
 
-    @Query("select u from User u where u.image = :userId")
-    String findByUserImage(@Param("userId") Integer userId);
-
     // 활동 회원 전체 갯수 조회 (관리자)
     @Query("select count(*) from User u where u.status = 'NORMAL' AND u.role = :role")
     Integer findAllNormalUser(@Param("role") UserEnum role);

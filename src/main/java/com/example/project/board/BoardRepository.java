@@ -53,6 +53,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             "WHERE rr.userId.id = :userId and b.state = 'ACTIVE' order by b.id desc")
     List<Board> findRepliesByUserRereplies(@Param("userId") Integer userId);
 
-    @Query("select b from Board b where b.id = :boardId and b.userId.id = :userId")
+    @Query("select b from Board b where b.id = :boardId and b.userId.id = :userId and b.state = 'ACTIVE'")
     Optional<Board> findByBoardIdAndUserId(@Param("boardId") Integer boardId, @Param("userId") Integer userId);
 }

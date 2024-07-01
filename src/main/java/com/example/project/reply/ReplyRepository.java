@@ -20,7 +20,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Integer> {
 
     @Query(value = "SELECT COUNT(*) FROM REPLY_TB r " +
             "JOIN board_tb b on r.board_id = b.id " +
-            "WHERE r.user_id = :userId AND b.social_id = :socialId", nativeQuery = true)
+            "WHERE r.user_id = :userId AND b.social_id = :socialId and b.state = 'ACTIVE'", nativeQuery = true)
     Integer getCountByUserIdAndSocialId(Integer userId, Integer socialId);
 
     @Query("select r from Reply r where r.id = :replyId and r.state = 'ACTIVE'")
