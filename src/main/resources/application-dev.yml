@@ -16,26 +16,24 @@ spring:
       expose-request-attributes: true
 
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test;MODE=MySQL
-    username: sa
-    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/socialize # aws
+    username: root
+    password: 1234
   h2:
     console:
-      enabled: true
+      enabled: false
   data:
     redis:
       host: 127.0.0.1
       port: 6379
       password:
-  sql:
-    init:
-      data-locations:
-        - classpath:db/data.sql
+
+
   jpa:
     hibernate:
       ddl-auto: create
-    show-sql: false
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
@@ -47,3 +45,8 @@ spring:
     media-types:
       hls:
         - application/vnd.apple.mpegurl
+
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: TRACE
+    com.example.final_project: DEBUG # DEBUG 이상의 에러 뜨도록 설정
