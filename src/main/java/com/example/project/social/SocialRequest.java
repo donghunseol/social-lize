@@ -15,6 +15,7 @@ public class SocialRequest {
         private MultipartFile image;
         private String info;
         private List<String> categories;
+        private List<Integer> categoriesN;
     }
 
     // 소셜 수정 DTO

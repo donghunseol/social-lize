@@ -205,16 +205,9 @@ public class SocialService {
         }).toList();
 
         for (int i = 0; i < categoryNames.size(); i++) {
-            CategoryName categoryName = categoryNames.get(i);
-            CategoryName categoryName2 = categoryNameRepository.save(CategoryName.builder()
-                    .name(categoryName.getName())
-                    .imagePath("이미지")
-                    .status(DeleteStateEnum.ACTIVE)
-                    .build());
-
             categoryRepository.save(Category.builder()
                     .socialId(social)
-                    .categoryNameId(categoryName2)
+                    .categoryNameId(CategoryName.builder().id(createDTO.getCategoriesN().get(i)).build())
                     .build());
         }
 
@@ -246,7 +239,6 @@ public class SocialService {
             throw new Exception400("해당 소셜명은 이미 존재하는 소셜명입니다.");
         }
 
-
         ImageVideoUtil.FileUploadResult image = ImageVideoUtil.uploadFile(updateDTO.getImage());
 
         // 소셜 업데이트
@@ -254,27 +246,15 @@ public class SocialService {
         social.setImage(image.getFilePath());
         social.setInfo(updateDTO.getInfo());
 
-        for (int i = 0; i < updateDTO.getCategories().size(); i++) {
-            CategoryName categoryName = categoryNameRepository.findNameByCategoryName(updateDTO.getCategories().get(i));
-            if (categoryName != null) {
-                Category category = Category.builder()
-                        .categoryNameId(categoryName)
-                        .build();
-                category.setCategoryNameId(categoryName);
-                categoryName.setName(updateDTO.getCategories().get(i));
-            } else {
-                CategoryName categoryName1 = CategoryName.builder()
-                        .imagePath("이미지")
-                        .name(updateDTO.getCategories().get(i))
-                        .status(DeleteStateEnum.ACTIVE)
-                        .build();
-                categoryNameRepository.save(categoryName1);
+        List<Category> categoryList = categoryRepository.findBySocialId(socialId);
 
-                categoryRepository.save(Category.builder()
-                        .socialId(social)
-                        .categoryNameId(categoryName1)
-                        .build());
-            }
+        categoryRepository.deleteAll(categoryList);
+
+        for (int i = 0; i < updateDTO.getCategoriesN().size(); i++) {
+            categoryRepository.save(Category.builder()
+                    .socialId(social)
+                    .categoryNameId(CategoryName.builder().id(updateDTO.getCategoriesN().get(i)).build())
+                    .build());
         }
     }
 
@@ -388,6 +368,14 @@ public class SocialService {
 
         List<Category> category = categoryRepository.findBySocialId(socialId);
 
-        return new SocialResponse.UpdateFormDTO(social, category);
+        List<CategoryName> categoryNames = categoryNameRepository.findAll();
+
+        return new SocialResponse.UpdateFormDTO(social, category, categoryNames);
+    }
+
+    public SocialResponse.SaveFormDTO saveForm() {
+        List<CategoryName> categoryNames = categoryNameRepository.findAll();
+
+        return new SocialResponse.SaveFormDTO(categoryNames);
     }
 }
