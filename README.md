@@ -40,15 +40,10 @@
 
 ### Team-Member
 
-|                                                   김세운                                                    |                                                   장유진                                                    |
-|:--------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:| 
-| <img src="https://avatars.githubusercontent.com/u/897777?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/161176345?v=4" alt="profile" width="100" height="100"> | 
-|                                    [@kimsaewoon](https://github.com/kimsaewoon)                                    |                              [@hillview0303](https://github.com/hillview0303)                              |
-
-|                                                   하승진                                                   |                                                   김완준                                                    |
-|:-------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:| 
-| <img src="https://avatars.githubusercontent.com/u/126733434?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/81667935?v=4" alt="profile" width="100" height="100"> | 
-|                              [@HaSenugJin](https://github.com/HaSenugJin)                               |                               [@tkffkels93](https://github.com/tkffkels93)                               |
+|                                                   김세운                                                    |                                                   장유진                                                    |                                                   하승진                                                   |                                                   김완준                                                    |
+|:--------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:| :-------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:| 
+| <img src="https://avatars.githubusercontent.com/u/897777?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/161176345?v=4" alt="profile" width="100" height="100"> |  <img src="https://avatars.githubusercontent.com/u/126733434?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/81667935?v=4" alt="profile" width="100" height="100"> | 
+|                                    [@kimsaewoon](https://github.com/kimsaewoon)                                    |                              [@hillview0303](https://github.com/hillview0303)                              |                              [@HaSenugJin](https://github.com/HaSenugJin)                               |                               [@tkffkels93](https://github.com/tkffkels93)                               |
 
 <br>
 
