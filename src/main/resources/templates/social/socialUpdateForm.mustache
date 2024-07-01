@@ -15,47 +15,50 @@
 </style>
 
 <div class="socialadd-container socialadd-flex-container socialadd-center-content socialadd-column-direction">
-    <div class="socialadd-form-section">
-        <div class="socialadd-form-title">소셜 이름</div>
-        <input type="text" id="socialNameInput" value="{{model.name}}" class="socialadd-form-input">
-    </div>
-    <div class="socialadd-form-title">카테고리</div>
-    <div class="socialadd-form-section">
-        <div class="socialadd-input-group socialadd-flex-container socialadd-align-center">
-            <div id="subject"
-                 class="socialadd-form-section socialadd-input-group socialadd-flex-container socialadd-align-center">
-                <input type="text" id="customHashtagInput" placeholder="새로운 해시태그 입력" class="socialadd-form-input">
-                <button id="addCustomHashtagButton" class="socialadd-button socialadd-button-border">추가</button>
-            </div>
-            <div class="socialadd-hashtag-group" id="hashtagContainer">
-                {{#model.categoryList}}
-                    <div class="socialadd-border-style socialadd-rounded-pill-style socialadd-padding-x socialadd-padding-y socialadd-border-dark-style socialadd-hashtag">
-                        <span class="socialadd-hashtag-text"># {{categoryName}}</span>
-                        <input type="hidden" name="hashtags[]" value="{{categoryName}}">
-                    </div>
-                {{/model.categoryList}}
+    <form action="/social/update/{{model.socialId}}" enctype="multipart/form-data" method="post">
+        <div class="socialadd-form-section">
+            <div class="socialadd-form-title">소셜 이름</div>
+            <input name="name" type="text" id="socialNameInput" value="{{model.name}}" class="socialadd-form-input">
+        </div>
+        <div class="socialadd-form-title">카테고리</div>
+        <div class="socialadd-form-section">
+            <div class="socialadd-input-group socialadd-flex-container socialadd-align-center">
+                <div id="subject"
+                     class="socialadd-form-section socialadd-input-group socialadd-flex-container socialadd-align-center">
+                    <input type="text" id="customHashtagInput" placeholder="새로운 해시태그 입력" class="socialadd-form-input">
+                    <button type="button" id="addCustomHashtagButton" class="socialadd-button socialadd-button-border">추가</button>
+                </div>
+                <div class="socialadd-hashtag-group" id="hashtagContainer">
+                    {{#model.categoryList}}
+                        <div class="socialadd-border-style socialadd-rounded-pill-style socialadd-padding-x socialadd-padding-y socialadd-border-dark-style socialadd-hashtag">
+                            <span class="socialadd-hashtag-text"># {{categoryName}}</span>
+                            <input type="hidden" name="categories[]" value="{{categoryName}}">
+                            <input type="hidden" name="categoriesN[]" value="{{id}}">
+                        </div>
+                    {{/model.categoryList}}
+                </div>
             </div>
         </div>
-    </div>
-    <div class="socialadd-form-title">소셜 메인 커버</div>
-    <div class="socialadd-flex-container socialadd-align-center">
-        <div class="socialadd-selected-cover-container">
-            <img class="socialadd-selected-cover" id="socialCoverPreview" src="{{model.image}}" alt="#">
-            <input type="file" id="socialCoverInput" accept="image/*" style="display: none;">
-            <label for="socialCoverInput" class="socialadd-cover-upload-label">
-                <i class="fas fa-camera socialadd-text-gray"></i>
-                <div class="socialadd-text-gray socialadd-text-gray-border">사진 추가</div>
-            </label>
+        <div class="socialadd-form-title">소셜 메인 커버</div>
+        <div class="socialadd-flex-container socialadd-align-center">
+            <div class="socialadd-selected-cover-container">
+                <img class="socialadd-selected-cover" id="socialCoverPreview" src="{{model.image}}" alt="#">
+                <input value="{{model.imageFile}}" name="image" type="file" id="socialCoverInput" accept="image/*" style="display: none;">
+                <label for="socialCoverInput" class="socialadd-cover-upload-label">
+                    <i class="fas fa-camera socialadd-text-gray"></i>
+                    <div class="socialadd-text-gray socialadd-text-gray-border">사진 추가</div>
+                </label>
+            </div>
         </div>
-    </div>
-    <div class="socialadd-form-section socialadd-margin-top-section">
-        <div class="socialadd-form-title">소개글</div>
-        <textarea id="description" rows="4" class="socialadd-form-input socialadd-border-style"
-                  vocab="소개글 입력">{{model.info}}</textarea>
-    </div>
-    <div class="socialadd-form-section socialadd-button-group socialadd-margin-top-large">
-        <button class="socialadd-submit-button">소셜 수정하기</button>
-    </div>
+        <div class="socialadd-form-section socialadd-margin-top-section">
+            <div class="socialadd-form-title">소개글</div>
+            <textarea name="info" id="description" rows="4" class="socialadd-form-input socialadd-border-style"
+                      vocab="소개글 입력">{{model.info}}</textarea>
+        </div>
+        <div class="socialadd-form-section socialadd-button-group socialadd-margin-top-large">
+            <button type="submit" class="socialadd-submit-button">소셜 수정하기</button>
+        </div>
+    </form>
 </div>
 
 <script>
@@ -86,7 +89,7 @@
             const hashtag = document.createElement('div');
             hashtag.className = 'socialadd-border-style socialadd-rounded-pill-style socialadd-padding-x socialadd-padding-y socialadd-border-dark-style socialadd-hashtag';
             hashtag.innerHTML = `<span class="socialadd-hashtag-text"># ${hashtagText}</span>
-                                 <input type="hidden" name="hashtags[]" value="${hashtagText}">`; // 숨겨진 입력 필드 추가
+                                 <input type="hidden" name="categories[]" value="${hashtagText}">`; // 숨겨진 입력 필드 추가
 
             // 해시태그 클릭 이벤트 추가 (삭제 기능)
             hashtag.addEventListener('click', function () {

@@ -44,12 +44,14 @@ public class Social {
     private LocalDateTime createdAt; // 생성 일자
 
     @Builder
-    public Social(Integer id, String name, String image, String info, List<Category> category, LocalDateTime createdAt) {
+    public Social(Integer id, String name, String image, String info, List<Category> category, List<com.example.project.social_member.SocialMember> socialMember, SocialStateEnum status, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.info = info;
         this.category = category;
+        this.SocialMember = socialMember;
+        this.status = status;
         this.createdAt = createdAt;
     }
 }
