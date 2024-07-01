@@ -3,54 +3,55 @@
 <style>
     .socialadd-text-gray-border {
         display: inline-block;
-        border: 1px solid #ccc; /* 테두리 스타일과 색상 설정 */
-        padding: 6px 12px; /* 내부 여백 설정 */
-        border-radius: 4px; /* 테두리 둥글기 설정 */
-        cursor: pointer; /* 포인터 커서 설정 */
+        border: 1px solid #ccc;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
     }
 
     .socialadd-text-gray-border:hover {
-        background-color: #f0f0f0; /* 마우스 오버 시 배경색 설정 */
+        background-color: #f0f0f0;
     }
 </style>
 
 <div class="socialadd-container socialadd-flex-container socialadd-center-content socialadd-column-direction">
-    <div class="socialadd-form-section">
-        <div class="socialadd-form-title">소셜 이름</div>
-        <input type="text" id="socialNameInput" class="socialadd-form-input">
-    </div>
-    <div class="socialadd-form-title">카테고리</div>
-    <div class="socialadd-form-section">
-        <div class="socialadd-input-group socialadd-flex-container socialadd-align-center">
-            <div id="subject"
-                 class="socialadd-form-section socialadd-input-group socialadd-flex-container socialadd-align-center">
-                <input type="text" id="customHashtagInput" placeholder="새로운 해시태그 입력" class="socialadd-form-input">
-                <button id="addCustomHashtagButton" class="socialadd-button socialadd-button-border">추가</button>
-            </div>
-            <div class="socialadd-hashtag-group" id="hashtagContainer">
-
+    <form id="socialForm" action="/social/create" method="post" enctype="multipart/form-data">
+        <div class="socialadd-form-section">
+            <div class="socialadd-form-title">소셜 이름</div>
+            <input name="name" type="text" id="socialNameInput" class="socialadd-form-input">
+        </div>
+        <div class="socialadd-form-title">카테고리</div>
+        <div class="socialadd-form-section">
+            <div class="socialadd-input-group socialadd-flex-container socialadd-align-center">
+                <div id="subject"
+                     class="socialadd-form-section socialadd-input-group socialadd-flex-container socialadd-align-center">
+                    <input type="text" id="customHashtagInput" placeholder="새로운 해시태그 입력" class="socialadd-form-input">
+                    <button type="button" id="addCustomHashtagButton" class="socialadd-button socialadd-button-border">추가</button>
+                </div>
+                <div class="socialadd-hashtag-group" id="hashtagContainer">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="socialadd-form-title">소셜 메인 커버</div>
-    <div class="socialadd-flex-container socialadd-align-center">
-        <div class="socialadd-selected-cover-container">
-            <img class="socialadd-selected-cover" id="socialCoverPreview" src="" alt="#">
-            <input type="file" id="socialCoverInput" accept="image/*" style="display: none;">
-            <label for="socialCoverInput" class="socialadd-cover-upload-label">
-                <i class="fas fa-camera socialadd-text-gray"></i>
-                <div class="socialadd-text-gray socialadd-text-gray-border">사진 추가</div>
-            </label>
+        <div class="socialadd-form-title">소셜 메인 커버</div>
+        <div class="socialadd-flex-container socialadd-align-center">
+            <div class="socialadd-selected-cover-container">
+                <img class="socialadd-selected-cover" id="socialCoverPreview" src="" alt="#">
+                <input name="image" type="file" id="socialCoverInput" accept="image/*" style="display: none;">
+                <label for="socialCoverInput" class="socialadd-cover-upload-label">
+                    <i class="fas fa-camera socialadd-text-gray"></i>
+                    <div class="socialadd-text-gray socialadd-text-gray-border">사진 추가</div>
+                </label>
+            </div>
         </div>
-    </div>
-    <div class="socialadd-form-section socialadd-margin-top-section">
-        <div class="socialadd-form-title">소개글</div>
-        <textarea id="description" rows="4" class="socialadd-form-input socialadd-border-style"
-                  vocab="소개글 입력"></textarea>
-    </div>
-    <div class="socialadd-form-section socialadd-button-group socialadd-margin-top-large">
-        <button class="socialadd-submit-button">소셜 수정하기</button>
-    </div>
+        <div class="socialadd-form-section socialadd-margin-top-section">
+            <div class="socialadd-form-title">소개글</div>
+            <textarea name="info" id="description" rows="4" class="socialadd-form-input socialadd-border-style"
+                      vocab="소개글 입력"></textarea>
+        </div>
+        <div class="socialadd-form-section socialadd-button-group socialadd-margin-top-large">
+            <button type="submit" class="socialadd-submit-button">소셜 생성하기</button>
+        </div>
+    </form>
 </div>
 
 <script>
@@ -75,49 +76,27 @@
         const hashtagContainer = document.getElementById('hashtagContainer');
         const hashtagText = customHashtagInput.value.trim();
 
-        // 입력값이 유효한지 체크
         if (hashtagText !== '') {
-            // 새로운 해시태그 요소 생성
             const hashtag = document.createElement('div');
             hashtag.className = 'socialadd-border-style socialadd-rounded-pill-style socialadd-padding-x socialadd-padding-y socialadd-border-dark-style socialadd-hashtag';
             hashtag.innerHTML = `<span class="socialadd-hashtag-text"># ${hashtagText}</span>
-                                 <input type="hidden" name="hashtags[]" value="${hashtagText}">`; // 숨겨진 입력 필드 추가
+                                 <input type="hidden" name="categories[]" value="${hashtagText}">`;
 
-            // 해시태그 클릭 이벤트 추가 (삭제 기능)
             hashtag.addEventListener('click', function () {
                 hashtagContainer.removeChild(hashtag);
             });
 
-            // 해시태그를 해시태그 컨테이너에 추가
             hashtagContainer.appendChild(hashtag);
-
-            // 입력 필드 초기화
             customHashtagInput.value = '';
         }
     });
 
-    // 각 해시태그 삭제 기능 추가
-    document.querySelectorAll('.socialadd-hashtag').forEach(function (hashtag) {
-        hashtag.addEventListener('click', function () {
-            hashtag.parentNode.removeChild(hashtag);
-        });
-    });
-
-    document.getElementById('memberNotificationToggle').addEventListener('click', function () {
-        this.classList.toggle('active');
-    });
-
-    document.getElementById('toggleHashtagListButton').addEventListener('click', function () {
-        const hashtagList = document.getElementById('hashtagList');
-        hashtagList.style.display = hashtagList.style.display === 'flex' ? 'none' : 'flex';
-    });
-
+    // 초기 해시태그 수 업데이트
     function updateHashtagCount() {
         const selectedHashtags = document.querySelectorAll('.socialadd-hashtag-list .socialadd-hashtag.selected').length;
         document.getElementById('hashtagCount').innerText = selectedHashtags;
     }
 
-    // 초기 해시태그 수 업데이트
     updateHashtagCount();
 </script>
 

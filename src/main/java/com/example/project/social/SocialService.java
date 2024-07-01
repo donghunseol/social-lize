@@ -1,5 +1,6 @@
 package com.example.project.social;
 
+import com.example.project._core.enums.DeleteStateEnum;
 import com.example.project._core.enums.SocialMemberRoleEnum;
 import com.example.project._core.enums.SocialMemberStateEnum;
 import com.example.project._core.enums.SocialStateEnum;
@@ -7,6 +8,8 @@ import com.example.project._core.errors.exception.Exception400;
 import com.example.project._core.errors.exception.Exception401;
 import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
+import com.example.project._core.utils.FileUtil;
+import com.example.project._core.utils.ImageVideoUtil;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.album.AlbumRepository;
@@ -34,8 +37,15 @@ import com.example.project.user.UserRepository;
 import com.example.project.user.UserResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.units.qual.C;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -92,6 +102,7 @@ public class SocialService {
 
         List<Object[]> week = boardRepository.findPostCountsByDayOfWeek(socialId);
 
+
         Boolean isWaiting = socialMemberRepository.findByUserWaiting(socialId, userId);
 
         // 쿼리 결과 반영 및 요일 이름 변환
@@ -126,7 +137,6 @@ public class SocialService {
             List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
 
 
-
             Boolean hashEmpty = false;
 
             // BoardDTO 객체 생성
@@ -143,10 +153,18 @@ public class SocialService {
             boardDTOs.add(boardDTO);
         }
 
-        if(isWaiting) {
-            return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), dayNameMap.get(week.get(0)[0]), finalResults, isWaiting);
+        if (isWaiting) {
+            if (week.isEmpty() || week.get(0).length == 0) {
+                return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), "월요일", finalResults, isWaiting);
+            } else {
+                return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), dayNameMap.get(week.get(0)[0]), finalResults, isWaiting);
+            }
         } else {
-            return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), dayNameMap.get(week.get(0)[0]), finalResults);
+            if (week.isEmpty() || week.get(0).length == 0) {
+                return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), "월요일", finalResults);
+            } else {
+                return new BoardResponse.SocialDetailDTO(hashtag, social, socialMember.getUserId().getNickname(), socialMemberCount, boardDTOs, boards.size(), dayNameMap.get(week.get(0)[0]), finalResults);
+            }
         }
     }
 
@@ -168,32 +186,45 @@ public class SocialService {
             throw new Exception400("해당 소셜명은 이미 존재하는 소셜명입니다.");
         }
 
+        ImageVideoUtil.FileUploadResult image = ImageVideoUtil.uploadFile(createDTO.getImage());
+
         // 새로운 소셜 생성
         Social social = Social.builder()
                 .name(createDTO.getName())
-                .image(createDTO.getImage())
+                .image(image.getFilePath())
                 .info(createDTO.getInfo())
+                .status(SocialStateEnum.ACTIVE)
                 .build();
 
-        // 카테고리 등록
-        List<Category> categories = createDTO.getCategories().stream().map(categoryDTO -> {
-            // 카테고리 유무 확인
-            CategoryName categoryName = categoryNameRepository.findById(categoryDTO.getCategoryNameId())
-                    .orElseThrow(() -> new Exception404("선택하신 카테고리 명을 찾을 수 없습니다."));
-            return Category.builder()
-                    .socialId(social)
-                    .categoryNameId(categoryName)
-                    .build();
-        }).collect(Collectors.toList());
 
-        social.setCategory(categories);
+        List<CategoryName> categoryNames = createDTO.getCategories().stream().map(s -> {
+            return CategoryName.builder()
+                    .name(s)
+                    .status(DeleteStateEnum.ACTIVE)
+                    .build();
+        }).toList();
+
+        for (int i = 0; i < categoryNames.size(); i++) {
+            CategoryName categoryName = categoryNames.get(i);
+            CategoryName categoryName2 = categoryNameRepository.save(CategoryName.builder()
+                    .name(categoryName.getName())
+                    .imagePath("이미지")
+                    .status(DeleteStateEnum.ACTIVE)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .socialId(social)
+                    .categoryNameId(categoryName2)
+                    .build());
+        }
+
         Social saveSocial = socialRepository.save(social);
 
         // 소셜 멤버 등록 및 권한 부여
         SocialMember socialMember = SocialMember.builder()
                 .socialId(saveSocial)
                 .userId(user)
-                .role(SocialMemberRoleEnum.MEMBER)
+                .role(SocialMemberRoleEnum.MANAGER)
                 .state(SocialMemberStateEnum.APPROVED)
                 .build();
 
@@ -215,27 +246,36 @@ public class SocialService {
             throw new Exception400("해당 소셜명은 이미 존재하는 소셜명입니다.");
         }
 
+
+        ImageVideoUtil.FileUploadResult image = ImageVideoUtil.uploadFile(updateDTO.getImage());
+
         // 소셜 업데이트
         social.setName(updateDTO.getName());
-        social.setImage(updateDTO.getImage());
+        social.setImage(image.getFilePath());
         social.setInfo(updateDTO.getInfo());
 
-        // 기존 카테고리 삭제
-        categoryRepository.deleteAll(social.getCategory());
+        for (int i = 0; i < updateDTO.getCategories().size(); i++) {
+            CategoryName categoryName = categoryNameRepository.findNameByCategoryName(updateDTO.getCategories().get(i));
+            if (categoryName != null) {
+                Category category = Category.builder()
+                        .categoryNameId(categoryName)
+                        .build();
+                category.setCategoryNameId(categoryName);
+                categoryName.setName(updateDTO.getCategories().get(i));
+            } else {
+                CategoryName categoryName1 = CategoryName.builder()
+                        .imagePath("이미지")
+                        .name(updateDTO.getCategories().get(i))
+                        .status(DeleteStateEnum.ACTIVE)
+                        .build();
+                categoryNameRepository.save(categoryName1);
 
-        // 새 카테고리 추가
-        List<Category> categories = updateDTO.getCategories().stream().map(categoryDTO -> {
-            CategoryName categoryName = categoryNameRepository.findById(categoryDTO.getCategoryNameId())
-                    .orElseThrow(() -> new Exception404("선택하신 카테고리가 존재하지 않습니다."));
-            return Category.builder()
-                    .socialId(social)
-                    .categoryNameId(categoryName)
-                    .build();
-        }).collect(Collectors.toList());
-
-        social.setCategory(categories);
-
-        socialRepository.save(social);
+                categoryRepository.save(Category.builder()
+                        .socialId(social)
+                        .categoryNameId(categoryName1)
+                        .build());
+            }
+        }
     }
 
     // 소셜 삭제
@@ -281,6 +321,7 @@ public class SocialService {
 
         return new SocialResponse.DetailDTO(detail, memberCount, socialMemberList);
     }
+
     // 소셜 별 앨범, 파일 리스트 출력
     public SocialResponse.AlbumAndFileListDTO getSocialAlbumList(Integer socialId) {
         // 소셜 별 앨범 리스트 가져오기
@@ -331,7 +372,7 @@ public class SocialService {
         return new SocialResponse.MyApplySocialListDTO(socialList, members);
     }
 
-    public SocialResponse.UpdateFormDTO updateForm(Integer socialId, Integer userId) {
+    public SocialResponse.UpdateFormDTO updateForm(Integer socialId, Integer userId) throws IOException {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
 

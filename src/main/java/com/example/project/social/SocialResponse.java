@@ -2,18 +2,16 @@ package com.example.project.social;
 
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.enums.SocialMemberRoleEnum;
-import com.example.project._core.enums.SocialMemberStateEnum;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.category.Category;
-import com.example.project.category_name.CategoryName;
 import com.example.project.file.File;
 import com.example.project.social_member.SocialMember;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

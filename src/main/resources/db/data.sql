@@ -283,5 +283,4 @@ INSERT INTO album_tb (user_id, board_id, path, type, created_at)
 VALUES (5, 4, '/upload/image1.jpg', 'IMAGE', now()),
        (1, 8, './upload/image2.png', 'IMAGE', now()),
        (5, 12, './upload/image3.png', 'IMAGE', now()),
-       (2, 16, './upload/image4.png', 'IMAGE', now()),
-       (4, 20, './upload/image5.png', 'IMAGE', now());
+       (2, 16, './upload/image4.png', 'IMAGE', now());

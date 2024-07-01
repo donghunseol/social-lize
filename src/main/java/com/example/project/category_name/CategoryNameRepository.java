@@ -21,4 +21,7 @@ public interface CategoryNameRepository extends JpaRepository<CategoryName, Inte
     // 카테고리 전체 갯수 조회 (관리자)
     @Query("select count(*) from CategoryName cn where cn.status = 'ACTIVE'")
     Integer findAllByCategoryNameStatus();
+
+    @Query("select c from CategoryName c where c.name = :name")
+    CategoryName findNameByCategoryName(@Param("name") String name);
 }

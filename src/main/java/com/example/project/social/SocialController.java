@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,22 +25,23 @@ public class SocialController {
 
     // 소셜 생성
     @PostMapping("/social/create")
-    public String create(@RequestBody SocialRequest.Create CreateDTO) {
+    public String create(SocialRequest.Create CreateDTO) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         socialService.createSocial(CreateDTO, sessionUser.getId());
         return "redirect:/";
     }
 
     // 소셜 수정
-    @PutMapping("/social/update/{socialId}")
-    public String update(@PathVariable Integer socialId, @RequestBody SocialRequest.Update UpdateDTO) {
+    @PostMapping("/social/update/{socialId}")
+    public String update(@PathVariable Integer socialId, SocialRequest.Update UpdateDTO) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         socialService.updateSocial(socialId, UpdateDTO, sessionUser.getId());
         return "redirect:/";
     }
 
+    // 소셜 수정 폼
     @GetMapping("/social/updateForm/{socialId}")
-    public String socialUpdateForm(@PathVariable("socialId") Integer socialId, HttpServletRequest request) {
+    public String socialUpdateForm(@PathVariable("socialId") Integer socialId, HttpServletRequest request) throws IOException {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         SocialResponse.UpdateFormDTO model = socialService.updateForm(socialId, sessionUser.getId());
         request.setAttribute("model", model);
