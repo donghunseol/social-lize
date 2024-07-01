@@ -157,9 +157,11 @@ public class SocialService {
 
 
     // 새로운 소셜 생성
-    // TODO 유저 확인 세션으로 수정해야 함
     @Transactional
-    public void createSocial(SocialRequest.Create createDTO) {
+    public void createSocial(SocialRequest.Create createDTO, Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
         // 이미 존재하는 소셜명인지 확인
         Optional<Social> socialNameCheck = socialRepository.findByName(createDTO.getName());
         if (socialNameCheck.isPresent()) {
@@ -187,10 +189,6 @@ public class SocialService {
         social.setCategory(categories);
         Social saveSocial = socialRepository.save(social);
 
-        // 유저 확인
-        User user = userRepository.findById(createDTO.getUserId())
-                .orElseThrow(() -> new Exception401("존재하지 않는 계정입니다."));
-
         // 소셜 멤버 등록 및 권한 부여
         SocialMember socialMember = SocialMember.builder()
                 .socialId(saveSocial)
@@ -204,7 +202,10 @@ public class SocialService {
 
     // 소셜 정보 수정
     @Transactional
-    public void updateSocial(Integer socialId, SocialRequest.Update updateDTO) {
+    public void updateSocial(Integer socialId, SocialRequest.Update updateDTO, Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
         Social social = socialRepository.findById(socialId)
                 .orElseThrow(() -> new Exception404("해당 소셜은 존재하지 않습니다."));
 

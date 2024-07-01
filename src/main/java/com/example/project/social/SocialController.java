@@ -1,33 +1,41 @@
 package com.example.project.social;
 
+import com.example.project._core.utils.ApiUtil;
 import com.example.project._core.utils.UserUtil;
 import com.example.project.board.BoardResponse;
-import com.example.project.board.BoardService;
-import com.example.project.file.FileRequest;
-import com.example.project.file.FileService;
-import com.example.project.social_member.SocialMember;
 import com.example.project.social_member.SocialMemberResponse;
 import com.example.project.social_member.SocialMemberService;
 import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
 public class SocialController {
     private final SocialService socialService;
-    private final FileService fileService;
-    private final HttpSession session;
     private final UserUtil userUtil;
     private final SocialMemberService socialMemberService;
+
+    // 소셜 생성
+    @PostMapping("/social/create")
+    public String create(@RequestBody SocialRequest.Create CreateDTO) {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        socialService.createSocial(CreateDTO, sessionUser.getId());
+        return "redirect:/";
+    }
+
+    // 소셜 수정
+    @PutMapping("/social/update/{socialId}")
+    public String update(@PathVariable Integer socialId, @RequestBody SocialRequest.Update UpdateDTO) {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        socialService.updateSocial(socialId, UpdateDTO, sessionUser.getId());
+        return "redirect:/";
+    }
 
     @GetMapping("/social/updateForm/{socialId}")
     public String socialUpdateForm(@PathVariable("socialId") Integer socialId, HttpServletRequest request) {
