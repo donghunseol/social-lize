@@ -1,0 +1,103 @@
+{{> admin/layout/header}}
+<body>
+<main role="main">
+    <section id="section n1">
+        <aside class="side-bar">
+            <div class="side-wrapper">
+                {{> admin/layout/sidebar}}
+            </div>
+        </aside>
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <ul class="tab-nav">
+                    <li class="tab-link"><a href="/admin/user-list">회원</a></li>
+                    <li class="tab-link"><a href="/admin/social-list">소셜</a></li>
+                    <li class="tab-link"><a href="/admin/board-list">게시글</a></li>
+                    <li class="tab-link"><a href="/admin/category-name-list">카테고리</a></li>
+                    <li class="tab-link"><a href="/admin/qna-list">문의</a></li>
+                    <li class="tab-link current"><a href="/admin/report-list">신고</a></li>
+                    <li class="tab-link"><a href="/admin/notice-list">공지사항</a></li>
+                </ul>
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>신고 관리</p>
+                    </div>
+                    <div class="tab-item">
+                        <form action="/admin/reports" method="get" style="width: 100%;">
+                            <ul class="search-box">
+                                <li class="search-left">
+                                    <span>총 신고 <em>{{reportDTO.count}}</em> 개</span>
+                                </li>
+                                <li class="search-right">
+                                    <div>
+                                        <div class="tab-input-wrapper">
+                                            <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
+                                            <input class="submit-btn" type="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                        <table>
+                            <colgroup>
+                                <col width="10%">
+                                <col width="15%">
+                                <col width="30%">
+                                <col width="20%">
+                                <col width="15%">
+                                <col width="10%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">신고 번호</th>
+                                <th scope="col">신고 게시글 번호</th>
+                                <th scope="col">신고 사유</th>
+                                <th scope="col">신고한 회원</th>
+                                <th scope="col">작성일</th>
+                                <th scope="col">현황</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {{#reportDTO.reportList}}
+                            <tr class="review">
+                                <td class="content"><span>{{reportId}}</span></td>
+                                <td class="content"><span>{{boardId}}</span></td>
+                                <td class="content">{{content}}</td>
+                                <td class="content">{{reportNickname}}</td>
+                                <td class="content">{{createdAt}}</td>
+                                <td class="content">{{result}}</td>
+                                <td class="link">
+                                    <a href="/admin/report/{{reportId}}"></a>
+                                </td>
+                            </tr>
+                            {{/reportDTO.reportList}}
+
+
+                            <!-- {{#reportKeywordList}}
+                                    <tr class="review">
+                                        <td class="title"><span>{{reportId}}</span></td>
+                                        <td class="title"><span>{{stayName}}</span></td>
+                                        <td class="content">{{reviewContent}}</td>
+                                        <td class="content">{{reportContent}}</td>
+                                        <td>{{userEmail}}</td>
+                                        <td>{{reportedAt}}</td>
+                                        <td class="link">
+                                            <a href="/admin/reports/{{reportId}}"></a>
+                                        </td>
+                                    </tr>
+                                    {{/reportKeywordList}} -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>

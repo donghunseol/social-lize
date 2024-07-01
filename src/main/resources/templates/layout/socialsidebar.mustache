@@ -1,0 +1,16 @@
+<div class="common-sidebar">
+    <div class="common-social-info">
+        <img src="{{modal.image}}" alt="소셜 사진">
+        <h2>{{modal.title}}</h2>
+        <div>리더 <span class="common-highlight">{{modal.name}}</span></div>
+        <div>멤버 <span class="common-highlight">{{modal.memberCount}}</span></div>
+        <button class="common-postwrite" id="openModalBtn" data-bs-toggle="modal"
+                data-bs-target="#boardSaveModal" data-social-id="{{modal.socialId}}">글 작성하기</button>
+        <button class="common-invite-button" id="copyLinkButton">초대링크 복사</button>
+        <div class="common-description">{{modal.info}}</div>
+        <div class="common-settings-wrapper">
+            <div class="common-settings"><a href="/social/updateForm/{{modal.socialId}}"><i class="fas fa-cog"></i></a></div>
+            <div>소셜 수정하기</div>
+        </div>
+    </div>
+</div>

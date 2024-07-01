@@ -1,0 +1,111 @@
+{{> layout/header}}
+
+<div class="profileupdate-wrapper">
+    <div class="profileupdate-container">
+        <div class="profileupdate-sidebar">
+            {{> layout/mpsidebar}}
+        </div>
+        <div class="profileupdate-content">
+            <form action="/user/update" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                <div>
+                    <div class="profileupdate-section">
+                        <h6 class="profileupdate-section-title">사용중인 프로필</h6>
+                        <div class="profileupdate-profile-info">
+                            <label for="profileImageUpload" class="profileupdate-profile-image-label">
+                                <div class="profileupdate-profile-image-container">
+
+                                    {{#sessionUser.image}}
+                                    <img src="{{sessionUser.image}}" alt="프로필" id="profileImagePreview"
+                                         class="profileupdate-profile-image">
+                                    {{/sessionUser.image}}
+                                    {{^sessionUser.image}}
+                                        <img src="/images/plus.jpg" alt="프로필" id="profileImagePreview"
+                                             class="profileupdate-profile-image">
+                                    {{/sessionUser.image}}
+                                    <input type="file" id="profileImageUpload" class="d-none" name="image"
+                                           onchange="updateProfileImage()">
+                                </div>
+                            </label>
+                            <div class="profileupdate-name-container">
+                                <span id="profileName" class="profileupdate-profile-name">{{sessionUser.nickname}}</span>
+                                <input type="text" id="profileNameInput" name="nickname" class="profileupdate-form-control profileupdate-input-control text-center d-none" value="{{sessionUser.nickname}}">
+                                <img src="/images/profile_pencil.png" alt="프로필 편집" class="profileupdate-icon" id="editIcon">
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="profileupdate-divider">
+                    <div class="profileupdate-section profileupdate-profile-title">
+                        <h6 class="profileupdate-section-title">개인 정보</h6>
+                        <div class="profileupdate-info-list">
+                            <div class="profileupdate-info-item">
+                                <label class="profileupdate-form-label">이메일</label>
+                                <p class="profileupdate-email-text">{{sessionUser.email}}</p>
+                            </div>
+                            <div class="profileupdate-info-item">
+                                <label class="profileupdate-form-label">비밀번호</label>
+                                <input type="password" name="password" class="profileupdate-form-control" value="">
+                            </div>
+                            <div class="profileupdate-info-item">
+                                <label class="profileupdate-form-label">비밀번호 확인</label>
+                                <input type="password" name="passwordCheck" class="profileupdate-form-control" value="">
+                            </div>
+                            <div class="profileupdate-info-item">
+                                <label class="profileupdate-form-label">생년 월일</label>
+                                <input type="date" class="profileupdate-form-control" name="birth" id="birthdate" value="{{sessionUser.birth}}">
+                            </div>
+                            <div class="profileupdate-info-item">
+                                <label class="profileupdate-form-label">전화 번호</label>
+                                {{#sessionUser.phone}}
+                                    <input type="text" class="profileupdate-form-control" name="phone" value="{{sessionUser.phone}}">
+                                {{/sessionUser.phone}}
+                                {{^sessionUser.phone}}
+                                    <input type="text" class="profileupdate-form-control" name="phone" value="">
+                                {{/sessionUser.phone}}
+                            </div>
+                            <button class="profileupdate-save-button">저장</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 이미지 클릭 시 변경 창 스크립트 -->
+<script>
+    function updateProfileImage() {
+        var preview = document.getElementById('profileImagePreview');
+        var file = document.getElementById('profileImageUpload').files[0];
+        preview.src = window.URL.createObjectURL(file);
+    }
+
+    document.getElementById('editIcon').addEventListener('click', function() {
+        var profileName = document.getElementById('profileName');
+        var profileNameInput = document.getElementById('profileNameInput');
+        profileName.classList.toggle('d-none');
+        profileNameInput.classList.toggle('d-none');
+        if (!profileNameInput.classList.contains('d-none')) {
+            profileNameInput.focus();
+        }
+    });
+
+    document.getElementById('profileNameInput').addEventListener('blur', function() {
+        var profileName = document.getElementById('profileName');
+        var profileNameInput = document.getElementById('profileNameInput');
+        profileName.textContent = profileNameInput.value;
+        profileName.classList.remove('d-none');
+        profileNameInput.classList.add('d-none');
+    });
+
+    function validateForm() {
+        const password = document.querySelector('input[name="password"]').value;
+        const passwordCheck = document.querySelector('input[name="passwordCheck"]').value;
+
+
+        if (password !== passwordCheck) {
+            alert('비밀번호가 일치하지 않습니다. 다시 확인해주세요.');
+            return false;
+        }
+        return true;
+    }
+</script>
+{{> layout/footer}}

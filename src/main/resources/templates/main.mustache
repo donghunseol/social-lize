@@ -1,0 +1,238 @@
+{{> layout/header}}
+
+<div class="tab-nav-container">
+    <div class="tab-nav">
+        <button class="tab-button active" data-tab="tab-1">내 소셜</button>
+        <button class="tab-button" data-tab="tab-2">소셜 찾기</button>
+    </div>
+</div>
+<div id="tab-1" class="tab-content active">
+    <div class="my-full-width-section my-section1">
+        <div class="my-section">
+            <div class="my-cards-container">
+                <div class="my-card">
+                    <a href="/social/socialAdd" class="my-card-link">
+                        <div class="plus-icon" style="font-size: 50px;">+</div>
+                        <div class="my-title">새 소셜 만들기</div>
+                    </a>
+                </div>
+                {{#model.mySocialList}}
+                    <a href="/social/detail/{{id}}" class="my-card-link">
+                        <div class="my-card" style="height: 100%;">
+                            <img src="{{imagePath}}" alt="{{name}}">
+                            <div class="my-title">{{name}}</div>
+                            <div class="my-subtitle">멤버수 : {{memberCount}}</div>
+                        </div>
+                    </a>
+                {{/model.mySocialList}}
+
+            </div>
+        </div>
+    </div>
+    <div class="my-full-width-section my-section2">
+        <div class="my-section">
+            <h3>내 소셜의 인기글</h3>
+            <div class="my-posts-container">
+                {{#model.mySocialPopularList}}
+                    <a class="my-card-link" href="/social/detail/{{id}}">
+                        <div class="my-post">
+                            <div class="my-title">{{socialName}}</div>
+                            <div class="my-separator"></div>
+                            <div class="my-content-flex">
+                                <div class="my-content">
+                                    {{{content}}}
+                                </div>
+                                <img src="{{socialImage}}" alt="{{socialName}}" class="my-image-right">
+                            </div>
+                            <div class="my-footer">
+                                <div>😊😍 {{likeCount}}</div>
+                                <div>💬 {{replyCount}}</div>
+                            </div>
+                        </div>
+                    </a>
+                {{/model.mySocialPopularList}}
+            </div>
+        </div>
+    </div>
+    <div class="my-full-width-section my-section4">
+        <div class="my-section">
+            <h3>이런 소셜은 어때요</h3>
+            <div class="my-recommendation-container">
+                {{#model.categoryList}}
+                    <div class="my-recommendation-item">
+                        <img src="{{image}}" alt="우주,천체관측,천체사진 소셜">
+                        <div class="my-details">
+                            <div class="my-title">{{socialName}}</div>
+                            <div class="my-subtitle">{{info}}</div>
+                        </div>
+                        <button class="tab-button my-more-button my-scroll-item2" data-tab="tab-2"
+                                data-category-id="{{id}}">{{categoryName}} 소셜 더보기 >
+                        </button>
+                    </div>
+                {{/model.categoryList}}
+            </div>
+        </div>
+    </div>
+    <div class="my-full-width-section my-section4">
+        <div class="my-section">
+            <h3>오늘의 인기글</h3>
+            <div class="my-posts-container">
+                {{#model.popularPostList}}
+                    <a class="my-card-link" href="/social/detail/{{id}}">
+                        <div class="my-post">
+                            <div class="my-title">{{name}}</div>
+                            <div class="my-separator"></div>
+                            <div class="my-content-flex">
+                                <div class="my-content">
+                                    {{{content}}}
+                                </div>
+                                <img src="{{image}}" alt="{{name}}" class="my-image-right">
+                            </div>
+                            <div class="my-footer">
+                                <div>😊😍 {{likeCount}}</div>
+                                <div>댓글 {{replyCount}}</div>
+                            </div>
+                        </div>
+                    </a>
+                {{/model.popularPostList}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tab-2" class="tab-content">
+    <div class="my-full-width-section my-section3">
+        <div class="my-section">
+            <h3>주제별 소셜을 찾아보세요!</h3>
+            <div class="my-search-bar">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="검색어를 입력하세요...">
+            </div>
+            <div class="my-scroll-container">
+                <button class="my-scroll-button" id="scroll-left">&lt;</button>
+                <div class="my-scroll-wrapper" id="scroll-wrapper">
+                    <div class="my-scroll-item">전체</div>
+                    {{#model.categoryNameList}}
+                        <button class="my-scroll-item my-scroll-item2" data-category-id="{{id}}">{{name}}</button>
+                    {{/model.categoryNameList}}
+                </div>
+                <button class="my-scroll-button" id="scroll-right">&gt;</button>
+            </div>
+        </div>
+    </div>
+    <div class="my-full-width-section my-section1">
+        <div class="my-section">
+            <div class="my-grid-container category-social-list">
+                <!-- AJAX 요청에 의해 소셜 리스트가 여기에 추가됩니다. -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 탭 전환
+        const tabs = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // 페이지 로드 시 첫 번째 탭 기본으로 보이게 함
+        document.querySelector('.tab-button').click();
+
+        // 탭 버튼 클릭 시 처리하는 함수
+        function handleTabButtonClick(button) {
+            // 모든 버튼에서 'active' 클래스 제거
+            tabs.forEach(btn => btn.classList.remove('active'));
+            // 클릭된 버튼에 'active' 클래스 추가
+            button.classList.add('active');
+
+            // 클릭된 버튼에 해당하는 탭 ID 가져오기
+            const tabId = button.getAttribute('data-tab');
+            if (tabId) {
+                // 모든 탭 콘텐츠 숨기기
+                tabContents.forEach(content => {
+                    content.style.display = 'none';
+                });
+
+                // 클릭된 버튼에 해당하는 콘텐츠 보이기
+                const tabContent = document.getElementById(tabId);
+                if (tabContent) {
+                    tabContent.style.display = 'block';
+                } else {
+                    console.error(`Tab content with ID '${tabId}' not found.`);
+                }
+            } else {
+                console.error('Button does not have data-tab attribute.');
+            }
+        }
+
+        // 카테고리 가로스크롤
+        const scrollWrapper = document.getElementById('scroll-wrapper');
+        const scrollLeft = document.getElementById('scroll-left');
+        const scrollRight = document.getElementById('scroll-right');
+
+        scrollLeft.addEventListener('click', () => {
+            scrollWrapper.scrollBy({
+                left: -200,
+                behavior: 'smooth'
+            });
+        });
+
+        scrollRight.addEventListener('click', () => {
+            scrollWrapper.scrollBy({
+                left: 200,
+                behavior: 'smooth'
+            });
+        });
+
+        // 모든 탭 버튼에 클릭 이벤트 리스너 등록
+        tabs.forEach(button => {
+            button.addEventListener('click', () => {
+                handleTabButtonClick(button);
+            });
+        });
+
+
+        // 카테고리 버튼 클릭 시 AJAX 요청 처리
+        document.querySelectorAll('.my-scroll-item2').forEach(item => {
+            item.addEventListener('click', function () {
+                const categoryId = this.getAttribute('data-category-id');
+
+                $.ajax({
+                    url: "/main/category",
+                    type: "GET",
+                    data: {categoryId: categoryId},
+                    success: function (response) {
+                        const socialList = response; // 서버에서 반환된 소셜 리스트
+                        console.log(response);
+                        const categorySocialList = document.querySelector('.category-social-list');
+
+                        // 기존 소셜 리스트 초기화
+                        categorySocialList.innerHTML = '';
+
+                        // 새로운 소셜 리스트 추가
+                        socialList.forEach(social => {
+                            const socialCard = `
+                        <a class="my-card-link" href="/social/detail/${social.id}">
+                            <div class="my-grid-item">
+                                <img src="${social.image}" alt="${social.name}">
+                                <div class="my-details">
+                                    <div class="my-title">${social.name}</div>
+                                    <div class="my-subtitle">리더 : ${social.nickName}</div>
+                                    <div class="my-participants">${social.memberCount} 명이 함께하고 있어요.</div>
+                                    <div class="my-join-button">지금 참여하기</div>
+                                </div>
+                            </div>
+                        </a>`;
+                            categorySocialList.innerHTML += socialCard;
+                        });
+                    },
+                    error: function (error) {
+                        alert('소셜 목록을 불러오는 데 실패했습니다.');
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+{{> layout/footer }}

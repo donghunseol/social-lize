@@ -1,0 +1,106 @@
+{{> layout/header}}
+<div class="qna-wrapper">
+    <div class="qna-container">
+        <h2>1:1 문의</h2>
+        <div class="qna-tab-container">
+            <div class="qna-tabs">
+                <div class="qna-tab active" onclick="openTab(event, 'inquiryTab')">문의하기</div>
+                <div class="qna-tab" onclick="openTab(event, 'responseTab')">답변 상태</div>
+            </div>
+            <div id="inquiryTab" class="qna-tab-content active">
+                <div class="qna-form-group">
+                    <label for="inquiryTitle">문의 제목</label>
+                    <input type="text" id="inquiryTitle" placeholder="문의 제목을 입력해 주세요">
+                </div>
+                <div class="qna-form-group">
+                    <label for="inquiryContent">문의 내용</label>
+                    <textarea id="inquiryContent" rows="10" placeholder="문의 내용을 입력해 주세요"></textarea>
+                </div>
+                <div class="qna-button-group">
+                    <button class="qna-cancel">취소하기</button>
+                    <button onclick="submitInquiry()">등록하기</button>
+                </div>
+            </div>
+            <div id="responseTab" class="qna-tab-content">
+                <div class="qna-info-text">
+                    상담시간: 월~금 09:00 ~18:00<br>
+                    (점심시간 12:00~13:00, 토/일/공휴일 휴무)<br><br>
+                    답변이 완료된 상담 내용은 수정이 불가능하오니 서비스 이용에 참고 부탁드립니다.
+                </div>
+                <div class="qna-info-section" id="completedAnswers">
+                    <h3>답변 완료 (<span id="completedCount"></span>)</h3>
+                    <div onclick="showDetail('completed', 1)">완료된 문의 1</div>
+                </div>
+                <div class="qna-info-section" id="pendingAnswers">
+                    <h3>답변 대기 (<span id="pendingCount"></span>)</h3>
+                    <div onclick="showDetail('pending', 1)">대기 중인 문의 1</div>
+                </div>
+                <div id="detailBox" class="qna-detail-box" style="display: none;">
+                    <h4 id="detailTitle"></h4>
+                    <p id="detailQuestion"></p>
+                    <p id="detailAnswer"></p>
+                </div>
+            </div>
+        </div>
+        <div class="qna-company-info">
+            <p>Socialize<br>고객센터 1234-5678 (유료)<br>평일 09:00 ~ 18:00 (토/일/공휴일 휴무)<br><small>(break time 12:00 ~ 13:00)</small></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const completedAnswers = {
+        1: { question: "완료된 문의내용", answer: "답변" },
+    };
+
+    const pendingAnswers = {
+        1: { question: "대기 중인 문의내용" },
+    };
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("completedCount").innerText = Object.keys(completedAnswers).length;
+        document.getElementById("pendingCount").innerText = Object.keys(pendingAnswers).length;
+    });
+
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("qna-tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].className = tabcontent[i].className.replace(" active", "");
+        }
+        tablinks = document.getElementsByClassName("qna-tab");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).className += " active";
+        evt.currentTarget.className += " active";
+    }
+
+    function submitInquiry() {
+        alert('문의가 등록되었습니다.');
+    }
+
+    function showDetail(type, id) {
+        const detailBox = document.getElementById("detailBox");
+        const detailTitle = document.getElementById("detailTitle");
+        const detailQuestion = document.getElementById("detailQuestion");
+        const detailAnswer = document.getElementById("detailAnswer");
+
+        let data;
+        if (type === "completed") {
+            data = completedAnswers[id];
+            detailTitle.innerText = "완료된 문의 " + id;
+            detailAnswer.style.display = "block";
+            detailAnswer.innerText = "답변: " + data.answer;
+        } else {
+            data = pendingAnswers[id];
+            detailTitle.innerText = "대기 중인 문의 " + id;
+            detailAnswer.style.display = "none";
+        }
+
+        detailQuestion.innerText = "질문: " + data.question;
+
+        detailBox.style.display = "block";
+    }
+</script>
+{{> layout/footer}}

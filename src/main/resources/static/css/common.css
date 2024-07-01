@@ -1,0 +1,104 @@
+.hashtag-btn {
+    background-color: #f0f0f0;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 5px 10px;
+    margin-top: 25px;
+    cursor: pointer;
+}
+
+.hashtag-btn:hover {
+    background-color: #e0e0e0;
+}
+.common-sidebar {
+    width: 250px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    position: sticky;
+    top: 20px;
+    flex-shrink: 0;
+}
+
+.common-social-info {
+    text-align: left;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.common-social-info img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.common-highlight {
+    color: #333;
+    font-weight: bold;
+}
+
+.common-postwrite,
+.common-invite-button {
+    background-color: #666;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.common-postwrite:hover,
+.common-invite-button:hover {
+    background-color: #555;
+}
+
+.common-description {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.common-settings-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.common-settings {
+    text-align: left;
+    margin-right: 10px;
+}
+
+.common-settings a {
+    color: #888;
+    text-decoration: none;
+    font-size: 20px;
+}
+.socialtab-navbar {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 1;
+    position: relative;
+    margin-top: 80px;
+}
+
+.socialtab-navbar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.socialtab-navbar a:hover {
+    background-color: #f1f1f1;
+}

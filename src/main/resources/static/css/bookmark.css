@@ -1,0 +1,63 @@
+.bookmark-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 100px;
+}
+
+.bookmark-container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+.bookmark-sidebar {
+    flex: 0 0 20%;
+    margin-right: 20px;
+}
+
+.bookmark-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 700px;
+}
+
+.bookmark-content-box {
+    margin-bottom: 20px;
+}
+
+.bookmark-bookmark-box h2 {
+    font-size: 1.5em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+.posts-container {
+    margin-bottom: 20px;
+}
+/* 기본 상태의 북마크 버튼 스타일 */
+.book-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    color: #aaaaaa;
+    margin-right: 100px;
+    position: absolute;
+    margin-left: 550px;
+}
+
+/* 북마크 된 상태의 별 색상 */
+.book-button.bookd .fa-star {
+    color: yellow;
+}
+
+/* 북마크 되지 않은 상태의 별 색상 */
+.book-button:not(.bookd) .fa-star {
+    color: #aaaaaa;
+}

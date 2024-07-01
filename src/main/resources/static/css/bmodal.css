@@ -1,0 +1,136 @@
+.bmodal-board-modal-content {
+    padding: 20px;
+    background-color: white;
+}
+
+.bmodal-user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.bmodal-user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.bmodal-user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.bmodal-date {
+    color: #777;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.bmodal-hashtags {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.bmodal-hashtag {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.bmodal-board-actions {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    margin-top: 10px;
+    gap: 20px;
+}
+
+.bmodal-board-actions .bmodal-likes-comments {
+    display: flex;
+    align-items: center;
+}
+
+.bmodal-board-actions .bmodal-likes-comments span {
+    margin-left: 5px;
+}
+
+.bmodal-board-actions .bmodal-likes-comments i {
+    cursor: pointer;
+}
+
+.bmodal-board-comment-section {
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+.bmodal-board-comment {
+    display: block;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    margin-bottom: 15px;
+}
+
+.bmodal-reply {
+    display: block;
+    margin-left: 30px; /* 대댓글 들여쓰기 */
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.reply-profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-content {
+    display: flex;
+    align-items: center;
+}
+
+.delete-comment-button {
+    background: none;
+    border: none;
+    color: #9a9a9a;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 100px;
+    margin-bottom: 14px;
+}
+
+.delete-comment-button:hover {
+    color: #c82333;
+}
+
+.delete-comment-button i {
+    font-size: 1em;
+}
+.comment-time {
+    font-size: 12px;
+    color: #777;
+}
+
+.reply-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+}

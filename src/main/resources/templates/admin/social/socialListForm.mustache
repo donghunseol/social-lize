@@ -1,0 +1,96 @@
+{{> admin/layout/header}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> admin/layout/sidebar}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <ul class="tab-nav">
+                    <li class="tab-link"><a href="/admin/user-list">회원</a></li>
+                    <li class="tab-link current"><a href="/admin/social-list">소셜</a></li>
+                    <li class="tab-link"><a href="/admin/board-list">게시글</a></li>
+                    <li class="tab-link"><a href="/admin/category-name-list">카테고리</a></li>
+                    <li class="tab-link"><a href="/admin/qna-list">문의</a></li>
+                    <li class="tab-link"><a href="/admin/report-list">신고</a></li>
+                    <li class="tab-link"><a href="/admin/notice-list">공지사항</a></li>
+                </ul>
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>소셜 목록</p>
+                    </div>
+                    <div class="tab-item">
+                        <form action="/admin/users" method="get" style="width: 100%;">
+                            <ul class="search-box">
+                                <li class="search-left">
+                                    <span>총 소셜 <em>{{socialListDTO.count}}</em> 개</span>
+                                </li>
+                                <li class="search-right">
+                                    <div>
+                                        <div class="tab-input-wrapper">
+                                            <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
+                                            <input class="submit-btn" type="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                        <table>
+                            <colgroup>
+                                <col width="30%">
+                                <col width="20%">
+                                <col width="15%">
+                                <col width="20%">
+                                <col width="15%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">소셜명</th>
+                                <th scope="col">카테고리</th>
+                                <th scope="col">멤버수</th>
+                                <th scope="col">생성일자</th>
+                                <th scope="col">상세보기</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#socialListDTO.socialList}}
+                            <tr>
+                                <td class="title">{{name}}</td>
+                                <td class="social-category">
+                                    <div class="social-category-box">
+                                        {{#categories}}
+                                            <span class="social-category-box-text">{{.}}</span>
+                                        {{/categories}}
+                                    </div>
+
+                                </td>
+                                <td>{{memberCount}} 명</td>
+                                <td>{{createdAt}}</td>
+                                <td><span class="detail"
+                                          onclick="location.href='/admin/social/{{id}}'">상세보기</span>
+                                </td>
+                            </tr>
+                            {{/socialListDTO.socialList}}
+
+
+                            <!-- 검색 부분 -->
+                            <!-- {{#keywordList}}
+                                <tr>
+                                    <td class="title">{{name}}</td>
+                                    <td>{{email}}</td>
+                                    <td>{{reportCount}}</td>
+                                    <td><span class="state {{stateColor}}">{{stateMessage}}</span></td>
+                                    <td><span class="detail" onclick="location.href='/admin/users/{{userId}}'">상세보기</span></td>
+                                </tr>
+                            {{/keywordList}} -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>

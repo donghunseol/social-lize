@@ -1,0 +1,10 @@
+.findResult{
+    margin-bottom:20px;
+}
+.findResult .findResult-title{
+    font-weight: normal;
+}
+.findResult .findResult-content{
+    font-weight: normal;
+    color: #6c757d;
+}

@@ -1,0 +1,117 @@
+<!-- 게시글 모달 가져오는 법 -->
+<!--<div id="openModalBtn" data-bs-toggle="modal" data-bs-target="#boardModal"></div>-->
+<div class="modal fade" id="boardModal" tabindex="-1" aria-labelledby="boardModalLabel" aria-hidden="true"
+     style="text-align: start">
+    <div class="modal-dialog">
+        <div class="bmodal-board-modal-content modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="boardModalLabel">이벤트 공지</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="bmodal-user-info">
+                    <img src="/images/puppy.png" alt="User Image" class="rounded-circle bmodal-user-image">
+                    <div class="bmodal-user-details">
+                        <strong>이다정</strong>
+                        <p class="bmodal-date">2019년 5월 22일 오후 7:55</p>
+                    </div>
+                </div>
+                <p>내용이 나오는 공간입니다.</p>
+                <div class="bmodal-hashtags">
+                    <span class="bmodal-hashtag">#해시태그1</span>
+                    <span class="bmodal-hashtag">#해시태그2</span>
+                    <span class="bmodal-hashtag">#해시태그3</span>
+                </div>
+                <div class="bmodal-board-actions">
+                    <div class="bmodal-likes-comments">
+                        <i class="far fa-heart bmodal-like-icon"></i>
+                        <span>좋아요</span>
+                        <span class="bmodal-like-count">1</span>
+                    </div>
+                    <div class="bmodal-likes-comments">
+                        <i class="fas fa-comment bmodal-comment-icon"></i>
+                        <span>댓글쓰기</span>
+                        <span class="bmodal-comment-count">1</span>
+                    </div>
+                </div>
+                <div class="bmodal-board-comment-section">
+                    <div class="bmodal-board-comment">
+                        <div class="comment-content">
+                            <img src="/images/user.png" alt="Profile Picture" class="comment-profile-image">
+                            <div>
+                                <strong>댓글 작성자</strong>
+                                <p>댓글 내용입니다.</p>
+                            </div>
+                        </div>
+                        <button class="delete-comment-button"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    <div class="bmodal-board-comment">
+                        <div class="comment-content">
+                            <img src="/images/user.png" alt="Profile Picture" class="comment-profile-image">
+                            <div>
+                                <strong>댓글 작성자</strong>
+                                <p>댓글 내용입니다.</p>
+                            </div>
+                        </div>
+                        <button class="delete-comment-button"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    <div class="bmodal-board-comment bmodal-reply">
+                        <div class="comment-content">
+                            <img src="/images/user.png" alt="Profile Picture" class="reply-profile-image">
+                            <div>
+                                <strong>답글 작성자</strong>
+                                <p>답글 내용입니다.</p>
+                            </div>
+                        </div>
+                        <button class="delete-comment-button"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // 모달 내부 클릭 시 닫히지 않도록 설정
+        $('#boardModal .modal-content').on('click', function (event) {
+            event.stopPropagation();
+        });
+
+        // 좋아요 버튼 클릭 이벤트
+        $('.bmodal-like-icon').on('click', function () {
+            var likeCount = $(this).siblings('.bmodal-like-count');
+            var count = parseInt(likeCount.text());
+            if ($(this).hasClass('far')) {
+                $(this).removeClass('far').addClass('fas');
+                likeCount.text(count + 1);
+            } else {
+                $(this).removeClass('fas').addClass('far');
+                likeCount.text(count - 1);
+            }
+        });
+
+        // 댓글 삭제 버튼 클릭 이벤트
+        $('.delete-comment-button').on('click', function () {
+            var $comment = $(this).closest('.bmodal-board-comment, .bmodal-reply');
+            var commentId = $comment.data('comment-id'); // 댓글 ID 가져오기
+
+            // 서버에 삭제 요청
+            $.ajax({
+                type: 'DELETE',
+                url: '/comment/delete?commentId=' + commentId, // URL 매개변수로 commentId 전송
+                success: function (response) {
+                    if (response.success) {
+                        // 성공적으로 삭제되면 댓글을 UI에서 제거
+                        $comment.remove();
+                    } else {
+                        console.error('Error:', response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>

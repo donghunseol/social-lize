@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/join.css">
+</head>
+<body>
+<div class="background"></div>
+<div class="signup-container">
+    <div class="signup-box-container">
+        <h1 class="signup-title">회원가입</h1>
+        <div class="signup-breadcrumb">
+            <a href="#">홈</a> &gt; <span>회원가입</span>
+        </div>
+        <div class="signup-box">
+            <p class="signup-left-align-title">함께 즐기는 취미생활, Socialize에서 시작하세요!</p>
+            <form action="/join" method="post">
+                <div class="signup-textbox">
+                    <input type="email" placeholder="이메일" name="email" id="email" class="short-input" required>
+                    <button type="button" class="verify-btn" id="send-verification" style="display:none">인증</button>
+                </div>
+                <div class="signup-textbox verification-box" id="verification-box">
+                    <input type="text" placeholder="인증번호 입력" name="verification_code" id="verification_code" class="short-input">
+                    <button type="button" class="verify-btn" style="display:none">확인</button>
+                </div>
+                <div class="signup-textbox">
+                    <input type="password" placeholder="비밀번호" name="password" id="password" required>
+                    <button type="button" class="signup-password-toggle"></button>
+                    <span class="checkmark" id="password-checkmark">&#10004;</span>
+                </div>
+                <div class="signup-textbox">
+                    <input type="password" placeholder="비밀번호 확인" name="confirm_password" id="confirm_password" required>
+                    <button type="button" class="signup-password-toggle"></button>
+                    <span class="checkmark" id="confirm-password-checkmark">&#10004;</span>
+                </div>
+                <div class="signup-textbox">
+                    {{#joinDTO}}
+                        <input type="text" placeholder="이름" name="name" required value="{{joinDTO.name}}" readonly>
+                        <input type="hidden" name="provider" value="{{joinDTO.provider}}">
+                        <input type="hidden" name="providerId" value="{{joinDTO.providerId}}">
+                    {{/joinDTO}}
+                    {{^joinDTO}}
+                        <input type="text" placeholder="이름" name="name" required value="">
+                    {{/joinDTO}}
+                </div>
+                <div class="signup-textbox">
+                    <input type="text" id="birthdate" placeholder="생년월일" name="birthdate" required readonly>
+                    <input type="date" id="date-picker" style="display: none;">
+                </div>
+                <button type="submit" class="signup-btn">회원가입하기</button>
+                <input type="hidden" name="role" value="USER"/>
+            </form>
+            <p>이미 계정이 있으신가요? <a href="/user/login">로그인하기</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirm_password');
+    const passwordCheckmark = document.getElementById('password-checkmark');
+    const confirmPasswordCheckmark = document.getElementById('confirm-password-checkmark');
+    const sendVerificationBtn = document.getElementById('send-verification');
+    const verificationBox = document.getElementById('verification-box');
+    const birthdateInput = document.getElementById('birthdate');
+    const datePicker = document.getElementById('date-picker');
+
+    function checkPasswords() {
+        if (password.value === confirmPassword.value && password.value !== '') {
+            passwordCheckmark.classList.add('visible');
+            confirmPasswordCheckmark.classList.add('visible');
+        } else {
+            passwordCheckmark.classList.remove('visible');
+            confirmPasswordCheckmark.classList.remove('visible');
+        }
+    }
+
+    password.addEventListener('input', checkPasswords);
+    confirmPassword.addEventListener('input', checkPasswords);
+
+    sendVerificationBtn.addEventListener('click', function() {
+        verificationBox.style.display = 'flex';
+    });
+
+    birthdateInput.addEventListener('click', function() {
+        datePicker.style.display = 'block';
+        datePicker.focus();
+    });
+
+    datePicker.addEventListener('change', function() {
+        birthdateInput.value = datePicker.value;
+        datePicker.style.display = 'none';
+    });
+</script>

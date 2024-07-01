@@ -1,0 +1,19 @@
+{{> layout/header}}
+<div class="bookmark-wrapper">
+    <div class="bookmark-container">
+        <div class="bookmark-sidebar">
+            {{> layout/mpsidebar}}
+        </div>
+        <div class="bookmark-content">
+            <div class="bookmark-content-box">
+                <div class="bookmark-bookmark-box">
+                    <h2>북마크 {{modals.boardCount}}</h2>
+                </div>
+            </div>
+            <div class="posts-container">
+                {{> layout/post}}
+            </div>
+        </div>
+    </div>
+</div>
+{{> layout/footer}}

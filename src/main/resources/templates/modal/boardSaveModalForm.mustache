@@ -1,0 +1,206 @@
+<link rel="stylesheet" href="/css/boardsavemodal.css">
+
+<div class="modal fade" id="boardSaveModal" tabindex="-1" aria-labelledby="boardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="boardModalLabel">글쓰기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="boardForm" action="/board/" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="socialId" th:value="${modal.socialId}">
+                    <div class="mb-3">
+                        <label for="content" class="form-label">내용</label>
+                        <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="hashtags" class="form-label">해시태그 추가</label>
+                        <div class="d-flex">
+                            <input type="text" id="hashtagInput" class="form-control me-2" placeholder="해시태그 입력">
+                            <button type="button" id="addHashtagBtn" class="btn btn-primary" style="width: 65px">추가</button>
+                        </div>
+                        <div id="selectedHashtags" class="mt-2"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">파일 첨부</label>
+                        <div class="d-flex gap-2">
+                            <input type="file" id="imgFiles" name="imgFiles" accept="image/*" multiple>
+                            <input type="file" id="videoFiles" name="videoFiles" accept="video/*" multiple>
+                        </div>
+                        <div id="filePreview" class="boardsave-file-preview"></div>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="boardsave-submit-btn">게시</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        var selectedImgFiles = []; // 선택된 이미지 파일들을 저장할 배열
+        var selectedVideoFiles = []; // 선택된 비디오 파일들을 저장할 배열
+        var selectedHashtags = []; // 선택된 해시태그를 저장할 배열
+
+        // 모달 내부 클릭 시 닫히지 않도록 설정
+        $('#boardSaveModal .modal-content').on('click', function (event) {
+            event.stopPropagation();
+        });
+
+        // 모달이 열릴 때 socialId 값을 가져와서 폼의 action 속성에 추가
+        $('#boardSaveModal').on('show.bs.modal', function (event) {
+            var socialId = getSocialIdFromUrl();
+            var modal = $(this);
+            var form = modal.find('form');
+            form.attr('action', '/board/' + socialId);
+        });
+
+        // URL에서 socialId를 추출하는 함수
+        function getSocialIdFromUrl() {
+            var url = window.location.href; // 현재 페이지 URL 가져오기
+            var matches = url.match(/\/social\/detail\/(\d+)/); // 정규 표현식으로 socialId 추출
+            if (matches && matches.length > 1) {
+                return matches[1]; // socialId 반환
+            } else {
+                return 1; // 기본값 설정 (추출 실패 시)
+            }
+        }
+
+        // 이미지 및 동영상 파일 변경 시 미리보기 기능
+        $('#imgFiles, #videoFiles').change(function (event) {
+            const filePreview = $('#filePreview');
+            const files = event.target.files;
+
+            $.each(files, function (index, file) {
+                if (file.size > 0) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const mediaContainer = $('<div>').addClass('media-container').css({
+                            display: 'flex',
+                            justifyContent: 'flex-start',
+                            alignItems: 'center',
+                            width: '100px',
+                            height: '100px',
+                            margin: '5px 0',
+                            position: 'relative'
+                        });
+
+                        // 삭제 버튼 추가
+                        const removeBtn = $('<i>').addClass('btn-close').css({
+                            position: 'absolute',
+                            top: '5px',
+                            right: '5px',
+                            cursor: 'pointer'
+                        }).on('click', function () {
+                            mediaContainer.remove();
+                            if (file.type.startsWith('image')) {
+                                selectedImgFiles = selectedImgFiles.filter(f => f !== file);
+                            } else if (file.type.startsWith('video')) {
+                                selectedVideoFiles = selectedVideoFiles.filter(f => f !== file);
+                            }
+                        });
+
+                        // 이미지 파일 처리
+                        if (file.type.startsWith('image')) {
+                            const img = $('<img>').attr({
+                                src: e.target.result,
+                                alt: 'image'
+                            }).css({
+                                width: '100px',
+                                height: '100px',
+                                objectFit: 'cover'
+                            });
+                            mediaContainer.append(img).append(removeBtn);
+                            selectedImgFiles.push(file);
+                            // 동영상 파일 처리
+                        } else if (file.type.startsWith('video')) {
+                            const video = $('<video>').attr({
+                                src: e.target.result,
+                                controls: true,
+                                alt: 'video'
+                            }).css({
+                                width: '100px',
+                                height: '100px',
+                                objectFit: 'cover'
+                            });
+                            mediaContainer.append(video).append(removeBtn);
+                            selectedVideoFiles.push(file);
+                        }
+                        filePreview.append(mediaContainer);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+        // 해시태그 입력 및 추가 기능
+        $('#addHashtagBtn').click(function () {
+            const hashtagInput = $('#hashtagInput');
+            const hashtag = hashtagInput.val().trim();
+
+            if (hashtag !== '' && !selectedHashtags.includes(hashtag)) {
+                selectedHashtags.push(hashtag);
+                const hashtagElement = $('<div>').addClass('boardsave-tag').text('# ' + hashtag).append(
+                        $('<i>').addClass('btn-close').on('click', function () {
+                            $(this).parent().remove();
+                            selectedHashtags = selectedHashtags.filter(tag => tag !== hashtag);
+                        })
+                );
+                $('#selectedHashtags').append(hashtagElement);
+                hashtagInput.val(''); // 입력란 비우기
+            }
+        });
+
+        // 게시 버튼 클릭 시 폼 데이터 전송
+        $('#boardForm').submit(function (event) {
+            event.preventDefault();
+
+            var formData = new FormData(this);
+
+            // 선택된 이미지 파일들을 FormData에 추가
+            $.each(selectedImgFiles, function (index, file) {
+                formData.append('imgFiles', file);
+            });
+
+            // 선택된 비디오 파일들을 FormData에 추가
+            $.each(selectedVideoFiles, function (index, file) {
+                formData.append('videoFiles', file);
+            });
+
+            // 선택된 해시태그들을 FormData에 추가 (배열 형태로)
+            formData.append('hashtags', JSON.stringify(selectedHashtags));
+
+            // 전송할 데이터 확인 (추가 : 설동훈)
+            for (var pair of formData.entries()) {
+                console.log(pair[0]+ ', ' + pair[1]);
+            }
+
+            // Ajax를 통해 서버로 데이터 전송
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    location.reload();
+                    $('#boardSaveModal').modal('hide');
+                },
+                error: function (error) {
+                    console.error('전송 오류:', error);
+                }
+            });
+        });
+    });
+</script>

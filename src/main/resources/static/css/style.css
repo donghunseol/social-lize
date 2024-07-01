@@ -1,17 +1,67 @@
+/*후보*/
+@font-face {
+    font-family: 'KCC-Hanbit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+/*후보*/
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/*후보*/
+@font-face {
+    font-family: 'GyeonggiTitleM';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/*후보*/
+@font-face {
+    font-family: 'NPSfontBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontBold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+/*유력*/
+@font-face {
+    font-family: 'Dovemayo_gothic';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+/*유력*/
+@font-face {
+    font-family: 'Dovemayo_gothic';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 공통 스타일 */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-color: #EDEFF4;
+    color: #333333;
+    font-family: 'GyeonggiTitleM';
 }
 
 .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
     background-color: #fff;
-    padding: 10px 20px;
     border-bottom: 1px solid #ddd;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 1000;
 }
 
 .header .logo {
@@ -21,22 +71,56 @@ body {
 }
 
 .header .logo img {
-    width: 70px;
+    width: 100px;
     height: auto;
 }
 
 .header .search-bar {
-    width: 60%;
+    width: 40%;
     margin-right: auto;
 }
 
-.header .search-bar input {
+.search-bar {
+    position: relative;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    box-sizing: border-box;
+    padding: 5px 20px;
+}
+.search-bar input[type="text"] {
     width: 100%;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin-right: 10px;
 }
 
+.search-bar .fa-search {
+    color: #888;
+}
+
+.fa-bell {
+    color: #888;
+    font-size: 25px;
+}
+
+.fa-comments {
+    color: #888;
+    font-size: 25px;
+}
+
+.fa-user {
+    color: #888;
+    font-size: 25px;
+}
+
+.fa-headset {
+    color: #888;
+    font-size: 25px;
+}
 .header .menu {
     display: flex;
     align-items: center;
@@ -48,45 +132,92 @@ body {
     color: #333;
 }
 
-.container {
-    display: flex;
-    padding: 20px;
-}
-
-.sidebar {
-    width: 200px;
-    background-color: #fff;
-    border-right: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.sidebar ul {
-    list-style: none;
+.main-container {
+    width: 100vw;
+    margin: 0;
     padding: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.sidebar ul li {
+.footer {
+    padding: 20px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    font-size: 12px;
+    color: #999;
+}
+
+.footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.footer-logo {
+    width: 100px;
+    margin-right: 20px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links span {
+    margin-left: 10px;
+}
+
+.footer-bottom {
+    text-align: left;
+    font-size: 12px;
+    color: #999;
+}
+
+.footer-bottom > div:first-child {
     margin-bottom: 10px;
 }
 
-.sidebar ul li a {
-    text-decoration: none;
-    color: #333;
+
+.divider {
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
 }
 
-.sidebar .social-info {
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/*사이드바*/
+.social-sidebar {
+    width: 300px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.social-sidebar .social-info {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.sidebar .social-info img {
+.social-sidebar .social-info img {
     width: 100%;
     border-radius: 10px;
     margin-bottom: 10px;
 }
 
-.sidebar .social-info .join-button {
+.social-sidebar .social-info .join-button {
     background-color: #333;
     color: #fff;
     padding: 10px 20px;
@@ -94,18 +225,80 @@ body {
     border-radius: 5px;
     cursor: pointer;
     display: block;
-    width: 100%;
+    width: 80%;
     margin-top: 10px;
+    margin-left: 28px;
+}
+.mpsidebar {
+    width: 200px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+}
+.mpsidebar-container {
+    padding-top: 70px;
+}
+.mpsidebar ul {
+    list-style: none;
+    padding: 0;
 }
 
-.content {
-    flex-grow: 1;
-    padding: 20px;
-    margin-left: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+.mpsidebar ul li {
+    margin-bottom: 10px;
 }
+
+.mpsidebar ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* notJoinedForm.mustache */
+.notjoined-container {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+}
+
+.social-chart {
+    margin-top: 20px;
+    width: 100%;
+    height: 300px;
+}
+
+.social-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* socialaddForm.mustache */
+
+.social-description {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.social-activity {
+    margin-top: 20px;
+}
+
+.social-activity h3 {
+    margin-top: 0;
+}
+
+.social-activity ul {
+    list-style: none;
+    padding: 0;
+}
+
+.social-activity ul li {
+    margin-bottom: 5px;
+    color: #777;
+}
+
+/* bookmarkForm.mustache */
 
 .content-box {
     background-color: #fff;
@@ -117,11 +310,16 @@ body {
 }
 
 .content-box .group-name {
-    font-size: 16px; /* Reduced font size */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
+    margin-top: 20px;
+    padding-top: 10px;
 }
 
 .content-box .remove-bookmark {
@@ -133,131 +331,7 @@ body {
     color: #999;
 }
 
-.content .post {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-}
-
-.content .post .author-box {
-    display: flex;
-    align-items: center;
-}
-
-.content .post .author-box img {
-    border-radius: 50%;
-    margin-right: 10px;
-    width: 40px;
-    height: 40px;
-}
-
-.content .post .author {
-    font-weight: bold;
-}
-
-.content .post .date {
-    color: #999;
-    font-size: 12px;
-}
-
-.content .post .message {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.content .post .comments {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.content .post .likes {
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.bookmark-box h2 {
-    margin: 10px 0;
-}
-
-.footer {
-    padding: 20px;
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-    text-align: center;
-    font-size: 12px;
-    color: #999;
-}
-
-.divider {
-    border-top: 1px solid #ddd;
-    margin: 20px 0;
-}
-
-.icon {
-    font-size: 24px;
-    color: #333;
-    margin-left: 20px;
-}
-
-.comment-section-container {
-    display: flex;
-    align-items: center;
-}
-
-.comment-section {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 2px;
-    flex-grow: 1;
-    height: 25px; /* Adjusted height */
-}
-
-.comment-section img {
-    border-radius: 50%;
-    margin-right: 10px;
-    width: 30px;
-    height: 30px;
-}
-
-.comment-section input {
-    flex-grow: 1;
-    border: none;
-    padding: 5px;
-    border-radius: 20px;
-    outline: none;
-}
-
-.send-button {
-    background-color: #ddd;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    margin-left: 10px;
-    cursor: pointer;
-    height: 35px;
-    display: flex;
-    align-items: center;
-}
-
-.like-button {
-    background-color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
-}
-
-.like-button i {
-    color: #e74c3c;
-    font-size: 24px;
-}
-
+/* joinstatusForm.mustache */
 .social-approval-header {
     font-size: 18px;
     font-weight: bold;
@@ -297,151 +371,1272 @@ body {
     color: #999;
 }
 
-.social-description {
-    margin-top: 20px;
+/* myrecordForm.mustache */
+.comment-section-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 8px;
 }
 
-.social-activity {
-    margin-top: 20px;
+.comment-section {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 2px;
+    flex-grow: 1;
+    height: 40px;
 }
 
-.social-activity h3 {
-    margin-top: 0;
+.comment-section img {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
 }
 
-.social-activity ul {
+.comment-section input {
+    flex-grow: 1;
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
+    outline: none;
+}
+
+.send-button {
+    background-color: #ddd;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+/*post*/
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-box {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.date {
+    color: #888888;
+    margin-left: 10px;
+}
+
+.author {
+    margin-left: 10px;
+}
+
+.message-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.comments {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* 기본 상태의 좋아요 버튼 스타일 */
+.like-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    color: #aaaaaa;
+    margin-right: 10px;
+}
+
+/* 좋아요 된 상태의 하트 색상 */
+.like-button.liked .fa-heart {
+    color: red;
+}
+
+/* 좋아요 되지 않은 상태의 하트 색상 */
+.like-button:not(.liked) .fa-heart {
+    color: #aaaaaa;
+}
+
+
+
+/* profileUpdateForm.mustache */
+.profile-container {
+    width: 320px;
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 10px;
+}
+
+.profile-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.bottom {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #000;
+}
+
+.profile-info {
+    flex-grow: 1;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-item {
+    margin-bottom: 5px;
+}
+
+.profile-item {
+    margin-left: 40px;
+}
+
+.profile-input {
+    width: 20%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* memberInvite.mustache */
+.member-container {
+    width: 320px; /* 너비를 400px로 조정 */
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 10px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #000;
+}
+
+.member-list, .request-list {
     list-style: none;
     padding: 0;
 }
 
-.social-activity ul li {
-    margin-bottom: 5px;
+.member-item, .request-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.member-item img, .request-item img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.member-info, .request-info {
+    flex-grow: 1;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.member-info .name, .request-info .name {
+    font-weight: bold;
+}
+
+.member-info .details, .request-info .details {
+    font-size: 0.9em;
+    color: #666;
+    margin-left: 10px;
+}
+
+.actions button {
+    margin-left: 5px;
+    border-radius: 15px;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.actions button:hover {
+    background-color: #f0f0f0;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.member-item .underline {
+    flex-grow: 1;
+    border-bottom: 1px solid #000;
+    margin-top: 10px;
+}
+
+.sort-options {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.sort-options select {
+    margin-left: auto;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group input {
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+.input-group button {
+    margin-left: 20px; /* 간격 조정 */
+}
+
+/* 기타 공통 스타일 */
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-delete {
+    width: 50px;
+}
+
+.details-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.name-and-date {
+    display: flex;
+    align-items: center;
+}
+
+.name-and-date .details {
+    margin-left: 10px;
+}
+
+/* 탭 스타일 */
+.tabs {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabs button {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: #fff;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+}
+
+.tabs button.active {
+    border-bottom: 2px solid #333;
+    font-weight: bold;
+}
+
+.tab-content {
+    display: flex;
+    width: 100vw;
+    background-color: #fff;
+    border-top: none;
+    margin-bottom: 20px;
+    margin-top: 150px;
+}
+
+.tab-content.active {
+    margin-top: 120px;
+}
+
+/* 메인페이지 */
+.popular-section {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    border-radius: 5px;
+}
+.create-band-card {
+    padding: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.band-carousel img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.band-carousel .carousel-item {
+    display: flex;
+    justify-content: center;
+}
+
+.band-category {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 10px;
+}
+
+.band-category img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.category-item button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    text-align: center;
+}
+
+/* 문자열이 2줄 이상이면 ... 처리 */
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 원하는 라인 수 */
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
+
+/* 문자열이 1줄 이상이면 ... 처리 */
+.truncate2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* 원하는 라인 수 */
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
+
+/* 넘기는 버튼 스타일 */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black;
+    /* 아이콘 배경색을 검은색으로 설정 */
+    border-radius: 50%;
+    /* 원형으로 만들기 */
+    width: 50px;
+    /* 너비 늘리기 */
+    height: 50px;
+    /* 높이 늘리기 */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+    /* 버튼 영역을 넓게 설정 */
+    opacity: 1;
+    /* 버튼을 항상 보이게 설정 */
+    z-index: 2;
+    /* 버튼을 콘텐츠 위에 위치 */
+    top: 50%;
+    /* 버튼을 수직 중앙에 위치 */
+    transform: translateY(-50%);
+    /* 버튼을 완벽하게 중앙에 위치 */
+}
+
+.carousel-inner {
+    display: flex;
+    align-items: center;
+    /* 센터 정렬 */
+    padding: 0 60px;
+    /* 좌우 패딩 추가 */
+}
+
+.section-title {
+    background-color: #f8f9fa;
+    /* 배경색 추가 */
+    padding: 10px;
+    /* 패딩 추가 */
+    border-radius: 5px;
+    /* 모서리 둥글게 */
+}
+
+/* detail.mustache 네브바 부분 */
+.navbar {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.navbar a:hover {
+    background-color: #f1f1f1;
+}
+
+/* detail.mustache 사이드바 부분 */
+.main-container {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+}
+
+.sidebar {
+    width: 300px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.sidebar .social-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar .social-info img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.sidebar .social-info .join-button,
+.sidebar .social-info .postwrite {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.sidebar .social-info .description {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.sidebar .social-info .settings {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.sidebar .social-info .settings a {
+    color: #333;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.sidebar .social-info .invite-text {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+
+/* detail.mustache 게시판 부분 */
+.board-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.board {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.board-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.username {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.time {
+    font-size: 12px;
     color: #777;
 }
 
-.social-chart {
-    margin-top: 20px;
+.board-footer {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ddd;
+    font-size: 14px;
+    color: #777;
+}
+
+/* detail.mustache 채팅 부분 */
+.chat-container {
+    width: 300px;
+    background-color: #fff;
+    border-left: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-header .chat-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.chat-header .chat-menu {
+    cursor: pointer;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.chat-date {
+    text-align: center;
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.chat-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.chat-message .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.chat-message .message-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+}
+
+.chat-message .sender {
+    font-weight: bold;
+}
+
+.message-container {
+    display: flex;
+    align-items: center;
+}
+
+.message-bubble {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.message-bubble:before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #f1f1f1;
+}
+
+.chat-message .time {
+    font-size: 12px;
+    color: #777;
+    margin-left: 10px;
+    align-self: flex-end;
+}
+
+.chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.chat-input button {
+    padding: 10px 15px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* socialaddForm */
+
+.socialadd-form-section {
+    margin-bottom: 20px;
+}
+
+/* socialaddForm 커버 선택 */
+.socialadd-form-image-cover {
+    width: 120px;
+    height: 90px;
+    border: #ddd solid 1px;
+}
+
+/* socialaddForm 커버 선택 */
+.socialadd-form-cover-title-image {
+    width: 300px;
+    height: 225px;
+    border: #ddd solid 1px;
+}
+
+/* socialaddForm 해시태그 */
+.socialadd-form-hashtag-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+/* socialaddForm 제목 */
+.socialadd-form-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.socialadd-form-cover-selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.socialadd-form-cover-selection .cover {
     width: 100%;
-    height: 300px;
+    padding-top: 100%;
+    position: relative;
+    background-color: #ddd;
+    border: 1px solid #000;
+    text-align: center;
+    line-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.social-chart canvas {
-    width: 100% !important;
-    height: 100% !important;
-}
-
-.modal-overlay {
-    position: fixed;
+.socialadd-form-cover-selection .cover img {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+}
+
+.socialadd-form-toggle-switch {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.socialadd-form-toggle-switch::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.socialadd-form-toggle-switch.active {
+    background-color: #333;
+}
+
+.socialadd-form-toggle-switch.active::before {
+    left: 22px;
+}
+
+.socialadd-form-button-group {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.socialadd-form-button-group button {
+    padding: 10px 20px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.socialadd-form-button-group button:hover {
+    background-color: #f0f0f0;
+}
+
+/*notLoggedinMain.mustache*/
+.notloggedin-container {
+    background-image: url('/images/startbg.png');
+    background-size: cover;
+    background-position: center bottom;
+    height: 70vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.notloggedin-content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5vw;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.notloggedin-left-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    flex: 1;
+    max-width: 600px;
+    margin-right: 10%;
+}
+
+.notloggedin-left-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.notloggedin-right-content {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.notloggedin-auth-container {
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 350px;
+    color: rgb(73, 128, 230);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.notloggedin-auth-container a {
+    display: block;
+    width: 100%;
+    height: 25px;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(73, 128, 230);
+    background-color: white;
+    border: 1px solid rgb(73, 128, 230);
+}
+
+.notloggedin-footer-space {
+    height: 20vh;
+    background-color: #fff;
+}
+
+.notloggedin-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.notloggedin-logo {
+    margin-right: auto;
+}
+
+.notloggedin-logo img {
+    height: 100px;
+}
+
+.notloggedin-user-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.notloggedin-main {
+    text-align: center;
+    width: 100%;
+}
+
+.notloggedin-app-links a {
+    display: inline-block;
+    margin: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #000;
+    color: white;
+    text-decoration: none;
+}
+
+.notloggedin-phones img {
+    width: 90%;
+    max-width: 600px;
+    margin-right: 100px;
+    max-height: 100%;
+}
+
+.notloggedin-left-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.notloggedin-left-content h1 .notloggedin-gradient-text {
+    font-size: 3rem;
+    background: linear-gradient(90deg, #086bff, #7ba7e2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.notloggedin-left-content p {
+    font-size: 1.5rem;
+    text-align: left;
+}
+
+.notloggedin-friends {
+    margin-top: 200px;
+    width: 100%;
+    height: 600px;
+}
+
+.notloggedin-friends img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.notloggedin-features {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin: 50px 5vw;
+}
+
+.notloggedin-feature-item {
+    flex: 1;
+    text-align: center;
+    margin: 0 20px;
+}
+
+.notloggedin-feature-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.notloggedin-feature-item h3 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
+
+.notloggedin-feature-item p {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.notloggedin-grid-container {
+    display: flex;
+    justify-content: center;
+    gap: 150px;
+    margin-top: 100px;
+    padding: 0 10px;
+    flex-wrap: wrap;
+}
+
+.notloggedin-grid-item {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.modal {
-    background-color: #fff;
-    border-radius: 15px;
-    width: 300px;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+
+.notloggedin-grid-item:nth-child(1) {
+    background-color: #aedafd;
 }
 
-.modal img {
-    width: 100%;
-    height: auto;
-    max-height: 350px;
-    object-fit: cover;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+.notloggedin-grid-item:nth-child(2) {
+    background-color: #aedafd;
 }
 
-.modal h2 {
-    margin: 10px 0;
-    font-size: 20px;
+.notloggedin-grid-item:nth-child(3) {
+    background-color: #aedafd;
 }
 
-.modal .modal-date {
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 10px;
+.notloggedin-grid-item:nth-child(4) {
+    background-color: #aedafd;
 }
 
-.modal .modal-content {
-    background-color: rgba(165, 104, 63, 0.8);
-    border-radius: 0 0 15px 15px;
-    padding: 10px;
-    color: #fff;
-    position: relative;
+.notloggedin-grid-item:nth-child(5) {
+    background-color: #aedafd;
 }
 
-.modal .modal-content h3 {
-    margin: 0;
-}
-
-.modal .actions {
-    display: flex;
-    justify-content: space-around;
+.notloggedin-grid-item span {
     margin-top: 10px;
-    padding: 10px;
-    border-radius: 20px;
-    background-color: rgba(165, 104, 63, 0.8);
+    font-size: 1rem;
 }
 
-.modal .actions div {
+.notloggedin-grid-title {
+    font-size: 18px;
+    margin-top: 150px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: dimgrey;
+}
+
+.notloggedin-grid-subtitle {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.notloggedin-grid-item-text {
+    font-size: 15px;
+    text-align: center;
+}
+
+.container {
+    padding: 20px;
+    width: 100%;
     display: flex;
-    align-items: center;
     flex-direction: column;
 }
 
-.modal .actions button {
-    background-color: rgba(165, 104, 63, 0.8);
-    border: none;
-    color: #fff;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    margin-bottom: 5px;
-    font-size: 24px;
+.tab-nav-container {
+    position: fixed;
+    top: 70px;
+    width: 100%;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.modal .actions span {
-    color: #fff;
-}
-
-.modal .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    color: #999;
-}
-
-.modal .icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+.tab-nav {
     display: flex;
-    gap: 10px;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 0; /* No margin */
+    padding: 10px 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.modal .icon span {
-    font-size: 18px;
+.tab-button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 16px;
+}
+
+.tab-button.active {
+    border-bottom: 2px solid #007bff;
+    color: #007bff;
+}
+
+.tab-content {
+    display: none;
+    width: 100%;
+
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.category-container {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.category-item {
+    display: inline-block;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.category-item.active {
+    background-color: #333;
     color: #fff;
 }
 
-.menu-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
+.category-wrap-vertical {
+    width: 689px;
+    overflow: scroll;
+    color: #112031;
+    overflow: auto;
+    white-space: nowrap;
+    padding: 5px 15px 15px 15px;
+}
+
+.category-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+.scroll-button {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    cursor: pointer;
+}
+
+.boardModal {
+    display: none;
+    position: fixed !important;
+    z-index: 1 !important;
+    background-color: rgba(0, 0, 0, 0.4) !important; /* Black w/ opacity */
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: auto !important;
+}
+
+.modal-content {
+    background-color: #fefefe !important;
+    margin: 15% auto !important;
+    padding: 20px !important;
+    border: 1px solid #888 !important;
+    width: 80% !important;
+    max-width: 600px !important;
+}
+
+.modal-backdrop.show {
+    opacity: 0.5; /* 배경 오버레이 불투명도 설정 */
+}
+
+.board-modal-content {
+    padding: 20px !important;
+    background-color: white !important;
+}
+
+.board-comment-section {
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+.board-comment {
+    margin-bottom: 15px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.board-comment .bmodal-reply {
+    margin-left: 20px;
+    border-top: none; /* 대댓글에는 상단 경계선을 추가하지 않음 */
+    padding-top: 10px;
+}
+
+.board-comment .reply {
+    margin-left: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.board-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.board-actions .likes-comments {
+    display: flex;
+    align-items: center;
+}
+
+.board-actions .likes-comments span {
+    margin-left: 5px;
+}
+
+.board-actions .likes-comments i {
+    cursor: pointer;
+}
+
+/* 프로필 모달 */
+.profile-modal-content {
+    background-color: #e0f7fa;
+    border-radius: 10px;
+}
+
+.profile-modal-header {
+    border-bottom: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-modal-header h5 {
+    color: #007bff;
+    margin: 0 auto;
+}
+
+.profile-modal-img {
+    width: 100%;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    padding: 0 16px;
+}
+
+.profile-info-container {
+    background-color: #ffffff;
+    border-radius: 0 0 40px 40px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: -20px;
+}
+
+.profile-action-container {
+    background-color: #f8f9fa;
+    border-radius: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-action-item {
+    text-align: center;
+    color: #007bff;
+    margin: 10px;
+}
+
+.profile-action-item p {
+    margin-top: 5px;
+    font-size: 1rem;
+    margin-bottom: 0px;
+}
+
+.profile-menu-button {
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -451,32 +1646,95 @@ body {
     height: 24px;
 }
 
-.menu-button div {
+.profile-menu-button div {
     width: 5px;
     height: 5px;
     background-color: #333;
     border-radius: 50%;
     margin: 2px 0;
 }
+.recent-comment {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    margin-bottom: 10px;
+}
 
-.dropdown-menu {
+.recent-comment img {
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-bottom: 30px;
+    width: 30px;
+    height: 30px;
+}
+
+.recent-comment-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.recent-comment-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.recent-comment-text {
+    color: #555;
+}
+.recent-comment-time {
+    color: #888;
+    font-size: 12px;
+}
+.delete-post-button {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: auto;
+    margin-top: 7px;
+}
+
+.delete-post-button:hover {
+    color: #000;
+}
+
+.reply-input-container {
     display: none;
-    position: absolute;
-    top: 40px;
-    left: 10px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.dropdown-menu a {
-    display: block;
-    padding: 10px 15px;
-    text-decoration: none;
-    color: #333;
+.reply-input {
+    flex-grow: 1;
+    padding-left: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-right: 10px;
 }
 
-.dropdown-menu a:hover {
-    background-color: #f5f5f5;
+.send-reply-button {
+    background-color: #ddd;
+    border: none;
+    padding: 5px 10px; /* 여기서 padding 값을 조정하여 버튼의 두께를 조절 */
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px; /* 필요시 폰트 크기를 조정 */
+}
+
+.delete-comment-button {
+    margin-bottom: 60px;
+}
+.comment-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.comment-content {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
 }

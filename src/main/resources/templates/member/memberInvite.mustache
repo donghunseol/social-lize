@@ -1,0 +1,467 @@
+{{> layout/header}}
+<div class="socialtab-navbar">
+    <a href="/social/detail/{{modal.socialId}}">게시글</a>
+    <a href="/social/fileadd/{{modal.socialId}}">서랍</a>
+    <a href="/social/detail/{{modal.socialId}}/member">멤버</a>
+</div>
+
+<div class="invite-container">
+    <div class="common-sidebar">
+        <div class="common-social-info">
+            <img src="{{modal.image}}" alt="소셜 사진">
+            <h2>{{modal.title}}</h2>
+            <div>리더 <span class="common-highlight">{{modal.name}}</span></div>
+            <div>멤버 <span class="common-highlight">{{modal.memberCount}}</span></div>
+            <button class="common-postwrite" id="openModalBtn" data-bs-toggle="modal"
+                    data-bs-target="#boardSaveModal">글 작성하기
+            </button>
+            <button class="common-invite-button" id="copyLinkButton">초대링크 복사</button>
+            <div class="common-description">{{modal.info}}</div>
+            <div class="common-settings-wrapper">
+                <div class="common-settings"><a href="/social/updateForm/{{modal.socialId}}"><i class="fas fa-cog"></i></a></div>
+                <div>소셜 수정하기</div>
+            </div>
+        </div>
+    </div>
+    <div class="invite-content">
+        <h8>이 소셜은 {{modal.memberCount}}명이 함께하고있습니다.</h8>
+        <div class="invite-divider"></div>
+
+        {{#modal.isManager}}
+            {{#modal.isWaiting}}
+                <h2>신청목록</h2>
+                <div class="invite-divider"></div>
+                <div id="invite-requests">
+                    {{#modal.waitingList}}
+                        <div class="invite-request-item">
+                            <img src="{{userImage}}" alt="프로필 사진" class="invite-request-pic">
+                            <span class="invite-request-name">{{userName}}</span>
+                            <button class="invite-approve-button" data-social-id="{{modal.socialId}}"
+                                    data-user-id="{{userId}}" onclick="handleRequest(this, true)">승인
+                            </button>
+                            <button class="invite-reject-button" data-social-id="{{modal.socialId}}"
+                                    data-user-id="{{userId}}" onclick="handleRequest(this, false)">거절
+                            </button>
+                        </div>
+                    {{/modal.waitingList}}
+                </div>
+            {{/modal.isWaiting}}
+        {{/modal.isManager}}
+
+
+        {{^modal.isManager}}
+            {{^modal.isWaiting}}
+                <h2>소셜에 신청한 멤버가 없어요.</h2>
+            {{/modal.isWaiting}}
+        {{/modal.isManager}}
+
+
+
+        <h2>초대링크</h2>
+        <div class="invite-divider"></div>
+        <div class="invite-link-section">
+            <label for="inviteLink">초대링크</label>
+            <div class="invite-link-wrapper">
+                <input type="text" id="inviteLink" value="localhost:8080" readonly>
+                <button class="invite-copy-button" onclick="copyInviteLink()">
+                    <i class="fas fa-copy"></i>
+                </button>
+            </div>
+        </div>
+
+        <h2>멤버리스트</h2>
+        <div class="invite-divider"></div>
+        <div class="invite-member-sort">
+            <select id="memberSort" onchange="sortMembers()">
+                <option value="userName">이름순</option>
+                <option value="joinDate">최근 가입순</option>
+            </select>
+        </div>
+        <div id="noResultsMessage" style="display: none;">검색된 멤버가 없습니다.</div>
+        <div class="invite-member-list">
+            {{#socialMemberList}}
+                {{#isManager}}
+                <div class="invite-member-item leader">
+                {{/isManager}}
+                {{^isManager}}
+                <div class="invite-member-item">
+                {{/isManager}}
+                <img src="{{imagePath}}" alt="프로필 사진" class="invite-member-pic">
+                <div class="invite-member-info">
+                    <span class="invite-member-name">{{nickname}}</span>
+                    {{#isManager}}
+                        <span class="invite-member-role">
+                            <i class="fas fa-crown"></i> 리더
+                        </span>
+                    {{/isManager}}
+                    {{^isManager}}
+                        <span class="invite-member-details">{{createdAtString}} 가입 | 게시물 {{counts.articleCount}}
+                            | 댓글 {{counts.replyCount}}</span>
+                    {{/isManager}}
+                </div>
+                {{^isManager}}
+                    <button class="invite-remove-button" onclick="removeMember(this)">삭제</button>
+                {{/isManager}}
+                <!--                <div class="invite-divider"></div>-->
+            </div>
+            {{/socialMemberList}}
+        </div>
+            <div class="invite-member-search">
+                <input id="memberSearchInput" oninput="searchMembers()" type="text" placeholder="멤버 이름 검색">
+                <button onclick="searchMembers();">검색</button>
+            </div>
+        </div>
+        <div class="invite-chat-container">
+            <div class="invite-chat-header">
+                <div class="invite-chat-title">SNS프로젝트 1조</div>
+                <div id="connection-status" class="invite-chat-status">연결 중...</div>
+                <div class="invite-chat-menu">⋮</div>
+            </div>
+            <div id="response" class="invite-chat-messages">
+                <!-- 채팅 메시지가 이곳에 추가됩니다 -->
+            </div>
+            <div class="invite-chat-input">
+                <input type="hidden" id="socialId" value="1"/> <!-- 소셜 ID -->
+                <input type="hidden" id="userId" value="{{sessionUser.id}}"/> <!-- 유저 ID -->
+                <input type="text" id="comment" placeholder="메시지를 입력하세요">
+                <button id="send-button" onclick="sendMessage()">보내기</button>
+            </div>
+        </div>
+
+        <div id="mediaModal" class="invite-file-modal">
+            <span class="invite-close" onclick="closeModal()">&times;</span>
+            <img class="invite-file-modal-content-img" id="modal-img">
+            <video class="invite-file-modal-content-video" controls id="modal-video"></video>
+            <button class="invite-album-download-btn" id="download-btn">다운로드</button>
+        </div>
+
+        <script>
+            function searchMembers() {
+                var input = document.getElementById('memberSearchInput').value.toLowerCase();
+                var memberList = document.querySelector('.invite-member-list');
+                var members = memberList.getElementsByClassName('invite-member-item');
+                var noResultsMessage = document.getElementById('noResultsMessage');
+                var hasResults = false;
+
+                // 멤버 리스트를 순회하며 필터링
+                for (var i = 0; i < members.length; i++) {
+                    var memberName = members[i].querySelector('.invite-member-name').innerText.toLowerCase();
+                    if (memberName.includes(input)) {
+                        members[i].style.display = ''; // 검색어와 일치하는 멤버를 표시
+                        hasResults = true;
+                    } else {
+                        members[i].style.display = 'none'; // 검색어와 일치하지 않는 멤버를 숨김
+                    }
+                }
+
+                // 검색 결과가 없는 경우 메시지 표시
+                if (hasResults) {
+                    noResultsMessage.style.display = 'none';
+                } else {
+                    noResultsMessage.style.display = 'block';
+                }
+            }
+
+            function switchTab(event, tabName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("invite-tab-content");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("invite-tab");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(tabName).style.display = "block";
+                event.currentTarget.className += " active";
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                document.getElementById("defaultOpen").click();
+                updateAlbumItemCount("Album", "albumCount");
+                updateFileItemCount("File", "fileCount");
+            });
+
+            function updateAlbumItemCount(tabId, countId) {
+                var itemCount = document.querySelectorAll("#" + tabId + " .invite-grid-item").length;
+                document.getElementById(countId).innerText = "전체 " + itemCount;
+            }
+
+            function openModal(src, isVideo = false) {
+                var modal = document.getElementById('mediaModal');
+                var modalImg = document.getElementById('modal-img');
+                var modalVideo = document.getElementById('modal-video');
+                var downloadBtn = document.getElementById('download-btn');
+
+                if (isVideo) {
+                    modalVideo.src = src;
+                    modalVideo.style.display = 'block';
+                    modalImg.style.display = 'none';
+                    modal.style.display = 'block';
+                    modalVideo.play();
+                    downloadBtn.onclick = function () {
+                        downloadFile(src, 'video');
+                    };
+                } else {
+                    modalImg.src = src;
+                    modalImg.style.display = 'block';
+                    modalVideo.style.display = 'none';
+                    modal.style.display = 'block';
+                    downloadBtn.onclick = function () {
+                        downloadFile(src, 'image');
+                    };
+                }
+                modal.addEventListener('click', closeModal);
+            }
+
+            function downloadFile(src, type) {
+                var a = document.createElement('a');
+                a.href = src;
+                a.download = type === 'video' ? 'video.mp4' : 'image.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+
+            function closeModal() {
+                var modal = document.getElementById('mediaModal');
+                var modalVideo = document.getElementById('modal-video');
+                modal.style.display = 'none';
+                modalVideo.pause();
+                modal.removeEventListener('click', closeModal);
+            }
+
+
+            function handleRequest(button, isApproved) {
+                var $this = $(button);
+                var socialId = $this.data('social-id');
+                var userId = $this.data('user-id');
+                var requestItem = button.parentElement;
+                var isApprovedString = isApproved ? 'true' : 'false';
+                $.ajax({
+                    method: 'PUT',
+                    url: `/social-members/state?socialId=${socialId}&userId=${userId}&isApproved=${isApprovedString}`, // URL 매개변수로 값 전송
+                    success: function (response) {
+                        if (isApproved) {
+                            alert(requestItem.querySelector('.invite-request-name').innerText + ' 승인됨');
+                            location.reload();
+                        } else {
+                            alert(requestItem.querySelector('.invite-request-name').innerText + ' 거절됨');
+                            location.reload();
+                        }
+                        requestItem.remove();
+                    },
+                    error: function (error) {
+                        console.error('Error:', error);
+                    }
+                });
+            }
+
+            function copyInviteLink() {
+                var inviteLink = document.getElementById("inviteLink");
+                inviteLink.select();
+                inviteLink.setSelectionRange(0, 99999); /* For mobile devices */
+                document.execCommand("copy");
+                alert("초대 링크가 클립보드에 복사되었습니다.");
+            }
+
+            document.getElementById("copyLinkButton").addEventListener("click", function () {
+                const link = "http://localhost:8080/social/detail/1";
+                navigator.clipboard.writeText(link).then(function () {
+                    alert("초대 링크가 클립보드에 복사되었습니다.");
+                }, function (err) {
+                    console.error("초대 링크 복사 실패: ", err);
+                });
+            });
+
+            function sortMembers() {
+                var memberSort = document.getElementById('memberSort').value;
+                var currentUrl = window.location.origin + window.location.pathname;
+                var newUrl = `${currentUrl}?sortBy=${memberSort}`;
+                window.location.href = newUrl; // 페이지를 새로운 URL로 다시 로드합니다.
+                //
+                // var memberSort = document.getElementById('memberSort').value;
+                // var memberList = document.querySelector('.invite-member-list');
+                // var members = Array.from(memberList.getElementsByClassName('invite-member-item')).filter(function (member) {
+                //     return !member.classList.contains('leader');
+                // });
+                //
+                // if (memberSort === 'name') {
+                //     members.sort(function (a, b) {
+                //         return a.querySelector('.invite-member-name').innerText.localeCompare(b.querySelector('.invite-member-name').innerText, 'ko');
+                //     });
+                // } else if (memberSort === 'recent') {
+                //     members.sort(function (a, b) {
+                //         var dateA = a.querySelector('.invite-member-details').innerText.match(/\d{2}\.\d{2}\.\d{2}/)[0].split('.');
+                //         var dateB = b.querySelector('.invite-member-details').innerText.match(/\d{2}\.\d{2}\.\d{2}/)[0].split('.');
+                //         var parsedDateA = new Date('20' + dateA[0], dateA[1] - 1, dateA[2]);
+                //         var parsedDateB = new Date('20' + dateB[0], dateB[1] - 1, dateB[2]);
+                //         return parsedDateB - parsedDateA;
+                //     });
+                // }
+
+                // members.forEach(function (member) {
+                //     memberList.appendChild(member);
+                // });
+            }
+
+            function removeMember(button) {
+                if (confirm("정말로 이 멤버를 삭제하시겠습니까?")) {
+                    var memberItem = button.parentElement;
+                    memberItem.remove();
+                    alert("멤버가 삭제되었습니다.");
+                }
+            }
+
+            // URL의 쿼리 파라미터에서 sortBy 값을 읽어오는 함수
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            // 페이지 로드 시 sortBy 값을 셀렉트 박스에 설정
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const sortBy = getQueryParam('sortBy');
+                if (sortBy) {
+                    document.getElementById('memberSort').value = sortBy;
+                }
+            });
+
+            // 채팅 기능 스크립트
+
+            // WebSocket 연결을 위한 변수 초기화
+            var stompClient = null;
+            var socialId = document.getElementById('socialId').value;
+
+            // 연결 상태 업데이트 함수
+            function updateConnectionStatus(status) {
+                var statusElement = document.getElementById('connection-status');
+                statusElement.textContent = status;
+            }
+
+            // WebSocket 연결 함수
+            function connect() {
+                updateConnectionStatus('연결 중...'); // 연결 시도 중인 상태로 설정
+                var socket = new SockJS('/chat');
+                stompClient = Stomp.over(socket);
+
+                stompClient.connect({}, function (frame) {
+                    // 연결 성공 시 실행되는 콜백
+                    console.log('Stomp 연결 성공: ' + frame);
+                    updateConnectionStatus('연결됨'); // 연결 성공 상태로 설정
+                    subscribeToChat();
+                    loadMessages(socialId);
+                }, function (error) {
+                    // 연결 실패 시 실행되는 콜백
+                    console.error('Stomp 연결 실패:', error);
+                    updateConnectionStatus('연결 실패'); // 연결 실패 상태로 설정
+                    setTimeout(connect, 5000); // 5초 후 재연결 시도
+                });
+            }
+
+            // 연결 상태 업데이트 함수
+            function updateConnectionStatus(status) {
+                var statusElement = document.getElementById('connection-status');
+                statusElement.textContent = status;
+            }
+
+            // 채팅 주제 구독 함수
+            function subscribeToChat() {
+                stompClient.subscribe('/topic/chat/' + socialId, function (messageOutput) {
+                    showMessage(JSON.parse(messageOutput.body));
+                });
+            }
+
+            // 메시지 전송 함수
+            function sendMessage() {
+                var userId = document.getElementById('userId').value;
+                var comment = document.getElementById('comment').value;
+
+                // 연결 상태 확인 및 재연결 시도
+                if (!stompClient || !stompClient.connected) {
+                    console.error('WebSocket 연결이 설정되지 않았습니다.');
+                    updateConnectionStatus('재연결 중...');
+                    connect();
+                    return;
+                }
+
+                // 메시지 전송
+                stompClient.send("/app/chat/" + socialId, {}, JSON.stringify({
+                    'socialId': socialId,
+                    'userId': userId,
+                    'comment': comment
+                }));
+
+                // 입력 필드 초기화
+                document.getElementById('comment').value = '';
+            }
+
+            // 메시지 표시 함수
+            function showMessage(message) {
+                var response = document.getElementById('response');
+                var messageElement = document.createElement('div');
+                console.log("메시지 표시: ", message.comment);
+
+                var userId = document.getElementById('userId').value;
+
+                // message.userId와 userId를 동일한 타입으로 변환
+                var messageUserId = String(message.userId);
+                var currentUserId = String(userId);
+
+                // 메시지 송신자에 따른 클래스 설정
+                var messageClass = messageUserId === currentUserId ? 'invite-chat-message sent' : 'invite-chat-message received';
+                var senderName = messageUserId === currentUserId ? '나' : 'User ID: ' + messageUserId;
+
+                // 메시지 HTML 구성
+                messageElement.className = messageClass;
+                messageElement.innerHTML = `
+            <div class="invite-message-content">
+                <div class="invite-sender">${senderName}</div>
+                <div class="invite-message-container">
+                    <div class="invite-message-bubble">${message.comment}</div>
+                    <span class="invite-time">${new Date(message.createdAt).toLocaleTimeString()}</span>
+                </div>
+            </div>`;
+                response.appendChild(messageElement);
+                response.scrollTop = response.scrollHeight; // 스크롤을 최신 메시지로 이동
+            }
+
+            // 이전 메시지 로드 함수
+            function loadMessages(socialId) {
+                console.log("메시지 로드 시도: ", socialId);
+                fetch(`/chat/list/${socialId}`)
+                        .then(response => {
+                            console.log("메시지 로드 성공: ", response);
+                            return response.json();
+                        })
+                        .then(messages => {
+                            messages.forEach(message => {
+                                console.log("로드된 메시지: ", message);
+                                showMessage(message);
+                            });
+                            // 모든 메시지를 로드한 후 스크롤을 최신 메시지로 이동
+                            var response = document.getElementById('response');
+                            response.scrollTop = response.scrollHeight;
+                        })
+                        .catch(error => {
+                            console.error("메시지 로드 실패: ", error);
+                        });
+            }
+
+            // 페이지 로드 시 WebSocket 연결 시작
+            window.onload = function () {
+                connect();
+            };
+
+            // 엔터 키 이벤트 리스너 추가
+            document.getElementById('comment').addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    sendMessage();
+                    event.preventDefault();
+                }
+            });
+
+        </script>
+    </div>
+</div>
+{{> layout/footer}}

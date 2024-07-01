@@ -1,0 +1,182 @@
+{{> layout/header}}
+{{> layout/socialtab}}
+<div class="detail-main-container">
+    {{> layout/socialsidebar}}
+    <div class="detail-board-content">
+        <div class="detail-hashtag-container">
+            <div class="detail-wrap-vertical">
+                <div class="detail-hashtag active">전체</div>
+                {{#modal.allHasTagList}}
+                    <div class="detail-hashtag">{{hasTagName}}</div>
+                {{/modal.allHasTagList}}
+            </div>
+        </div>
+        <div class="detail-board-container">
+            {{> layout/post }}
+        </div>
+    </div>
+    <div class="detail-chat-container">
+        <div class="detail-chat-header">
+            <div class="detail-chat-title">{{modal.title}}</div>
+            <div id="connection-status" class="detail-chat-status">연결 중...</div>
+            <div class="detail-chat-menu">⋮</div>
+        </div>
+        <div id="response" class="detail-chat-messages">
+            <!-- 채팅 메시지가 이곳에 추가됩니다 -->
+        </div>
+        <div class="detail-chat-input">
+            <input type="hidden" id="socialId" value="1"/> <!-- 소셜 ID -->
+            <input type="hidden" id="userId" value="{{sessionUser.id}}"/> <!-- 유저 ID -->
+            <input type="text" id="comment" placeholder="메시지를 입력하세요">
+            <button id="send-button" onclick="sendMessage()">보내기</button>
+        </div>
+    </div>
+</div>
+
+<div id="mediaModal" class="detail-file-modal">
+    <span class="detail-close" onclick="closeModal()">&times;</span>
+    <img class="detail-file-modal-content-img" id="modal-img">
+    <video class="detail-file-modal-content-video" controls id="modal-video"></video>
+    <button class="detail-album-download-btn" id="download-btn">다운로드</button>
+</div>
+
+<script>
+    document.getElementById("copyLinkButton").addEventListener("click", function () {
+        const link = "http://localhost:8080/social/detail/1";
+        navigator.clipboard.writeText(link).then(function () {
+            alert("초대 링크가 클립보드에 복사되었습니다.");
+        }, function (err) {
+            console.error("초대 링크 복사 실패: ", err);
+        });
+    });
+
+    // 채팅 기능 스크립트
+
+    // WebSocket 연결을 위한 변수 초기화
+    var stompClient = null;
+    var socialId = document.getElementById('socialId').value;
+
+    // 연결 상태 업데이트 함수
+    function updateConnectionStatus(status) {
+        var statusElement = document.getElementById('connection-status');
+        statusElement.textContent = status;
+    }
+
+    // WebSocket 연결 함수
+    function connect() {
+        updateConnectionStatus('연결 중...'); // 연결 시도 중인 상태로 설정
+        var socket = new SockJS('/chat');
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function (frame) {
+            // 연결 성공 시 실행되는 콜백
+            console.log('Stomp 연결 성공: ' + frame);
+            updateConnectionStatus('연결됨'); // 연결 성공 상태로 설정
+            subscribeToChat();
+            loadMessages(socialId);
+        }, function (error) {
+            // 연결 실패 시 실행되는 콜백
+            console.error('Stomp 연결 실패:', error);
+            updateConnectionStatus('연결 실패'); // 연결 실패 상태로 설정
+            setTimeout(connect, 5000); // 5초 후 재연결 시도
+        });
+    }
+
+    // 연결 상태 업데이트 함수
+    function updateConnectionStatus(status) {
+        var statusElement = document.getElementById('connection-status');
+        statusElement.textContent = status;
+    }
+
+    // 채팅 주제 구독 함수
+    function subscribeToChat() {
+        stompClient.subscribe('/topic/chat/' + socialId, function (messageOutput) {
+            showMessage(JSON.parse(messageOutput.body));
+        });
+    }
+
+    // 메시지 전송 함수
+    function sendMessage() {
+        var userId = document.getElementById('userId').value;
+        var comment = document.getElementById('comment').value;
+
+        // 연결 상태 확인 및 재연결 시도
+        if (!stompClient || !stompClient.connected) {
+            console.error('WebSocket 연결이 설정되지 않았습니다.');
+            updateConnectionStatus('재연결 중...');
+            connect();
+            return;
+        }
+
+        // 메시지 전송
+        stompClient.send("/app/chat/" + socialId, {}, JSON.stringify({
+            'socialId': socialId,
+            'userId': userId,
+            'comment': comment
+        }));
+
+        // 입력 필드 초기화
+        document.getElementById('comment').value = '';
+    }
+
+    // 메시지 표시 함수
+    function showMessage(message) {
+        var response = document.getElementById('response');
+        var messageElement = document.createElement('div');
+        console.log("메시지 표시: ", message.comment);
+
+        var userId = document.getElementById('userId').value;
+
+        // message.userId와 userId를 동일한 타입으로 변환
+        var messageUserId = String(message.userId);
+        var currentUserId = String(userId);
+
+        // 메시지 송신자에 따른 클래스 설정
+        var messageClass = messageUserId === currentUserId ? 'detail-chat-message sent' : 'detail-chat-message received';
+        var senderName = messageUserId === currentUserId ? '나' : 'User ID: ' + messageUserId;
+
+        // 메시지 HTML 구성
+        messageElement.className = messageClass;
+        messageElement.innerHTML = `
+            <div class="detail-message-content">
+                <div class="detail-sender">${senderName}</div>
+                <div class="detail-message-container">
+                    <div class="detail-message-bubble">${message.comment}</div>
+                    <span class="detail-time">${new Date(message.createdAt).toLocaleTimeString()}</span>
+                </div>
+            </div>`;
+
+
+        response.appendChild(messageElement);
+        response.scrollTop = response.scrollHeight; // 스크롤을 최신 메시지로 이동
+    }
+
+    // 이전 메시지 로드 함수
+    function loadMessages(socialId) {
+        console.log("메시지 로드 시도: ", socialId);
+        fetch(`/chat/list/${socialId}`)
+                .then(response => {
+                    console.log("메시지 로드 성공: ", response);
+                    return response.json();
+                })
+                .then(messages => {
+                    messages.forEach(message => {
+                        console.log("로드된 메시지: ", message);
+                        showMessage(message);
+                    });
+                    // 모든 메시지를 로드한 후 스크롤을 최신 메시지로 이동
+                    var response = document.getElementById('response');
+                    response.scrollTop = response.scrollHeight;
+                })
+                .catch(error => {
+                    console.error("메시지 로드 실패: ", error);
+                });
+    }
+
+    // 페이지 로드 시 WebSocket 연결 시작
+    window.onload = function () {
+        connect();
+    };
+</script>
+
+{{> layout/footer}}

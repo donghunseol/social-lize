@@ -1,0 +1,116 @@
+{{> admin/layout/header}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> admin/layout/sidebar}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>소셜 상세보기</p>
+                    </div>
+                    <div class="tab-item company stay">
+                        <p class="tab-title">소셜 상세</p>
+                        <div class="stay-detail">
+                            <div class="content top">
+                                <div class="img-wrapper">
+                                    <img style="border: 1px solid #F8F8F8; border-radius: 15px;"
+                                         src="{{socialDetail.detail.image}}" alt="소셜 이미지">
+
+                                </div>
+                                <div class="text-wrapper">
+                                    <p class="text-item">
+                                        <span class="head"><i class="fa-solid fa-house"></i><em>소셜명</em></span>
+                                        <span class="body">{{socialDetail.detail.name}}</span>
+                                    </p>
+                                    <p class="text-item">
+                                            <span class="head"><i class="fa-solid fa-calendar-alt"></i><em>소셜
+                                                    생성일</em></span>
+                                        <span class="body">{{socialDetail.detail.createdAt}}</span>
+                                    </p>
+                                    <p class="text-item">
+                                        <span class="head"><i class="fa-solid fa-tags"></i><em>카테고리</em></span>
+                                        <span class="body" style="display: flex; gap: 1px;">
+                                            {{#socialDetail.detail.categories}}
+                                                <span class="social-category-box-text">{{name}}</span>
+                                            {{/socialDetail.detail.categories}}
+                                            </span>
+                                    </p>
+                                    <p class="text-item">
+                                            <span class="head"><i class="fa-solid fa-comment"></i><em>소개글</em></span>
+                                        <span class="body">{{socialDetail.detail.info}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="stay button-wrapper">
+                                <form action="/admin/social/{{socialDetail.detail.id}}/delete" method="post">
+                                    <button class="soscial-delete-button">소셜 삭제</button>
+                                </form>
+                            </div>
+                            <div class="tab-content current">
+                                <div class="tab-item">
+                                    <form action="/admin/users" method="get" style="width: 100%;">
+                                        <ul class="search-box">
+                                            <li class="search-left">
+                                                <span>총 회원<em> {{socialDetail.memberCount}}</em> 명</span>
+                                            </li>
+                                            <li class="search-right">
+                                                <div>
+                                                    <div class="tab-input-wrapper">
+                                                        <input class="input-id" type="text" name="keyword"
+                                                               placeholder="검색어 입력">
+                                                        <input class="submit-btn" type="submit" value="Search">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                    <table>
+                                        <colgroup>
+                                            <col width="20%">
+                                            <col width="25%">
+                                            <col width="20%">
+                                            <col width="20%">
+                                            <col width="15%">
+                                        </colgroup>
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">회원명</th>
+                                            <th scope="col">이메일</th>
+                                            <th scope="col">생년월일</th>
+                                            <th scope="col">권한</th>
+                                            <th scope="col">상세보기</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        {{#socialDetail.socialMemberList}}
+                                        <tr>
+                                            <td>{{nickname}}</td>
+                                            <td>{{email}}</td>
+                                            <td>{{birth}}</td>
+                                            <td>{{role}}</td>
+                                            <td><span class="detail"
+                                                      onclick="location.href='/admin/user/{{userId}}/detail'">상세보기</span>
+                                            </td>
+                                        </tr>
+                                        {{/socialDetail.socialMemberList}}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>

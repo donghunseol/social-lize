@@ -1,0 +1,103 @@
+{{> admin/layout/header}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+
+        {{> admin/layout/sidebar}}
+
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <ul class="tab-nav">
+                    <li class="tab-link"><a href="/admin/user-list">회원</a></li>
+                    <li class="tab-link"><a href="/admin/social-list">소셜</a></li>
+                    <li class="tab-link"><a href="/admin/board-list">게시글</a></li>
+                    <li class="tab-link current"><a href="/admin/category-name-list">카테고리</a></li>
+                    <li class="tab-link"><a href="/admin/qna-list">문의</a></li>
+                    <li class="tab-link"><a href="/admin/report-list">신고</a></li>
+                    <li class="tab-link"><a href="/admin/notice-list">공지사항</a></li>
+                </ul>
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>카테고리 목록</p>
+                    </div>
+                    <div class="tab-item">
+                        <form action="/admin/category-name/register-form" method="get"
+                              style="width: 100%;">
+                            <ul class="search-box">
+                                <li class="search-left">
+                                    <span>총 카테고리 <em>{{categoryListDTO.count}}</em> 개</span>
+                                </li>
+                                <li class="search-right">
+                                    <div>
+                                        <div class="tab-input-wrapper">
+                                            <input class="submit-btn" type="submit" value="생성">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                        <table>
+                            <colgroup>
+                                <col width="25%">
+                                <col width="20%">
+                                <col width="25%">
+                                <col width="15%">
+                                <col width="15%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">카테고리 명</th>
+                                <th scope="col">카테고리 이미지</th>
+                                <th scope="col">생성일자</th>
+                                <th scope="col">상세보기</th>
+                                <th scope="col">삭제</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {{#categoryListDTO.categoryList}}
+                                <tr>
+                                    <td style="vertical-align: middle;">{{name}}</td>
+                                    <td class="social-category" style="vertical-align: middle;">
+                                        <div class="social-category-box">
+                                            <img src="{{imagePath}}" alt="사진 준비중"
+                                                 style="width: 100px; height: 100px; margin: 10px 0;">
+                                        </div>
+                                    </td>
+                                    <td style="vertical-align: middle;">2024.06.21</td>
+                                    <td style="vertical-align: middle;">
+                                        <span class="detail" onclick="location.href='/admin/category-name/{{id}}'">상세보기</span>
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <form action="/admin/category-name/{{id}}/delete" method="post">
+                                            <button type="submit" class="detail" style="padding: 0">삭제</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {{/categoryListDTO.categoryList}}
+
+                            <!-- 검색 부분 -->
+                            <!-- {{#keywordList}}
+                                <tr>
+                                    <td class="title">{{name}}</td>
+                                    <td>{{email}}</td>
+                                    <td>{{reportCount}}</td>
+                                    <td><span class="state {{stateColor}}">{{stateMessage}}</span></td>
+                                    <td><span class="detail" onclick="location.href='/admin/users/{{userId}}'">상세보기</span></td>
+                                </tr>
+                            {{/keywordList}} -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>

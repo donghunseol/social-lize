@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/joinmain.css">
+</head>
+<body>
+<div class="background"></div>
+<div class="joinmain-container">
+    <div class="joinmain-box-container">
+        <h1 class="joinmain-title">회원가입</h1>
+        <div class="joinmain-breadcrumb">
+            <a href="#">홈</a> &gt; <span>회원가입</span>
+        </div>
+        <div class="joinmain-box">
+            <p class="joinmain-left-align-title">함께 즐기는 취미생활,
+                Socialize에서
+                시작하세요!</p>
+            <form>
+                <button type="button" class="joinmain-btn" onclick="window.location.href='/user/joinForm'">이메일로 가입하기</button>
+                <div class="joinmain-divider">또는</div>
+                <button type="button" class="joinmain-btn joinmain-kakao-btn" onclick="window.location.href='https://kauth.kakao.com/oauth/authorize?redirect_uri=http://localhost:8080/oauth/kakao/callback&response_type=code&client_id=378709950e778973b12184070bc6c80e'">카카오로 가입하기</button>
+                <button type="button" class="joinmain-btn joinmain-naver-btn" onclick="window.location.href='https://nid.naver.com/oauth2.0/authorize?redirect_uri=http://localhost:8080/oauth/naver/callback&response_type=code&client_id=rZrLGNhQJLm3ezYUYzTI&state=test'">네이버로 가입하기</button>
+            </form>
+            <p>이미 계정이 있으신가요? <a href="/user/login">로그인하기</a></p>
+        </div>
+    </div>
+</div>

@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Slf4j
-// RuntimeException이 터지면 해당 파일로 오류가 모인다
+@Slf4j// RuntimeException이 터지면 해당 파일로 오류가 모인다
 @ControllerAdvice // 데이터 응답
 @Controller
 public class MyExceptionHandler {
@@ -54,6 +53,14 @@ public class MyExceptionHandler {
         request.setAttribute("msg", e.getMessage());
         log.error("500 : " + e.getMessage());
         return "/err/500";
+    }
+
+    @ExceptionHandler(Exception600.class)
+    @GetMapping("/600")
+    public String ex600(Exception600 e, HttpServletRequest request) {
+        request.setAttribute("msg", e.getMessage());
+        log.error("600 : " + e.getMessage());
+        return "/err/600";
     }
 
     @ExceptionHandler(Exception.class)

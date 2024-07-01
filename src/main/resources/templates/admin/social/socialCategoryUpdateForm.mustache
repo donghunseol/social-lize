@@ -1,0 +1,110 @@
+{{> admin/layout/header}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> admin/layout/sidebar}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>카테고리 수정</p>
+                    </div>
+                    <div class="tab-item company info">
+                        <p class="tab-title">카테고리 수정</p>
+                        <div class="category-tab_menu">
+
+                            <div class="cont_area">
+                                <div id="tab1" class="cont" style="display:block;">
+                                    <form action="/admin/category-name/{{categoryDetail.id}}/update" method="post"
+                                          enctype="multipart/form-data">
+                                        <div class="file-box">
+                                            <span>이미지등록</span>
+                                            <ul class="image-preview only"></ul>
+                                            <input type="file" id="file01" class="real-upload" accept="/image/*"
+                                                   name="imagePath" required>
+                                            <input class="upload-name" type="text" value="첨부파일" placeholder="첨부파일">
+                                            <label for="file01">파일찾기</label>
+                                            <em class="guide">이미지는 1개만 등록가능합니다<b>*</b></em>
+                                        </div>
+                                        <div class="join-form-item">
+                                            <label for="room-number">카테고리 명</label>
+                                            <div class="input-wrapper">
+                                                <input type="text" id="category-name" placeholder="카테고리 명"
+                                                       name="name" value="{{categoryDetail.name}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="button-wrapper">
+                                            <button type="submit" class="btn black join">수정하기</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+    // 이미지 업로드
+    function getImageFiles(e) {
+        const files = e.currentTarget.files;
+        const imagePreview = e.currentTarget.parentElement.querySelector('.image-preview');
+
+        // 이미지 개수 검사
+        if ([...files].length > 1) {
+            console.log("이미지 개수가 최대 개수를 초과합니다");
+            alert('이미지는 최대 1개 까지 업로드가 가능합니다.');
+            return;
+        }
+
+        // 이미지 타입 및 미리보기 처리
+        const file = files[0]; // 첫 번째 이미지만 처리
+        if (!file.type.match("image/.*")) {
+            alert('이미지 파일만 업로드가 가능합니다.');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const preview = createElement(e.target.result, file.name);
+            imagePreview.innerHTML = ''; // 기존 이미지 제거
+            imagePreview.appendChild(preview);
+        };
+        reader.readAsDataURL(file);
+
+        // 파일 이름을 업로드 필드에 표시하고 필드를 비활성화
+        const uploadName = e.currentTarget.parentElement.querySelector('.upload-name');
+        uploadName.value = file.name;
+        uploadName.disabled = true;
+    }
+
+    document.querySelectorAll('.real-upload').forEach(input => {
+        input.addEventListener('change', getImageFiles);
+    });
+
+    function createElement(src, fileName) {
+        const li = document.createElement('li');
+        const img = document.createElement('img');
+        img.src = src;
+        img.setAttribute('data-file', fileName);
+        li.appendChild(img);
+
+        return li;
+    }
+
+    function resize(obj) {
+        obj.style.height = '1px';
+        obj.style.height = (12 + obj.scrollHeight) + 'px';
+    }
+
+
+</script>
+</body>
+
+</html>

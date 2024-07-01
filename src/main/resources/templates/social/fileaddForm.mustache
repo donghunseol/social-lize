@@ -1,0 +1,459 @@
+{{> layout/header}}
+{{> layout/socialtab}}
+<div class="fileadd-container">
+    {{> layout/socialsidebar}}
+    <div class="fileadd-content">
+        <div class="fileadd-tabs">
+            <div class="fileadd-tab active" id="defaultOpen" onclick="switchTab(event, 'Album')">앨범</div>
+            <div class="fileadd-tab" onclick="switchTab(event, 'File')">파일</div>
+        </div>
+        <div id="Album" class="fileadd-tab-content">
+            <div class="fileadd-content-header"><span id="albumCount">전체 {{modal.albums.size}}</span></div>
+            <div class="fileadd-grid-container">
+                {{#modal.albums}}
+                    <div class="fileadd-grid-item {{#isVideo}}video{{/isVideo}}{{^isVideo}}photo{{/isVideo}}" data-type="{{type}}">
+                        {{#isVideo}}
+                            <video src="{{path}}" onclick="openModal('{{hlsPath}}', true)"></video>
+                        {{/isVideo}}
+                        {{^isVideo}}
+                            <img src="{{path}}" alt="이미지" onclick="openModal('{{path}}', false)">
+                        {{/isVideo}}
+                    </div>
+                {{/modal.albums}}
+            </div>
+        </div>
+        <div id="File" class="fileadd-tab-content">
+            <div class="fileadd-file-search-upload">
+                <div class="fileadd-file-search">
+                    <input type="text" placeholder="파일 검색">
+                </div>
+                <div class="fileadd-file-upload">
+                    <input type="file" id="fileInput" class="fileadd-file-input" multiple>
+                    <button onclick="document.getElementById('fileInput').click()">파일 올리기</button>
+                </div>
+            </div>
+            <div class="fileadd-content-header"><span id="fileCount">전체 {{modal.files.size}}</span></div>
+            <div class="fileadd-file-list" id="fileList">
+                {{#modal.files}}
+                    <div class="fileadd-file-item">
+                        <span onclick="downloadFile('{{path}}', 'file')" class="fileadd-file-name">{{name}}</span>
+                        <button class="fileadd-file-download-btn" onclick="downloadFile('{{path}}', 'file')"><i class="fas fa-download"></i></button>
+                    </div>
+                {{/modal.files}}
+            </div>
+        </div>
+    </div>
+    <div class="fileadd-chat-container">
+        <div class="fileadd-chat-header">
+            <div class="fileadd-chat-title">SNS프로젝트 1조</div>
+            <div id="connection-status" class="fileadd-chat-status">연결 중...</div>
+            <div class="fileadd-chat-menu">⋮</div>
+        </div>
+        <div id="response" class="fileadd-chat-messages">
+            <!-- 채팅 메시지가 이곳에 추가됩니다 -->
+        </div>
+        <div class="fileadd-chat-input">
+            <input type="hidden" id="socialId" value="{{modal.socialId}}" /> <!-- 소셜 ID -->
+            <input type="hidden" id="userId" value="{{sessionUser.id}}" /> <!-- 유저 ID -->
+            <input type="text" id="comment" placeholder="메시지를 입력하세요">
+            <button id="send-button" onclick="sendMessage()">보내기</button>
+        </div>
+    </div>
+    <div id="mediaModal" class="fileadd-file-modal">
+        <span class="fileadd-close" onclick="closeModal()">&times;</span>
+        <img class="fileadd-file-modal-content-img" id="modal-img">
+        <video class="fileadd-file-modal-content-video" controls id="modal-video"></video>
+        <button class="fileadd-album-download-btn" id="download-btn">다운로드</button>
+    </div>
+
+    <!-- hls.js 추가 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+    <script>
+
+        document.getElementById("copyLinkButton").addEventListener("click", function () {
+            const link = "http://localhost:8080/social/detail/1";
+            navigator.clipboard.writeText(link).then(function () {
+                alert("초대 링크가 클립보드에 복사되었습니다.");
+            }, function (err) {
+                console.error("초대 링크 복사 실패: ", err);
+            });
+        });
+
+        function switchTab(event, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("fileadd-tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("fileadd-tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            event.currentTarget.className += " active";
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("defaultOpen").click();
+            updateAlbumItemCount("Album", "albumCount");
+            updateFileItemCount("File", "fileCount");
+        });
+
+        function updateAlbumItemCount(tabId, countId) {
+            var itemCount = document.querySelectorAll("#" + tabId + " .fileadd-grid-item").length;
+            document.getElementById(countId).innerText = "전체 " + itemCount;
+        }
+
+        // 모달창에 HLS 적용
+        let hls;
+
+        // 비디오 소스에서 고유 식별자 추출 함수
+        function getVideoId(src) {
+            // src에서 파일명 추출하는 간단한 예시
+            // 여기서는 src가 URL 형식이라고 가정하고, 마지막 슬래시 뒤에 있는 부분을 파일명으로 간주합니다.
+            var startIndex = src.lastIndexOf('/') + 1;
+            var endIndex = src.lastIndexOf('.') + 4; // 파일 확장자까지 포함하기 위해 조정
+            var fileName = src.substring(startIndex, endIndex);
+            return fileName;
+        }
+
+        // 모달을 열고 미디어 파일을 표시하는 함수
+        function openModal(src, isVideo = false) {
+            var modal = document.getElementById('mediaModal');
+            var modalImg = document.getElementById('modal-img');
+            var modalVideo = document.getElementById('modal-video');
+            var downloadBtn = document.getElementById('download-btn');
+
+            if (isVideo) {
+                modalVideo.style.display = 'block';
+                modalImg.style.display = 'none';
+                modal.style.display = 'block';
+
+
+                // src에서 /convert/ 경로를 제거
+                var cleanedSrc = src.replace('/convert/', '');
+
+                // HLS URL 생성
+                // TODO: 여기에 /hls 앞에 배포한 서버의 경로를 입력
+                var hlsUrl = `http://localhost:8080/hls/${cleanedSrc}`;
+                console.log('HLS URL:', hlsUrl); // HLS URL 확인
+
+                if (Hls.isSupported()) {
+                    console.log('HLS 지원됨');
+                    hls = new Hls();
+                    hls.loadSource(hlsUrl);
+                    hls.attachMedia(modalVideo);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                        console.log('HLS 매니페스트 파싱 완료');
+                        modalVideo.play();
+                    });
+                    hls.on(Hls.Events.ERROR, function(event, data) {
+                        console.error('HLS 에러:', data);
+                    });
+                } else if (modalVideo.canPlayType('application/vnd.apple.mpegurl')) {
+                    console.log('네이티브 HLS 지원');
+                    modalVideo.src = hlsUrl;
+                    modalVideo.addEventListener('loadedmetadata', function() {
+                        console.log('비디오 메타데이터 로드됨');
+                        modalVideo.play();
+                    });
+                } else {
+                    console.error('HLS를 지원하지 않는 브라우저');
+                }
+
+                downloadBtn.onclick = function () { downloadFile(hlsUrl, 'video'); }; // 다운로드 버튼 클릭 시 HLS 비디오 다운로드
+            } else { // 이미지인 경우
+                modalImg.src = src;
+                modalImg.style.display = 'block';
+                modalVideo.style.display = 'none';
+                modal.style.display = 'block';
+                downloadBtn.onclick = function () { downloadFile(src, 'image'); }; // 이미지 다운로드
+            }
+
+            modal.addEventListener('click', closeModal); // 모달을 클릭하면 닫기 함수 호출
+        }
+
+
+        // 모달창 파일 다운로드
+        function downloadFile(src, type) {
+            var a = document.createElement('a');
+            a.href = src;
+            a.download = type === 'video' ? 'video.mp4' : 'image.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // 모달을 닫는 함수
+        function closeModal() {
+            var modal = document.getElementById('mediaModal'); // 모달 요소를 가져옴
+            var modalVideo = document.getElementById('modal-video'); // 모달 내 비디오 요소를 가져옴
+            modal.style.display = 'none'; // 모달을 숨김
+            modalVideo.pause(); // 비디오 재생 중지
+            if (hls) { // HLS 객체가 있는 경우
+                hls.destroy(); // HLS 객체 파괴
+                hls = null; // HLS 변수 초기화
+            }
+            modal.removeEventListener('click', closeModal); // 모달 클릭 이벤트 리스너 제거
+        }
+
+        // 앨범 그리드를 업데이트하는 함수
+        function updateAlbumGrid(albums) {
+            const gridContainer = document.querySelector('.fileadd-grid-container'); // 그리드 컨테이너 요소를 가져옴
+            gridContainer.innerHTML = ''; // 기존 그리드 내용을 초기화
+
+            albums.forEach(album => {
+                const itemDiv = document.createElement('div'); // 새 그리드 아이템 요소 생성
+                itemDiv.className = `fileadd-grid-item ${album.video ? 'video' : 'photo'}`; // 아이템 클래스 설정
+                itemDiv.setAttribute('data-type', album.type); // 데이터 타입 속성 설정
+
+                if (album.video === true) { // 비디오인 경우
+                    const video = document.createElement('video'); // 비디오 요소 생성
+                    video.src = album.path; // 비디오 소스 설정
+                    video.onclick = () => openModal(album.hlsPath || album.path, true); // 클릭 시 모달 열기
+                    itemDiv.appendChild(video); // 그리드 아이템에 비디오 요소 추가
+                } else { // 이미지인 경우
+                    const img = document.createElement('img'); // 이미지 요소 생성
+                    img.src = album.path; // 이미지 소스 설정
+                    img.alt = "이미지가 안나와요"; // 이미지 대체 텍스트 설정
+                    img.onclick = () => openModal(album.path, false); // 클릭 시 모달 열기
+                    itemDiv.appendChild(img); // 그리드 아이템에 이미지 요소 추가
+                }
+
+                gridContainer.appendChild(itemDiv); // 그리드 컨테이너에 아이템 추가
+            });
+            updateAlbumItemCount("Album", "albumCount"); // 앨범 아이템 수 업데이트
+        }
+
+
+        // 파일 목록을 업데이트하는 함수
+        function updateFileList(files) {
+            const fileList = document.getElementById('fileList'); // 파일 목록 요소를 가져옴
+            fileList.innerHTML = ''; // 기존 파일 목록을 초기화
+
+            files.forEach(file => {
+                const fileItem = document.createElement('div'); // 새 파일 아이템 요소 생성
+                fileItem.className = 'fileadd-file-item'; // 파일 아이템 클래스 설정
+                fileItem.innerHTML = `
+            <span onclick="downloadFile('${file.path}', 'file')" class="fileadd-file-name">${file.name}</span>
+            <button class="fileadd-file-download-btn" onclick="downloadFile('${file.path}', 'file')"><i class="fas fa-download"></i></button>
+        `; // 파일 아이템 내용 설정
+
+                fileList.appendChild(fileItem); // 파일 목록에 아이템 추가
+            });
+
+            updateFileItemCount("File", "fileCount"); // 파일 아이템 수 업데이트
+        }
+
+
+        // jQuery를 이용한 AJAX 호출로 앨범 및 파일 목록을 불러오는 함수
+        function loadAlbumsAndFiles() {
+            $.ajax({
+                url: `/social/fileadd/reload/${socialId}`, // 요청할 URL
+                method: 'GET', // HTTP 메서드 (기본값은 GET)
+                dataType: 'json', // 응답 데이터 타입 (JSON)
+                success: function(data) { // 성공 시 호출될 콜백 함수
+                    console.log(data.albums);
+                    updateAlbumGrid(data.albums); // 앨범 그리드 업데이트
+                    updateFileList(data.files); // 파일 목록 업데이트
+                },
+                error: function(xhr, status, error) { // 에러 시 호출될 콜백 함수
+                    console.error('AJAX Error:', error); // 에러 메시지 출력
+                }
+            });
+        }
+
+        function handleFileUpload() {
+            var fileInput = document.getElementById('fileInput');
+            var formData = new FormData();
+
+            if (fileInput.files.length === 0) {
+                console.error('선택된 파일이 없습니다.');
+                return;
+            }
+
+            for (var i = 0; i < fileInput.files.length; i++) {
+                formData.append('file', fileInput.files[i]);
+            }
+
+            var socialId = document.getElementById('socialId').value;
+            formData.append('socialId', socialId);
+
+            fetch('/social/file/upload/' + socialId, {
+                method: 'POST',
+                body: formData
+            })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text(); // JSON 대신 텍스트로 받기
+                    })
+                    .then(data => {
+                        console.log('서버 응답:', data);
+                        if (data.includes('<!DOCTYPE html>')) {
+                            console.error('서버가 HTML을 반환했습니다. 응답 확인 필요.');
+                        } else {
+                            console.log('파일 업로드 성공');
+                            loadAlbumsAndFiles(); // 파일 업로드 성공 후 앨범과 파일 목록을 갱신
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+        }
+
+        document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+
+        function updateFileItemCount(tabId, countId) {
+            var itemCount = document.querySelectorAll("#" + tabId + " .fileadd-file-item").length;
+            document.getElementById(countId).innerText = "전체 " + itemCount;
+        }
+
+        document.getElementById("copyLinkButton").addEventListener("click", function() {
+            const link = "http://localhost:8080/social/detail/1"; // 여기에 실제 초대 링크를 입력하세요.
+            navigator.clipboard.writeText(link).then(function() {
+                alert("초대 링크가 클립보드에 복사되었습니다.");
+            }, function(err) {
+                console.error("초대 링크 복사 실패: ", err);
+            });
+        });
+
+        // 채팅 기능 스크립트
+
+        // WebSocket 연결을 위한 변수 초기화
+        var stompClient = null;
+        var socialId = document.getElementById('socialId').value;
+
+        // 연결 상태 업데이트 함수
+        function updateConnectionStatus(status) {
+            var statusElement = document.getElementById('connection-status');
+            statusElement.textContent = status;
+        }
+
+        // WebSocket 연결 함수
+        function connect() {
+            updateConnectionStatus('연결 중...'); // 연결 시도 중인 상태로 설정
+            var socket = new SockJS('/chat');
+            stompClient = Stomp.over(socket);
+
+            stompClient.connect({}, function (frame) {
+                // 연결 성공 시 실행되는 콜백
+                console.log('Stomp 연결 성공: ' + frame);
+                updateConnectionStatus('연결됨'); // 연결 성공 상태로 설정
+                subscribeToChat();
+                loadMessages(socialId);
+            }, function (error) {
+                // 연결 실패 시 실행되는 콜백
+                console.error('Stomp 연결 실패:', error);
+                updateConnectionStatus('연결 실패'); // 연결 실패 상태로 설정
+                setTimeout(connect, 5000); // 5초 후 재연결 시도
+            });
+        }
+
+        // 채팅 주제 구독 함수
+        function subscribeToChat() {
+            stompClient.subscribe('/topic/chat/' + socialId, function (messageOutput) {
+                showMessage(JSON.parse(messageOutput.body));
+            });
+        }
+
+        // 메시지 전송 함수
+        function sendMessage() {
+            var userId = document.getElementById('userId').value;
+            var comment = document.getElementById('comment').value;
+
+            // 연결 상태 확인 및 재연결 시도
+            if (!stompClient || !stompClient.connected) {
+                console.error('WebSocket 연결이 설정되지 않았습니다.');
+                updateConnectionStatus('재연결 중...');
+                connect();
+                return;
+            }
+
+            // 메시지 전송
+            stompClient.send("/app/chat/" + socialId, {}, JSON.stringify({
+                'socialId': socialId,
+                'userId': userId,
+                'comment': comment
+            }));
+
+            // 입력 필드 초기화
+            document.getElementById('comment').value = '';
+        }
+
+        // 메시지 표시 함수
+        function showMessage(message) {
+            var response = document.getElementById('response');
+            var messageElement = document.createElement('div');
+            console.log("메시지 표시: ", message.comment);
+
+            var userId = document.getElementById('userId').value;
+
+            // message.userId와 userId를 동일한 타입으로 변환
+            var messageUserId = String(message.userId);
+            var currentUserId = String(userId);
+
+            // 메시지 송신자에 따른 클래스 설정
+            var messageClass = messageUserId === currentUserId ? 'fileadd-chat-message sent' : 'fileadd-chat-message received';
+            var senderName = messageUserId === currentUserId ? '나' : 'User ID: ' + messageUserId;
+
+            // 메시지 HTML 구성
+            messageElement.className = messageClass;
+            messageElement.innerHTML = `
+            <div class="fileadd-message-content">
+                <div class="fileadd-sender">${senderName}</div>
+                <div class="fileadd-message-container">
+                    <div class="fileadd-message-bubble">${message.comment}</div>
+                    <span class="fileadd-time">${new Date(message.createdAt).toLocaleTimeString()}</span>
+                </div>
+            </div>`;
+            response.appendChild(messageElement);
+            response.scrollTop = response.scrollHeight; // 스크롤을 최신 메시지로 이동
+        }
+
+        // 이전 메시지 로드 함수
+        function loadMessages(socialId) {
+            console.log("메시지 로드 시도: ", socialId);
+            fetch(`/chat/list/${socialId}`)
+                    .then(response => {
+                        console.log("메시지 로드 성공: ", response);
+                        return response.json();
+                    })
+                    .then(messages => {
+                        messages.forEach(message => {
+                            console.log("로드된 메시지: ", message);
+                            showMessage(message);
+                        });
+                        // 모든 메시지를 로드한 후 스크롤을 최신 메시지로 이동
+                        var response = document.getElementById('response');
+                        response.scrollTop = response.scrollHeight;
+                    })
+                    .catch(error => {
+                        console.error("메시지 로드 실패: ", error);
+                    });
+        }
+
+        // 페이지 로드 시 WebSocket 연결 시작
+        window.onload = function () {
+            connect();
+            loadAlbumsAndFiles(); // 앨범 및 파일 목록 로드
+        };
+
+        // 엔터 키 이벤트 리스너 추가bu
+        document.getElementById('comment').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+                event.preventDefault();
+            }
+        });
+
+        // 주기적으로 앨범 및 파일 목록을 업데이트 (예: 30초마다)
+        setInterval(loadAlbumsAndFiles, 30000);
+    </script>
+</div>
+{{> layout/footer}}

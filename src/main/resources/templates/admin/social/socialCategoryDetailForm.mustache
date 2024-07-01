@@ -1,0 +1,65 @@
+{{> admin/layout/header}}
+
+<body>
+<main role="main">
+    <section id="section n1">
+
+        {{> admin/layout/sidebar}}
+
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>카테고리 상세보기</p>
+                    </div>
+                    <div class="tab-item company stay">
+                        <p class="tab-title">카테고리 상세</p>
+                        <div class="stay-detail">
+                            <div class="content top">
+                                <div class="img-wrapper">
+                                    <img style="border: 1px solid #F8F8F8; border-radius: 15px;"
+                                         src="{{categoryDetail.imagePath}}" alt="카테고리 이미지">
+
+                                </div>
+                                <div class="text-wrapper">
+                                    <p class="text-item">
+                                        <span class="head"><i class="fa-solid fa-tags"></i><em>카테고리 명</em></span>
+                                        <span class="body">{{categoryDetail.name}}</span>
+                                    </p>
+                                    <p class="text-item">
+                                            <span class="head"><i class="fa-solid fa-calendar"></i><em>카테고리
+                                                    생성일</em></span>
+                                        <span class="body">2024.06.21</span>
+                                    </p>
+                                    <p class="text-item">
+                                            <span class="head"><i class="fa-solid fa-hourglass-half"></i><em>준비
+                                                    중</em></span>
+                                        <span class="body">준비 중</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="category-button-container">
+                                <div class="button-wrapper">
+                                    <form action="/admin/category-name/{{categoryDetail.id}}/update-form" method="get">
+                                        <button class="category-update-button">카테고리 수정</button>
+                                    </form>
+                                </div>
+                                <div class="button-wrapper">
+                                    <form action="/admin/category-name/{{categoryDetail.id}}/delete" method="post">
+                                        <button class="category-delete-button">카테고리 삭제</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>

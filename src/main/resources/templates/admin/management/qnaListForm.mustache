@@ -1,0 +1,74 @@
+{{> admin/layout/header}}
+<body>
+<main role="main">
+    <section id="section n1">
+        {{> admin/layout/sidebar}}
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <ul class="tab-nav">
+                    <li class="tab-link"><a href="/admin/user-list">회원</a></li>
+                    <li class="tab-link"><a href="/admin/social-list">소셜</a></li>
+                    <li class="tab-link"><a href="/admin/board-list">게시글</a></li>
+                    <li class="tab-link"><a href="/admin/category-name-list">카테고리</a></li>
+                    <li class="tab-link current"><a href="/admin/qna-list">문의</a></li>
+                    <li class="tab-link"><a href="/admin/report-list">신고</a></li>
+                    <li class="tab-link"><a href="/admin/notice-list">공지사항</a></li>
+                </ul>
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>문의 사항</p>
+                    </div>
+                    <div class="tab-item">
+                        <form action="#" method="#" style="width: 100%;">
+                            <ul class="search-box">
+                                <li class="search-left">
+                                    <span>총 문의 <em>{{qnaListAndCount.count}}</em> 개</span>
+                                </li>
+                                <li class="search-right">
+                                    <div>
+                                        <div class="tab-input-wrapper">
+                                            <input class="input-id" type="text" name="keyword" placeholder="검색어 입력">
+                                            <input class="submit-btn" type="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                        <table>
+                            <colgroup>
+                                <col width="50%">
+                                <col width="35%">
+                                <col width="15%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">제목</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">작성일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#qnaListAndCount.qnaList}}
+                            <tr class="review">
+                                <td class="title">{{title}}</td>
+                                <td class="content">{{nickname}}</td>
+                                <td>{{createdAt}}</td>
+                                <td class="link">
+                                    <a href="/admin/qna/{{id}}"></a>
+                                </td>
+                            </tr>
+                            {{/qnaListAndCount.qnaList}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>

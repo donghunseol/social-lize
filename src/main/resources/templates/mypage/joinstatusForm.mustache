@@ -1,0 +1,28 @@
+{{> layout/header}}
+<div class="joinstatus-wrapper">
+    <div class="joinstatus-container">
+        <div class="joinstatus-sidebar">
+            {{> layout/mpsidebar}}
+        </div>
+        <div class="joinstatus-content">
+            <div class="joinstatus-content-box">
+                <div class="joinstatus-bookmark-box">
+                    <h2>가입 신청중인 소셜</h2>
+                </div>
+            </div>
+            {{#model.socialList}}
+                <div class="joinstatus-content-box joinstatus-status-pending">
+                    <div class="joinstatus-social-approval-item">
+                        <img src="{{image}}" alt="소셜 사진">
+                        <div class="joinstatus-details">
+                            <div class="joinstatus-name">{{name}}</div>
+                            <div class="joinstatus-members">회원수 {{memberCount}}</div>
+                            <div class="joinstatus-status">{{state}}</div>
+                        </div>
+                    </div>
+                </div>
+            {{/model.socialList}}
+        </div>
+    </div>
+</div>
+{{> layout/footer}}

@@ -1,0 +1,108 @@
+{{> layout/header}}
+
+<style>
+    .socialadd-text-gray-border {
+        display: inline-block;
+        border: 1px solid #ccc;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .socialadd-text-gray-border:hover {
+        background-color: #f0f0f0;
+    }
+</style>
+
+<div class="socialadd-container socialadd-flex-container socialadd-center-content socialadd-column-direction">
+    <form id="socialForm" action="/social/create" method="post" enctype="multipart/form-data">
+        <div class="socialadd-form-section">
+            <div class="socialadd-form-title">소셜 이름</div>
+            <input name="name" type="text" id="socialNameInput" class="socialadd-form-input">
+        </div>
+        <div class="socialadd-form-title">카테고리</div>
+        <div class="socialadd-form-section">
+            <div class="socialadd-input-group socialadd-flex-container socialadd-align-center">
+                <select id="subject" class="socialadd-form-select socialadd-select-input">
+                    {{#model.categoryList}}
+                        <option id="{{id}}" value="{{categoryName}}">{{categoryName}}</option>
+                    {{/model.categoryList}}
+                </select>
+                <div class="socialadd-hashtag-group" id="hashtagContainer">
+                    <!-- 해시태그가 여기에 추가됩니다 -->
+                </div>
+            </div>
+        </div>
+        <div class="socialadd-form-title">소셜 메인 커버</div>
+        <div class="socialadd-flex-container socialadd-align-center">
+            <div class="socialadd-selected-cover-container">
+                <img class="socialadd-selected-cover" id="socialCoverPreview" src="" alt="#">
+                <input name="image" type="file" id="socialCoverInput" accept="image/*" style="display: none;">
+                <label for="socialCoverInput" class="socialadd-cover-upload-label">
+                    <i class="fas fa-camera socialadd-text-gray"></i>
+                    <div class="socialadd-text-gray socialadd-text-gray-border">사진 추가</div>
+                </label>
+            </div>
+        </div>
+        <div class="socialadd-form-section socialadd-margin-top-section">
+            <div class="socialadd-form-title">소개글</div>
+            <textarea name="info" id="description" rows="4" class="socialadd-form-input socialadd-border-style"
+                      vocab="소개글 입력"></textarea>
+        </div>
+        <div class="socialadd-form-section socialadd-button-group socialadd-margin-top-large">
+            <button type="submit" class="socialadd-submit-button">소셜 생성하기</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // 사진 추가 기능 및 미리보기
+    const socialCoverInput = document.getElementById('socialCoverInput');
+    const socialCoverPreview = document.getElementById('socialCoverPreview');
+
+    socialCoverInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                socialCoverPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('subject').addEventListener('change', function () {
+        const selectedOption = this.options[this.selectedIndex];
+        const selectedValue = selectedOption.value;
+        const selectedId = selectedOption.id;  // 선택된 옵션의 id 값
+        const hashtagContainer = document.getElementById('hashtagContainer');
+
+        // 중복된 해시태그가 있는지 확인
+        if (![...hashtagContainer.children].some(child => child.textContent.includes(selectedValue))) {
+            // 새로운 해시태그 요소 생성
+            const hashtag = document.createElement('div');
+            hashtag.className = 'socialadd-border-style socialadd-rounded-pill-style socialadd-padding-x socialadd-padding-y socialadd-border-dark-style socialadd-hashtag';
+            hashtag.innerHTML = `<span class="socialadd-hashtag-text"># ${selectedValue}</span>
+                                 <input type="hidden" name="categories[]" value="${selectedValue}">
+                                 <input type="hidden" name="categoriesN[]" value="${selectedId}">`;
+
+            // 해시태그 클릭 이벤트 추가 (삭제 기능)
+            hashtag.addEventListener('click', function () {
+                hashtagContainer.removeChild(hashtag);
+            });
+
+            // 해시태그를 해시태그 컨테이너에 추가
+            hashtagContainer.appendChild(hashtag);
+        }
+    });
+
+    // 초기 해시태그 수 업데이트
+    function updateHashtagCount() {
+        const selectedHashtags = document.querySelectorAll('.socialadd-hashtag-list .socialadd-hashtag.selected').length;
+        document.getElementById('hashtagCount').innerText = selectedHashtags;
+    }
+
+    updateHashtagCount();
+</script>
+
+{{> layout/footer}}

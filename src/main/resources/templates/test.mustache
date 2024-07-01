@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <!-- HLS.js CDN 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+<h1>동영상 재생</h1>
+<video id="videoPlayer" controls autoplay playsinline></video>
+
+<!-- HLS.js 스크립트 -->
+<script>
+    var video = document.getElementById('videoPlayer');
+    var hlsUrl = 'http://localhost:8080/hls/video1.mp4.m3u8'; // HLS 스트리밍 URL
+
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(hlsUrl);
+        hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = hlsUrl;
+    } else {
+        console.error('HLS를 지원하지 않는 브라우저입니다.');
+    }
+</script>
+</body>
+</html>

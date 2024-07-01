@@ -23,6 +23,28 @@ repositories {
 }
 
 dependencies {
+    // Spring Boot에서 Redis를 쉽게 사용하기 위한 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // - Spring Data Redis를 통해 Redis와 상호작용
+    // - RedisTemplate 제공으로 간편한 Redis 명령 실행
+    // - 자동 구성 기능을 통해 간편한 설정
+
+    // Spring Session을 사용하여 Redis 기반의 세션 관리를 위한 의존성
+    implementation 'org.springframework.session:spring-session-data-redis' // 랩핑 클래스 (추상 클래스) 이다. 세션을 통해서 어디든 간단히 접근
+    // - Spring Session으로 HttpSession 대체
+    // - Redis에 세션 데이터 저장하여 다중 인스턴스 환경에서 세션 공유
+    // - 자동 구성 기능을 통해 간편한 설정
+
+    // 동영상 스트리밍을 위해 추가 FFmepeg
+    implementation 'net.bramp.ffmpeg:ffmpeg:0.8.0'
+
+    // 다중 채팅을 위한 의존성 추가
+    implementation 'org.springframework.boot:spring-boot-starter-websocket' // WebSocket 및 STOMP 지원을 위한 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // Thymeleaf 템플릿 엔진을 위한 의존성
+
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+    implementation 'org.springframework.boot:spring-boot-starter-websocket' //알림과 채팅기능을 위한 웹소켓 기능
     // API 문서화
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -35,16 +57,15 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9' // login token 요청
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3'
 
-
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web' // Spring Web MVC를 위한 의존성
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' // 테스트를 위한 의존성
 }
 
 tasks.named('test') {

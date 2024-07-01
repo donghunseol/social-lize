@@ -1,0 +1,77 @@
+{{> admin/layout/header}}
+<body>
+<main role="main">
+    <section id="section n1">
+        <aside class="side-bar">
+            <div class="side-wrapper">
+                {{> admin/layout/sidebar}}
+            </div>
+        </aside>
+        <div class="content-page">
+            <div class="content-tab-bar">
+                <ul class="tab-nav">
+                    <li class="tab-link"><a href="/admin/user-list">회원</a></li>
+                    <li class="tab-link"><a href="/admin/social-list">소셜</a></li>
+                    <li class="tab-link"><a href="/admin/board-list">게시글</a></li>
+                    <li class="tab-link"><a href="/admin/category-name-list">카테고리</a></li>
+                    <li class="tab-link"><a href="/admin/qna-list">문의</a></li>
+                    <li class="tab-link"><a href="/admin/report-list">신고</a></li>
+                    <li class="tab-link current"><a href="/admin/notice-list">공지사항</a></li>
+                </ul>
+                <div class="tab-content current">
+                    <div class="tab-head">
+                        <p>공지사항</p>
+                    </div>
+                    <div class="tab-item">
+                            <ul class="search-box">
+                                <li class="search-left">
+                                    <span>총 공지 <em>{{noticeDTO.count}}</em> 개</span>
+                                </li>
+                                <li class="search-right">
+                                    <div>
+                                        <div class="tab-input-wrapper">
+                                            <button class="notice-btn"
+                                                    onclick="location.href='/admin/notice/write-form'">작성하기</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        <table>
+                            <colgroup>
+                                <col width="10%">
+                                <col width="65%">
+                                <col width="25%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">공지사항 번호</th>
+                                <th scope="col">공지내용</th>
+                                <th scope="col">작성일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {{#noticeDTO.noticeList}}
+                                <tr class="notice">
+                                    <td class="notice-content-text">{{id}}</td>
+                                    <td class="notice-content-text">{{content}}</td>
+                                    <td class="notice-content-text">{{createdAt}}</td>
+                                    <td class="link">
+                                        <a href="/admin/notice/{{id}}"></a>
+                                    </td>
+                                </tr>
+                            {{/noticeDTO.noticeList}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+
+</script>
+</body>
+
+</html>

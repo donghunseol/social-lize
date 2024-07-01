@@ -14,6 +14,7 @@ spring:
     servlet:
       expose-session-attributes: true
       expose-request-attributes: true
+
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:test;MODE=MySQL
@@ -22,6 +23,11 @@ spring:
   h2:
     console:
       enabled: true
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password:
   sql:
     init:
       data-locations:
@@ -29,10 +35,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 10
     defer-datasource-initialization: true
-    open-in-view: false
+
+# m3u8 을 비디오 타입으로 하기위해 추가
+  http:
+    media-types:
+      hls:
+        - application/vnd.apple.mpegurl

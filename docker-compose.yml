@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+  redis:
+    build:
+      context: ./redis
+    restart: always
+    container_name: redis-container
+    ports:
+      - "6379:6379"
