@@ -38,14 +38,12 @@
 | <img src="https://ca.slack-edge.com/T06B351QHF0-U06JXGQ1DAN-c05d9be15921-512" alt="profile" width="100" height="100"> | 
 |                                    [@donghunseol](https://github.com/donghunseol)                                     |
 
-### Front-End
+### Team-Member
 
 |                                                   김세운                                                    |                                                   장유진                                                    |
 |:--------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:| 
 | <img src="https://avatars.githubusercontent.com/u/897777?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/161176345?v=4" alt="profile" width="100" height="100"> | 
 |                                    [@kimsaewoon](https://github.com/kimsaewoon)                                    |                              [@hillview0303](https://github.com/hillview0303)                              |
-
-### Back-End
 
 |                                                   하승진                                                   |                                                   김완준                                                    |
 |:-------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:| 
