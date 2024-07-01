@@ -11,8 +11,10 @@
         <div class="my-section">
             <div class="my-cards-container">
                 <div class="my-card">
-                    <div class="plus-icon" style="font-size: 50px;">+</div>
-                    <div class="my-title">새 소셜 만들기</div>
+                    <a href="/social/socialAdd" class="my-card-link">
+                        <div class="plus-icon" style="font-size: 50px;">+</div>
+                        <div class="my-title">새 소셜 만들기</div>
+                    </a>
                 </div>
                 {{#model.mySocialList}}
                     <a href="/social/detail/{{id}}" class="my-card-link">

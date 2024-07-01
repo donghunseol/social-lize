@@ -23,7 +23,6 @@ public class SocialMemberController {
     private final HttpSession session;
     private final UserUtil userUtil;
 
-    // 소셜 멤버 리스트
 //    @GetMapping("/member/invite/{socialId}")
 //    public String member(@PathVariable("socialId") Integer socialId, HttpServletRequest request) {
 //        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();

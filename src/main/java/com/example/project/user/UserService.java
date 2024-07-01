@@ -7,6 +7,7 @@ import com.example.project._core.errors.exception.Exception404;
 import com.example.project._core.utils.EncryptUtil;
 import com.example.project._core.utils.RuntimeConfiguration;
 import com.example.project._core.utils.UserUtil;
+import com.example.project.board.Board;
 import com.example.project.category_name.CategoryName;
 import com.example.project.category_name.CategoryNameRepository;
 import com.example.project.notification.NotificationService;
@@ -77,6 +78,11 @@ public class UserService {
         LocalDate bod = LocalDate.parse(joinDTO.getBirthdate());
         user.setBirth(bod);
         user.setStatus(UserStatusEnum.NORMAL);
+
+        // 디폴트 이미지
+        user.setImage("/images/logonobg.png");
+
+        user.setPhone(" ");
         userRepository.save(user);
     }
 

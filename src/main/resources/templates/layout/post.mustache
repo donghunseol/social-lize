@@ -14,16 +14,18 @@
 <div class="content-box">
     {{#modal.boards}}
         <div class="group-name">{{socialName}}
-            <button class="delete-post-button" data-board-id="{{boardId}}">
-                <i class="fas fa-times"></i>
-            </button>
+            <form action="/board/delete/{{boardId}}/{{socialId}}" method="post">
+                <button class="delete-post-button" data-board-id="{{boardId}}">
+                    <i class="fas fa-times"></i>
+                </button>
+            </form>
         </div>
         <div class="post">
             <div class="author-box">
                 <img src="{{userImage}}" alt="Profile Picture" class="profile-picture openModalBtn"
                      data-board-id="{{boardId}}">
                 <div>
-                    <button data-board-id="{{boardId}}" class="book-button {{#book}}book{{/book}}">
+                    <button data-board-id="{{boardId}}" class="book-button {{#book}}bookd{{/book}}">
                         <i class="fas fa-star"></i>
                     </button>
                     <div class="author">{{nickname}}</div>
@@ -64,23 +66,23 @@
             </div>
         </div>
         <div class="comment-section-container">
-
-
             <div class="recent-comment">
-                <img src="/images/userprofile2.png" alt="댓글 작성자 사진" class="comment-picture">
-                <div class="recent-comment-content">
-                    <div class="recent-comment-author">김완준</div>
-                    <div class="recent-comment-text">댓글내용</div>
-                    <div class="recent-comment-time">6월 14일 오후 11:30</div>
-                </div>
+                {{#isReply}}
+                    <img src="{{replyImage}}" alt="댓글 작성자 사진" class="comment-picture">
+                    <div class="recent-comment-content">
+                        <div class="recent-comment-author">{{replyUser}}</div>
+                        <div class="recent-comment-text">{{replyComment}}</div>
+                        <div class="recent-comment-time">{{replyCreatedAt}}</div>
+                    </div>
+                {{/isReply}}
             </div>
-
             <form action="/reply/save" method="post">
                 <div class="d-flex">
-                    <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
+                    <button type="button" class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
                         <i class="fas fa-heart"></i>
                     </button>
                     <div class="comment-section">
+                        <input type="hidden" name="role" value="1">
                         <input type="hidden" name="socialId" value="{{socialId}}">
                         <input type="hidden" name="boardId" value="{{boardId}}">
                         <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
@@ -89,13 +91,9 @@
                     <div>
                         <button type="submit" class="send-button">보내기</button>
                     </div>
-
                 </div>
             </form>
-
-
         </div>
-
     {{/modal.boards}}
 
     {{#modals.boards}}
@@ -105,8 +103,8 @@
                 <img src="{{userImage}}" alt="Profile Picture" class="profile-picture openModalBtn"
                      data-board-id="{{boardId}}">
                 <div>
-                    <button data-board-id="{{boardId}}" class="book-button {{#book}}book{{/book}}">
-                        <i class="fas fa-star" style="color: yellow"></i>
+                    <button data-board-id="{{boardId}}" class="book-button {{#book}}bookd{{/book}}">
+                        <i class="fas fa-star"></i>
                     </button>
                     <div class="author">{{nickname}}</div>
                     <div class="date">{{createdAt}}</div>
@@ -146,13 +144,113 @@
             </div>
         </div>
         <div class="comment-section-container">
-            <button class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
-                <i class="fas fa-heart"></i>
-            </button>
+            <div class="recent-comment">
+                {{#isReply}}
+                    <img src="{{replyImage}}" alt="댓글 작성자 사진" class="comment-picture">
+                    <div class="recent-comment-content">
+                        <div class="recent-comment-author">{{replyUser}}</div>
+                        <div class="recent-comment-text">{{replyComment}}</div>
+                        <div class="recent-comment-time">{{replyCreatedAt}}</div>
+                    </div>
+                {{/isReply}}
+            </div>
             <form action="/reply/save" method="post">
                 <div class="d-flex">
 
+                    <button type="button" class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+
                     <div class="comment-section">
+                        <input type="hidden" name="role" value="2">
+                        <input type="hidden" name="socialId" value="{{socialId}}">
+                        <input type="hidden" name="boardId" value="{{boardId}}">
+                        <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
+                        <input type="text" name="comment" placeholder="댓글을 남겨주세요.">
+                    </div>
+                    <div>
+                        <button type="submit" class="send-button">보내기</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    {{/modals.boards}}
+
+    {{#myBoardModel.myBoardList}}
+        <div class="group-name">{{socialName}}
+            <form action="/board/delete/{{boardId}}/{{socialId}}" method="post">
+                <input type="hidden" name="role" value="2">
+                <button class="delete-post-button" data-board-id="{{boardId}}">
+                    <i class="fas fa-times"></i>
+                </button>
+            </form>
+        </div>
+        <div class="post">
+            <div class="author-box">
+                <img src="{{userImage}}" alt="Profile Picture" class="profile-picture openModalBtn"
+                     data-board-id="{{boardId}}">
+                <div>
+                    <button data-board-id="{{boardId}}" class="book-button {{#book}}bookd{{/book}}">
+                        <i class="fas fa-star"></i>
+                    </button>
+                    <div class="author">{{nickname}}</div>
+                    <div class="date">{{createdAt}}</div>
+                </div>
+            </div>
+            <div class="message-box">
+                {{#albums}}
+                    <div class="media-item">
+                        {{#isImage}}
+                            <img src="{{path}}" alt="Image"
+                                 style="max-width: 100%; max-height: 300px; margin-bottom: 10px;">
+                        {{/isImage}}
+                        {{#isVideo}}
+                            <div class="video-container">
+                                <video id="video-{{boardId}}" class="video-js vjs-default-skin" controls preload="auto"
+                                       width="100%" height="300">
+                                    <source src="/hls/video_{{boardId}}.m3u8" type="application/x-mpegURL">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        {{/isVideo}}
+                    </div>
+                {{/albums}}
+                <div class="message openModalBtn" data-board-id="{{boardId}}">
+                    {{{content}}}
+                </div>
+                {{^hashEmpty}}
+                    <div class="media-box">
+                        <div class="hashtag-box">
+                            {{#hashtagList}}
+                                <button class="hashtag-btn">{{name}}</button>
+                            {{/hashtagList}}
+                        </div>
+                    </div>
+                {{/hashEmpty}}
+                <div class="comments">
+                    <div class="like-count">😊😍좋아요 <span class="like-count-value">{{likeCount}}</span></div>
+                    <div class="comment-count">💬댓글 {{replyCount}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="comment-section-container">
+            <div class="recent-comment">
+                {{#isReply}}
+                    <img src="{{replyImage}}" alt="댓글 작성자 사진" class="comment-picture">
+                    <div class="recent-comment-content">
+                        <div class="recent-comment-author">{{replyUser}}</div>
+                        <div class="recent-comment-text">{{replyComment}}</div>
+                        <div class="recent-comment-time">{{replyCreatedAt}}</div>
+                    </div>
+                {{/isReply}}
+            </div>
+            <form action="/reply/save" method="post">
+                <div class="d-flex">
+                    <button type="button" class="like-button {{#liked}}liked{{/liked}}" data-board-id="{{boardId}}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="comment-section">
+                        <input type="hidden" name="role" value="3">
                         <input type="hidden" name="socialId" value="{{socialId}}">
                         <input type="hidden" name="boardId" value="{{boardId}}">
                         <img src="{{myProfileImage}}" alt="Commenter Picture" class="comment-picture">
@@ -165,10 +263,16 @@
                 </div>
             </form>
         </div>
-    {{/modals.boards}}
+    {{/myBoardModel.myBoardList}}
 </div>
 
+<!-- HLS 비디오 커넥터 -->
+<link href="https://vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
+<script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+
 <script>
+
+
     $(document).ready(function () {
         let modal = $("#boardModal");
 
@@ -262,10 +366,10 @@
                         $this.toggleClass('book');
                         $this.find('.fa-star').css('color', isBooked ? 'yellow' : '#aaaaaa');
                     } else {
-                        // 성공적으로 북마크 상태가 업데이트된 경우, 페이지 리로드
-                        if (isBooked) {
-                            location.reload(); // 북마크 삭제 시에만 페이지 리로드
-                        }
+                        // // 성공적으로 북마크 상태가 업데이트된 경우, 페이지 리로드
+                        // if (isBooked) {
+                        //     location.reload(); // 북마크 삭제 시에만 페이지 리로드
+                        // }
                     }
                 },
                 error: function (xhr, status, error) {
@@ -277,14 +381,67 @@
             });
         });
 
-        // 모달 켜는 기능
+        // HLS 비디오 커넥터
+        // 비디오 플레이어 초기화 함수
+        function initializeVideoPlayers() {
+            $('.video-js').each(function () {
+                var player = videojs(this.id);
+                player.ready(function () {
+                    this.on('play', function () {
+                        // 비디오 재생 시 HLS 변환 상태 확인
+                        var boardId = this.id().split('-')[1];
+                        checkHlsStatus(boardId, this);
+                    });
+                });
+            });
+        }
+
+        // HLS 변환 상태 확인 함수
+        function checkHlsStatus(boardId, player) {
+            $.ajax({
+                url: '/album/hls-status/' + boardId,
+                method: 'GET',
+                success: function (response) {
+                    if (!response['HLS 변환 완료']) {
+                        // HLS 변환이 완료되지 않았다면 변환 요청
+                        convertToHls(boardId, player);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("HLS 상태 확인 오류:", error);
+                }
+            });
+        }
+
+        // HLS 변환 요청 함수
+        function convertToHls(boardId, player) {
+            $.ajax({
+                url: '/convert/' + boardId,
+                method: 'GET',
+                success: function (response) {
+                    console.log("HLS 변환 요청 성공");
+                    // 변환 완료 후 비디오 소스 업데이트
+                    player.src({type: "application/x-mpegURL", src: "/hls/video_" + boardId + ".m3u8"});
+                    player.play();
+                },
+                error: function (xhr, status, error) {
+                    console.error("HLS 변환 요청 오류:", error);
+                }
+            });
+        }
+
+        // 페이지 로드 시 비디오 플레이어 초기화
+        initializeVideoPlayers();
+
+// 모달 켜는 기능
         $(document).on('click', '.openModalBtn', function () {
             console.log("버튼 눌림");
-            var boardId = $(this).data('board-id');
+            let boardId = $(this).data('board-id');
+            console.log("보드:", boardId, "소셜:", socialId);
             $.ajax({
                 url: '/board/detail/',
                 method: 'GET',
-                data: {boardId: boardId}, // RequestParam으로 boardId 전송
+                data: {boardId: boardId, socialId: socialId}, // RequestParam으로 boardId 전송
                 dataType: 'json',
                 success: function (data) {
                     var detail = data;
@@ -292,7 +449,7 @@
                     var replyList = detail.replyList || []; // replyList가 없으면 빈 배열 사용
 
                     var modalBodyHtml = `
-               <div class="bmodal-user-info">
+                <div class="bmodal-user-info">
                     <img src="${detail.userImage}" alt="User Image" class="rounded-circle bmodal-user-image">
                     <div class="bmodal-user-details">
                         <strong>${detail.nickname}</strong>
@@ -316,57 +473,51 @@
                     </div>
                 </div>
                 <div class="bmodal-board-comment-section">
-    ${replyList.map(reply => `
-        <div class="bmodal-board-comment" data-comment-id="${reply.id}">
-            <div class="comment-wrapper">
-                <div class="comment-content">
-                    <img src="${reply.userImage}" alt="Profile Picture" class="comment-profile-image">
-                    <div class="comment-details">
-                        <strong>${reply.nickname}</strong>
-                        <p>${reply.content}</p>
-                        <div class="comment-meta">
-                            <span class="comment-time">${reply.createdAt}</span>
-                            <button class="reply-button">답글쓰기</button>
-                        </div>
-                    </div>
-                    <button class="delete-comment-button" data-comment-id="${reply.id}">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </div>
-                <div class="reply-input-container">
-                    <input type="text" class="reply-input" placeholder="답글을 입력하세요.">
-                    <button class="send-reply-button">보내기</button>
-                </div>
-            </div>
-            <div class="bmodal-reply-section">
-                ${reply.rereplyList.map(rereply => `
-                    <div class="bmodal-board-comment bmodal-reply" data-comment-id="${rereply.id}">
-                        <div class="comment-wrapper">
-                            <div class="comment-content">
-                                <img src="${rereply.userImage}" alt="Profile Picture" class="reply-profile-image">
-                                <div class="comment-details">
-                                    <strong>${rereply.nickname}</strong>
-                                    <p>${rereply.content}</p>
-                                    <div class="comment-meta">
-                                        <span class="comment-time">${rereply.createdAt}</span>
-                                        <button class="reply-button">답글쓰기</button>
+                    ${replyList.map(reply => `
+                        <div class="bmodal-board-comment" data-comment-id="${reply.id}">
+                            <div class="comment-wrapper">
+                                <div class="comment-content">
+                                    <img src="${reply.userImage}" alt="Profile Picture" class="comment-profile-image">
+                                    <div class="comment-details">
+                                        <strong>${reply.nickname}</strong>
+                                        <p>${reply.content}</p>
+                                        <div class="comment-meta">
+                                            <span class="comment-time">${reply.createdAt}</span>
+                                            <button class="reply-button">답글쓰기</button>
+                                        </div>
                                     </div>
+                                    <button class="delete-comment-button" data-comment-id="${reply.id}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
                                 </div>
-                                <button class="delete-comment-button" data-comment-id="${rereply.id}">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
+                                <form action="/rereply/save" method="post" enctype="application/x-www-form-urlencoded">
+                                    <div class="reply-input-container">
+                                        <input type="hidden" name="boardId" value="${boardId}">
+                                        <input type="hidden" name="replyId" value="${reply.id}">
+                                        <input type="hidden" name="socialId" value="${socialId}">
+                                        <input type="text" name="comment" class="reply-input" placeholder="답글을 입력하세요.">
+                                        <button type="submit" class="send-reply-button">보내기</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="reply-input-container">
-                                <input type="text" class="reply-input" placeholder="답글을 입력하세요.">
-                                <button class="send-reply-button">보내기</button>
+                            <div class="bmodal-reply-section">
+                                ${reply.rereplyList.map(rereply => `
+                                    <div class="bmodal-board-comment bmodal-reply" data-comment-id="${rereply.id}">
+                                        <div class="comment-wrapper">
+                                            <div class="comment-content">
+                                                <img src="${rereply.userImage}" alt="Profile Picture" class="reply-profile-image">
+                                                <div class="comment-details">
+                                                    <strong>${rereply.nickname}</strong>
+                                                    <p>${rereply.content}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
                             </div>
                         </div>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-    `).join('')}
-</div>
+                    `).join('')}
+                </div>
             `;
                     $('#boardModal .modal-body').html(modalBodyHtml);
                     $('#boardModal').css('display', 'block'); // 모달을 화면에 표시
@@ -377,18 +528,19 @@
             });
         });
 
-        // 모달 닫기 기능
+// 모달 닫기 기능
         $('#closeModalBtn').on('click', function () {
             modal.css('display', 'none'); // 모달을 화면에서 숨김
         });
 
-        // 모달 외부 클릭 시 모달 닫기
+// 모달 외부 클릭 시 모달 닫기
         $(window).on('click', function (event) {
             if (event.target === modal[0]) {
                 modal.css('display', 'none'); // 모달을 화면에서 숨김
             }
         });
     });
+
 
     // 답글 쓰기 토글 기능
     $(document).on('click', '.reply-button', function () {

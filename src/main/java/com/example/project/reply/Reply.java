@@ -3,6 +3,7 @@ package com.example.project.reply;
 import com.example.project._core.enums.QnaEnum;
 import com.example.project._core.enums.ReplyEnum;
 import com.example.project.board.Board;
+import com.example.project.rereply.Rereply;
 import com.example.project.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -11,6 +12,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -29,6 +32,10 @@ public class Reply {
     @ManyToOne(fetch = FetchType.LAZY)
     private User userId; // 유저 번호
 
+    @ManyToOne
+    @JoinColumn(name = "parent_reply_id")
+    private Reply parentReply; // 부모 댓글 ID
+
     @Column(nullable = false)
     private String comment; // 댓글 내용
 
@@ -36,15 +43,20 @@ public class Reply {
     @Enumerated(EnumType.STRING)
     private ReplyEnum state; // 활성화, 댓글 삭제
 
+    @OneToMany(mappedBy = "replyId", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OrderBy("id desc")
+    private List<Rereply> rereplies; // 대댓글 목록
+
     @CreationTimestamp
     private LocalDateTime createdAt; // 생성 일자
 
 
     @Builder
-    public Reply(Integer id, Board boardId, User userId, String comment, ReplyEnum state, LocalDateTime createdAt) {
+    public Reply(Integer id, Board boardId, User userId, Reply parentReply, String comment, ReplyEnum state, LocalDateTime createdAt) {
         this.id = id;
         this.boardId = boardId;
         this.userId = userId;
+        this.parentReply = parentReply;
         this.comment = comment;
         this.state = state;
         this.createdAt = createdAt;

@@ -23,6 +23,7 @@ import com.example.project.file.FileRepository;
 import com.example.project.hashtag.Hashtag;
 import com.example.project.hashtag.HashtagRepository;
 import com.example.project.like.LikeRepository;
+import com.example.project.reply.Reply;
 import com.example.project.reply.ReplyRepository;
 import com.example.project.social_member.SocialMember;
 import com.example.project.social_member.SocialMemberRepository;
@@ -120,24 +121,25 @@ public class SocialService {
             // 북마크 여부 확인
             Boolean bookmarked = bookRepository.findByBookUserId(board.getId(), userId) > 0;
 
+            Reply reply = replyRepository.findByBoardId(board.getId());
 
             List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
+
 
 
             Boolean hashEmpty = false;
 
             // BoardDTO 객체 생성
-            BoardResponse.SocialDetailDTO.BoardDTO boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+            BoardResponse.SocialDetailDTO.BoardDTO boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty, reply);
 
             if (boardDTO != null && boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
                 if (boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
                     if (boardDTO.getHashtagList().get(0).getName().equals("")) {
                         hashEmpty = true;
-                        boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+                        boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty, reply);
                     }
                 }
             }
-
             boardDTOs.add(boardDTO);
         }
 
@@ -155,9 +157,11 @@ public class SocialService {
 
 
     // 새로운 소셜 생성
-    // TODO 유저 확인 세션으로 수정해야 함
     @Transactional
-    public void createSocial(SocialRequest.Create createDTO) {
+    public void createSocial(SocialRequest.Create createDTO, Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
         // 이미 존재하는 소셜명인지 확인
         Optional<Social> socialNameCheck = socialRepository.findByName(createDTO.getName());
         if (socialNameCheck.isPresent()) {
@@ -185,10 +189,6 @@ public class SocialService {
         social.setCategory(categories);
         Social saveSocial = socialRepository.save(social);
 
-        // 유저 확인
-        User user = userRepository.findById(createDTO.getUserId())
-                .orElseThrow(() -> new Exception401("존재하지 않는 계정입니다."));
-
         // 소셜 멤버 등록 및 권한 부여
         SocialMember socialMember = SocialMember.builder()
                 .socialId(saveSocial)
@@ -202,7 +202,10 @@ public class SocialService {
 
     // 소셜 정보 수정
     @Transactional
-    public void updateSocial(Integer socialId, SocialRequest.Update updateDTO) {
+    public void updateSocial(Integer socialId, SocialRequest.Update updateDTO, Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
         Social social = socialRepository.findById(socialId)
                 .orElseThrow(() -> new Exception404("해당 소셜은 존재하지 않습니다."));
 
@@ -239,7 +242,7 @@ public class SocialService {
     @Transactional
     public void deleteSocial(Integer id) {
         Social social = socialRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 소셜은 존재하지 않습니다."));
+                .orElseThrow(() -> new Exception404("해당 소셜은 존재하지 않습니다."));
 
         // 상태를 DELETED로 변경
         social.setStatus(SocialStateEnum.DELETED);
@@ -280,10 +283,18 @@ public class SocialService {
     }
     // 소셜 별 앨범, 파일 리스트 출력
     public SocialResponse.AlbumAndFileListDTO getSocialAlbumList(Integer socialId) {
-
         // 소셜 별 앨범 리스트 가져오기
         List<Album> albumList = albumRepository.findBySocialId(socialId);
         List<File> fileList = fileRepository.findBySocialId(socialId);
+
+
+        // 소셜 조회
+        Social social = socialRepository.findById(socialId)
+                .orElseThrow(() -> new Exception404("해당 소셜은 존재하지 않습니다."));
+        // 소셜 멤버 수
+        Integer socialMemberCount = socialMemberRepository.countBySocialId(socialId);
+        // 소셜 리더
+        SocialMember socialMemberLeader = socialMemberRepository.findBySocialId(socialId);
 
         // 소셜에 앨범이 비었을 때 null 을 반환
         if (albumList == null) {
@@ -296,13 +307,46 @@ public class SocialService {
         }
 
         // 앨범, 파일 리스트 DTO 담기
-        return new SocialResponse.AlbumAndFileListDTO(socialId, albumList, fileList);
+        return new SocialResponse.AlbumAndFileListDTO(social, albumList, fileList, socialMemberCount, socialMemberLeader.getUserId().getNickname());
     }
 
     public List<UserResponse.MainDTO.MySocialDTO> getMySocialList(Integer userId) {
         List<Object[]> mySocialList = userQueryRepository.mySocialList(userId);
-        List<UserResponse.MainDTO.MySocialDTO> mySocialList2 = mySocialList.stream().map(UserResponse.MainDTO.MySocialDTO::new).toList();
-        System.out.println("mySocialList2 = " + mySocialList2);
-        return mySocialList2;
+        return mySocialList.stream().map(UserResponse.MainDTO.MySocialDTO::new).toList();
+    }
+
+    public SocialResponse.MyApplySocialListDTO myApplySocial(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
+        List<SocialMember> socialList = socialMemberRepository.findByMyApply(user.getId());
+
+        List<Integer> members = new ArrayList<>();
+
+        for (int i = 0; i < socialList.size(); i++) {
+            Integer socialMemberCount = socialMemberRepository.findAllBySocialMemberState(socialList.get(i).getSocialId().getId());
+            members.add(socialMemberCount);
+        }
+
+        return new SocialResponse.MyApplySocialListDTO(socialList, members);
+    }
+
+    public SocialResponse.UpdateFormDTO updateForm(Integer socialId, Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
+        // 소셜 리더
+        SocialMember socialMember = socialMemberRepository.findByManager(socialId, user.getId());
+
+        if (socialMember == null) {
+            throw new Exception403("소셜 매니저만 소셜을 수정할 수 있습니다.");
+        }
+
+        Social social = socialRepository.findById(socialId)
+                .orElseThrow(() -> new Exception404("소셜을 찾을 수 없습니다."));
+
+        List<Category> category = categoryRepository.findBySocialId(socialId);
+
+        return new SocialResponse.UpdateFormDTO(social, category);
     }
 }

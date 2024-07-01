@@ -1,17 +1,14 @@
 package com.example.project.social;
 
+import com.example.project._core.utils.ApiUtil;
 import com.example.project._core.utils.UserUtil;
 import com.example.project.board.BoardResponse;
-import com.example.project.board.BoardService;
-import com.example.project.file.FileRequest;
-import com.example.project.file.FileService;
-import com.example.project.social_member.SocialMember;
 import com.example.project.social_member.SocialMemberResponse;
 import com.example.project.social_member.SocialMemberService;
 import com.example.project.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,11 +18,33 @@ import java.util.List;
 @Controller
 public class SocialController {
     private final SocialService socialService;
-    private final FileService fileService;
-    private final HttpSession session;
     private final UserUtil userUtil;
     private final SocialMemberService socialMemberService;
 
+    // 소셜 생성
+    @PostMapping("/social/create")
+    public String create(@RequestBody SocialRequest.Create CreateDTO) {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        socialService.createSocial(CreateDTO, sessionUser.getId());
+        return "redirect:/";
+    }
+
+    // 소셜 수정
+    @PutMapping("/social/update/{socialId}")
+    public String update(@PathVariable Integer socialId, @RequestBody SocialRequest.Update UpdateDTO) {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        socialService.updateSocial(socialId, UpdateDTO, sessionUser.getId());
+        return "redirect:/";
+    }
+
+    @GetMapping("/social/updateForm/{socialId}")
+    public String socialUpdateForm(@PathVariable("socialId") Integer socialId, HttpServletRequest request) {
+        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+        SocialResponse.UpdateFormDTO model = socialService.updateForm(socialId, sessionUser.getId());
+        request.setAttribute("model", model);
+
+        return "social/socialUpdateForm";
+    }
 
     // 소셜 상세보기
     @GetMapping("/social/detail/{socialId}")
@@ -48,7 +67,7 @@ public class SocialController {
     @GetMapping("/social/detail/{socialId}/member")
     public String socialMember(@PathVariable int socialId, HttpServletRequest request, @RequestParam(defaultValue = "userName") String sortBy) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
-        BoardResponse.SocialDetailDTO modal = socialService.socialDetail(socialId, sessionUser.getId());
+        SocialMemberResponse.MemberDTO modal = socialMemberService.member(sessionUser.getId(), socialId);
         request.setAttribute("modal", modal);
 
         //소셜에 가입한 멤버 정보 가져오기
@@ -75,13 +94,11 @@ public class SocialController {
         return "social/socialaddForm";
     }
 
-    // 서랍 페이지
+    // 앨범 및 파일 페이지
     @GetMapping("/social/fileadd/{socialId}")
     public String fileAdd(@PathVariable Integer socialId, HttpServletRequest request) {
-        // 페이지에 뿌릴 데이터
         SocialResponse.AlbumAndFileListDTO respDTO = socialService.getSocialAlbumList(socialId);
-        request.setAttribute("models", respDTO);
-
+        request.setAttribute("modal", respDTO);
         return "social/fileaddForm";
     }
 
@@ -94,12 +111,12 @@ public class SocialController {
     }
 
 
-    // 파일 저장
-    @PostMapping("/social/file/upload/{socialId}")
-    public String fileUpdate(@PathVariable Integer socialId, FileRequest.FileUploadDTO reqDTO) {
-        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
-
-        fileService.fileUpload(reqDTO, sessionUser.getId(), socialId);
-        return "redirect:/social/fileadd/" + reqDTO.getSocialId();
-    }
+//    // 파일 저장 ajax 로 인해 json 리턴
+//    @PostMapping("/social/file/upload/{socialId}")
+//    @ResponseBody
+//    public ResponseEntity<?> fileUpdate(@PathVariable Integer socialId, FileRequest.FileUploadDTO reqDTO) {
+//        UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
+//        fileService.fileUpload(reqDTO, sessionUser.getId(), socialId);
+//        return ResponseEntity.ok().body(Map.of("message", "File uploaded successfully"));
+//    }
 }

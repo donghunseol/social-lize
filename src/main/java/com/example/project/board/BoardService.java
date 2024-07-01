@@ -1,6 +1,7 @@
 package com.example.project.board;
 
 import com.example.project._core.enums.AlbumEnum;
+import com.example.project._core.enums.DeleteStateEnum;
 import com.example.project._core.errors.exception.Exception401;
 import com.example.project._core.errors.exception.Exception403;
 import com.example.project._core.errors.exception.Exception404;
@@ -20,6 +21,7 @@ import com.example.project.social.Social;
 import com.example.project.social.SocialRepository;
 import com.example.project.user.User;
 import com.example.project.user.UserRepository;
+import com.example.project.user.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -43,19 +46,67 @@ public class BoardService {
     private final BookmarkRepository bookRepository;
     private final HashtagRepository hashtagRepository;
 
-    public BoardResponse.SocialDetailDTO boardList(Integer userId) {
+    public BoardResponse.MyBoardAndReplyListDTO myBoardAndReply(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
+
+        List<Board> myBoardList = boardRepository.findAllUserId(userId);
+        List<Board> myBoardReplyList = boardRepository.findBoardsByUserReplies(userId);
+
+        List<BoardResponse.MyBoardAndReplyListDTO.MyBoardListDTO> boardDTOs = myBoardList.stream()
+                .map(board -> {
+                    Integer likeCount = likeRepository.findByLikeCount(board.getId());
+                    Integer replyCount = replyRepository.replyCount(board.getId());
+                    List<Album> albums = albumRepository.findByBoardId(board.getId());
+                    List<BoardResponse.MyBoardAndReplyListDTO.MyBoardListDTO.AlbumDTO> albumDTOs = albums.stream()
+                            .map(BoardResponse.MyBoardAndReplyListDTO.MyBoardListDTO.AlbumDTO::new)
+                            .collect(Collectors.toList());
+                    Boolean liked = likeRepository.findByLikeUserId(board.getId(), userId) > 0;
+                    Boolean bookmarked = bookRepository.findByBookUserId(board.getId(), userId) > 0;
+                    List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
+                    Reply reply = replyRepository.findByBoardId(board.getId());
+                    Boolean hashEmpty = hashtags.isEmpty();
+
+                    return new BoardResponse.MyBoardAndReplyListDTO.MyBoardListDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(),
+                            liked, bookmarked, hashtags, user.getImage(), hashEmpty, reply);
+                })
+                .collect(Collectors.toList());
+
+        List<BoardResponse.MyBoardAndReplyListDTO.MyReplyListDTO> replyBoardDTOs = myBoardReplyList.stream()
+                .map(board -> {
+                    Integer likeCount = likeRepository.findByLikeCount(board.getId());
+                    Integer replyCount = replyRepository.replyCount(board.getId());
+                    List<Album> albums = albumRepository.findByBoardId(board.getId());
+                    List<BoardResponse.MyBoardAndReplyListDTO.MyReplyListDTO.AlbumDTO> albumDTOs = albums.stream()
+                            .map(BoardResponse.MyBoardAndReplyListDTO.MyReplyListDTO.AlbumDTO::new)
+                            .collect(Collectors.toList());
+                    Boolean liked = likeRepository.findByLikeUserId(board.getId(), userId) > 0;
+                    Boolean bookmarked = bookRepository.findByBookUserId(board.getId(), userId) > 0;
+                    List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
+                    Boolean hashEmpty = hashtags.isEmpty();
+                    Reply reply = replyRepository.findByBoardId(board.getId());
+
+                    return new BoardResponse.MyBoardAndReplyListDTO.MyReplyListDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(),
+                            liked, bookmarked, hashtags, user.getImage(), hashEmpty, reply);
+                })
+                .collect(Collectors.toList());
+
+        return new BoardResponse.MyBoardAndReplyListDTO(boardDTOs, replyBoardDTOs);
+    }
+  
+    public BoardResponse.BookMarkBoardListDTO boardList(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception403("로그인이 필요한 페이지입니다."));
 
         List<Board> boards = boardRepository.findByBoards(userId);
-        List<BoardResponse.SocialDetailDTO.BoardDTO> boardDTOs = new ArrayList<>();
+        List<BoardResponse.BookMarkBoardListDTO.BoardDTO> boardDTOs = new ArrayList<>();
 
         for (Board board : boards) {
             Integer likeCount = likeRepository.findByLikeCount(board.getId());
             Integer replyCount = replyRepository.replyCount(board.getId());
             List<Album> albums = albumRepository.findByBoardId(board.getId());
-            List<BoardResponse.SocialDetailDTO.AlbumDTO> albumDTOs = albums.stream()
-                    .map(BoardResponse.SocialDetailDTO.AlbumDTO::new)
+            List<BoardResponse.BookMarkBoardListDTO.AlbumDTO> albumDTOs = albums.stream()
+                    .map(BoardResponse.BookMarkBoardListDTO.AlbumDTO::new)
                     .toList();
 
             // 좋아요 여부 확인
@@ -66,16 +117,19 @@ public class BoardService {
 
             List<Hashtag> hashtags = hashtagRepository.findByBoardId(board.getId());
 
+            Reply reply = replyRepository.findByBoardId(board.getId());
+
+
             Boolean hashEmpty = false;
 
             // BoardDTO 객체 생성
-            BoardResponse.SocialDetailDTO.BoardDTO boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+            BoardResponse.BookMarkBoardListDTO.BoardDTO boardDTO = new BoardResponse.BookMarkBoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty, reply);
 
             if (boardDTO != null && boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
                 if (boardDTO.getHashtagList() != null && !boardDTO.getHashtagList().isEmpty()) {
                     if (boardDTO.getHashtagList().get(0).getName().equals("")) {
                         hashEmpty = true;
-                        boardDTO = new BoardResponse.SocialDetailDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty);
+                        boardDTO = new BoardResponse.BookMarkBoardListDTO.BoardDTO(board, likeCount, replyCount, albumDTOs, board.getUserId().getImage(), liked, bookmarked, hashtags, user.getImage(), hashEmpty, reply);
                         boardDTOs.add(boardDTO);
                     }
                 }
@@ -84,12 +138,11 @@ public class BoardService {
             boardDTOs.add(boardDTO);
         }
 
-        return new BoardResponse.SocialDetailDTO(boardDTOs);
+        return new BoardResponse.BookMarkBoardListDTO(boards.size(), boardDTOs);
     }
 
     @Transactional
     public void save(Integer socialId, BoardRequest.SaveDTO reqDTO, Integer userId) {
-        System.out.println("들어옴1");
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception401("유저 정보가 없습니다."));
 
@@ -98,10 +151,8 @@ public class BoardService {
 
         Board board = boardRepository.save(reqDTO.boardToEntity(social, user));
 
-        System.out.println("들어옴2");
         // 이미지 파일 처리
         if (reqDTO.getImgFiles() != null) {
-            System.out.println("들어옴3");
             for (int i = 0; i < reqDTO.getImgFiles().size() - 1; i++) {
                 if (i >= 0) {
                     MultipartFile imgFile = reqDTO.getImgFiles().get(i);
@@ -115,7 +166,6 @@ public class BoardService {
 
         // 동영상 파일 처리
         if (reqDTO.getVideoFiles() != null) {
-            System.out.println("들어옴4");
             for (int i = 0; i < reqDTO.getVideoFiles().size() - 1; i++) {
                 if (i >= 0) {
                     MultipartFile videoFile = reqDTO.getVideoFiles().get(i);
@@ -129,6 +179,15 @@ public class BoardService {
 
                     System.out.println("저장 대성공!");
                     System.out.println("이건 변환된 파일경로 : " + hlsPath);
+
+                    // 경로 구분자를 바꿔서 저장
+                    videoPath = videoPath.replace("\\upload\\", "/upload/");
+                    hlsPath = hlsPath.replace("\\upload\\", "/upload/");
+                    hlsPath = hlsPath.replace("/upload", "");
+                    hlsPath = hlsPath.replace("./convert/", "/convert/");
+
+                    System.out.println("경로 변환 비디오 : " + videoPath);
+                    System.out.println("경로 변환 HLS : " + hlsPath);
 
                     albumRepository.save(reqDTO.albumVideoToEntity(user, board, hlsPath, videoPath, AlbumEnum.VIDEO));
                 }
@@ -198,5 +257,13 @@ public class BoardService {
         Board board = boardRepository.findByBoardId(boardId)
                 .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다"));
         return new BoardResponse.Detail(board);
+    }
+
+    @Transactional
+    public void delete(Integer userId, Integer boardId) {
+        Board board = boardRepository.findByBoardIdAndUserId(boardId, userId)
+                .orElseThrow(() -> new Exception403("게시글을 삭제할 권한이 없습니다."));
+
+        board.setState(DeleteStateEnum.DELETED);
     }
 }

@@ -41,5 +41,3 @@ public class Rereply {
         this.comment = comment;
     }
 }
-
-

@@ -2,10 +2,11 @@ package com.example.project.social;
 
 import com.example.project._core.enums.AlbumEnum;
 import com.example.project._core.enums.SocialMemberRoleEnum;
-import com.example.project._core.enums.UserProviderEnum;
+import com.example.project._core.enums.SocialMemberStateEnum;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.category.Category;
+import com.example.project.category_name.CategoryName;
 import com.example.project.file.File;
 import com.example.project.social_member.SocialMember;
 import lombok.AllArgsConstructor;
@@ -15,8 +16,43 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class SocialResponse {
+
+    @Data
+    public static class MyApplySocialListDTO {
+        private List<SocialListDTO> socialList;
+
+        public MyApplySocialListDTO(List<SocialMember> socialList, List<Integer> memberCount) {
+            this.socialList = IntStream.range(0, socialList.size())
+                    .mapToObj(i -> new SocialListDTO(socialList.get(i), memberCount.get(i)))
+                    .toList();
+        }
+
+        @Data
+        public static class SocialListDTO {
+            private Integer id;
+            private String image;
+            private String name;
+            private String state;
+            private Integer memberCount;
+
+            public SocialListDTO(SocialMember social, Integer memberCount) {
+                this.id = social.getSocialId().getId();
+                this.image = social.getSocialId().getImage();
+                this.name = social.getSocialId().getName();
+
+                this.state = switch (social.getState()) {
+                    case WAITING -> "승인 대기중";
+                    case REFUSE -> "가입 거절됨";
+                    default -> "없음";
+                };
+
+                this.memberCount = memberCount;
+            }
+        }
+    }
 
     @Data
     public static class AlbumAndFileListDTO {
@@ -24,8 +60,23 @@ public class SocialResponse {
         private List<AlbumDTO> albums;
         private List<FileDTO> files;
 
-        public AlbumAndFileListDTO(Integer socialId, List<Album> albumList, List<File> fileList) {
-            this.socialId = socialId;
+        // 사이드바 데이터를 담기위해 추가
+        private String title;
+        private String name;
+        private Integer memberCount;
+        private String info;
+        private String image;
+
+        public AlbumAndFileListDTO(Social social, List<Album> albumList, List<File> fileList, Integer memberCount, String memberLeader) {
+            this.socialId = social.getId();
+
+            // 사이드바 데이터
+            this.title = social.getName();
+            this.name = memberLeader;
+            this.memberCount = memberCount;
+            this.info = social.getInfo();
+            this.image = social.getImage();
+
             this.albums = albumList.stream()
                     .map(AlbumDTO::new).collect(Collectors.toList());
             this.files = fileList.stream()
@@ -38,14 +89,21 @@ public class SocialResponse {
             private String hlsPath;
             private AlbumEnum type;
             private boolean isVideo;
-            private boolean isImage;
 
             public AlbumDTO(Album album) {
                 this.path = album.getPath();
                 this.hlsPath = album.getHlsPath();
                 this.type = album.getType();
-                this.isVideo = (this.type == AlbumEnum.VIDEO);
-                this.isImage = (this.type == AlbumEnum.IMAGE);
+                // AlbumEnum의 getType() 메서드가 어떤 값을 반환하는지 확인 후 설정
+                if (this.type != null) {
+                    if (album.getType() == AlbumEnum.VIDEO){
+                        this.isVideo = true;
+                    } else {
+                        this.isVideo = false;
+                    }
+                } else {
+                    this.isVideo = false;
+                }
             }
         }
 
@@ -143,6 +201,34 @@ public class SocialResponse {
                 this.email = socialMember.getUserId().getEmail();
                 this.birth = socialMember.getUserId().getBirth();
                 this.role = socialMember.getRole();
+            }
+        }
+    }
+
+    @Data
+    public static class UpdateFormDTO {
+        private Integer socialId;
+        private String name;
+        private List<CategoryDTO> categoryList;
+        private String image;
+        private String info;
+
+        public UpdateFormDTO(Social social, List<Category> categoryList) {
+            this.socialId = social.getId();
+            this.name = social.getName();
+            this.categoryList = categoryList.stream().map(CategoryDTO::new).toList();
+            this.image = social.getImage();
+            this.info = social.getInfo();
+        }
+
+        @Data
+        public static class CategoryDTO {
+            private Integer id;
+            private String categoryName;
+
+            public CategoryDTO(Category category) {
+                this.id = category.getCategoryNameId().getId();
+                this.categoryName = category.getCategoryNameId().getName();
             }
         }
     }
