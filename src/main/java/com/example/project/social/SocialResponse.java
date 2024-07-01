@@ -5,6 +5,7 @@ import com.example.project._core.enums.SocialMemberRoleEnum;
 import com.example.project._core.utils.LocalDateTimeFormatter;
 import com.example.project.album.Album;
 import com.example.project.category.Category;
+import com.example.project.category_name.CategoryName;
 import com.example.project.file.File;
 import com.example.project.social_member.SocialMember;
 import lombok.AllArgsConstructor;
@@ -208,13 +209,15 @@ public class SocialResponse {
         private Integer socialId;
         private String name;
         private List<CategoryDTO> categoryList;
+        private List<CategoryNameDTO> categoryNameList;
         private String image;
         private String info;
 
-        public UpdateFormDTO(Social social, List<Category> categoryList) {
+        public UpdateFormDTO(Social social, List<Category> categoryList, List<CategoryName> categoryNameList) {
             this.socialId = social.getId();
             this.name = social.getName();
             this.categoryList = categoryList.stream().map(CategoryDTO::new).toList();
+            this.categoryNameList = categoryNameList.stream().map(CategoryNameDTO::new).toList();
             this.image = social.getImage();
             this.info = social.getInfo();
         }
@@ -227,6 +230,37 @@ public class SocialResponse {
             public CategoryDTO(Category category) {
                 this.id = category.getCategoryNameId().getId();
                 this.categoryName = category.getCategoryNameId().getName();
+            }
+        }
+
+        @Data
+        public static class CategoryNameDTO {
+            private Integer id;
+            private String categoryName;
+
+            public CategoryNameDTO(CategoryName category) {
+                this.id = category.getId();
+                this.categoryName = category.getName();
+            }
+        }
+    }
+
+    @Data
+    public static class SaveFormDTO {
+        private List<CategoryDTO> categoryList;
+
+        public SaveFormDTO(List<CategoryName> categoryList) {
+            this.categoryList = categoryList.stream().map(CategoryDTO::new).toList();
+        }
+
+        @Data
+        public static class CategoryDTO {
+            private Integer id;
+            private String categoryName;
+
+            public CategoryDTO(CategoryName category) {
+                this.id = category.getId();
+                this.categoryName = category.getName();
             }
         }
     }

@@ -36,7 +36,7 @@ public class SocialController {
     public String update(@PathVariable Integer socialId, SocialRequest.Update UpdateDTO) {
         UserResponse.LoggedInUserDTO sessionUser = userUtil.getSessionUser();
         socialService.updateSocial(socialId, UpdateDTO, sessionUser.getId());
-        return "redirect:/";
+        return "redirect:/social/detail/" + socialId;
     }
 
     // 소셜 수정 폼
@@ -93,7 +93,10 @@ public class SocialController {
 
     // 새 소셜 추가하기 페이지
     @GetMapping("/social/socialAdd")
-    public String socialAdd() {
+    public String socialAdd(HttpServletRequest request) {
+        SocialResponse.SaveFormDTO model = socialService.saveForm();
+        request.setAttribute("model", model);
+
         return "social/socialaddForm";
     }
 
