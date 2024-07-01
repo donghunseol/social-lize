@@ -1,3 +1,59 @@
+# 📱 [SNS 플랫폼] Social-Lize.
+
+<p align="center">
+  <img src="https://github.com/donghunseol/social-lize/blob/dev/src/main/resources/static/images/logo.png?raw=true" alt="SocialLize Logo" width="300px">
+</p>
+
+<br>
+
+# 📖 프로젝트 소개
+
+> `소셜-라이즈(Social-Lize)`는 **누구나 사용 가능한 SNS 플랫폼**입니다.</br>
+> 다양한 사람들과 다양한 주제로 소통이 가능한 소셜 네트워크 서비스 플랫폼입니다.</br>
+
+<br>
+
+# 📽️ 시연영상
+
+추가 예정
+
+# 📚 발표자료
+
+[1조_PPT.pdf](https://docs.google.com/uc?export=download&id=1Z4UsFwf6bqBL-8fZ4eryN4WBzgcaITMI)
+
+<br>
+
+# ⏰ 프로젝트 기간
+
+- 2024.06.13 ~ 2024.07.03
+
+<br>
+
+# 👨‍👩‍👧‍👧 팀원 소개
+
+### Team-Leader
+
+|                                                        설동훈(팀장)                                                        |
+|:---------------------------------------------------------------------------------------------------------------------:|
+| <img src="https://ca.slack-edge.com/T06B351QHF0-U06JXGQ1DAN-c05d9be15921-512" alt="profile" width="100" height="100"> | 
+|                                    [@donghunseol](https://github.com/donghunseol)                                     |
+
+### Front-End
+
+|                                                   김세운                                                    |                                                   장유진                                                    |
+|:--------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:| 
+| <img src="https://avatars.githubusercontent.com/u/897777?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/161176345?v=4" alt="profile" width="100" height="100"> | 
+|                                    [@kimsaewoon](https://github.com/kimsaewoon)                                    |                              [@hillview0303](https://github.com/hillview0303)                              |
+
+### Back-End
+
+|                                                   하승진                                                   |                                                   김완준                                                    |
+|:-------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:| 
+| <img src="https://avatars.githubusercontent.com/u/126733434?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/81667935?v=4" alt="profile" width="100" height="100"> | 
+|                              [@HaSenugJin](https://github.com/HaSenugJin)                               |                               [@tkffkels93](https://github.com/tkffkels93)                               |
+
+<br>
+
 # ⚙️ 기술 스택
 
 ### IDE
@@ -32,3 +88,25 @@
 ![GitHub](https://img.shields.io/badge/-GitHub-black?logo=github&logoColor=white)
 ![Slack](https://img.shields.io/badge/-Slack-purple?logo=slack&logoColor=white)
 ![KakaoTalk](https://img.shields.io/badge/kakaotalk-ffcd00.svg?style=flat&logo=kakaotalk&logoColor=000000)
+
+<br>
+
+# 🛠️ 브랜치 전략
+
+- 각 이슈 발생 시 `새로운 브랜치`를 생성
+- 작업을 완료 후 Merge 전 `코드 리뷰 진행` 및 `피드백`
+- 브랜치 명은 각 인원별 `패키지/기능/이니셜`로 컨벤션을 맞춰 진행
+
+<br>
+
+# 🔐 ERD
+
+[![ERD](https://github.com/donghunseol/social-lize/blob/dev/src/main/resources/static/images/erd-image.png)](https://www.erdcloud.com/d/mHmatRSTWosroBzRR)
+
+<p align="center">
+  ERD를 클릭하여 자세히 보기
+</p>
+
+
+<br>
+
