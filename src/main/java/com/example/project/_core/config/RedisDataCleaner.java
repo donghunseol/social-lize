@@ -18,7 +18,7 @@ public class RedisDataCleaner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //redisTemplate.delete("sessionUser"); // 세션 키 삭제
+        redisTemplate.delete("sessionUser"); // 세션 키 삭제
         System.out.println("Session user data has been cleared.");
     }
 }
