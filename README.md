@@ -19,7 +19,7 @@
 
 # 📚 발표자료
 
-[1조_PPT.pdf](https://docs.google.com/uc?export=download&id=1Z4UsFwf6bqBL-8fZ4eryN4WBzgcaITMI)
+[소셜 라이즈_PPT.pdf](https://drive.google.com/uc?export=download&id=1MbFXF5yFTtzqYftx6La-jFZwx9N559hm&confirm=t)
 
 <br>
 
