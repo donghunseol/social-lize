@@ -6,29 +6,40 @@ server:
     # url rewrite 문제 해결
     session:
       tracking-modes: cookie
-  port: 5000 # 배포 시 방화벽이 열려 있는 포트가 5000
+      timeout: 30m
+  port: 8080
 
 spring:
+  mustache:
+    servlet:
+      expose-session-attributes: true
+      expose-request-attributes: true
+
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/socialize # aws
-    username: root
-    password: 1234
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://${RDS_HOST}:3306/sociallize # aws
+      username: ${RDS_USERNAME}
+      password: ${RDS_PASSWORD}
+  h2:
+    console:
+      enabled: true
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password:
   jpa:
     hibernate:
-      ddl-auto: none # 배포 후 서버가 문제가 생기면 DB가 다시 만들어 지지 않도록 설정
+      ddl-auto: none
+    show-sql: false
     properties:
       hibernate:
+        format_sql: true
         default_batch_fetch_size: 10
-        dialect: org.hibernate.dialect.MySQLDialect # JPA 방언 설정
-    open-in-view: false # true 는 세션이 서버에서 머물고 false 는 서비스에서 소멸한다.
+    defer-datasource-initialization: false
 
   # m3u8 을 비디오 타입으로 하기위해 추가
   http:
     media-types:
       hls:
         - application/vnd.apple.mpegurl
-logging:
-  level:
-    org.hibernate.orm.jdbc.bind: INFO # 배포하고 나면 INFO 부터 보면 된다.
-    com.example.final_project: DEBUG # DEBUG 이상의 에러 뜨도록 설정

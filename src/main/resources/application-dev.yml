@@ -16,20 +16,21 @@ spring:
       expose-request-attributes: true
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/socialize # aws
-    username: root
-    password: 1234
+    url: jdbc:mysql://localhost:3306/socialize # AWS 호스트
+    username: root # AWS USERNAME
+    password: Root1234 # AWS PASSWORD
   h2:
     console:
-      enabled: false
+      enabled: true
   data:
     redis:
       host: 127.0.0.1
       port: 6379
       password:
-
-
+  sql:
+    init:
+      data-locations:
+        - classpath:db/data.sql
   jpa:
     hibernate:
       ddl-auto: create
@@ -40,13 +41,8 @@ spring:
         default_batch_fetch_size: 10
     defer-datasource-initialization: true
 
-# m3u8 을 비디오 타입으로 하기위해 추가
+  # m3u8 을 비디오 타입으로 하기위해 추가
   http:
     media-types:
       hls:
         - application/vnd.apple.mpegurl
-
-logging:
-  level:
-    org.hibernate.orm.jdbc.bind: TRACE
-    com.example.final_project: DEBUG # DEBUG 이상의 에러 뜨도록 설정
