@@ -15,7 +15,7 @@
 
 # 📽️ 시연영상
 
-추가 예정
+[소셜 라이즈.mp4](https://drive.google.com/file/d/1zCRPAyvdfZgN06_b1n6yQI-ZXLZWSDAZ/view?usp=drivesdk)
 
 # 📚 발표자료
 
